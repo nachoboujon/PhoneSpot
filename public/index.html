@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhoneSpot | Tu próximo celular</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="top-banner">
+        <div class="scrolling-text">
+            <span>🔥 OFERTA DEL DÍA: iPhone 14 Pro Max con 20% OFF</span>
+            <span>⚡ Envíos gratis a todo el país en compras superiores a $1000</span>
+            <span>🎉 Llevate un Samsung S23 y te regalamos los Galaxy Buds</span>
+            <span>🔥 OFERTA DEL DÍA: iPhone 14 Pro Max con 20% OFF</span>
+            <span>⚡ Envíos gratis a todo el país en compras superiores a $1000</span>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">PhoneSpot.</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li class="dropdown">
+                    <a href="#marcas">Marcas <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Apple</a></li>
+                        <li><a href="#">Samsung</a></li>
+                        <li><a href="#">Xiaomi</a></li>
+                        <li><a href="#">Motorola</a></li>
+                    </ul>
+                </li>
+                <li><a href="#ofertas">Ofertas del Día</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> <span id="cart-count-badge" style="font-size:0.8rem; font-weight:bold;"></span></a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Carrusel Principal -->
+        <section id="inicio" class="hero-carousel">
+            <div class="carousel-container">
+                <!-- Slide 1 -->
+                <div class="carousel-slide active">
+                    <div class="hero-content product-card" data-id="iphone-14-pro-slide">
+                        <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=100&q=80" style="display:none;" alt="iPhone 14 Pro">
+                        <h2>iPhone 14 Pro. <br>Más Pro que nunca.</h2>
+                        <p class="price" style="display:none;">$960</p>
+                        <p>Descubre el nuevo chip A16 Bionic y la cámara de 48MP.</p>
+                        <a href="carrito.html" class="btn add-to-cart-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide">
+                    <div class="hero-content product-card" data-id="galaxy-s23-ultra-slide">
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=100&q=80" style="display:none;" alt="Galaxy S23 Ultra">
+                        <h2>Galaxy S23 Ultra. <br>Épico.</h2>
+                        <p class="price" style="display:none;">$1100</p>
+                        <p>Captura la noche con Nightography y el S Pen integrado.</p>
+                        <a href="carrito.html" class="btn add-to-cart-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide">
+                    <div class="hero-content product-card" data-id="xiaomi-13-pro-slide">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=100&q=80" style="display:none;" alt="Xiaomi 13 Pro">
+                        <h2>Xiaomi 13 Pro. <br>Masterpiece.</h2>
+                        <p class="price" style="display:none;">$900</p>
+                        <p>Lentes Leica integrados para una fotografía profesional.</p>
+                        <a href="carrito.html" class="btn add-to-cart-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-prev"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
+            
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        <section id="marcas" class="brands-section">
+            <h3>Nuestras Marcas</h3>
+            <div class="brands-grid">
+                <div class="brand-card">Apple</div>
+                <div class="brand-card">Samsung</div>
+                <div class="brand-card">Xiaomi</div>
+                <div class="brand-card">Motorola</div>
+            </div>
+        </section>
+
+        <section id="ofertas" class="offers-section">
+            <h3>Ofertas del Día</h3>
+            <div class="product-grid">
+                <div class="product-card offer-card" data-id="iphone-14-pro">
+                    <div class="badge">20% OFF</div>
+                    <a href="producto.html"><img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=400&q=80" alt="iPhone 14 Pro"></a>
+                    <h4><a href="producto.html" style="color:inherit; text-decoration:none;">iPhone 14 Pro</a></h4>
+                    <p class="price"><span class="old-price">$1200</span> $960</p>
+                    <a href="#" class="btn btn-block add-to-cart-btn">Aprovechar Oferta</a>
+                </div>
+                <div class="product-card offer-card" data-id="galaxy-s23">
+                    <div class="badge">Envío Gratis</div>
+                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=400&q=80" alt="Samsung Galaxy S23">
+                    <h4>Samsung Galaxy S23</h4>
+                    <p class="price">$850</p>
+                    <a href="#" class="btn btn-block add-to-cart-btn">Aprovechar Oferta</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalogo" class="products">
+            <h3>Catálogo Destacado</h3>
+            <div class="product-grid">
+                <div class="product-card" data-id="xiaomi-redmi-12">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=400&q=80" alt="Xiaomi Redmi Note 12">
+                    <h4>Xiaomi Redmi Note 12</h4>
+                    <p class="price">$300</p>
+                    <a href="#" class="btn btn-block add-to-cart-btn">Añadir al carrito</a>
+                </div>
+                <div class="product-card" data-id="moto-edge-40">
+                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cd8d3?auto=format&fit=crop&w=400&q=80" alt="Motorola Edge 40">
+                    <h4>Motorola Edge 40</h4>
+                    <p class="price">$500</p>
+                    <a href="#" class="btn btn-block add-to-cart-btn">Añadir al carrito</a>
+                </div>
+                <div class="product-card" data-id="iphone-13">
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="iPhone 13">
+                    <h4>iPhone 13</h4>
+                    <p class="price">$700</p>
+                    <a href="#" class="btn btn-block add-to-cart-btn">Añadir al carrito</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>PhoneSpot.</h2>
+                <p>Tu tienda de confianza para tecnología móvil.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 PhoneSpot. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

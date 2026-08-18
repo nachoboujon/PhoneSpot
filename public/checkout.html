@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra | PhoneSpot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">PhoneSpot.</a></h1>
+        </div>
+    </header>
+
+    <main class="checkout-page">
+        <h2>Finalizar Compra</h2>
+        <div class="checkout-container">
+            <div class="checkout-form">
+                <form id="checkout-form">
+                    <div class="checkout-section">
+                        <h3>1. Datos de Envío</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" required placeholder="Ej: Juan">
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido</label>
+                                <input type="text" required placeholder="Ej: Pérez">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección completa</label>
+                            <input type="text" required placeholder="Calle y número">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Código Postal</label>
+                                <input type="text" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-section">
+                        <h3>2. Pago (Simulado)</h3>
+                        <div class="form-group">
+                            <label>Número de Tarjeta</label>
+                            <input type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Vencimiento</label>
+                                <input type="text" placeholder="MM/AA">
+                            </div>
+                            <div class="form-group">
+                                <label>CVC</label>
+                                <input type="text" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-block" style="background-color: #000;">Confirmar Pedido</button>
+                </form>
+            </div>
+
+            <div class="cart-summary">
+                <h3>Resumen</h3>
+                <div id="checkout-items" style="margin-bottom: 2rem;">
+                    <!-- Items inyectados por JS -->
+                </div>
+                <div class="summary-line">
+                    <span>Envío</span>
+                    <span>Gratis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="checkout-total">$0</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

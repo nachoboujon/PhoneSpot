@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras | PhoneSpot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">PhoneSpot.</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#catalogo">Catálogo</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <a href="index.html"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="carrito.html" style="color: #000;"><i class="fa-solid fa-cart-shopping"></i> <span id="cart-count-badge" style="font-size:0.8rem; font-weight:bold;"></span></a>
+        </div>
+    </header>
+
+    <main class="cart-page">
+        <h2>Tu Carrito</h2>
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items-container">
+                <!-- Los productos se cargarán dinámicamente aquí vía JavaScript -->
+            </div>
+
+            <div class="cart-summary">
+                <h3>Resumen de compra</h3>
+                <div class="summary-line">
+                    <span>Envío</span>
+                    <span>Gratis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="cart-total">$0</span>
+                </div>
+                <a href="checkout.html" class="btn btn-block" style="margin-top: 1rem;">Proceder al Pago</a>
+                <a href="index.html" style="display: block; text-align: center; margin-top: 1rem; color: #666; text-decoration: none;">Seguir comprando</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>PhoneSpot.</h2>
+                <p>Tu tienda de confianza para tecnología móvil.</p>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 PhoneSpot. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
