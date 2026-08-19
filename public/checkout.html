@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <header>
         <div class="logo">
             <h1><a href="index.html">PhoneSpot.</a></h1>
@@ -17,54 +18,115 @@
         <h2>Finalizar Compra</h2>
         <div class="checkout-container">
             <div class="checkout-form">
+                
+                <!-- Barra de Progreso -->
+                <div class="checkout-steps">
+                    <div class="step active" id="step1-indicator">1. Contacto y Envío</div>
+                    <div class="step" id="step2-indicator">2. Pago</div>
+                </div>
+
                 <form id="checkout-form">
-                    <div class="checkout-section">
-                        <h3>1. Datos de Envío</h3>
-                        <div class="form-row">
+                    
+                    <!-- PARTE 1: Contacto y Envío -->
+                    <div id="checkout-part1" class="checkout-part">
+                        <div class="checkout-section">
+                            <h3>Información de Contacto</h3>
                             <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" required placeholder="Ej: Juan">
+                                <label>Correo Electrónico</label>
+                                <input type="email" id="chk-email" required placeholder="tu@correo.com">
                             </div>
-                            <div class="form-group">
-                                <label>Apellido</label>
-                                <input type="text" required placeholder="Ej: Pérez">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input type="text" id="chk-name" required placeholder="Ej: Juan">
+                                </div>
+                                <div class="form-group">
+                                    <label>Apellido</label>
+                                    <input type="text" id="chk-lastname" required placeholder="Ej: Pérez">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Dirección completa</label>
-                            <input type="text" required placeholder="Calle y número">
+
+                        <div class="checkout-section">
+                            <h3>Dirección de Envío</h3>
+                            <div class="form-group">
+                                <label>Dirección completa</label>
+                                <input type="text" id="chk-address" required placeholder="Calle y número">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Ciudad</label>
+                                    <select id="chk-city" required style="width:100%; padding:0.8rem; border: 1px solid var(--border-color); border-radius:8px; font-family:inherit;">
+                                        <option value="">Selecciona tu ciudad...</option>
+                                        <option value="San José">San José</option>
+                                        <option value="Colón">Colón</option>
+                                        <option value="Villa Elisa">Villa Elisa</option>
+                                        <option value="Concepción del Uruguay">Concepción del Uruguay</option>
+                                        <option value="Otra">Otra ciudad (Envío por correo)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Código Postal</label>
+                                    <input type="text" id="chk-zip" required>
+                                </div>
+                            </div>
+
+                            <div id="shipping-options" style="display:none; margin-top:1.5rem; padding:1.5rem; background:#f0f4f8; border-radius:8px; border:1px solid #cce0ff;">
+                                <h4><i class="fa-solid fa-truck"></i> Método de Envío</h4>
+                                <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom:1rem;">Al ser de otra ciudad, debes seleccionar una empresa de logística.</p>
+                                <div style="display:flex; flex-direction:column; gap:0.8rem;">
+                                    <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:1rem; border: 1px solid var(--border-color); border-radius:8px; background: var(--card-bg);">
+                                        <div>
+                                            <input type="radio" name="shipping_method" value="correo_argentino" checked>
+                                            <strong style="margin-left:0.5rem; color:#0033a0;">Correo Argentino</strong>
+                                            <div style="font-size:0.8rem; color: var(--text-muted); margin-left:1.8rem;">Envío a domicilio (3 a 5 días hábiles)</div>
+                                        </div>
+                                        <span id="cost-correo" style="font-weight:bold;" data-default="8500">$8,500</span>
+                                    </label>
+                                    <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:1rem; border: 1px solid var(--border-color); border-radius:8px; background: var(--card-bg);">
+                                        <div>
+                                            <input type="radio" name="shipping_method" value="andreani">
+                                            <strong style="margin-left:0.5rem; color:#e30613;">Andreani</strong>
+                                            <div style="font-size:0.8rem; color: var(--text-muted); margin-left:1.8rem;">Envío prioritario (1 a 3 días hábiles)</div>
+                                        </div>
+                                        <span id="cost-andreani" style="font-weight:bold;" data-default="12000">$12,000</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Ciudad</label>
-                                <input type="text" required>
+
+                        <button type="button" class="btn btn-block" id="btn-next-step">Continuar al Pago</button>
+                    </div>
+
+                    <!-- PARTE 2: Pago -->
+                    <div id="checkout-part2" class="checkout-part" style="display: none;">
+                        <div class="checkout-section">
+                            <h3>Método de Pago</h3>
+                            <div class="form-group" style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
+                                <label style="display:flex; align-items:flex-start; gap:0.8rem; cursor:pointer; padding:1rem; border: 1px solid var(--border-color); border-radius:8px; background:#fafafa;">
+                                    <input type="radio" name="payment_method" value="mercadopago" checked style="margin-top:0.3rem;">
+                                    <div>
+                                        <strong style="display:block; color:#009ee3; font-size:1.1rem;"><i class="fa-solid fa-handshake"></i> Mercado Pago</strong>
+                                        <span style="font-size:0.85rem; color: var(--text-muted);">Serás redirigido para pagar seguro con tarjeta o dinero en cuenta.</span>
+                                    </div>
+                                </label>
+                                
+                                <label id="label-efectivo" style="display:flex; align-items:flex-start; gap:0.8rem; cursor:pointer; padding:1rem; border: 1px solid var(--border-color); border-radius:8px; background:#fafafa;">
+                                    <input type="radio" name="payment_method" value="efectivo" style="margin-top:0.3rem;">
+                                    <div>
+                                        <strong style="display:block; color:#555555; font-size:1.1rem;"><i class="fa-solid fa-money-bill-wave"></i> Efectivo (Acordar por WhatsApp)</strong>
+                                        <span style="font-size:0.85rem; color: var(--text-muted);">Pesos o USD cara azul (verdes cara chica a menor valor). Serás dirigido a WhatsApp.</span>
+                                    </div>
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label>Código Postal</label>
-                                <input type="text" required>
-                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top:2rem;">
+                            <button type="button" class="btn" id="btn-prev-step" style="background-color: var(--gray-bg); color: var(--text-color); border: 1px solid var(--border-color);">Atrás</button>
+                            <button type="submit" class="btn btn-block" style="background-color: var(--text-color); flex: 1;" id="btn-confirm-pay">Confirmar y Pagar</button>
                         </div>
                     </div>
 
-                    <div class="checkout-section">
-                        <h3>2. Pago (Simulado)</h3>
-                        <div class="form-group">
-                            <label>Número de Tarjeta</label>
-                            <input type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Vencimiento</label>
-                                <input type="text" placeholder="MM/AA">
-                            </div>
-                            <div class="form-group">
-                                <label>CVC</label>
-                                <input type="text" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-block" style="background-color: #000;">Confirmar Pedido</button>
                 </form>
             </div>
 
@@ -73,10 +135,7 @@
                 <div id="checkout-items" style="margin-bottom: 2rem;">
                     <!-- Items inyectados por JS -->
                 </div>
-                <div class="summary-line">
-                    <span>Envío</span>
-                    <span>Gratis</span>
-                </div>
+                
                 <div class="summary-total">
                     <span>Total</span>
                     <span id="checkout-total">$0</span>
@@ -85,6 +144,25 @@
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1787176540774"></script>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/5493447416011" class="whatsapp-float" target="_blank" title="Chatea con nosotros">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+
+    <!-- FAVORITES SIDEBAR -->
+    <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
+    <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
+        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
+            <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
+            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Renderizado por JS -->
+        </div>
+    </div>
+
 </body>
 </html>

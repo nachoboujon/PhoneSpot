@@ -4,12 +4,33 @@ const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+// Crear carpeta uploads si no existe
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configuración de multer (motor para guardar archivos locales)
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir)
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, uniqueSuffix + path.extname(file.originalname))
+    }
+});
+const upload = multer({ storage: storage });
 
 // Configuración Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -88,7 +109,7 @@ app.post('/api/login', async (req, res) => {
 // --- RUTAS DE PRODUCTOS ---
 app.get('/api/products', async (req, res) => {
     try {
-        const { data, error } = await supabase.from('products').select('*');
+        const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
         if (error) throw error;
         res.json(data);
     } catch (error) {
@@ -96,12 +117,43 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-app.post('/api/products', authenticate, isAdmin, async (req, res) => {
+app.get('/api/products/:id', async (req, res) => {
     try {
-        const { name, description, price, image_url, brand, stock, is_offer } = req.body;
+        const { id } = req.params;
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+        if (error) throw error;
+        if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (req, res) => {
+    try {
+        const { name, description, price, brand, stock, is_offer, category, variants } = req.body;
+        
+        let image_url = '';
+        if (req.file) {
+            image_url = '/uploads/' + req.file.filename;
+        }
+        
+        let parsedVariants = [];
+        try { if(variants) parsedVariants = JSON.parse(variants); } catch(e){}
+
         const { data, error } = await supabase
             .from('products')
-            .insert([{ name, description, price, image_url, brand, stock, is_offer: is_offer || false }])
+            .insert([{ 
+                name, 
+                description, 
+                price: parseFloat(price), 
+                brand, 
+                category: category || 'celulares', 
+                stock: parseInt(stock), 
+                variants: parsedVariants,
+                is_offer: is_offer === 'true', 
+                image_url 
+            }])
             .select();
             
         if (error) throw error;
@@ -111,15 +163,60 @@ app.post('/api/products', authenticate, isAdmin, async (req, res) => {
     }
 });
 
-// --- RUTAS DE ORDENES ---
-app.post('/api/orders', authenticate, async (req, res) => {
+// --- RUTAS DE SETTINGS ---
+app.get('/api/settings', (req, res) => {
     try {
-        const { items, shipping_address } = req.body; 
-        const user_id = req.user.id;
+        const settingsPath = path.join(__dirname, 'public', 'data', 'settings.json');
+        if (fs.existsSync(settingsPath)) {
+            const data = fs.readFileSync(settingsPath, 'utf8');
+            res.json(JSON.parse(data));
+        } else {
+            res.json({ top_banner: "Lanzamiento...", carousel: [] });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Error leyendo settings' });
+    }
+});
+
+app.post('/api/settings', authenticate, isAdmin, (req, res) => {
+    try {
+        const settingsPath = path.join(__dirname, 'public', 'data', 'settings.json');
+        fs.writeFileSync(settingsPath, JSON.stringify(req.body, null, 2), 'utf8');
+        res.json({ message: 'Ajustes guardados correctamente' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error guardando settings' });
+    }
+});
+
+// --- RUTAS DE ORDENES ---
+app.post('/api/orders', async (req, res) => {
+    try {
+        const { items, shipping_address, customer_email, customer_name, payment_method, shipping_cost } = req.body; 
         
-        const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        let user_id = null;
+        const authHeader = req.header('Authorization');
+        if (authHeader) {
+            const token = authHeader.split(' ')[1];
+            try {
+                const jwt = require('jsonwebtoken');
+                const verified = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro');
+                user_id = verified.id;
+            } catch(e) { }
+        }
+
+        const extraShipping = Number(shipping_cost) || 0;
         
-        // Crear orden
+        let totalQuantity = 0;
+        items.forEach(item => totalQuantity += item.quantity);
+        const isWholesale = totalQuantity >= 3;
+        const wholesaleDiscount = 5;
+
+        const total = items.reduce((acc, item) => {
+            let finalPrice = item.price;
+            if (isWholesale) finalPrice -= wholesaleDiscount;
+            return acc + (finalPrice * item.quantity);
+        }, 0) + extraShipping;
+        
         const { data: orderData, error: orderError } = await supabase
             .from('orders')
             .insert([{ user_id, total, shipping_address }])
@@ -128,54 +225,152 @@ app.post('/api/orders', authenticate, async (req, res) => {
         if (orderError) throw orderError;
         const orderId = orderData[0].id;
         
-        // Insertar items
-        const orderItemsToInsert = items.map(item => ({
-            order_id: orderId,
-            product_id: item.product_id,
-            quantity: item.quantity,
-            price: item.price
-        }));
-        
-        const { error: itemsError } = await supabase
-            .from('order_items')
-            .insert(orderItemsToInsert);
-            
-        if (itemsError) throw itemsError;
-
-        // Descontar stock
         for (const item of items) {
-            const { data: prodData } = await supabase.from('products').select('stock').eq('id', item.product_id).single();
-            if (prodData) {
-                await supabase.from('products').update({ stock: prodData.stock - item.quantity }).eq('id', item.product_id);
-            }
-        }
-        
-        // Enviar correos
-        const { data: userData } = await supabase.from('users').select('name, email').eq('id', user_id).single();
-        const userEmail = userData.email;
-        const userName = userData.name;
+            if(item.product_id) {
+                await supabase.from('order_items').insert([{
+                    order_id: orderId,
+                    product_id: item.product_id,
+                    quantity: item.quantity,
+                    price: item.price,
+                    variant_name: item.variant_name || null
+                }]);
 
-        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-            try {
-                await transporter.sendMail({
-                    from: process.env.EMAIL_USER,
-                    to: userEmail,
-                    subject: '¡Gracias por tu compra en PhoneSpot!',
-                    text: `Hola ${userName},\n\nHemos recibido tu orden #${orderId} por un total de $${total}.\nDirección de envío: ${shipping_address}\n\nGracias por confiar en nosotros.`
-                });
-
-                await transporter.sendMail({
-                    from: process.env.EMAIL_USER,
-                    to: process.env.ADMIN_EMAIL,
-                    subject: `Nueva venta en PhoneSpot - Orden #${orderId}`,
-                    text: `El usuario ${userName} (${userEmail}) ha realizado una compra por $${total}.\nDirección: ${shipping_address}`
-                });
-            } catch (mailErr) {
-                console.error("Error enviando correos:", mailErr);
+                const { data: prodData } = await supabase.from('products').select('stock, variants').eq('id', item.product_id).single();
+                if (prodData) {
+                    let newStock = prodData.stock - item.quantity;
+                    newStock = newStock < 0 ? 0 : newStock;
+                    
+                    let newVariants = prodData.variants;
+                    if (newVariants && item.variant_name) {
+                        newVariants = newVariants.map(v => {
+                            const vName = [v.color, v.capacity, v.ram].filter(Boolean).join(' - ');
+                            if (vName === item.variant_name && v.stock > 0) v.stock -= item.quantity;
+                            return v;
+                        });
+                    }
+                    await supabase.from('products').update({ stock: newStock, variants: newVariants }).eq('id', item.product_id);
+                }
             }
         }
 
-        res.status(201).json({ message: 'Orden procesada con éxito', orderId });
+        const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || '';
+        if (payment_method === 'mercadopago') {
+            if (!MP_ACCESS_TOKEN) {
+                return res.status(200).json({ message: 'Orden creada, pero falta MP', orderId });
+            }
+            const mpItems = items.map(item => ({
+                title: 'Producto PhoneSpot ' + (item.variant_name ? '('+item.variant_name+')' : ''),
+                unit_price: Number(item.price),
+                quantity: Number(item.quantity),
+                currency_id: 'ARS'
+            }));
+            if (extraShipping > 0) {
+                mpItems.push({ title: 'Costo de Envío', unit_price: extraShipping, quantity: 1, currency_id: 'ARS' });
+            }
+            const preferenceData = {
+                items: mpItems,
+                payer: { name: customer_name, email: customer_email },
+                back_urls: {
+                    success: 'http://localhost:3000/compra-exitosa.html',
+                    failure: 'http://localhost:3000/index.html?pago=error',
+                    pending: 'http://localhost:3000/index.html?pago=pendiente'
+                },
+                auto_return: 'approved'
+            };
+            const mpResponse = await fetch('https://api.mercadopago.com/checkout/preferences', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + MP_ACCESS_TOKEN, 'Content-Type': 'application/json' },
+                body: JSON.stringify(preferenceData)
+            });
+            const mpData = await mpResponse.json();
+            if (mpResponse.ok && mpData.init_point) {
+                return res.status(200).json({ init_point: mpData.init_point });
+            } else {
+                return res.status(400).json({ error: 'Error MP' });
+            }
+        }
+
+        res.json({ message: 'Orden creada', orderId });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// NUEVAS RUTAS
+app.get('/api/my-orders', authenticate, async (req, res) => {
+    try {
+        const { data, error } = await supabase.from('orders').select('*, order_items(*, products(name, image_url))').eq('user_id', req.user.id).order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/api/orders/:id/status', authenticate, isAdmin, async (req, res) => {
+    try {
+        const { status, tracking_code } = req.body;
+        const { data, error } = await supabase.from('orders').update({ status, tracking_code }).eq('id', req.params.id).select();
+        if (error) throw error;
+        res.json({ message: 'Orden actualizada', order: data[0] });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/reviews', authenticate, async (req, res) => {
+    try {
+        const { product_id, rating, comment } = req.body;
+        const { error } = await supabase.from('reviews').insert([{ product_id, user_name: req.user.name, rating, comment }]);
+        if (error) throw error;
+        res.json({ message: 'Reseña guardada' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/reviews/:product_id', async (req, res) => {
+    try {
+        const { data, error } = await supabase.from('reviews').select('*').eq('product_id', req.params.product_id).order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data || []);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/orders', authenticate, isAdmin, async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('orders')
+            .select('*, order_items(*, products(name, price))')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// --- ADMIN: ELIMINAR Y ACTUALIZAR PRODUCTOS ---
+app.delete('/api/products/:id', authenticate, isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { error } = await supabase.from('products').delete().eq('id', id);
+        if (error) throw error;
+        res.json({ message: 'Producto eliminado' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/api/products/:id/stock', authenticate, isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { stock } = req.body;
+        const { error } = await supabase.from('products').update({ stock: parseInt(stock) }).eq('id', id);
+        if (error) throw error;
+        res.json({ message: 'Stock actualizado' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -1,3 +1,18 @@
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --card-bg: #ffffff;
+    --border-color: #eeeeee;
+    --header-bg: #ffffff;
+    --gray-bg: #f9f9f9;
+    --text-muted: #666666;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
 * {
@@ -335,7 +350,7 @@ button:hover, .btn:hover {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-colum�s: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem;
     max-width: 1300px;
     margin: 0 auto;
@@ -421,7 +436,7 @@ button:hover, .btn:hover {
 
 .cart-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-colum�s: 2fr 1fr;
     gap: 4rem;
 }
 
@@ -517,7 +532,7 @@ button:hover, .btn:hover {
 
 /* ==================== PÁGINA DE PRODUCTO INDIVIDUAL ==================== */
 .product-page { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
-.product-details { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.product-details { display: grid; grid-template-colum�s: 1fr 1fr; gap: 4rem; align-items: start; }
 .product-gallery img { width: 100%; border-radius: 20px; background: #f9f9f9; padding: 2rem;}
 .product-info h2 { font-size: 3rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: -1px;}
 .product-info .price { font-size: 2.5rem; margin-bottom: 2rem; }
@@ -530,14 +545,39 @@ button:hover, .btn:hover {
 /* ==================== PÁGINA DE CHECKOUT ==================== */
 .checkout-page { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; min-height: 60vh;}
 .checkout-page h2 { font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; letter-spacing: -1px; }
-.checkout-container { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; }
+.checkout-container { display: grid; grid-template-colum�s: 2fr 1fr; gap: 4rem; }
+
+/* Checkout Steps */
+.checkout-steps { display: flex; margin-bottom: 3rem; border-bottom: 2px solid #eee; }
+.step { flex: 1; text-align: center; padding: 1rem; color: #aaa; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.3s; }
+.step.active { color: #000; border-bottom-color: #000; }
+
 .checkout-section { margin-bottom: 3rem; }
 .checkout-section h3 { margin-bottom: 2rem; font-size: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
 .form-group input, .form-group select { width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: inherit; }
 .form-group input:focus { border-color: #000; outline: none; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-row { display: grid; grid-template-colum�s: 1fr 1fr; gap: 1.5rem; }
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+#toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+.toast { background-color: #000; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-weight: 600; font-size: 0.95rem; opacity: 0; transform: translateY(20px); animation: toastIn 0.3s forwards, toastOut 0.3s forwards 3s; display: flex; align-items: center; gap: 10px; }
+@keyframes toastIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes toastOut { to { opacity: 0; transform: translateY(20px); } }
+
+/* ==================== HAMBURGER MENU ==================== */
+.menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: #000; }
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    nav { position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px); background: #fff; flex-direction: column; transition: left 0.3s ease; z-index: 99; border-top: 1px solid #eee; }
+    nav.active { left: 0; }
+    nav ul { flex-direction: column; gap: 0; padding: 2rem; width: 100%; }
+    nav ul li { width: 100%; border-bottom: 1px solid #f5f5f5; }
+    nav ul li a { display: block; padding: 1.5rem 0; font-size: 1.2rem; }
+    .dropdown-menu { position: static; box-shadow: none; opacity: 1; visibility: visible; display: none; transform: none; padding-left: 1rem; border: none; }
+    .dropdown:hover .dropdown-menu { display: block; }
+}
 
 /* Pie de página */
 footer {
@@ -598,11 +638,342 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .hero-content h2 { font-size: 3.5rem; }
-    nav ul { display: none; }
-    header { padding: 1.5rem 5%; }
-    .brands-grid { gap: 2rem; }
-    .brand-card { font-size: 2rem; }
-    .cart-container { grid-template-columns: 1fr; }
-    .cart-item { flex-direction: column; text-align: center; }
+    header {
+        flex-wrap: wrap;
+    }
+    nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
+    }
+    nav.active {
+        display: block;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .dropdown-menu {
+        position: static;
+        display: none;
+        box-shadow: none;
+        padding-left: 1rem;
+        border-left: 2px solid #ccc;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:active .dropdown-menu {
+        display: block;
+    }
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+    .header-icons {
+        order: 2;
+    }
+    .logo {
+        order: 1;
+    }
+    .hero h2 { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; }
+    .footer-grid { grid-template-colum�s: 1fr; }
+    
+    .checkout-container {
+        grid-template-colum�s: 1fr;
+    }
+    
+    .checkout-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .checkout-steps::before {
+        display: none;
+    }
+}
+
+/* --- RESPONSIVE CAROUSEL STYLES --- */
+.carousel-title {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    font-weight: 800;
+}
+.carousel-subtitle {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .carousel-title {
+        font-size: 2.2rem;
+    }
+    .carousel-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    .hero-content {
+        padding: 1rem;
+    }
+    .carousel-slide {
+        height: 85vh !important; /* Adjust height for mobile */
+    }
+}
+
+/* --- BOTÓN FLOTANTE DE WHATSAPP --- */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    color: white;
+}
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 25px;
+    }
+}
+
+/* --- ESTRELLAS --- */
+.product-rating {
+    color: #f39c12;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    justify-content: center;
+}
+.product-rating span {
+    color: #666;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+
+
+/* --- SIDE CART (MINI-CART) --- */
+#side-cart-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5); z-index: 1001; opacity: 0; visibility: hidden;
+    transition: 0.3s ease;
+}
+#side-cart-overlay.active { opacity: 1; visibility: visible; }
+
+#side-cart {
+    position: fixed; top: 0; right: -400px; width: 400px; max-width: 100vw; height: 100vh;
+    background: #fff; z-index: 1002; box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease; display: flex; flex-direction: column;
+}
+#side-cart.active { right: 0; }
+
+.side-cart-header { padding: 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.side-cart-header h3 { margin: 0; font-size: 1.2rem; }
+.close-cart-btn { cursor: pointer; font-size: 1.5rem; color: #999; transition: 0.2s; }
+.close-cart-btn:hover { color: #000; }
+
+.side-cart-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+.side-cart-footer { padding: 1.5rem; border-top: 1px solid #eee; background: #fdfdfd; }
+
+.side-cart-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center; }
+.side-cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+.side-cart-item-info { flex: 1; }
+.side-cart-item-info h4 { margin: 0 0 0.3rem; font-size: 0.9rem; }
+.side-cart-item-info p { margin: 0; font-size: 0.8rem; color: #666; }
+.side-cart-remove { color: #ff4757; cursor: pointer; font-size: 0.8rem; margin-top: 0.3rem; display: inline-block; }
+
+
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes floatReverse {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(25px) rotate(-5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(85, 85, 85, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(85, 85, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(85, 85, 85, 0); }
+}
+
+.floating-phone {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    animation: float 6s ease-in-out infinite;
+    max-width: 200px;
+}
+.floating-phone.reverse {
+    animation: floatReverse 7s ease-in-out infinite;
+}
+
+/* Glassmorphism improvements */
+.hero-content {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 3rem !important;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.hero-content:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+
+/* Favorites Icon */
+.fav-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: 0.3s;
+    z-index: 5;
+}
+.fav-btn:hover { transform: scale(1.1); color: #ff4757; }
+.fav-btn.active { color: #ff4757; }
+.dark-mode .fav-btn { background: rgba(0, 0, 0, 0.5); }
+
+/* Gallery Thumbnails */
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+.gallery-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+.gallery-thumb:hover, .gallery-thumb.active {
+    opacity: 1;
+    border-color: #555555;
+}
+
+
+
+
+
+
+
+/* --- BRAND LOGO CAROUSEL --- */
+.logo-slider {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.logo-slider::before,
+.logo-slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+}
+
+.logo-slider::before {
+    left: 0;
+    background: linear-gradient(to right, var(--gray-bg) 0%, transparent 100%);
+}
+
+.logo-slider::after {
+    right: 0;
+    background: linear-gradient(to left, var(--gray-bg) 0%, transparent 100%);
+}
+
+.logo-track {
+    display: flex;
+    width: calc(250px * 24);
+    animation: scrollLogos 20s linear infinite;
+}
+
+.logo-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-slide {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
+.logo-slide img {
+    max-width: 120px;
+    max-height: 50px;
+    filter: grayscale(100%) opacity(0.6);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.logo-slide img:hover {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.1);
+}
+
+/* Light mode adjustment for dark SVG logos */
+body:not(.dark-mode) .logo-slide img {
+    /* If the logo is black, it looks fine on light mode */
+}
+
+@keyframes scrollLogos {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 12)); }
 }

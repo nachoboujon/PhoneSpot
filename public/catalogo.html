@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | PhoneSpot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">PhoneSpot.</a></h1>
+        </div>
+        <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li class="dropdown">
+                    <a href="catalogo.html?cat=all">Productos <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="catalogo.html?cat=all" style="font-weight: bold;">Ver todos los productos</a></li>
+                        <li><a href="catalogo.html?cat=celulares">Celulares</a></li>
+                        <li><a href="catalogo.html?cat=notebooks">Notebooks</a></li>
+                        <li><a href="catalogo.html?cat=tablets">Tablets</a></li>
+                        <li><a href="catalogo.html?cat=accesorios">Accesorios</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#ofertas">Ofertas del Día</a></li>
+            </ul>
+        </nav>
+        
+        <!-- BARRA DE BÚSQUEDA -->
+        <div class="search-bar" style="position:relative; margin-right:1rem; flex:1; max-width:250px;">
+            <input type="text" id="search-input" placeholder="Buscar producto..." style="width:100%; padding:0.5rem 1rem; border-radius:20px; border: 1px solid var(--border-color); outline:none; font-family:inherit;">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color: var(--text-muted);"></i>
+            <div id="search-results" style="position:absolute; top:110%; left:0; right:0; background: var(--card-bg); border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.1); display:none; flex-direction:column; z-index:1000; max-height:350px; overflow-y:auto;"></div>
+        </div>
+
+        <div class="header-icons">
+            <a href="login.html" title="Mi Cuenta" id="user-icon-link"><i class="fa-solid fa-user"></i></a>
+            <a href="#" onclick="event.preventDefault(); toggleFavSidebar();" title="Mis Favoritos" style="margin-right: 15px; font-size: 1.2rem; color: var(--text-color);"><i class="fa-regular fa-heart"></i></a>
+            <a href="carrito.html" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count-badge" style="font-size: 0.8rem; font-weight: bold; margin-left: 2px;"></span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Banner del Catálogo -->
+        <section style="height: 250px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #111;">
+            <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=1920&q=80') center/cover; opacity: 0.8;"></div>
+            <div style="position: relative; z-index: 2; text-align: center; color: white;">
+                <h2 id="catalog-title" style="font-size: 3.5rem; margin-bottom: 0.5rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase;">Catálogo</h2>
+                <p style="font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto;">Encuentra la mejor tecnología a precios imbatibles.</p>
+            </div>
+        </section>
+
+        <!-- Contenedor Principal del Catálogo -->
+        <div style="padding: 3rem 5%; max-width: 1400px; margin: 0 auto; display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
+            
+            <!-- Barra Lateral de Filtros (Sticky) -->
+            <div id="filters-sidebar" style="flex: 0 0 280px; position: sticky; top: 100px; background: var(--bg-color); padding: 0; border-radius: 0;">
+                
+                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        Categorías <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    </h3>
+                    <div id="category-filters" style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" value="celulares" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
+                            Celulares
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" value="notebooks" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
+                            Notebooks
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" value="tablets" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
+                            Tablets
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" value="accesorios" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
+                            Accesorios
+                        </label>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        Filtrar por Precio <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    </h3>
+                    <div style="margin-top: 1rem;">
+                        <label style="font-weight: bold; display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Máximo: <span id="price-label" style="color: var(--text-color);">$3.000.000</span></label>
+                        <input type="range" id="price-range" min="50000" max="3000000" step="50000" value="3000000" style="width: 100%; height: 6px; background: #ddd; border-radius: 5px; outline: none; appearance: none; accent-color: #555555; cursor: pointer;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        Marcas Disponibles <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    </h3>
+                    <div id="brand-filters" style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+                        <!-- Rellenado por JS -->
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        Condición <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" checked style="accent-color: #555555; width: 18px; height: 18px;">
+                            Nuevo, Caja Sellada
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" id="americano-filter" style="accent-color: #555555; width: 18px; height: 18px;">
+                            Equipos Americanos (iPhone)
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem; padding-bottom: 1rem;">
+                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        Promociones <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" id="offer-filter" style="accent-color: #ff4757; width: 18px; height: 18px;">
+                            Solo en Oferta Relámpago
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Grilla de Productos -->
+            <div style="flex: 1; min-width: 300px;">
+                
+                <!-- Barra de Herramientas Superior -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--gray-bg); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
+                    <p style="margin: 0; color: var(--text-muted); font-weight: bold;" id="catalog-count-label">Mostrando todos los resultados</p>
+                    
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <label style="font-weight: bold; color: var(--text-color); font-size: 0.9rem;">Ordenar:</label>
+                        <select id="sort-filter" style="padding: 0.6rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); outline: none; font-family: inherit; font-weight: bold; cursor: pointer; background: var(--bg-color);">
+                            <option value="">Destacados</option>
+                            <option value="price-asc">Precio: Menor a Mayor</option>
+                            <option value="price-desc">Precio: Mayor a Menor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="full-catalog-container" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem;">
+                    <p style="color: var(--text-muted); text-align: center; width: 100%; padding: 3rem;">Cargando catálogo premium...</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer style="background-color: var(--text-color); color: #fff; padding: 5rem 5% 2rem; margin-top: 4rem;">
+        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; margin-bottom: 4rem;">
+            
+            <!-- Marca -->
+            <div class="footer-logo">
+                <h2 style="font-size: 2.2rem; margin-bottom: 1rem; color: #fff; letter-spacing: -1px;">PhoneSpot.</h2>
+                <p style="color: #aaa; line-height: 1.6; margin-bottom: 1.5rem;">Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.</p>
+                <div class="social-icons" style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: #fff; background: #333; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; text-decoration: none; transition: 0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="color: #fff; background: #333; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; text-decoration: none; transition: 0.3s;"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" style="color: #fff; background: #333; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; text-decoration: none; transition: 0.3s;"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <!-- Contacto -->
+            <div class="footer-contact">
+                <h4 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Contacto<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; color: #aaa;">
+                    <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <i class="fa-solid fa-location-dot" style="color: #555555; margin-top: 0.3rem;"></i>
+                        <span>Entre Ríos, Argentina<br><small style="color: var(--text-muted);">(San José, Colón, Villa Elisa, C. del Uruguay)</small></span>
+                    </li>
+                    <li style="display: flex; gap: 1rem; align-items: center;">
+                        <i class="fa-brands fa-whatsapp" style="color: #555555;"></i>
+                        <a href="https://wa.me/5493447416011" style="color: #aaa; text-decoration: none;">+54 9 3447 416011</a>
+                    </li>
+                    <li style="display: flex; gap: 1rem; align-items: center;">
+                        <i class="fa-solid fa-envelope" style="color: #555555;"></i>
+                        <a href="mailto:boujonnacho@gmail.com" style="color: #aaa; text-decoration: none;">boujonnacho@gmail.com</a>
+                    </li>
+                    <li style="display: flex; gap: 1rem; align-items: center;">
+                        <i class="fa-solid fa-clock" style="color: #555555;"></i>
+                        <span>Lunes a Sábados: 09:00 a 20:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Enlaces -->
+            <div class="footer-links">
+                <h4 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Información<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+                    <li><a href="index.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">Inicio</a></li>
+                    <li><a href="admin.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">🔑 Panel de Control</a></li>
+                    <li><a href="catalogo.html?cat=all" style="color: #aaa; text-decoration: none; transition: 0.3s;">Catálogo de Productos</a></li>
+                    <li><a href="terminos.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">Términos y Condiciones</a></li>
+                    <li><a href="terminos.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">Políticas de Envío</a></li>
+                    <li><a href="garantias.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">Garantías</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div style="border-top: 1px solid #333; padding-top: 2rem; text-align: center; color: #777; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <p style="margin: 0;">&copy; 2026 PhoneSpot. Todos los derechos reservados.</p>
+            <p style="margin: 0; font-size: 0.8rem;">Los logos y marcas comerciales pertenecen a sus respectivos dueños.</p>
+        </div>
+    </footer>
+
+    <script src="script.js?v=1787176540774"></script>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/5493447416011" class="whatsapp-float" target="_blank" title="Chatea con nosotros">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FAVORITES SIDEBAR -->
+    <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
+    <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
+        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
+            <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
+            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Renderizado por JS -->
+        </div>
+    </div>
+
+</body>
+</html>
