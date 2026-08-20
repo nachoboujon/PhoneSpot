@@ -12,6 +12,34 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
+app.get('/producto.html', async (req, res, next) => {
+    const id = req.query.id;
+    if (!id) return next();
+    
+    try {
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+        if (error || !data) return next();
+        
+        let html = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
+        
+        const imageUrl = data.image_url.startsWith('http') ? data.image_url : 'http://' + req.get('host') + data.image_url;
+        
+        const metaTags = `
+            <meta property="og:title" content="${data.name} | PhoneSpot">
+            <meta property="og:description" content="Mira este equipo increíble disponible en PhoneSpot.">
+            <meta property="og:image" content="${imageUrl}">
+            <meta name="twitter:card" content="summary_large_image">
+        `;
+        
+        html = html.replace('</head>', metaTags + '</head>');
+        res.send(html);
+    } catch(e) {
+        next();
+    }
+});
+
 app.use(express.static('public'));
 
 // Crear carpeta uploads si no existe
@@ -188,6 +216,56 @@ app.post('/api/settings', authenticate, isAdmin, (req, res) => {
     }
 });
 
+
+// MERCADO PAGO INTEGRATION
+app.post('/api/mercadopago/preference', async (req, res) => {
+    try {
+        const { items, customer_email, total_ars } = req.body;
+        
+        const mpAccessToken = process.env.MP_ACCESS_TOKEN;
+        if (!mpAccessToken) {
+            return res.status(400).json({ error: 'Mercado Pago no configurado en el servidor' });
+        }
+        
+        const preference = {
+            items: [
+                {
+                    title: 'Compra en PhoneSpot',
+                    quantity: 1,
+                    currency_id: 'ARS',
+                    unit_price: total_ars
+                }
+            ],
+            payer: { email: customer_email },
+            back_urls: {
+                success: 'http://localhost:3000/perfil.html',
+                failure: 'http://localhost:3000/carrito.html',
+                pending: 'http://localhost:3000/perfil.html'
+            },
+            auto_return: 'approved'
+        };
+
+        const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${mpAccessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(preference)
+        });
+        
+        const data = await response.json();
+        if (data.init_point) {
+            res.json({ init_point: data.init_point });
+        } else {
+            res.status(500).json({ error: 'Error de MercadoPago', details: data });
+        }
+    } catch(e) {
+        console.error(e);
+        res.status(500).json({ error: 'Error procesando Mercado Pago' });
+    }
+});
+
 // --- RUTAS DE ORDENES ---
 app.post('/api/orders', async (req, res) => {
     try {
@@ -211,11 +289,14 @@ app.post('/api/orders', async (req, res) => {
         const isWholesale = totalQuantity >= 3;
         const wholesaleDiscount = 5;
 
-        const total = items.reduce((acc, item) => {
+        const usdTotal = items.reduce((acc, item) => {
             let finalPrice = item.price;
             if (isWholesale) finalPrice -= wholesaleDiscount;
             return acc + (finalPrice * item.quantity);
-        }, 0) + extraShipping;
+        }, 0);
+        const dolarValue = Number(req.body.dolar_value) || 1400;
+        const discountUsd = Number(req.body.discount_amount) || 0;
+        const total = usdTotal + (extraShipping / dolarValue) - discountUsd;
         
         const { data: orderData, error: orderError } = await supabase
             .from('orders')

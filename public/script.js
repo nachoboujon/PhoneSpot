@@ -1,3 +1,16 @@
+window.phoneSpotSettings = window.phoneSpotSettings || {};
+// ==================== DOLAR BLUE ====================
+window.dolarValue = 1400; // Fallback
+window.dolarPromise = fetch('https://dolarapi.com/v1/dolares/blue')
+    .then(res => res.json())
+    .then(data => { if (data && data.venta) window.dolarValue = data.venta + 5; })
+    .catch(e => console.error('Error fetching dolar', e));
+
+window.formatPrice = (usdPrice) => {
+    return '$' + (usdPrice * window.dolarValue).toLocaleString('es-AR');
+};
+// ====================================================
+
 // Sistema de Notificaciones Elegantes (Toast)
 function showToast(message, icon = 'fa-circle-check') {
     let container = document.getElementById('toast-container');
@@ -14,7 +27,14 @@ function showToast(message, icon = 'fa-circle-check') {
 }
 
 // Estado del carrito en LocalStorage
-let cart = JSON.parse(localStorage.getItem('phoneSpotCart')) || [];
+let cart = [];
+try {
+    const rawCart = localStorage.getItem('phoneSpotCart');
+    if (rawCart) cart = JSON.parse(rawCart) || [];
+} catch(e) {
+    console.error('Cart parse error, resetting', e);
+    localStorage.removeItem('phoneSpotCart');
+}
 
 function saveCart() {
     localStorage.setItem('phoneSpotCart', JSON.stringify(cart));
@@ -63,7 +83,23 @@ function changeQuantity(id, newQuantity) {
     }
 }
 
-function renderSideCart() {
+async function renderSideCart() { 
+    const drawSkeletons = (container, count) => {
+        if (!container) return;
+        container.innerHTML = Array(count).fill(`
+            <div class="skeleton-card">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-title"></div>
+                <div class="skeleton-title" style="width: 50%;"></div>
+                <div class="skeleton-price"></div>
+                <div class="skeleton-btn"></div>
+            </div>
+        `).join('');
+    };
+    if (catalogContainer) drawSkeletons(catalogContainer, 8);
+    if (offersContainer) drawSkeletons(offersContainer, 4);
+
+        await window.dolarPromise; 
     const sideContainer = document.getElementById('side-cart-items');
     const sideTotal = document.getElementById('side-cart-total');
     if (!sideContainer || !sideTotal) return;
@@ -106,8 +142,8 @@ function renderSideCart() {
                 <div class="side-cart-item-info">
                     <h4>${item.name}</h4>
                     <p>${item.variant_name || ''}</p>
-                    ${isWholesale ? `<p style="color: #ff4757; font-size:0.8rem; text-decoration:line-through;">${item.price.toLocaleString('es-AR')}</p>` : ''}
-                    <p style="color: var(--text-color); font-weight:bold; margin-top:0.3rem;">${finalPrice.toLocaleString('es-AR')} x ${item.quantity}</p>
+                    ${isWholesale ? `<p style="color: #ff4757; font-size:0.8rem; text-decoration:line-through;">${window.formatPrice(item.price)}</p>` : ''}
+                    <p style="color: var(--text-color); font-weight:bold; margin-top:0.3rem;">${window.formatPrice(finalPrice)} x ${item.quantity}</p>
                 </div>
                 <div style="display:flex; flex-direction:column; align-items:flex-end;">
                     <div style="display:flex; align-items:center; gap:0.5rem; background:#eee; border-radius:4px; padding:0.1rem;">
@@ -140,7 +176,7 @@ function renderSideCart() {
     
     sideContainer.insertAdjacentHTML('afterend', bannerHtml);
     
-    sideTotal.innerText = `${total.toLocaleString('es-AR')}`;
+    sideTotal.innerText = `${window.formatPrice(total)}`;
 
     const fsText = document.getElementById('free-shipping-text');
     const fsBar = document.getElementById('free-shipping-bar');
@@ -156,7 +192,7 @@ function renderSideCart() {
         } else {
             const missing = threshold - total;
             const pct = Math.min((total / threshold) * 100, 100);
-            fsText.innerHTML = `Te faltan <strong>$${missing.toLocaleString('es-AR')}</strong> para Envío Gratis`;
+            fsText.innerHTML = `Te faltan <strong>$${window.formatPrice(missing)}</strong> para Envío Gratis`;
             fsBar.style.width = `${pct}%`;
             fsBar.style.background = '#f39c12';
         }
@@ -166,7 +202,7 @@ function renderSideCart() {
 }
 
 // Renderizado dinámico del carrito (carrito.html)
-function renderCart() {
+async function renderCart() { await window.dolarPromise; 
     const cartItemsContainer = document.getElementById('cart-items-container');
     const cartTotalElement = document.getElementById('cart-total');
     
@@ -211,14 +247,14 @@ function renderCart() {
             <div class="item-details">
                 <h4>${item.name}</h4>
                 ${item.variant_name ? `<p>${item.variant_name}</p>` : ''}
-                ${isWholesale ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${(item.price * item.quantity).toLocaleString('es-AR')}</p>` : ''}
+                ${isWholesale ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
                 <div class="item-quantity" style="margin-top: 5px;">
                     <span>Cantidad:</span>
                     <input type="number" value="${item.quantity}" min="1" onchange="changeQuantity('${item.id}', parseInt(this.value))">
                 </div>
             </div>
             <div class="item-price" style="display:flex; flex-direction:column; align-items:flex-end;">
-                <strong style="font-size: 1.2rem; color: var(--text-color);">${(finalPrice * item.quantity).toLocaleString('es-AR')}</strong>
+                <strong style="font-size: 1.2rem; color: var(--text-color);">${window.formatPrice(finalPrice * item.quantity)}</strong>
                 ${isWholesale ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -$5 USD aplicado )</span>` : ''}
             </div>
             <button onclick="removeFromCart('${item.id}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
@@ -226,11 +262,11 @@ function renderCart() {
         cartItemsContainer.appendChild(itemDiv);
     });
 
-    cartTotalElement.innerText = `${total.toLocaleString('es-AR')}`;
+    cartTotalElement.innerText = `${window.formatPrice(total)}`;
 }
 
 // Renderizado para Checkout
-function renderCheckout() {
+async function renderCheckout() { await window.dolarPromise; 
     const checkoutItems = document.getElementById('checkout-items');
     const checkoutTotal = document.getElementById('checkout-total');
     
@@ -263,8 +299,8 @@ function renderCheckout() {
                     ${item.variant_name ? `<span style="color:var(--text-muted); font-size:0.8rem;">${item.variant_name}</span>` : ''}
                 </div>
                 <div style="text-align: right;">
-                    ${isWholesale ? `<span style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; display:block;">${(item.price * item.quantity).toLocaleString('es-AR')}</span>` : ''}
-                    <strong>${(finalPrice * item.quantity).toLocaleString('es-AR')}</strong>
+                    ${isWholesale ? `<span style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; display:block;">${window.formatPrice(item.price * item.quantity)}</span>` : ''}
+                    <strong>${window.formatPrice(finalPrice * item.quantity)}</strong>
                 </div>
             </div>
         `;
@@ -293,7 +329,7 @@ function renderCheckout() {
             checkoutItems.innerHTML += `
                 <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: var(--text-color);">
                     <span>Envío (${selectedShipping.value === 'andreani' ? 'Andreani' : 'Correo Argentino'})</span>
-                    <span style="${isFreeShipping ? 'color:#555555; font-weight:bold;' : ''}">${isFreeShipping ? 'Gratis' : '$' + shippingCost.toLocaleString('es-AR')}</span>
+                    <span style="${isFreeShipping ? 'color:#555555; font-weight:bold;' : ''}">${isFreeShipping ? 'Gratis' : window.formatPrice(shippingCost)}</span>
                 </div>
             `;
         }
@@ -306,7 +342,38 @@ function renderCheckout() {
         `;
     }
 
-    checkoutTotal.innerText = `$${(total + shippingCost).toLocaleString('es-AR')}`;
+    
+    let finalDisplayTotal = total;
+    let finalShipping = shippingCost;
+    
+    if (window.currentCoupon) {
+        if (window.currentCoupon.type === 'percent') {
+            const discount = finalDisplayTotal * (window.currentCoupon.value / 100);
+            finalDisplayTotal -= discount;
+            checkoutItems.innerHTML += `
+                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; color: #2ecc71; font-weight: bold; font-size: 0.9rem;">
+                    <span>Descuento (${window.currentCoupon.value}%)</span>
+                    <span>-${window.formatPrice(discount)}</span>
+                </div>`;
+        } else if (window.currentCoupon.type === 'fixed') {
+            finalDisplayTotal -= window.currentCoupon.value;
+            checkoutItems.innerHTML += `
+                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; color: #2ecc71; font-weight: bold; font-size: 0.9rem;">
+                    <span>Descuento Fijo</span>
+                    <span>-${window.formatPrice(window.currentCoupon.value)}</span>
+                </div>`;
+        } else if (window.currentCoupon.type === 'shipping') {
+            finalShipping = 0;
+            checkoutItems.innerHTML += `
+                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; color: #2ecc71; font-weight: bold; font-size: 0.9rem;">
+                    <span>Envío Bonificado (Cupón)</span>
+                    <span>Gratis</span>
+                </div>`;
+        }
+    }
+    
+    checkoutTotal.innerText = `${window.formatPrice(finalDisplayTotal + finalShipping)}`;
+
 }
 
 // Cargar productos desde Supabase vía nuestáo Backend Node.js
@@ -317,6 +384,7 @@ async function loadProductsFromDB() {
     if (!catalogContainer && !offersContainer) return;
 
     try {
+        await window.dolarPromise;
         const response = await fetch('http://localhost:3000/api/products');
         let products = await response.json();
 
@@ -342,7 +410,7 @@ async function loadProductsFromDB() {
             if (prod.is_offer && offersCount >= 4) return;
             if (!prod.is_offer && catalogCount >= 8) return;
 
-            const priceFormatted = `$${parseFloat(prod.price).toFixed(0)}`;
+            const priceFormatted = `${window.formatPrice(parseFloat(prod.price))}`;
             const oldPrice = parseFloat(prod.price) * 1.2; 
             const image = prod.image_url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';
 
@@ -539,15 +607,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let allCatalogProducts = [];
         let selectedBrands = initialCat !== 'all' && ['apple','samsung','motorola','xiaomi'].includes(initialCat) ? [initialCat] : [];
         let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios'].includes(initialCat) ? [initialCat] : [];
-        let maxPriceFilter = 3000000;
-        let onlyAmericanos = false;
+                let onlyAmericanos = false;
         let onlyOffers = false;
         let currentSort = '';
 
         // UI Elements
-        const priceRange = document.getElementById('price-range');
-        const priceLabel = document.getElementById('price-label');
-        const sortFilter = document.getElementById('sort-filter');
+                        const sortFilter = document.getElementById('sort-filter');
         const brandFiltersContainer = document.getElementById('brand-filters');
         const countLabel = document.getElementById('catalog-count-label');
 
@@ -569,8 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Price Filter
-                if (Number(p.price) > maxPriceFilter) return false;
-
+                
                 // Offers Filter
                 if (onlyOffers && !p.is_offer) {
                     return false;
@@ -606,9 +670,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const discount = hasOffer ? Math.round((1 - (Number(prod.price)/Number(prod.old_price))) * 100) : 0;
                 
                 // Build Fav Icon
-                const favs = JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]');
+                const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
                 const isActive = favs.includes(prod.id.toString()) ? 'active' : '';
-                const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="toggleFavorite('${prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
+                const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="window.toggleFavorite('${prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
 
                 const cardHTML = `
                     <div class="product-card" data-id="${prod.id}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
@@ -623,12 +687,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
-                            ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${Number(prod.old_price).toLocaleString('es-AR')}</p>` : ''}
-                            <p style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${Number(prod.price).toLocaleString('es-AR')}</p>
+                            ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
+                            <p style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
                         
                         <button onclick="
-                            const cart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]');
+                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
                             const existing = cart.find(i => i.id == '${prod.id}');
                             if(existing) existing.quantity++;
                             else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
@@ -644,8 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
-        fetch('http://localhost:3000/api/products')
-            .then(res => res.json())
+        window.dolarPromise.then(() => fetch('http://localhost:3000/api/products')).then(res => res.json())
             .then(products => {
                 allCatalogProducts = products;
 
@@ -708,14 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Attach Event Listener to Price Slider
-                if (priceRange) {
-                    priceRange.addEventListener('input', (e) => {
-                        maxPriceFilter = Number(e.target.value);
-                        if (priceLabel) priceLabel.innerText = '$' + maxPriceFilter.toLocaleString('es-AR');
-                        renderFilteredCatalog();
-                    });
-                }
-
+                
                 // Attach Event Listener to Sort
                 if (sortFilter) {
                     sortFilter.addEventListener('change', (e) => {
@@ -752,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.title = `${prod.name} | PhoneSpot`;
                 const image = prod.image_url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const isOutOfStock = prod.stock <= 0;
-                const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">$${(prod.price * 1.2).toLocaleString('es-AR')}</p>` : '';
+                const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">$${window.formatPrice(prod.price * 1.2)}</p>` : '';
 
                 let variantsHTML = '';
                 let hasVariants = prod.variants && prod.variants.length > 0;
@@ -828,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <span style="margin-left: 0.5rem;">(${avgRating}) - ${numReviews} Reseñas</span>
                                 </div>
                                 ${oldPrice}
-                                <p class="price" style="font-size:2rem; font-weight:bold; color: var(--text-color); margin-bottom:1.5rem;">$${Number(prod.price).toLocaleString('es-AR')}</p>
+                                <p class="price" style="font-size:2rem; font-weight:bold; color: var(--text-color); margin-bottom:1.5rem;">$${window.formatPrice(Number(prod.price))}</p>
                                 
                                 ${variantsHTML}
 
@@ -990,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (prod.price >= freeThreshold) {
                                 zipMsg.innerHTML = '<i class="fa-solid fa-check-circle" style="color:#555555;"></i> ¡Envío GRATIS a tu código postal!';
                             } else {
-                                zipMsg.innerHTML = `<i class="fa-solid fa-truck"></i> Envío estimado: <strong>$${simulatedCost.toLocaleString('es-AR')}</strong>`;
+                                zipMsg.innerHTML = `<i class="fa-solid fa-truck"></i> Envío estimado: <strong>$${window.formatPrice(simulatedCost)}</strong>`;
                             }
                         }, 800);
                     });
@@ -1027,8 +1083,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     container.innerHTML = '';
                     related.forEach(prod => {
                         const image = prod.image_url || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
-                        const cardHTML = `
-                            <div class="product-card" data-id="${prod.id}">
+                        
+    // Estrellas aleatorias entre 4 y 5
+    const rating = (4 + Math.random()).toFixed(1);
+    const starHTML = `
+        <div class="stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star${rating < 4.5 ? '-half-stroke' : ''}"></i>
+            <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 5px;">(${rating})</span>
+        </div>
+    `;
+
+                    const cardHTML = `
+                        <div class="product-card fade-up" data-id="${prod.id}">
                                 ${prod.is_offer ? `<div class="badge">OFERTA</div>` : ''}
                                 <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
                                 <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
@@ -1130,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'transferencia';
 
             // Recolectar datos
             const customer_email = document.getElementById('chk-email').value;
@@ -1174,7 +1244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('http://localhost:3000/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost })
+                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: (window.currentCoupon && window.currentCoupon.type === 'shipping') ? 0 : shippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null, discount_amount: (window.currentCoupon && window.currentCoupon.type === 'fixed') ? window.currentCoupon.value : ((window.currentCoupon && window.currentCoupon.type === 'percent') ? (total * (window.currentCoupon.value / 100)) : 0), dolar_value: window.dolarValue })
                 });
 
                 const data = await response.json();
@@ -1194,19 +1264,20 @@ document.addEventListener('DOMContentLoaded', () => {
                             return acc + (finalPrice * item.quantity);
                         }, 0);
 
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* ${orderTotal.toLocaleString('es-AR')}\n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* ${window.formatPrice(orderTotal)}\n`;
                         if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-$5 USD c/u)\n`;
                         wpMsg += `\n*Productos:*\n`;
 
                         cart.forEach(item => {
                             let finalPrice = item.price;
                             if (isWholesale) finalPrice -= wholesaleDiscount;
-                            wpMsg += `- ${item.quantity}x ${item.name} (${finalPrice.toLocaleString('es-AR')})\n`;
+                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
                         });
                         wpMsg += `\nQuiero coordinar el pago en efectivo con ustedes (Pesos/Dólares).`;
 
                         
-                        const wpUrl = `https://wa.me/5493447416011?text=${encodeURIComponent(wpMsg)}`; // El admin pondrá su num
+                        const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+                        const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
                         cart = [];
                         saveCart();
                         updateCartUI();
@@ -1214,13 +1285,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast('¡Orden registrada! Redirigiendo a WhatsApp...', 'fa-check');
                         setTimeout(() => window.location.href = wpUrl, 2000);
                     } else if (paymentMethod === 'mercadopago') {
-                        // Mercado pago token no configurado
-                        if (data.init_point) {
-                            window.location.href = data.init_point;
-                        } else {
-                            // Temporal alert útil they get the token
-                            showToast('Falta configurar Mercado Pago en el servidor.', 'fa-triangle-exclamation');
+                        
+                        showToast('Redirigiendo a Mercado Pago...', 'fa-spinner fa-spin');
+                        // Call MP endpoint
+                        try {
+                            const mpRes = await fetch('http://localhost:3000/api/mercadopago/preference', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ items: cart, customer_email, total_ars: Math.round(orderTotal * window.dolarValue) })
+                            });
+                            const mpData = await mpRes.json();
+                            if (mpData.init_point) {
+                                cart = [];
+                                saveCart();
+                                window.location.href = mpData.init_point;
+                            } else {
+                                showToast('Aviso: El admin debe colocar su MP_ACCESS_TOKEN en el archivo .env', 'fa-triangle-exclamation');
+                            }
+                        } catch(e) {
+                            showToast('Error conectando con MP', 'fa-times');
                         }
+
                     }
                 } else {
                     showToast(data.error || 'Error procesando la compra', 'fa-triangle-exclamation');
@@ -1233,7 +1318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // La lógica del carrusel se inicializará después de cargar los settings
-    window.initHeroCarousel = () => {
+    initHeroCarousel = () => {
         const slides = document.querySelectorAll('.carousel-slide');
         if(slides.length > 0) {
             const prevBtn = document.querySelector('.carousel-prev');
@@ -1675,7 +1760,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        document.getElementById('btn-logout')?.addEventListener('click', (e) => {
+        const logoutBtn = document.getElementById('btn-logout');
+if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.removeItem('phoneSpotToken');
             localStorage.removeItem('phoneSpotRole');
@@ -1685,7 +1771,54 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==================== CONFIGURACIÓN VISUAL DEL ADMIN (Banners y Carrusel) ====================
         let currentSettings = { top_banner: '', carousel: [], shipping_correo: 8500, shipping_andreani: 12000, free_shipping_threshold: 1500000 };
 
-        const bannerForm = document.getElementById('admin-banner-form');
+        
+    const waForm = document.getElementById('admin-whatsapp-form');
+    if (waForm) {
+        waForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            currentSettings.whatsapp_number = document.getElementById('set-whatsapp-num').value.replace(/[^0-9]/g, '');
+            await saveSettings(currentSettings);
+            showToast('Número de WhatsApp guardado', 'fa-check');
+        });
+    }
+
+    const couponForm = document.getElementById('admin-coupon-form');
+    if (couponForm) {
+        window.renderAdminCoupons = () => {
+            const list = document.getElementById('coupons-list');
+            if (!list) return;
+            const coupons = currentSettings.coupons || [];
+            list.innerHTML = coupons.map((c, i) => `
+                <div style="background: var(--gray-bg); padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.5rem;">
+                    <strong>${c.code}</strong> 
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">(${c.type === 'shipping' ? 'Envío' : c.value})</span>
+                    <i class="fa-solid fa-times" style="cursor: pointer; color: #ff4757;" onclick="deleteCoupon(${i})"></i>
+                </div>
+            `).join('');
+        };
+
+        window.deleteCoupon = async (index) => {
+            currentSettings.coupons.splice(index, 1);
+            await saveSettings(currentSettings);
+            window.renderAdminCoupons();
+        };
+
+        couponForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentSettings.coupons) currentSettings.coupons = [];
+            currentSettings.coupons.push({
+                code: document.getElementById('add-coupon-code').value.trim().toUpperCase(),
+                type: document.getElementById('add-coupon-type').value,
+                value: Number(document.getElementById('add-coupon-value').value)
+            });
+            await saveSettings(currentSettings);
+            couponForm.reset();
+            window.renderAdminCoupons();
+            showToast('Cupón agregado', 'fa-check');
+        });
+    }
+
+    const bannerForm = document.getElementById('admin-banner-form');
         const carouselForm = document.getElementById('admin-carousel-form');
         const shippingForm = document.getElementById('admin-shipping-form');
         
@@ -1714,6 +1847,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     if(document.getElementById('set-free-shipping')) {
                         document.getElementById('set-free-shipping').value = currentSettings.free_shipping_threshold || 1500000;
+
+    const waInput = document.getElementById('set-whatsapp-num');
+    if (waInput && currentSettings.whatsapp_number) waInput.value = currentSettings.whatsapp_number;
+    window.renderAdminCoupons();
+
                     }
                     renderAdminCarouselList();
                 } catch(e) { console.error('Error', e); }
@@ -1900,9 +2038,9 @@ async function applyFrontendSettings() {
                     });
 
                     // Inicializar el nuevo carrusel
-                    if (window.initHeroCarousel) {
-                        window.initHeroCarousel();
-                    if(window.initFlashCountdown) window.initFlashCountdown();
+                    if (initHeroCarousel) {
+                        initHeroCarousel();
+                    if(initFlashCountdown) initFlashCountdown();
                     }
                 }
             }
@@ -1917,7 +2055,7 @@ applyFrontendSettings();
 // ==================== FAVORITOS (LISTA DE DESEOS) ====================
 window.toggleFavorite = (id, event) => {
     if(event) { event.preventDefault(); event.stopPropagation(); }
-    let favs = JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]');
+    let favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
     if(favs.includes(id)) {
         favs = favs.filter(f => f !== id.toString());
         showToast('Producto eliminado de favoritos', 'fa-heart-crack');
@@ -1932,7 +2070,7 @@ window.toggleFavorite = (id, event) => {
         else btn.classList.remove('active');
     });
 
-    if(document.getElementById('favorites-container')) loadFavoritesUI();
+    if(document.getElementById('favorites-container')) window.loadFavoritesUI();
 };
 
 document.addEventListener('mouseover', e => {
@@ -1940,14 +2078,14 @@ document.addEventListener('mouseover', e => {
     if (card && !card.querySelector('.fav-btn')) {
         const id = card.getAttribute('data-id');
         if(!id) return;
-        const favs = JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]');
+        const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
         const isActive = favs.includes(id.toString()) ? 'active' : '';
         
         const btn = document.createElement('button');
         btn.className = `fav-btn ${isActive}`;
         btn.setAttribute('data-id', id);
         btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-        btn.onclick = (ev) => toggleFavorite(id, ev);
+        btn.onclick = (ev) => window.toggleFavorite(id, ev);
         
         card.style.position = 'relative';
         card.appendChild(btn);
@@ -1959,7 +2097,7 @@ window.loadFavoritesUI = async () => {
     const container = document.getElementById('favorites-container');
     if (!container) return;
     
-    const favs = JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]');
+    const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
     if (favs.length === 0) {
         container.innerHTML = '<p style="color: var(--text-muted); grid-column:1/-1;">Tu lista de deseos está vacía. ¡Explora el catálogo para agregar productos!</p>';
         return;
@@ -1989,13 +2127,13 @@ window.loadFavoritesUI = async () => {
                     <!-- Info -->
                     <div style="flex: 1; min-width: 200px;">
                         <h4 style="margin: 0 0 0.5rem; font-size: 1.2rem;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
-                        <p style="margin: 0; font-weight: 900; color: var(--text-color); font-size: 1.3rem;">${Number(prod.price).toLocaleString('es-AR')}</p>
+                        <p style="margin: 0; font-weight: 900; color: var(--text-color); font-size: 1.3rem;">${window.formatPrice(Number(prod.price))}</p>
                     </div>
 
                     <!-- Botones -->
                     <div style="display: flex; gap: 1rem; align-items: center;">
                         <button onclick="
-                            const cart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]');
+                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
                             const existing = cart.find(i => i.id == '${prod.id}');
                             if(existing) existing.quantity++;
                             else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
@@ -2006,7 +2144,7 @@ window.loadFavoritesUI = async () => {
                             <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i> Añadir
                         </button>
                         
-                        <button onclick="toggleFavorite('${prod.id}', event); loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
+                        <button onclick="window.toggleFavorite('${prod.id}', event); window.loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -2019,7 +2157,7 @@ window.loadFavoritesUI = async () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(document.getElementById('favorites-container')) loadFavoritesUI();
+    if(document.getElementById('favorites-container')) window.loadFavoritesUI();
 });
 
 
@@ -2037,7 +2175,7 @@ window.toggleFavSidebar = () => {
         sidebar.style.right = '0px';
         overlay.style.visibility = 'visible';
         overlay.style.opacity = '1';
-        loadSidebarFavorites();
+        window.loadSidebarFavorites();
     }
 };
 
@@ -2045,7 +2183,7 @@ window.loadSidebarFavorites = async () => {
     const container = document.getElementById('fav-sidebar-items');
     if (!container) return;
     
-    const favs = JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]');
+    const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
     if (favs.length === 0) {
         container.innerHTML = '<div style="text-align:center; padding: 2rem 0; color: var(--text-muted);"><i class="fa-regular fa-heart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i><p>Tu lista de deseos está vacía.</p></div>';
         return;
@@ -2067,7 +2205,7 @@ window.loadSidebarFavorites = async () => {
             container.innerHTML += `
                 <div class="favorite-sidebar-item" style="display: flex; gap: 1rem; background: var(--card-bg); padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); position: relative;">
                     <!-- Borrar absoluto -->
-                    <button onclick="toggleFavorite('${prod.id}', event); loadSidebarFavorites();" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;" title="Eliminar" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';"><i class="fa-solid fa-trash" style="font-size: 0.8rem;"></i></button>
+                    <button onclick="window.toggleFavorite('${prod.id}', event); window.loadSidebarFavorites();" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;" title="Eliminar" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';"><i class="fa-solid fa-trash" style="font-size: 0.8rem;"></i></button>
 
                     <!-- Imagen -->
                     <a href="producto.html?id=${prod.id}" style="width: 80px; height: 80px; flex-shrink: 0; display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
@@ -2077,10 +2215,10 @@ window.loadSidebarFavorites = async () => {
                     <!-- Info -->
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
                         <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
-                        <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">$${Number(prod.price).toLocaleString('es-AR')}</p>
+                        <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">$${window.formatPrice(Number(prod.price))}</p>
                         
                         <button onclick="
-                            const cart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]');
+                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
                             const existing = cart.find(i => i.id == '${prod.id}');
                             if(existing) existing.quantity++;
                             else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
@@ -2101,12 +2239,12 @@ window.loadSidebarFavorites = async () => {
 
 
 // ==================== CUENTA REGRESIVA DE OFERTAS ====================
-window.initFlashCountdown = () => {
+initFlashCountdown = () => {
     const cdContainer = document.getElementById('flash-countdown');
     if (!cdContainer) return;
     
     // Obtener fecha final desde la DB o usar un fallback de 3 días si no hay
-    let endDateStr = window.phoneSpotSettings?.flash_end_date;
+    let endDateStr = window.phoneSpotSettings.flash_end_date;
     if (!endDateStr) {
         // Fallback: 3 days from now
         const d = new Date();
@@ -2152,3 +2290,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Note: It's better to call it after applyFrontendSettings completes.
     // I will hook into it.
 });
+
+
+window.currentCoupon = null;
+window.applyCoupon = () => {
+    const code = document.getElementById('coupon-input')?.value.trim().toUpperCase();
+    const msg = document.getElementById('coupon-msg');
+    
+    if (!code) {
+        window.currentCoupon = null;
+        if(msg) { msg.innerText = ''; }
+        renderCheckout();
+        return;
+    }
+    
+    // Hardcoded demo coupons or you can fetch from settings
+    const settings = window.phoneSpotSettings || {};
+    const coupons = settings.coupons || [];
+    
+    const found = coupons.find(c => c.code === code);
+    if (found) {
+        window.currentCoupon = found;
+        msg.style.color = '#2ecc71';
+        msg.innerText = '¡Cupón aplicado exitosamente!';
+    } else {
+        window.currentCoupon = null;
+        msg.style.color = '#e74c3c';
+        msg.innerText = 'Cupón inválido o expirado.';
+    }
+    renderCheckout();
+};

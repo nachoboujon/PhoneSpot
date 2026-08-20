@@ -136,7 +136,14 @@
                     <!-- Items inyectados por JS -->
                 </div>
                 
-                <div class="summary-total">
+                
+                  <div style="margin: 1.5rem 0; display:flex; gap: 0.5rem;">
+                      <input type="text" id="coupon-input" placeholder="Código de descuento" style="flex: 1; padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                      <button type="button" onclick="window.applyCoupon()" style="padding: 0.8rem 1.2rem; background: var(--text-color); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Aplicar</button>
+                  </div>
+                  <div id="coupon-msg" style="font-size: 0.85rem; margin-top: -1rem; margin-bottom: 1rem;"></div>
+
+                  <div class="summary-total">
                     <span>Total</span>
                     <span id="checkout-total">$0</span>
                 </div>
@@ -144,7 +151,7 @@
         </div>
     </main>
 
-    <script src="script.js?v=1787176540774"></script>
+    <script src="script.js?v=1787186967602"></script>
 
     <!-- WhatsApp Flotante -->
     <a href="https://wa.me/5493447416011" class="whatsapp-float" target="_blank" title="Chatea con nosotros">

@@ -18,6 +18,7 @@
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.2.0",
     "mysql2": "^3.23.3",
-    "nodemailer": "^9.0.5"
+    "nodemailer": "^9.0.5",
+    "puppeteer": "^25.8.0"
   }
 }
