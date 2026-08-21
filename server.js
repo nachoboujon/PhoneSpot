@@ -75,33 +75,43 @@ if (supabaseUrl === 'https://placeholder.supabase.co') {
 
 // Configuración Email
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // Use TLS
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-    }
+    },
+    connectionTimeout: 5000,
+    greetingTimeout: 5000,
+    socketTimeout: 5000
 });
 
 // Middleware de autenticación propio
 
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
-    try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            throw new Error('Faltan configurar EMAIL_USER y EMAIL_PASS en Railway');
-        }
-        await transporter.sendMail({
-            from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
-            to,
-            subject,
-            html
-        });
-        console.log('Email sent to', to);
-        return true;
-    } catch (err) {
-        console.error('Error sending email:', err);
-        throw err;
-    }
+    return Promise.race([
+        new Promise(async (resolve, reject) => {
+            try {
+                if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+                    return reject(new Error('Faltan configurar EMAIL_USER y EMAIL_PASS en Railway'));
+                }
+                await transporter.sendMail({
+                    from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
+                    to,
+                    subject,
+                    html
+                });
+                console.log('Email sent to', to);
+                resolve(true);
+            } catch (err) {
+                console.error('Error sending email:', err);
+                reject(err);
+            }
+        }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout enviando correo (Google SMTP no responde)')), 6000))
+    ]);
 };
 
 const authenticate = (req, res, next) => {
