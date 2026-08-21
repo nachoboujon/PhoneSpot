@@ -1059,69 +1059,234 @@ body:not(.dark-mode) .logo-slide img {
 
 
 /* ========================================= */
-/* FIX RESPONSIVE DESIGN (HEADER Y PRODUCTOS) */
-/* ========================================= */
-.product-details-grid {
-    display: grid; 
-    grid-template-columns: 1fr 1.1fr; 
-    gap: 3rem; 
-    max-width: 1100px; 
-    margin: 0 auto; 
-    padding: 2.5rem; 
-    background: #fff; 
-    border-radius: 20px; 
-    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+
+@media (max-width: 900px) {
+    /* Auth Layout */
+    .auth-banner { display: none !important; }
+    .auth-layout { flex-direction: column; }
+    .auth-form-wrapper { padding: 1.5rem !important; }
 }
 
 @media (max-width: 768px) {
-    /* Header Responsive Layout */
+    /* Global Adjustments */
+    body { font-size: 14px; }
+    
+    /* Hero Banner Home */
+    .hero {
+        padding: 4rem 1rem !important;
+    }
+    .hero-content {
+        padding: 2rem 1.5rem !important;
+        margin: 0 1rem !important;
+        width: 100% !important;
+    }
+    .hero-content h2 {
+        font-size: 2rem !important;
+    }
+    .floating-phone { display: none !important; } /* Hide 3D floating phone on very small screens to avoid overflow */
+
+    /* Product Grid */
+    #products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+        gap: 1rem !important;
+    }
+    .product-card {
+        padding: 1rem !important;
+    }
+    .product-card h3 {
+        font-size: 0.95rem !important;
+        height: auto !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .product-card .price {
+        font-size: 1.1rem !important;
+    }
+    .product-card img {
+        height: 120px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .product-card button {
+        padding: 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Catalog Page Layout */
+    .catalog-container {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        padding: 1.5rem 5% !important;
+    }
+    #filters-sidebar {
+        flex: none !important;
+        width: 100% !important;
+        position: static !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Footer */
+    footer {
+        padding: 2rem 5% !important;
+    }
+    footer > div {
+        flex-direction: column !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    footer > div > div {
+        align-items: center !important;
+    }
+    
+    /* Checkout & Cart */
+    .checkout-page {
+        flex-direction: column !important;
+        padding: 1rem !important;
+    }
+    .checkout-form, .checkout-summary {
+        width: 100% !important;
+        padding: 1.5rem !important;
+    }
+    
+    /* Toast Notifications */
+    .toast {
+        width: 90% !important;
+        left: 5% !important;
+        font-size: 0.9rem !important;
+        padding: 10px 15px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Very Small Phones (iPhone SE, etc) */
+    header .logo h1 { font-size: 1.3rem !important; }
+    .hero-content h2 { font-size: 1.6rem !important; }
+    #products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+        gap: 0.8rem !important;
+    }
+}
+
+
+/* ========================================= */
+/* 📱 SMART RESPONSIVE OVERHAUL (TABLET & MOBILE) */
+/* ========================================= */
+
+/* Product Card Base Defaults */
+.product-img-wrapper {
+    display: block;
+    height: 180px;
+    margin-bottom: 1rem;
+}
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+/* 💻 LARGE TABLETS & SMALL LAPTOPS (Max 1024px) */
+@media (max-width: 1024px) {
+    .catalog-container {
+        flex-direction: column !important;
+        padding: 2rem 5% !important;
+        gap: 1.5rem !important;
+    }
+    #filters-sidebar {
+        flex: none !important;
+        width: 100% !important;
+        position: relative !important;
+        top: 0 !important;
+    }
+    #products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    }
+    
+    .product-details {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .auth-banner { display: none !important; }
+    .auth-layout { flex-direction: column !important; }
+}
+
+/* 📱 TABLETS & LARGE PHONES (Max 768px) */
+@media (max-width: 768px) {
+    body { font-size: 15px; }
+
+    /* Header tweaks */
     header {
         flex-wrap: wrap !important;
         padding: 1rem 5% !important;
     }
-    header .logo {
-        order: 1 !important;
-        flex: 1 !important;
-        text-align: center;
-    }
-    header .logo h1 {
-        font-size: 1.5rem !important;
-        justify-content: center;
-    }
-    header .logo img {
-        height: 28px !important;
-    }
-    header .menu-toggle {
-        order: 0 !important;
-        margin-right: 0 !important;
-        font-size: 1.5rem;
-    }
-    header .header-icons {
-        order: 2 !important;
-    }
-    header .search-bar {
-        order: 3 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-right: 0 !important;
-        margin-top: 1rem !important;
-    }
-    nav { 
-        top: 130px !important; 
-        height: calc(100vh - 130px) !important; 
-    }
-    
-    /* Product Page Grid */
-    .product-details-grid {
-        grid-template-columns: 1fr !important;
+    header .logo { order: 1; flex: 1; text-align: center; }
+    header .menu-toggle { order: 0; }
+    header .header-icons { order: 2; }
+    header .search-bar { order: 3; width: 100%; margin-top: 1rem; }
+
+    /* Hero Banner */
+    .hero { padding: 3rem 1rem !important; }
+    .hero-content {
         padding: 1.5rem !important;
-        gap: 1.5rem !important;
+        width: 100% !important;
+        margin: 0 !important;
     }
+    .hero-content h2 { font-size: 2rem !important; }
+    .floating-phone { display: none !important; }
+
+    /* Product Grid */
+    #products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+        gap: 1rem !important;
+    }
+
+    /* Refined Product Cards for Mobile */
+    .product-card {
+        padding: 1rem 0.8rem !important;
+    }
+    .product-img-wrapper {
+        height: 130px !important; /* Smaller height on mobile */
+        margin-bottom: 0.5rem !important;
+    }
+    .product-card h3 {
+        font-size: 0.9rem !important;
+        line-height: 1.2 !important;
+        height: auto !important;
+        min-height: 2.4rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .product-card .price {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .product-card button.btn {
+        padding: 0.6rem !important;
+        font-size: 0.85rem !important;
+        width: 100% !important;
+    }
+
+    /* Auth & General Padding */
+    .auth-form-wrapper { padding: 1.5rem !important; }
+    footer { padding: 2rem 5% !important; }
+    footer > div {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 2rem !important;
+    }
+    footer > div > div { align-items: center !important; }
+    
+    .checkout-page { flex-direction: column !important; }
+    .checkout-form, .checkout-summary { width: 100% !important; padding: 1.5rem !important; }
 }
 
-
-/* Ocultar el triangulito nativo de details */
-details > summary::marker, details > summary::-webkit-details-marker { display: none; content: ""; }
-
-/* Cerrar filtros en mobile por defecto, se maneja con JS o CSS? 
-    Mejor con JS para quitar el atributo open en mobile */
+/* 📱 SMALL PHONES (Max 480px) */
+@media (max-width: 480px) {
+    #products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+        gap: 0.5rem !important;
+    }
+    .product-card { padding: 0.8rem 0.5rem !important; border-radius: 8px !important; }
+    .product-img-wrapper { height: 110px !important; }
+    .product-card h3 { font-size: 0.85rem !important; }
+    .product-card .price { font-size: 1rem !important; }
+    .hero-content h2 { font-size: 1.6rem !important; }
+}

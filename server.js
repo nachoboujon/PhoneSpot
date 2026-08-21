@@ -88,18 +88,19 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
     try {
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.log('No email credentials configured, skipping email to:', to);
-            return;
+            throw new Error('Faltan configurar EMAIL_USER y EMAIL_PASS en Railway');
         }
         await transporter.sendMail({
-            from: `"PhoneSpot" <${process.env.EMAIL_USER}>`,
+            from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
             to,
             subject,
             html
         });
         console.log('Email sent to', to);
+        return true;
     } catch (err) {
         console.error('Error sending email:', err);
+        throw err;
     }
 };
 
@@ -121,38 +122,61 @@ const isAdmin = (req, res, next) => {
 };
 
 // --- RUTAS DE USUARIOS ---
+
+app.get('/api/version', (req, res) => {
+    res.json({ version: '1.0.5', status: 'El servidor está corriendo el código más nuevo con la doble verificación.' });
+});
+
 app.post('/api/register', async (req, res) => {
     try {
+        
         const { name, email, password } = req.body;
+        
+        // Check if user already exists
+        const { data: existingUser } = await supabase.from('users').select('id').eq('email', email).single();
+        if (existingUser) return res.status(400).json({ error: 'El email ya está registrado' });
+        
         const hashedPassword = await bcrypt.hash(password, 10);
         const role = email === process.env.ADMIN_EMAIL ? 'admin' : 'client';
         
-        const { data, error } = await supabase
-            .from('users')
-            .insert([{ name, email, password: hashedPassword, role }])
-            .select();
-
-        if (error) throw error;
+        // Generate verification token (expires in 1 hour)
+        const jwt = require('jsonwebtoken');
+        const verificationToken = jwt.sign(
+            { name, email, password: hashedPassword, role }, 
+            process.env.JWT_SECRET || 'secreto_super_seguro', 
+            { expiresIn: '1h' }
+        );
         
-        // Enviar email de bienvenida
-        const welcomeHtml = `
+        // Create verification link
+        const host = req.get('host');
+        const protocol = req.protocol === 'https' || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+        const verifyLink = `${protocol}://${host}/api/verify-email?token=${verificationToken}`;
+        
+        const verifyHtml = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
-                <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
-                    <h1>¡Bienvenido a PhoneSpot, ${name}!</h1>
+                <div style="background: #e74c3c; color: #fff; padding: 20px; text-align: center;">
+                    <h1>Verifica tu cuenta</h1>
                 </div>
-                <div style="padding: 20px;">
+                <div style="padding: 20px; text-align: center;">
                     <p>Hola <b>${name}</b>,</p>
-                    <p>Gracias por registrarte en nuestra tienda. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
-                    <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas en celulares, notebooks y accesorios.</p>
+                    <p>Estás a un solo paso de unirte a PhoneSpot. Por seguridad, necesitamos verificar que este es tu correo electrónico.</p>
                     <br>
-                    <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                    <a href="${verifyLink}" style="display: inline-block; background: #e74c3c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 16px;">Verificar mi Correo</a>
                     <br><br>
-                    <p>¡Saludos!<br>El equipo de PhoneSpot</p>
+                    <p style="font-size: 12px; color: #888;">Este enlace expirará en 1 hora. Si no solicitaste esta cuenta, puedes ignorar este correo.</p>
                 </div>
             </div>
         `;
-        sendEmail(email, '¡Bienvenido a PhoneSpot!', welcomeHtml);
-        res.status(201).json({ message: 'Usuario registrado exitosamente', userId: data[0].id });
+        
+        
+        try {
+            await sendEmail(email, 'Confirma tu registro en PhoneSpot', verifyHtml);
+            res.status(201).json({ message: 'Te hemos enviado un correo. Revisa tu bandeja de entrada para verificar tu cuenta.' });
+        } catch(emailErr) {
+            res.status(500).json({ error: 'Tu cuenta está reservada, pero hubo un problema enviando el correo. Contacta a soporte.' });
+        }
+
+
     } catch (error) {
         if(error.code === '23505') return res.status(400).json({ error: 'El email ya existe' }); // código postgres para unique violation
         res.status(500).json({ error: error.message });
@@ -232,6 +256,53 @@ app.post('/api/auth/google', async (req, res) => {
     } catch (error) {
         console.error('Google Auth Error:', error);
         res.status(500).json({ error: 'Error interno conectando con Google' });
+    }
+});
+
+
+// --- VERIFICACIÓN DE EMAIL (STATELESS) ---
+app.get('/api/verify-email', async (req, res) => {
+    try {
+        const { token } = req.query;
+        if (!token) return res.status(400).send('Token inválido o expirado.');
+        
+        const jwt = require('jsonwebtoken');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro');
+        
+        // Comprobar si ya existe
+        const { data: existingUser } = await supabase.from('users').select('id').eq('email', decoded.email).single();
+        if (existingUser) {
+            return res.redirect('/login.html?verified=already');
+        }
+        
+        // Insertar usuario validado
+        const { error: insertError } = await supabase
+            .from('users')
+            .insert([{ name: decoded.name, email: decoded.email, password: decoded.password, role: decoded.role }]);
+            
+        if (insertError) throw insertError;
+        
+        // Enviar correo de Bienvenida real ahora que está verificado
+        const welcomeHtml = `
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
+                    <h1>¡Bienvenido a PhoneSpot, ${decoded.name}!</h1>
+                </div>
+                <div style="padding: 20px;">
+                    <p>Hola <b>${decoded.name}</b>,</p>
+                    <p>Tu cuenta ha sido verificada exitosamente. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
+                    <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas.</p>
+                    <br>
+                    <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                </div>
+            </div>
+        `;
+        try { sendEmail(decoded.email, '¡Bienvenido a PhoneSpot!', welcomeHtml); } catch(e){}
+        
+        res.redirect('/login.html?verified=true');
+    } catch (error) {
+        console.error(error);
+        res.status(400).send('<h2>El enlace es inválido o ha expirado. Por favor, regístrate de nuevo.</h2>');
     }
 });
 

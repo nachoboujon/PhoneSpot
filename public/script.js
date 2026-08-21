@@ -897,8 +897,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         ${favIcon}
 
-                        <a href="producto.html?id=${prod.id}" style="display:block; height: 180px; margin-bottom: 1rem;">
-                            <img src="${image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s;">
+                        <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
+                            <img src="${image}" alt="${prod.name}" class="product-img">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.5rem;">${prod.brand || 'PhoneSpot'}</p>
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
@@ -1095,7 +1095,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 singleProductContainer.innerHTML = `
                     <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
-                        <div class="product-details" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; max-width:1100px; margin:0 auto; padding:2.5rem; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06);">
+                        <div class="product-details" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
                             <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem;">
                                 <div style="position: relative; overflow: hidden; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; padding: 2rem;">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
@@ -1770,12 +1770,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 const data = await res.json();
                 if (res.ok) {
-                    showToast('Cuenta creada. Inicia sesión.', 'fa-check');
-                    
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const redirect = urlParams.get('redirect');
-                    setTimeout(() => window.location.href = 'login.html' + (redirect ? '?redirect=' + redirect : ''), 1500);
-
+                    showToast('Revisa tu correo para verificar tu cuenta', 'fa-envelope-open-text');
+                    const formWrapper = document.querySelector('.auth-form-wrapper');
+                    if (formWrapper) {
+                        formWrapper.innerHTML = `
+                            <div style="text-align: center; padding: 2rem 0; animation: fadeUp 0.5s ease;">
+                                <i class="fa-solid fa-envelope-circle-check" style="font-size: 5rem; color: #00a650; margin-bottom: 1.5rem;"></i>
+                                <h2 style="margin-bottom: 1rem; font-size: 2rem;">¡Casi listo, ${name}!</h2>
+                                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; margin-bottom: 1rem;">Te hemos enviado un enlace de confirmación a <b style="color: var(--text-color);">${email}</b>.</p>
+                                <p style="color: var(--text-muted); font-size: 1rem;">Haz clic en el enlace seguro dentro del correo para activar tu cuenta.</p>
+                                <p style="font-size: 0.85rem; color: #888; margin-top: 2rem;"><i class="fa-solid fa-triangle-exclamation"></i> ¿No lo encuentras? Revisa tu carpeta de Spam o Correo No Deseado.</p>
+                            </div>
+                        `;
+                    }
                 } else {
                     showToast(data.error, 'fa-triangle-exclamation');
                 }
@@ -3130,5 +3137,22 @@ window.addEventListener('DOMContentLoaded', () => {
         if (redirect) {
             authLink.href = authLink.getAttribute('href') + '?redirect=' + redirect;
         }
+    }
+});
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    const adminLinks = document.querySelectorAll('.footer-admin-link');
+    if (localStorage.getItem('role') === 'admin') {
+        adminLinks.forEach(link => link.style.display = 'inline-block');
+    }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('verified') === 'true') {
+        setTimeout(() => showToast('¡Cuenta verificada! Ya puedes iniciar sesión.', 'fa-check-circle'), 500);
+    } else if (urlParams.get('verified') === 'already') {
+        setTimeout(() => showToast('Tu cuenta ya estaba verificada. Inicia sesión.', 'fa-info-circle'), 500);
     }
 });
