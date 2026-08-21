@@ -2,7 +2,7 @@ window.phoneSpotSettings = window.phoneSpotSettings || {};
 
 // ==================== CONFIGURACIÓN DE API ====================
 // Cambia 'http://localhost:3000' por la URL de tu servidor en producción (ej. 'https://tu-backend.onrender.com')
-window.API_URL = 'http://localhost:3000';
+window.API_URL = '';
 // ==============================================================
 
 
