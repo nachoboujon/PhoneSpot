@@ -65,9 +65,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Configuración Supabase
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY; // Usar el anon key o el service_role key
+const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = process.env.SUPABASE_KEY || 'placeholder_key';
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+if (supabaseUrl === 'https://placeholder.supabase.co') {
+    console.warn('⚠️ ADVERTENCIA: SUPABASE_URL y SUPABASE_KEY no están configurados en las variables de entorno. La base de datos no funcionará.');
+}
 
 // Configuración Email
 const transporter = nodemailer.createTransport({
