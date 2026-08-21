@@ -257,8 +257,9 @@
                     <h4><i class="fa-solid fa-bullhorn"></i> Top Banner (Cinta superior)</h4>
                     <form id="admin-banner-form">
                         <div class="form-group">
-                            <label>Texto Promocional (Arriba del todo)</label>
-                            <input type="text" id="set-banner" placeholder="Ej: 🔥 ENVÍO GRATIS EN COMPRAS SUPERIORES A $1000">
+                            <label>Mensajes de la Cinta Superior</label>
+                            <div id="banner-messages-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+                            <button type="button" class="btn" style="background: #e5e5ea; color: #333; margin-top:10px;" onclick="addBannerMessage()"><i class="fa-solid fa-plus"></i> Añadir Mensaje</button>
                         </div>
                         <div class="form-group">
                             <label>Fin de Oferta Relámpago (Cuenta Regresiva)</label>
@@ -316,7 +317,7 @@
             event.currentTarget.classList.add('active');
         }
     </script>
-    <script src="script.js?v=1787186967602"></script>
+    <script src="script.js?v=1787314505456"></script>
 
     <!-- FAVORITES SIDEBAR -->
     <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>

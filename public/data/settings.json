@@ -1,5 +1,8 @@
 {
-  "top_banner": "¡Hasta 30% de descuento en Notebooks y Accesorios! 💻🎧",
+  "top_banner": [
+    "Envio gratis que",
+    "Booooooca"
+  ],
   "carousel": [
     {
       "title": "Nuevos iPhone 15 Pro",
@@ -17,5 +20,6 @@
   "shipping_correo": 8500,
   "shipping_andreani": 12000,
   "free_shipping_threshold": 1500000,
-  "flash_end_date": "2026-08-20T15:00"
+  "flash_end_date": "2026-08-20T15:00",
+  "brands_list": ""
 }

@@ -1,9 +1,40 @@
-<!DOCTYPE html>
+const fs = require('fs');
+
+const generateAuthHTML = (type) => {
+    const isLogin = type === 'login';
+    const title = isLogin ? 'Iniciar Sesión' : 'Crear Cuenta';
+    const formId = isLogin ? 'login-form' : 'register-form';
+    const emailId = isLogin ? 'log-email' : 'reg-email';
+    const passId = isLogin ? 'log-password' : 'reg-password';
+    const actionBtn = isLogin ? 'Ingresar a mi cuenta <i class="fa-solid fa-arrow-right-to-bracket"></i>' : 'Registrarme ahora <i class="fa-solid fa-user-plus"></i>';
+    const linkText = isLogin ? '¿Eres nuevo por aquí? <b>Únete a la familia</b>' : '¿Ya tienes cuenta? <b>Inicia sesión</b>';
+    const linkHref = isLogin ? 'register.html' : 'login.html';
+    
+    // Additional fields for register
+    let nameField = '';
+    let newsletterField = '';
+    
+    if (!isLogin) {
+        nameField = `
+            <div class="auth-input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="reg-name" placeholder="Tu nombre completo" required>
+            </div>
+        `;
+        newsletterField = `
+            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--text-color); cursor: pointer; margin-bottom: 1.5rem; line-height: 1.4;">
+                <input type="checkbox" id="reg-newsletter" checked style="accent-color: var(--text-color); width: 18px; height: 18px; margin-top: 3px; cursor: pointer;">
+                <span>Quiero recibir noticias, consejos tech y ofertas exclusivas de PhoneSpot antes que nadie.</span>
+            </label>
+        `;
+    }
+
+    return `<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Cuenta | PhoneSpot</title>
+    <title>${title} | PhoneSpot</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -235,15 +266,14 @@
         .divider::after { margin-left: .5em; }
 
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     
     <div class="auth-layout">
         <div class="auth-banner">
             <div class="auth-banner-content">
-                <h2>Únete a la evolución</h2>
-                <p style="font-size: 1.2rem; color: #ccc;">Accede a precios mayoristas, historial de compras y una experiencia de usuario premium.</p>
+                <h2>${isLogin ? 'Bienvenido de nuevo' : 'Únete a la evolución'}</h2>
+                <p style="font-size: 1.2rem; color: #ccc;">${isLogin ? 'Ingresa para ver tus pedidos, ofertas exclusivas y gestionar tus favoritos.' : 'Accede a precios mayoristas, historial de compras y una experiencia de usuario premium.'}</p>
                 
                 <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 20px;">
                     <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; backdrop-filter: blur(10px);">
@@ -267,11 +297,11 @@
             </div>
             
             <div class="auth-form-wrapper">
-                <h1>Crear Cuenta</h1>
-                <p class="subtitle">Completa tus datos para crear una cuenta nueva.</p>
+                <h1>${title}</h1>
+                <p class="subtitle">${isLogin ? 'Ingresa tus credenciales para acceder a tu panel.' : 'Completa tus datos para crear una cuenta nueva.'}</p>
                 
                 <div class="social-login">
-                    <button type="button" class="social-btn" onclick="handleGoogleLogin()">
+                    <button type="button" class="social-btn" onclick="alert('Integración con Google próximamente');">
                         <i class="fa-brands fa-google social-btn google"></i> Google
                     </button>
                     <button type="button" class="social-btn" onclick="alert('Integración con Apple próximamente');">
@@ -281,50 +311,24 @@
                 
                 <div class="divider">o usa tu email</div>
 
-                <form id="register-form">
-                    
-            <div class="auth-input-group">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="reg-name" placeholder="Tu nombre completo" required>
-            </div>
-        
+                <form id="${formId}">
+                    ${nameField}
                     <div class="auth-input-group">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+                        <input type="email" id="${emailId}" placeholder="Correo electrónico" required>
                     </div>
-                    
                     <div class="auth-input-group">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="reg-password" placeholder="Contraseña segura" required>
+                        <input type="password" id="${passId}" placeholder="Contraseña segura" required>
                     </div>
-                    <div class="auth-input-group">
-                        <i class="fa-solid fa-check-double"></i>
-                        <input type="password" id="reg-password-confirm" placeholder="Repite tu contraseña" required>
-                    </div>
-
                     
-                    
-            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--text-color); cursor: pointer; margin-bottom: 1.5rem; line-height: 1.4;">
-                <input type="checkbox" id="reg-newsletter" checked style="accent-color: var(--text-color); width: 18px; height: 18px; margin-top: 3px; cursor: pointer;">
-                <span>Quiero recibir noticias, consejos tech y ofertas exclusivas de PhoneSpot antes que nadie.</span>
-            </label>
-        
+                    ${newsletterField}
 
-                    
-                    <!-- Anti-Robot Slider -->
-                    <div id="captcha-container" style="background: var(--gray-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 10px; margin-bottom: 1.5rem; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 50px;">
-                        <span id="captcha-text" style="color: var(--text-muted); font-size: 0.9rem; z-index: 1;">Desliza para verificar que eres humano</span>
-                        <div id="captcha-bg" style="position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #00a650; transition: background 0.3s; z-index: 1;"></div>
-                        <div id="captcha-slider" style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 2; transition: left 0.1s;">
-                            <i class="fa-solid fa-angles-right" style="color: #555;"></i>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="auth-btn">Registrarme ahora <i class="fa-solid fa-user-plus"></i></button>
+                    <button type="submit" class="auth-btn">${actionBtn}</button>
                 </form>
                 
                 <div class="auth-footer">
-                    <a href="login.html" id="auth-switch-link">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+                    <a href="${linkHref}">${linkText}</a>
                 </div>
             </div>
         </div>
@@ -332,4 +336,9 @@
 
     <script src="script.js?v=1787314505456"></script>
 </body>
-</html>
+</html>`;
+};
+
+fs.writeFileSync('public/login.html', generateAuthHTML('login'), 'utf8');
+fs.writeFileSync('public/register.html', generateAuthHTML('register'), 'utf8');
+console.log('Successfully revamped Login and Register pages!');

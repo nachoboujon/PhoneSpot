@@ -1,34 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Compra | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
-    <header>
-        <div class="logo">
-            <h1><a href="index.html" style="display:flex; align-items:center; gap:0.5rem;"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo" style="height:35px; width:auto; border-radius: 4px;"> PhoneSpot.</a></h1>
-        </div>
-    </header>
+const fs = require('fs');
 
-    <main class="checkout-page">
-        <h2>Finalizar Compra</h2>
-        <div class="checkout-container">
-            <div class="checkout-form">
-                
-                <!-- Barra de Progreso -->
-                <div class="checkout-steps">
-                    <div class="step active" id="step1-indicator">1. Contacto y Envío</div>
-                    <div class="step" id="step2-indicator">2. Pago</div>
-                </div>
+let html = fs.readFileSync('public/checkout.html', 'utf8');
 
-                <form id="checkout-form">
-                    
-                    <!-- PARTE 1: Contacto y Envío -->
-                    <div id="checkout-part1" class="checkout-part">
+// Replace the checkout form part 1
+const regexPart1 = /<div id="checkout-part1" class="checkout-part">[\s\S]*?<!-- PARTE 2: Pago -->/;
+const newPart1 = `<div id="checkout-part1" class="checkout-part">
                         <div class="checkout-section">
                             <h3 style="margin-bottom:1.5rem; font-size:1.4rem; border-bottom:1px solid #eee; padding-bottom:0.5rem;"><i class="fa-solid fa-address-card"></i> 1. Datos de Contacto</h3>
                             <div class="form-group">
@@ -89,8 +65,13 @@
                         <button type="button" class="btn" onclick="nextCheckoutStep()" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-top: 1.5rem; border-radius:12px; background: #000; color:#fff;">Continuar al Pago <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                     
-                    <!-- PARTE 2: Pago -->
-                    <div id="checkout-part2" class="checkout-part" style="display: none;">
+                    <!-- PARTE 2: Pago -->`;
+
+html = html.replace(regexPart1, newPart1);
+
+// Replace the checkout form part 2
+const regexPart2 = /<div id="checkout-part2" class="checkout-part" style="display: none;">[\s\S]*?<button type="submit"/;
+const newPart2 = `<div id="checkout-part2" class="checkout-part" style="display: none;">
                         <div class="checkout-section">
                             <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.5rem; border-bottom:1px solid #eee; padding-bottom:0.5rem;">
                                 <button type="button" onclick="prevCheckoutStep()" style="background:none; border:none; cursor:pointer; font-size:1.2rem; color:#666;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -124,51 +105,24 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-block" style="background-color: var(--text-color); flex: 1;" id="btn-confirm-pay">Confirmar y Pagar</button>
-                        </div>
-                    </div>
+                        <button type="submit"`;
+html = html.replace(regexPart2, newPart2);
 
-                </form>
-            </div>
+fs.writeFileSync('public/checkout.html', html, 'utf8');
+console.log('checkout.html updated.');
 
-            <div class="cart-summary">
-                <h3>Resumen</h3>
-                <div id="checkout-items" style="margin-bottom: 2rem;">
-                    <!-- Items inyectados por JS -->
-                </div>
-                
-                
-                  <div style="margin: 1.5rem 0; display:flex; gap: 0.5rem;">
-                      <input type="text" id="coupon-input" placeholder="Código de descuento" style="flex: 1; padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color);">
-                      <button type="button" onclick="window.applyCoupon()" style="padding: 0.8rem 1.2rem; background: var(--text-color); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Aplicar</button>
-                  </div>
-                  <div id="coupon-msg" style="font-size: 0.85rem; margin-top: -1rem; margin-bottom: 1rem;"></div>
+// 3. UPDATE SCRIPT.JS TO HANDLE NEW FIELDS
+let script = fs.readFileSync('public/script.js', 'utf8');
 
-                  <div class="summary-total">
-                    <span>Total</span>
-                    <span id="checkout-total">$0</span>
-                </div>
-            </div>
-        </div>
-    </main>
+const oldCollect = /const shipping_address = document\.getElementById\('chk-address'\)\.value \+ ', ' \+ city \+ ' CP: ' \+ document\.getElementById\('chk-zip'\)\.value;/;
+const newCollect = `const phone = document.getElementById('chk-phone') ? document.getElementById('chk-phone').value : '';
+            const dni = document.getElementById('chk-dni') ? document.getElementById('chk-dni').value : '';
+            const shipping_address = \`Tel: \${phone} - DNI: \${dni} - \${document.getElementById('chk-address').value}, \${city} CP: \${document.getElementById('chk-zip').value}\`;`;
 
-    <script src="script.js?v=1787314505456"></script>
+script = script.replace(oldCollect, newCollect);
 
-    <!-- WhatsApp Flotante -->
-    
+// Update Cache Busting in checkout.html
+script = script.replace(/script\.js\?v=\d+/g, 'script.js?v=' + Date.now());
 
-
-    <!-- FAVORITES SIDEBAR -->
-    <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
-    <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
-        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
-            <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
-            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-            <!-- Renderizado por JS -->
-        </div>
-    </div>
-
-</body>
-</html>
+fs.writeFileSync('public/script.js', script, 'utf8');
+console.log('script.js updated.');

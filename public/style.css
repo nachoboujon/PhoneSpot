@@ -1056,3 +1056,72 @@ body:not(.dark-mode) .logo-slide img {
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
 }
+
+
+/* ========================================= */
+/* FIX RESPONSIVE DESIGN (HEADER Y PRODUCTOS) */
+/* ========================================= */
+.product-details-grid {
+    display: grid; 
+    grid-template-columns: 1fr 1.1fr; 
+    gap: 3rem; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 2.5rem; 
+    background: #fff; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 768px) {
+    /* Header Responsive Layout */
+    header {
+        flex-wrap: wrap !important;
+        padding: 1rem 5% !important;
+    }
+    header .logo {
+        order: 1 !important;
+        flex: 1 !important;
+        text-align: center;
+    }
+    header .logo h1 {
+        font-size: 1.5rem !important;
+        justify-content: center;
+    }
+    header .logo img {
+        height: 28px !important;
+    }
+    header .menu-toggle {
+        order: 0 !important;
+        margin-right: 0 !important;
+        font-size: 1.5rem;
+    }
+    header .header-icons {
+        order: 2 !important;
+    }
+    header .search-bar {
+        order: 3 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-right: 0 !important;
+        margin-top: 1rem !important;
+    }
+    nav { 
+        top: 130px !important; 
+        height: calc(100vh - 130px) !important; 
+    }
+    
+    /* Product Page Grid */
+    .product-details-grid {
+        grid-template-columns: 1fr !important;
+        padding: 1.5rem !important;
+        gap: 1.5rem !important;
+    }
+}
+
+
+/* Ocultar el triangulito nativo de details */
+details > summary::marker, details > summary::-webkit-details-marker { display: none; content: ""; }
+
+/* Cerrar filtros en mobile por defecto, se maneja con JS o CSS? 
+    Mejor con JS para quitar el atributo open en mobile */

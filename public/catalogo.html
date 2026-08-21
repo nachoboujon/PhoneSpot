@@ -13,7 +13,7 @@
         <div class="logo">
             <h1><a href="index.html" style="display:flex; align-items:center; gap:0.5rem;"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo" style="height:35px; width:auto; border-radius: 4px;"> PhoneSpot.</a></h1>
         </div>
-        <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        <div class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -62,75 +62,156 @@
         <div style="padding: 3rem 5%; max-width: 1400px; margin: 0 auto; display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
             
             <!-- Barra Lateral de Filtros (Sticky) -->
-            <div id="filters-sidebar" style="flex: 0 0 280px; position: sticky; top: 100px; background: var(--bg-color); padding: 0; border-radius: 0;">
+            
+    <style>
+        /* Smooth Accordion Styles */
+        .filter-section {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2rem;
+        }
+        .filter-title {
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-color);
+            padding: 10px 0;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+        .filter-title:hover {
+            color: #888;
+        }
+        .filter-title .fa-chevron-down {
+            font-size: 0.8rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .filter-title.active .fa-chevron-down {
+            transform: rotate(-180deg);
+        }
+        .filter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .filter-content.open {
+            max-height: 400px;
+            opacity: 1;
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
+        }
+        .filter-content.open.scrollable {
+            overflow-y: auto;
+        }
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+        }
+        .filter-label:hover {
+            transform: translateX(5px);
+        }
+    </style>
+    <div id="filters-sidebar" style="flex: 0 0 280px; position: sticky; top: 100px; background: var(--bg-color); padding: 0; border-radius: 0; display: flex; flex-direction: column; gap: 0;">
                 
-                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                        Categorías <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
-                    </h3>
-                    <div id="category-filters" style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" value="celulares" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
-                            Celulares
+                <div class="filter-section">
+                    <div class="filter-title active" onclick="toggleFilter(this)">
+                        <span><i class="fa-solid fa-list" style="margin-right:8px;"></i> Categorías</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-content open" id="category-filters">
+                        <label class="filter-label">
+                            <input type="checkbox" value="celulares" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Celulares
                         </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" value="notebooks" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
-                            Notebooks
+                        <label class="filter-label">
+                            <input type="checkbox" value="notebooks" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Notebooks
                         </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" value="tablets" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
-                            Tablets
+                        <label class="filter-label">
+                            <input type="checkbox" value="tablets" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Tablets
                         </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" value="accesorios" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;">
-                            Accesorios
+                        <label class="filter-label">
+                            <input type="checkbox" value="accesorios" class="cat-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Accesorios
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-title active" onclick="toggleFilter(this)">
+                        <span><i class="fa-solid fa-copyright" style="margin-right:8px;"></i> Marcas</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-content open scrollable" id="brand-filters">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-title active" onclick="toggleFilter(this)">
+                        <span><i class="fa-solid fa-box" style="margin-right:8px;"></i> Condición</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-content open" id="condition-filters">
+                        <label class="filter-label">
+                            <input type="checkbox" value="nuevo" class="cond-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Nuevo
+                        </label>
+                        <label class="filter-label">
+                            <input type="checkbox" value="swap_americano" class="cond-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Swap Americano
+                        </label>
+                        <label class="filter-label">
+                            <input type="checkbox" value="reacondicionado" class="cond-checkbox" style="accent-color: #555555; width: 18px; height: 18px;"> Reacondicionado
                         </label>
                     </div>
                 </div>
 
                 
 
-                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                        Marcas Disponibles <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
-                    </h3>
-                    <div id="brand-filters" style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
-                        <!-- Rellenado por JS -->
+                <div class="filter-section">
+                    <div class="filter-title active" onclick="toggleFilter(this)">
+                        <span><i class="fa-solid fa-tag" style="margin-right:8px;"></i> Promociones</span>
+                        <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                </div>
-
-                <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                        Condición <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
-                    </h3>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" checked style="accent-color: #555555; width: 18px; height: 18px;">
-                            Nuevo, Caja Sellada
+                    <div class="filter-content open" id="promo-filters">
+                        <label class="toggle-label filter-label" style="justify-content: space-between;">
+                            <span style="display: flex; align-items: center; gap:10px;"><i class="fa-solid fa-fire" style="color: #e74c3c;"></i> En Oferta</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="offer-filter">
+                                <span class="slider"></span>
+                            </div>
                         </label>
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" id="americano-filter" style="accent-color: #555555; width: 18px; height: 18px;">
-                            Equipos Americanos (iPhone)
-                        </label>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 2rem; padding-bottom: 1rem;">
-                    <h3 style="font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                        Promociones <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
-                    </h3>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                            <input type="checkbox" id="offer-filter" style="accent-color: #ff4757; width: 18px; height: 18px;">
-                            Solo en Oferta Relámpago
-                        </label>
+                        
                     </div>
                 </div>
 
             </div>
-
+            
+            <script>
+                function toggleFilter(el) {
+                    el.classList.toggle('active');
+                    const content = el.nextElementSibling;
+                    content.classList.toggle('open');
+                }
+                
+                window.addEventListener('DOMContentLoaded', () => {
+                    if (window.innerWidth <= 768) {
+                        document.querySelectorAll('.filter-title').forEach(el => el.classList.remove('active'));
+                        document.querySelectorAll('.filter-content').forEach(el => el.classList.remove('open'));
+                    }
+                });
+            </script>
+            
             <!-- Grilla de Productos -->
-            <div style="flex: 1; min-width: 300px;">
+            <div style="flex: 1; min-width: 0;">
                 
                 <!-- Barra de Herramientas Superior -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--gray-bg); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
@@ -212,7 +293,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=1787186967602"></script>
+    <script src="script.js?v=1787314505456"></script>
 
     <!-- WhatsApp Flotante -->
     
@@ -229,5 +310,7 @@
         </div>
     </div>
 
+
+    
 </body>
 </html>

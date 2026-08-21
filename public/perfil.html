@@ -57,7 +57,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=1787186967602"></script>
+    <script src="script.js?v=1787314505456"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -79,7 +79,7 @@
             const container = document.getElementById('my-orders-container');
             
             try {
-                const res = await fetch('http://localhost:3000/api/my-orders', {
+                const res = await fetch(window.API_URL + '/api/my-orders', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
                 const orders = await res.json();
@@ -96,7 +96,7 @@
                     let statusHtml = '';
                     if (o.status === 'pending') statusHtml = '<span style="color: #e67e22; font-weight: bold;"><i class="fa-solid fa-clock"></i> Pendiente</span>';
                     else if (o.status === 'completed') statusHtml = '<span style="color: #555555; font-weight: bold;"><i class="fa-solid fa-check"></i> Pagado</span>';
-                    else if (o.status === 'shipped') statusHtml = '<span style="color: #3498db; font-weight: bold;"><i class="fa-solid fa-truck-fast"></i> Enviado</span>';
+                    else if (o.status === 'shipped') statusHtml = '<span style="color: #3498db; font-weight: bold; display:flex; flex-direction:column; align-items:flex-end; gap:5px;"><i class="fa-solid fa-truck-fast"></i> Enviado <a href="https://www.correoargentino.com.ar/formularios/e-commerce" target="_blank" style="background:#333; color:white; padding:4px 8px; border-radius:4px; font-size:0.75rem; text-decoration:none;"><i class="fa-solid fa-location-crosshairs"></i> Rastrear Pedido</a></span>';
                     else if (o.status === 'cancelled') statusHtml = '<span style="color: #e74c3c; font-weight: bold;"><i class="fa-solid fa-xmark"></i> Cancelado</span>';
 
                     let itemsHtml = o.order_items.map(item => `

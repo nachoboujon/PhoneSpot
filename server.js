@@ -83,6 +83,26 @@ const transporter = nodemailer.createTransport({
 });
 
 // Middleware de autenticación propio
+
+// Función genérica para enviar emails
+const sendEmail = async (to, subject, html) => {
+    try {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            console.log('No email credentials configured, skipping email to:', to);
+            return;
+        }
+        await transporter.sendMail({
+            from: `"PhoneSpot" <${process.env.EMAIL_USER}>`,
+            to,
+            subject,
+            html
+        });
+        console.log('Email sent to', to);
+    } catch (err) {
+        console.error('Error sending email:', err);
+    }
+};
+
 const authenticate = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
@@ -113,10 +133,105 @@ app.post('/api/register', async (req, res) => {
             .select();
 
         if (error) throw error;
+        
+        // Enviar email de bienvenida
+        const welcomeHtml = `
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
+                    <h1>¡Bienvenido a PhoneSpot, ${name}!</h1>
+                </div>
+                <div style="padding: 20px;">
+                    <p>Hola <b>${name}</b>,</p>
+                    <p>Gracias por registrarte en nuestra tienda. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
+                    <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas en celulares, notebooks y accesorios.</p>
+                    <br>
+                    <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                    <br><br>
+                    <p>¡Saludos!<br>El equipo de PhoneSpot</p>
+                </div>
+            </div>
+        `;
+        sendEmail(email, '¡Bienvenido a PhoneSpot!', welcomeHtml);
         res.status(201).json({ message: 'Usuario registrado exitosamente', userId: data[0].id });
     } catch (error) {
         if(error.code === '23505') return res.status(400).json({ error: 'El email ya existe' }); // código postgres para unique violation
         res.status(500).json({ error: error.message });
+    }
+});
+
+
+// --- GOOGLE OAUTH LOGIN/REGISTER ---
+app.post('/api/auth/google', async (req, res) => {
+    try {
+        const { access_token } = req.body;
+        if (!access_token) return res.status(400).json({ error: 'Token requerido' });
+        
+        // Fetch user info from Google
+        const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { Authorization: `Bearer ${access_token}` }
+        });
+        const googleUser = await googleRes.json();
+        
+        if (!googleRes.ok || !googleUser.email) {
+            return res.status(401).json({ error: 'Token de Google inválido' });
+        }
+        
+        const email = googleUser.email;
+        const name = googleUser.name || email.split('@')[0];
+        const role = email === process.env.ADMIN_EMAIL ? 'admin' : 'client';
+        
+        // Check if user exists in our DB
+        let { data: user, error: searchError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+            
+        if (!user) {
+            // Register new user with random password
+            const crypto = require('crypto');
+            const randomPassword = crypto.randomBytes(16).toString('hex');
+            const bcrypt = require('bcrypt');
+            const hashedPassword = await bcrypt.hash(randomPassword, 10);
+            
+            const { data: newUser, error: insertError } = await supabase
+                .from('users')
+                .insert([{ name, email, password: hashedPassword, role }])
+                .select()
+                .single();
+                
+            if (insertError) throw insertError;
+            user = newUser;
+            
+            // Send welcome email
+            const welcomeHtml = `
+                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                    <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
+                        <h1>¡Bienvenido a PhoneSpot, ${name}!</h1>
+                    </div>
+                    <div style="padding: 20px;">
+                        <p>Hola <b>${name}</b>,</p>
+                        <p>Gracias por registrarte usando Google. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
+                        <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas en celulares, notebooks y accesorios.</p>
+                        <br>
+                        <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                        <br><br>
+                        <p>¡Saludos!<br>El equipo de PhoneSpot</p>
+                    </div>
+                </div>
+            `;
+            try { sendEmail(email, '¡Bienvenido a PhoneSpot!', welcomeHtml); } catch(e){}
+        }
+        
+        // Generate JWT
+        const jwt = require('jsonwebtoken');
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secreto_super_seguro');
+        
+        res.json({ message: 'Login con Google exitoso', token, role: user.role, name: user.name });
+        
+    } catch (error) {
+        console.error('Google Auth Error:', error);
+        res.status(500).json({ error: 'Error interno conectando con Google' });
     }
 });
 
@@ -308,9 +423,9 @@ app.post('/api/mercadopago/preference', async (req, res) => {
             ],
             payer: { email: customer_email },
             back_urls: {
-                success: 'http://localhost:3000/perfil.html',
-                failure: 'http://localhost:3000/carrito.html',
-                pending: 'http://localhost:3000/perfil.html'
+                success: req.headers.origin + '/perfil.html',
+                failure: req.headers.origin + '/carrito.html',
+                pending: req.headers.origin + '/perfil.html'
             },
             auto_return: 'approved'
         };
@@ -427,9 +542,9 @@ app.post('/api/orders', async (req, res) => {
                 items: mpItems,
                 payer: { name: customer_name, email: customer_email },
                 back_urls: {
-                    success: 'http://localhost:3000/compra-exitosa.html',
-                    failure: 'http://localhost:3000/index.html?pago=error',
-                    pending: 'http://localhost:3000/index.html?pago=pendiente'
+                    success: req.headers.origin + '/compra-exitosa.html',
+                    failure: req.headers.origin + '/index.html?pago=error',
+                    pending: req.headers.origin + '/index.html?pago=pendiente'
                 },
                 auto_return: 'approved'
             };
@@ -480,6 +595,29 @@ app.post('/api/orders', async (req, res) => {
             console.error('Error enviando email:', mailErr);
         }
         // ===============================================
+
+        
+            // Email de confirmación AL CLIENTE
+            if (customer_email) {
+                const orderHtml = `
+                    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                        <div style="background: #00a650; color: #fff; padding: 20px; text-align: center;">
+                            <h1>¡Compra Confirmada!</h1>
+                        </div>
+                        <div style="padding: 20px;">
+                            <p>Hola <b>${customer_name || 'Cliente'}</b>,</p>
+                            <p>Hemos recibido tu orden <b>#${orderId}</b> con éxito.</p>
+                            <p>Total de la orden: <b>${total.toFixed(2)} USD</b></p>
+                            <p>Dirección de Envío: ${shipping_address}</p>
+                            <p>Método de Pago: ${payment_method}</p>
+                            <p>En breve comenzaremos a preparar tu paquete. Te enviaremos otro correo cuando el envío esté en camino.</p>
+                            <br>
+                            <p>¡Gracias por confiar en PhoneSpot!</p>
+                        </div>
+                    </div>
+                `;
+                sendEmail(customer_email, `Confirmación de Orden #${orderId} - PhoneSpot`, orderHtml);
+            }
 
         res.json({ message: 'Orden creada', orderId });
     } catch (error) {
@@ -589,7 +727,87 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
 const PORT = process.env.PORT || 3000;
 if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
     // Railway, Local, or VPS: Start the server on 0.0.0.0 so it's accessible externally
-    app.listen(PORT, '0.0.0.0', () => {
+    
+// ==================== SHIPPING ZIPNOVA API ====================
+app.post('/api/shipping/quote', async (req, res) => {
+    try {
+        const { zip_code, total_amount, items } = req.body;
+        
+        // Aquí iría el código oficial de Zipnova cuando tengamos API Key + API Secret completos.
+        // Simulamos la respuesta de Zipnova (Zippin) con tarifas calculadas por Código Postal
+        
+        let isLocal = (zip_code === '3280' || zip_code === '3283');
+        
+        if (isLocal) {
+            return res.json({
+                success: true,
+                options: [
+                    { id: 'local', name: 'Envío Local (Cadetería)', cost: 0, time: '24hs' }
+                ]
+            });
+        }
+        
+        // Base costs depending on region (fake logic for now)
+        let baseCost = 8500;
+        if (zip_code && zip_code.startsWith('9')) baseCost = 15000; // Patagonia
+        else if (zip_code && (zip_code.startsWith('4') || zip_code.startsWith('5'))) baseCost = 11000; // Norte / Cuyo
+        
+        res.json({
+            success: true,
+            options: [
+                { id: 'correo_sucursal', name: 'Correo Argentino (A Sucursal)', cost: Math.max(0, baseCost - 2000), time: '3-6 días' },
+                { id: 'correo_domicilio', name: 'Correo Argentino (A Domicilio)', cost: baseCost, time: '3-6 días' },
+                { id: 'andreani_sucursal', name: 'Andreani (A Sucursal)', cost: baseCost + 1500, time: '2-4 días' },
+                { id: 'andreani_domicilio', name: 'Andreani (A Domicilio)', cost: baseCost + 3500, time: '2-4 días' }
+            ]
+        });
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: 'Error cotizando envío' });
+    }
+});
+
+
+// --- MARKETING ENDPOINT ---
+app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
+    try {
+        const { subject, message, link } = req.body;
+        
+        // Obtener todos los usuarios registrados
+        const { data: users, error } = await supabase.from('users').select('email, name');
+        if (error) throw error;
+        
+        const marketingHtml = `
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+                <div style="background: #e74c3c; color: #fff; padding: 20px; text-align: center;">
+                    <h1>¡Nueva Oferta Exclusiva!</h1>
+                </div>
+                <div style="padding: 20px; font-size: 16px;">
+                    ${message}
+                    <br><br>
+                    <div style="text-align: center;">
+                        <a href="${link || 'https://phonespot.com.ar/catalogo.html'}" style="display: inline-block; background: #111; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 16px;">Ver Oferta</a>
+                    </div>
+                    <br><br>
+                    <p style="font-size: 12px; color: #888;">Recibes este correo porque te registraste en PhoneSpot.ar</p>
+                </div>
+            </div>
+        `;
+        
+        // Send email to all users
+        for (let user of users) {
+            sendEmail(user.email, subject || '¡Descubre nuestras nuevas ofertas en PhoneSpot!', marketingHtml);
+        }
+        
+        res.json({ message: `Correos de marketing enviados a ${users.length} usuarios.` });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error enviando marketing' });
+    }
+});
+
+app.listen(PORT, '0.0.0.0', () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
 }

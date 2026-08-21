@@ -21,6 +21,22 @@ window.dolarPromise = fetch('https://dolarapi.com/v1/dolares/blue')
     .then(data => { if (data && data.venta) window.dolarValue = data.venta + 5; })
     .catch(e => console.error('Error fetching dolar', e));
 
+
+// ==================== AUTH GUARD ====================
+if (window.location.pathname.includes('checkout.html') && !localStorage.getItem('token')) {
+    window.location.href = 'login.html?redirect=checkout.html';
+}
+window.goToCheckout = (e) => {
+    if (e) e.preventDefault();
+    if (!localStorage.getItem('token')) {
+        showToast('Debes iniciar sesión para comprar', 'fa-lock');
+        setTimeout(() => window.location.href = 'login.html?redirect=checkout.html', 1500);
+    } else {
+        window.location.href = 'checkout.html';
+    }
+};
+// ====================================================
+
 window.formatPrice = (usdPrice) => {
     return '$' + (usdPrice * window.dolarValue).toLocaleString('es-AR');
 };
@@ -213,7 +229,7 @@ async function renderSideCart() {
 
     const fsText = document.getElementById('free-shipping-text');
     const fsBar = document.getElementById('free-shipping-bar');
-    const settings = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
+    var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
     const threshold = settings.free_shipping_threshold;
     
     if (fsText && fsBar && threshold > 0) {
@@ -311,6 +327,31 @@ async function renderCart() { await window.dolarPromise;
         cartItemsContainer.appendChild(itemDiv);
     });
 
+    
+    var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
+    var thresholdARS = settings_ml.free_shipping_threshold;
+    var currentTotalARS = total * window.dolarValue;
+    
+    if (thresholdARS > 0) {
+        let percent = Math.min(100, Math.round((currentTotalARS / thresholdARS) * 100));
+        let remaining = thresholdARS - currentTotalARS;
+        
+        let message = remaining > 0 ? `Te faltan <b style="color:var(--text-color); font-size:1rem;">${'$' + remaining.toLocaleString('es-AR')}</b> para <b>Envío Gratis</b>` : '<b style="color:#00a650;">¡Felicitaciones! Tienes Envío Gratis</b>';
+        let color = remaining > 0 ? '#3498db' : '#00a650'; // ML style
+        
+        let progressBarHTML = `
+            <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <div style="font-size: 0.95rem; color: var(--text-color); margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-truck-fast" style="color: ${color}; font-size:1.2rem;"></i> <span>${message}</span>
+                </div>
+                <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden;">
+                    <div style="width: ${percent}%; height: 100%; background: ${color}; transition: width 0.5s ease; border-radius: 10px;"></div>
+                </div>
+            </div>
+        `;
+        cartItemsContainer.innerHTML += progressBarHTML;
+    }
+
     cartTotalElement.innerText = `${window.formatPrice(total)}`;
 }
 
@@ -360,47 +401,65 @@ async function renderCheckout() { await window.dolarPromise;
 
     // Calcular envío extra
     let shippingCost = 0;
-    const settings = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
+    var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
     const threshold = settings.free_shipping_threshold;
     
     // Si supera el umbral, envío gratis
     const isFreeShipping = threshold > 0 && total >= threshold;
 
-    const citySelect = document.getElementById('chk-city');
     const zipInput = document.getElementById('chk-zip');
     const userZip = zipInput ? zipInput.value.trim() : '';
     
-    if (citySelect && citySelect.value === 'Otra') {
-        const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
-        if (selectedShipping) {
-            shippingCost = selectedShipping.value === 'andreani' 
-                ? (settings.shipping_andreani || 12000) 
-                : (settings.shipping_correo || 8500);
-            
-            // Envío local sin cargo
-            if (userZip === '3283' || userZip === '3280') {
-                shippingCost = 0;
-            } else if (isFreeShipping) {
-                shippingCost = 0;
-            }
-            
-            checkoutItems.innerHTML += `
-                <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: var(--text-color);">
-                    <span>Envío (${selectedShipping.value === 'andreani' ? 'Andreani' : 'Correo Argentino'})</span>
-                    <span style="${isFreeShipping ? 'color:#555555; font-weight:bold;' : ''}">${isFreeShipping ? 'Gratis' : window.formatPrice(shippingCost)}</span>
-                </div>
-            `;
+    const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
+    let shippingName = 'Envío';
+    
+    if (selectedShipping) {
+        shippingCost = parseFloat(selectedShipping.dataset.cost) || 0;
+        shippingName = selectedShipping.dataset.name || 'Envío';
+        
+        // Envío local sin cargo
+        if (userZip === '3283' || userZip === '3280') {
+            shippingCost = 0;
+            shippingName = 'Envío Local (Sin Cargo)';
+        } else if (isFreeShipping) {
+            shippingCost = 0;
+            shippingName = 'Envío (Bonificado por Promoción)';
         }
-    } else {
+        
         checkoutItems.innerHTML += `
-            <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: #555555;">
-                <span>Envío Local</span>
-                <span style="font-weight:bold;">Gratis</span>
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: var(--text-color);">
+                <span>${shippingName}</span>
+                <span style="${shippingCost === 0 ? 'color:#555555; font-weight:bold;' : ''}">${shippingCost === 0 ? 'Gratis' : window.formatPrice(shippingCost)}</span>
             </div>
         `;
     }
 
     
+    
+    var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
+    var thresholdARS = settings_ml.free_shipping_threshold;
+    var currentTotalARS = total * window.dolarValue;
+    
+    if (thresholdARS > 0) {
+        let percent = Math.min(100, Math.round((currentTotalARS / thresholdARS) * 100));
+        let remaining = thresholdARS - currentTotalARS;
+        
+        let message = remaining > 0 ? `Te faltan <b style="color:var(--text-color); font-size:1rem;">${'$' + remaining.toLocaleString('es-AR')}</b> para <b>Envío Gratis</b>` : '<b style="color:#00a650;">¡Felicitaciones! Tienes Envío Gratis</b>';
+        let color = remaining > 0 ? '#3498db' : '#00a650'; // ML style
+        
+        let progressBarHTML = `
+            <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <div style="font-size: 0.95rem; color: var(--text-color); margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-truck-fast" style="color: ${color}; font-size:1.2rem;"></i> <span>${message}</span>
+                </div>
+                <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden;">
+                    <div style="width: ${percent}%; height: 100%; background: ${color}; transition: width 0.5s ease; border-radius: 10px;"></div>
+                </div>
+            </div>
+        `;
+        checkoutItems.innerHTML += progressBarHTML;
+    }
+
     let finalDisplayTotal = total;
     let finalShipping = shippingCost;
     
@@ -495,7 +554,7 @@ async function loadProductsFromDB() {
                     </a>
                     <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
                     <div class="product-rating">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        
                         <span>(4.8)</span>
                     </div>
                     <p class="price">
@@ -598,7 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>Total:</span>
                     <span id="side-cart-total">$0</span>
                 </div>
-                <a href="checkout.html" class="btn btn-block" style="text-align:center;">Finalizar ¡Compra</a>
+                <button onclick="window.goToCheckout(event)" class="btn btn-block" style="text-align:center; width:100%;"><i class="fa-solid fa-lock" style="margin-right:8px;"></i> Finalizar Compra</button>
                 <a href="carrito.html" style="display:block; text-align:center; margin-top:1rem; font-size:0.9rem; color: var(--text-muted); text-decoration:underline;">Ver carrito completo</a>
             </div>
         `;
@@ -733,9 +792,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialCat = urlParams.get('cat') || 'all';
 
         let allCatalogProducts = [];
+        let selectedConditions = []; let selectedColors = [];
         let selectedBrands = initialCat !== 'all' && ['apple','samsung','motorola','xiaomi'].includes(initialCat) ? [initialCat] : [];
         let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios'].includes(initialCat) ? [initialCat] : [];
-                let onlyAmericanos = false;
+                
         let onlyOffers = false;
         let currentSort = '';
 
@@ -761,6 +821,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!selectedBrands.includes(b)) return false;
                 }
 
+                
+                // Conditions Filter
+                if (selectedConditions.length > 0) {
+                    const desc = (p.description || '').toLowerCase();
+                    const name = (p.name || '').toLowerCase();
+                    const combined = name + " " + desc;
+                    
+                    let matchesCond = false;
+                    if (selectedConditions.includes('nuevo') && !combined.includes('usado') && !combined.includes('reacondicionado') && !combined.includes('seminuevo')) matchesCond = true;
+                    if (selectedConditions.includes('swap_americano') && (combined.includes('swap') || combined.includes('americano') || combined.includes('usado') || combined.includes('seminuevo'))) matchesCond = true;
+                    if (selectedConditions.includes('reacondicionado') && (combined.includes('reacondicionado') || combined.includes('refurbished'))) matchesCond = true;
+                    
+                    if (!matchesCond) return false;
+                }
+
+                // Colors Filter
+                if (selectedColors.length > 0) {
+                    const desc = (p.description || '').toLowerCase();
+                    const name = (p.name || '').toLowerCase();
+                    const combined = name + " " + desc;
+                    
+                    // Simple color matching based on text
+                    let matchesColor = selectedColors.some(color => {
+                        if (color === 'negro' && (combined.includes('negro') || combined.includes('black') || combined.includes('oscuro') || combined.includes('midnight'))) return true;
+                        if (color === 'blanco' && (combined.includes('blanco') || combined.includes('white') || combined.includes('plata') || combined.includes('silver') || combined.includes('starlight'))) return true;
+                        if (color === 'azul' && (combined.includes('azul') || combined.includes('blue') || combined.includes('cyan'))) return true;
+                        if (color === 'titanium' && (combined.includes('titanium') || combined.includes('titanio') || combined.includes('gris') || combined.includes('gray') || combined.includes('grey'))) return true;
+                        return combined.includes(color);
+                    });
+                    
+                    if (!matchesColor) return false;
+                }
+
                 // Price Filter
                 
                 // Offers Filter
@@ -768,11 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return false;
                 }
 
-                // Americanos Filter
-                if (onlyAmericanos) {
-                    const str = (p.name + " " + (p.description||'')).toLowerCase();
-                    if (!str.includes('americano') && !str.includes('usa') && !str.includes('libre de f')) return false;
-                }
+                
 
                 return true;
             });
@@ -861,13 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
 
-                    const americanoFilter = document.getElementById('americano-filter');
-                    if (americanoFilter) {
-                        americanoFilter.addEventListener('change', (e) => {
-                            onlyAmericanos = e.target.checked;
-                            renderFilteredCatalog();
-                        });
-                    }
+                    
 
                     // Check initial category boxes based on URL
                     document.querySelectorAll('.cat-checkbox').forEach(chk => {
@@ -888,7 +971,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             renderFilteredCatalog();
                         });
                     });
-                }
+                
+                    document.querySelectorAll('.cond-checkbox').forEach(chk => {
+                        chk.addEventListener('change', (e) => {
+                            if(e.target.checked) selectedConditions.push(e.target.value);
+                            else selectedConditions = selectedConditions.filter(c => c !== e.target.value);
+                            renderFilteredCatalog();
+                        });
+                    });
+
+                    document.querySelectorAll('.color-checkbox').forEach(chk => {
+                        chk.addEventListener('change', (e) => {
+                            if(e.target.checked) selectedColors.push(e.target.value);
+                            else selectedColors = selectedColors.filter(c => c !== e.target.value);
+                            renderFilteredCatalog();
+                        });
+                    });
+                    
+                    // Enforce mobile closed by default programmatically
+                    if(window.innerWidth <= 768) {
+                        document.querySelectorAll('#filters-sidebar details').forEach(d => d.removeAttribute('open'));
+                    }
+}
 
                 // Attach Event Listener to Price Slider
                 
@@ -984,9 +1088,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let starsHtml = '';
                 for(let i=1; i<=5; i++) {
-                    if (i <= Math.floor(avgRating)) starsHtml += '<i class="fa-solid fa-star"></i>';
-                    else if (i - avgRating < 1) starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
-                    else starsHtml += '<i class="fa-regular fa-star"></i>';
+                    if (i <= Math.floor(avgRating)) starsHtml += '';
+                    else if (i - avgRating < 1) starsHtml += '';
+                    else starsHtml += '';
                 }
 
                 singleProductContainer.innerHTML = `
@@ -1011,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h2 style="font-size:2.4rem; font-weight:800; line-height:1.1; margin-bottom:1rem; color: #1d1d1f; letter-spacing:-0.5px;">${prod.name}</h2>
                                 
                                 <div class="product-rating" style="justify-content: flex-start; margin-bottom: 1.5rem; font-size: 1rem; display: flex; gap: 0.2rem; align-items: center; color:#f5c518;">
-                                    ${starsHtml}
+                                    
                                     <span style="margin-left: 0.5rem; color:#555; font-size:0.9rem;">(${avgRating}) - ${numReviews} Reseñas</span>
                                 </div>
                                 
@@ -1334,11 +1438,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const rating = (4 + Math.random()).toFixed(1);
     const starHTML = `
         <div class="stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star${rating < 4.5 ? '-half-stroke' : ''}"></i>
+            
+            
+            
+            
+            
             <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 5px;">(${rating})</span>
         </div>
     `;
@@ -1349,7 +1453,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
                                 <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
                                 <div class="product-rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                    
                                     <span>(4.8)</span>
                                 </div>
                                 <p class="price">${window.formatPrice(Number(prod.price))}</p>
@@ -1457,10 +1561,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const customer_email = document.getElementById('chk-email').value;
             const customer_name = document.getElementById('chk-name').value + ' ' + document.getElementById('chk-lastname').value;
             const city = document.getElementById('chk-city').value;
-            const shipping_address = document.getElementById('chk-address').value + ', ' + city + ' CP: ' + document.getElementById('chk-zip').value;
+            const phone = document.getElementById('chk-phone') ? document.getElementById('chk-phone').value : '';
+            const dni = document.getElementById('chk-dni') ? document.getElementById('chk-dni').value : '';
+            const shipping_address = `Tel: ${phone} - DNI: ${dni} - ${document.getElementById('chk-address').value}, ${city} CP: ${document.getElementById('chk-zip').value}`;
 
             let shipping_cost = 0;
-            const settings = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
+            var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
             const threshold = settings.free_shipping_threshold;
             
             // Calcular total del carrito para saber si aplica envío gratis
@@ -1470,9 +1576,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (city === 'Otra') {
                 const selShip = document.querySelector('input[name="shipping_method"]:checked');
                 if(selShip) {
-                    shipping_cost = selShip.value === 'andreani' 
-                        ? (settings.shipping_andreani || 12000) 
-                        : (settings.shipping_correo || 8500);
+                    
+                    if (selShip.value === 'andreani') shipping_cost = settings.shipping_andreani || 12000;
+                    else if (selShip.value === 'andreani_sucursal') shipping_cost = Math.max(0, (settings.shipping_andreani || 12000) - 3000);
+                    else if (selShip.value === 'correo_sucursal') shipping_cost = Math.max(0, (settings.shipping_correo || 8500) - 2000);
+                    else shipping_cost = settings.shipping_correo || 8500;
+
                     
                     if (isFreeShipping) {
                         shipping_cost = 0;
@@ -1505,14 +1614,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     return acc + (finalPrice * item.quantity);
                 }, 0);
                 const orderTotal = total;
+                const finalShippingCost = (window.currentCoupon && window.currentCoupon.type === 'shipping') ? 0 : shipping_cost;
+                const finalTotalArs = Math.round(orderTotal * window.dolarValue) + finalShippingCost;
                 
                 showToast('Procesando orden...', 'fa-spinner fa-spin');
-
 
                 const response = await fetch(window.API_URL + '/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: (window.currentCoupon && window.currentCoupon.type === 'shipping') ? 0 : shippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null, discount_amount: (window.currentCoupon && window.currentCoupon.type === 'fixed') ? window.currentCoupon.value : ((window.currentCoupon && window.currentCoupon.type === 'percent') ? (total * (window.currentCoupon.value / 100)) : 0), dolar_value: window.dolarValue })
+                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null, discount_amount: (window.currentCoupon && window.currentCoupon.type === 'fixed') ? window.currentCoupon.value : ((window.currentCoupon && window.currentCoupon.type === 'percent') ? (total * (window.currentCoupon.value / 100)) : 0), dolar_value: window.dolarValue })
                 });
 
                 const data = await response.json();
@@ -1521,7 +1631,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (paymentMethod === 'efectivo') {
                         // Generar mensaje de WhatsApp
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.${window.getFullImageUrl(item.img || item.image || item.image_url)}n${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Nombre:* ${customer_name}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Dirección:* ${shipping_address}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Total a pagar:* ${window.formatPrice(orderTotal)}${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.${window.getFullImageUrl(item.img || item.image || item.image_url)}n${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Nombre:* ${customer_name}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Dirección:* ${shipping_address}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Total a pagar:* $${finalTotalArs.toLocaleString('es-AR')}${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
                         if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
                         wpMsg += `${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Productos:*${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
 
@@ -1548,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const mpRes = await fetch(window.API_URL + '/api/mercadopago/preference', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ items: cart, customer_email, total_ars: Math.round(orderTotal * window.dolarValue) })
+                                body: JSON.stringify({ items: cart, customer_email, total_ars: finalTotalArs })
                             });
                             const mpData = await mpRes.json();
                             if (mpData.init_point) {
@@ -1661,7 +1771,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
                 if (res.ok) {
                     showToast('Cuenta creada. Inicia sesión.', 'fa-check');
-                    setTimeout(() => window.location.href = 'login.html', 1500);
+                    
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect');
+                    setTimeout(() => window.location.href = 'login.html' + (redirect ? '?redirect=' + redirect : ''), 1500);
+
                 } else {
                     showToast(data.error, 'fa-triangle-exclamation');
                 }
@@ -2120,6 +2234,34 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
 
         // ==================== CONFIGURACIÓN VISUAL DEL ADMIN (Banners y Carrusel) ====================
         let currentSettings = { top_banner: '', carousel: [], shipping_correo: 8500, shipping_andreani: 12000, free_shipping_threshold: 1500000 };
+            window.renderBannerMessages = () => {
+                const list = document.getElementById('banner-messages-list');
+                if(!list) return;
+                let banners = currentSettings.top_banner;
+                if (!Array.isArray(banners)) {
+                    banners = typeof banners === 'string' && banners.trim() !== '' ? [banners] : [];
+                    currentSettings.top_banner = banners;
+                }
+                list.innerHTML = banners.map((b, i) => `
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" value="${b.replace(/"/g, '&quot;')}" onchange="updateBannerMessage(${i}, this.value)" style="flex:1;">
+                        <button type="button" onclick="removeBannerMessage(${i})" style="background:#ff4757; color:white; border:none; padding:0 15px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+            };
+            window.addBannerMessage = () => {
+                if(!Array.isArray(currentSettings.top_banner)) currentSettings.top_banner = [];
+                currentSettings.top_banner.push('');
+                window.renderBannerMessages();
+            };
+            window.updateBannerMessage = (i, val) => {
+                currentSettings.top_banner[i] = val;
+            };
+            window.removeBannerMessage = (i) => {
+                currentSettings.top_banner.splice(i, 1);
+                window.renderBannerMessages();
+            };
+
 
         
     const waForm = document.getElementById('admin-whatsapp-form');
@@ -2180,9 +2322,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                     const data = await res.json();
                     currentSettings = { ...currentSettings, ...data };
                     
-                    if(document.getElementById('set-banner')) {
-                        document.getElementById('set-banner').value = currentSettings.top_banner || '';
-                    }
+                    window.renderBannerMessages();
                     if(document.getElementById('set-flash-date')) {
                         document.getElementById('set-flash-date').value = currentSettings.flash_end_date || '';
                     }
@@ -2254,7 +2394,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             if(bannerForm) {
                 bannerForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    currentSettings.top_banner = document.getElementById('set-banner').value;
+                    // top_banner ya se actualiza en tiempo real con updateBannerMessage()
                 if(document.getElementById('set-flash-date')) {
                     currentSettings.flash_end_date = document.getElementById('set-flash-date').value;
                 }
@@ -2360,11 +2500,42 @@ async function applyFrontendSettings() {
             costAndreaniEl.innerText = `$${(data.shipping_andreani || 12000).toLocaleString('es-AR')}`;
             costAndreaniEl.dataset.cost = data.shipping_andreani || 12000;
         }
+        
+        const costCorreoSucursalEl = document.getElementById('cost-correo-sucursal');
+        const costAndreaniSucursalEl = document.getElementById('cost-andreani-sucursal');
+        if (costCorreoSucursalEl) {
+            const cost = Math.max(0, (data.shipping_correo || 8500) - 2000);
+            costCorreoSucursalEl.innerText = '$' + cost.toLocaleString('es-AR');
+            costCorreoSucursalEl.dataset.cost = cost;
+        }
+        if (costAndreaniSucursalEl) {
+            const cost = Math.max(0, (data.shipping_andreani || 12000) - 3000);
+            costAndreaniSucursalEl.innerText = '$' + cost.toLocaleString('es-AR');
+            costAndreaniSucursalEl.dataset.cost = cost;
+        }
 
         // Marquee
-        const marqueeSpan = document.querySelector('.top-banner .scrolling-text span');
-        if (marqueeSpan && data.top_banner) {
-            marqueeSpan.innerText = data.top_banner;
+        const topBannerDiv = document.querySelector('.top-banner');
+        if (topBannerDiv) {
+            let banners = data.top_banner;
+            if (!Array.isArray(banners)) {
+                banners = typeof banners === 'string' && banners.trim() !== '' ? [banners] : [];
+            }
+            // Filter out empty strings
+            banners = banners.filter(b => b.trim() !== '');
+            
+            if (banners.length > 0) {
+                topBannerDiv.style.display = 'block';
+                const container = document.querySelector('.top-banner .scrolling-text');
+                if (container) {
+                    // Create enough repetitions for infinite scroll
+                    const contentHtml = banners.map(b => `<span>${b}</span>`).join('');
+                    // Repetimos 4 veces para asegurar que llene toda la pantalla y no se corte
+                    container.innerHTML = contentHtml + contentHtml + contentHtml + contentHtml;
+                }
+            } else {
+                topBannerDiv.style.display = 'none';
+            }
         }
 
         // Carousel Múltiple
@@ -2732,3 +2903,232 @@ setTimeout(() => {
         document.body.appendChild(waBtn);
     }
 }, 1000);
+
+// ==================== DYNAMIC SHIPPING QUOTES ====================
+if (window.location.pathname.includes('checkout.html')) {
+    const btnCotizar = document.getElementById('btn-cotizar');
+    const zipInput = document.getElementById('chk-zip');
+    const container = document.getElementById('shipping-options-container');
+    
+    if (btnCotizar && zipInput && container) {
+        btnCotizar.addEventListener('click', async () => {
+            const zip = zipInput.value.trim();
+            if (!zip) return showToast('Ingresa tu código postal primero', 'fa-triangle-exclamation');
+            
+            btnCotizar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            container.innerHTML = '<div style="color:#555;">Calculando mejores tarifas con Zipnova...</div>';
+            
+            try {
+                const res = await fetch(window.API_URL + '/api/shipping/quote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ zip_code: zip, items: cart })
+                });
+                const data = await res.json();
+                
+                if (data.success && data.options) {
+                    let html = '';
+                    data.options.forEach((opt, idx) => {
+                        html += `
+                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px;">
+                                <input type="radio" name="shipping_method" value="${opt.id}" data-cost="${opt.cost}" data-name="${opt.name}" style="accent-color: var(--text-color);" ${idx === 0 ? 'checked' : ''}>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: bold; color: var(--text-color);">${opt.name}</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Tiempo estimado: ${opt.time}</div>
+                                </div>
+                                <div style="font-weight: bold; color: var(--text-color);">
+                                    ${opt.cost === 0 ? 'Gratis' : window.formatPrice(opt.cost)}
+                                </div>
+                            </label>
+                        `;
+                    });
+                    container.innerHTML = html;
+                    
+                    // Attach event listeners to new radios
+                    document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
+                        radio.addEventListener('change', () => {
+                            if(typeof renderCheckout === 'function') renderCheckout();
+                        });
+                    });
+                    
+                    // Re-render checkout to update total
+                    if(typeof renderCheckout === 'function') renderCheckout();
+                    
+                } else {
+                    container.innerHTML = '<div style="color:red;">Error al cotizar. Intenta nuevamente.</div>';
+                }
+            } catch (e) {
+                container.innerHTML = '<div style="color:red;">Error de conexión.</div>';
+            }
+            btnCotizar.innerHTML = 'Cotizar';
+        });
+    }
+}
+
+
+// ==================== COOKIES BANNER ====================
+window.addEventListener('DOMContentLoaded', () => {
+    if (!localStorage.getItem('cookies_accepted')) {
+        const cookieBanner = document.createElement('div');
+        cookieBanner.innerHTML = `
+            <div id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 600px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.15); padding: 20px; border-radius: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; font-size: 0.9rem; color: var(--text-color); transform: translateY(150%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <i class="fa-solid fa-cookie-bite" style="font-size: 2rem; color: #d35400;"></i>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 5px 0; font-size: 1rem;">Usamos Cookies 🍪</h4>
+                        <p style="margin: 0; color: var(--text-muted); line-height: 1.4;">Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <a href="terminos.html" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center;">Ver Políticas</a>
+                    <button id="accept-cookies" style="background: var(--text-color); color: var(--bg-color); border: none; padding: 8px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">Entendido</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(cookieBanner);
+        
+        setTimeout(() => {
+            document.getElementById('cookie-banner').style.transform = 'translateY(0)';
+        }, 1500);
+        
+        document.getElementById('accept-cookies').addEventListener('click', () => {
+            localStorage.setItem('cookies_accepted', 'true');
+            document.getElementById('cookie-banner').style.transform = 'translateY(150%)';
+            setTimeout(() => {
+                document.getElementById('cookie-banner').remove();
+            }, 600);
+        });
+    }
+});
+// ========================================================
+
+
+// ==================== REGISTRATION LOGIC WITH CAPTCHA & CONFIRM ====================
+let isHuman = false;
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Captcha Logic
+    const slider = document.getElementById('captcha-slider');
+    const container = document.getElementById('captcha-container');
+    const bg = document.getElementById('captcha-bg');
+    const text = document.getElementById('captcha-text');
+    
+    if (slider && container) {
+        let isDragging = false;
+        let startX = 0;
+        let maxDrag = container.offsetWidth - slider.offsetWidth - 10; // 10px padding
+        
+        slider.addEventListener('mousedown', (e) => {
+            if(isHuman) return;
+            isDragging = true;
+            startX = e.clientX || e.touches?.[0].clientX;
+        });
+        
+        slider.addEventListener('touchstart', (e) => {
+            if(isHuman) return;
+            isDragging = true;
+            startX = e.touches[0].clientX;
+        });
+
+        const onMove = (clientX) => {
+            if (!isDragging) return;
+            let diff = clientX - startX;
+            if (diff < 0) diff = 0;
+            if (diff > maxDrag) diff = maxDrag;
+            
+            slider.style.left = (diff + 5) + 'px';
+            bg.style.width = (diff + 20) + 'px';
+            
+            if (diff >= maxDrag - 5) {
+                // Success
+                isDragging = false;
+                isHuman = true;
+                slider.innerHTML = '<i class="fa-solid fa-check" style="color: #00a650;"></i>';
+                text.innerHTML = '<span style="color: white; font-weight: bold; position:relative; z-index: 3;">¡Verificado!</span>';
+                bg.style.width = '100%';
+            }
+        };
+
+        window.addEventListener('mousemove', (e) => onMove(e.clientX));
+        window.addEventListener('touchmove', (e) => onMove(e.touches?.[0].clientX));
+
+        const onUp = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (!isHuman) {
+                slider.style.left = '5px';
+                bg.style.width = '0';
+            }
+        };
+
+        window.addEventListener('mouseup', onUp);
+        window.addEventListener('touchend', onUp);
+    }
+});
+
+
+// ==================== GOOGLE LOGIN ====================
+window.handleGoogleLogin = () => {
+    // Para que funcione con un botón personalizado, usamos el flujo implícito
+    // pero como GIS restringe los botones personalizados para ID tokens, usamos una API estándar o el One Tap.
+    // Usaremos google.accounts.oauth2.initTokenClient para obtener el perfil de forma segura
+    
+    if (typeof google === 'undefined') {
+        return showToast('Google no está cargado. Revisa tu conexión.', 'fa-triangle-exclamation');
+    }
+    
+    const client = google.accounts.oauth2.initTokenClient({
+        client_id: '31583713582-ur3n2o5b9or6anv24mac34e69r35bauu.apps.googleusercontent.com',
+        scope: 'email profile',
+        callback: async (response) => {
+            if (response.error) {
+                console.error(response);
+                return showToast('Error al conectar con Google', 'fa-triangle-exclamation');
+            }
+            
+            showToast('Conectando con el servidor...', 'fa-spinner fa-spin');
+            
+            try {
+                // Enviar token al backend
+                const res = await fetch(window.API_URL + '/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ access_token: response.access_token })
+                });
+                
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
+                    showToast('¡Ingreso exitoso!', 'fa-check');
+                    
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect');
+                    setTimeout(() => {
+                        if (redirect) window.location.href = redirect;
+                        else window.location.href = data.role === 'admin' ? 'admin.html' : 'perfil.html';
+                    }, 1500);
+
+                } else {
+                    showToast(data.error || 'Error en el servidor', 'fa-triangle-exclamation');
+                }
+            } catch (err) {
+                showToast('Error de conexión', 'fa-triangle-exclamation');
+            }
+        },
+    });
+    client.requestAccessToken();
+};
+
+
+// Preserve Auth Redirect params
+window.addEventListener('DOMContentLoaded', () => {
+    const authLink = document.getElementById('auth-switch-link');
+    if (authLink) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        if (redirect) {
+            authLink.href = authLink.getAttribute('href') + '?redirect=' + redirect;
+        }
+    }
+});
