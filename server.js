@@ -75,16 +75,16 @@ if (supabaseUrl === 'https://placeholder.supabase.co') {
 
 // Configuración Email
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp-relay.brevo.com',
     port: 587,
-    secure: false, // Use TLS
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
-    connectionTimeout: 5000,
-    greetingTimeout: 5000,
-    socketTimeout: 5000
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000
 });
 
 // Middleware de autenticación propio
@@ -95,7 +95,7 @@ const sendEmail = async (to, subject, html) => {
         new Promise(async (resolve, reject) => {
             try {
                 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-                    return reject(new Error('Faltan configurar EMAIL_USER y EMAIL_PASS en Railway'));
+                    return reject(new Error('Faltan configurar las credenciales de Brevo en Railway (EMAIL_USER y EMAIL_PASS)'));
                 }
                 await transporter.sendMail({
                     from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
@@ -132,6 +132,24 @@ const isAdmin = (req, res, next) => {
 };
 
 // --- RUTAS DE USUARIOS ---
+
+
+app.get('/api/test-email', async (req, res) => {
+    try {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            return res.json({ success: false, error: 'Faltan credenciales en Railway' });
+        }
+        const info = await transporter.sendMail({
+            from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
+            to: process.env.EMAIL_USER,
+            subject: 'Test de Diagnóstico Nodemailer',
+            text: 'Si llega esto, el puerto SMTP está abierto en Railway.'
+        });
+        res.json({ success: true, info });
+    } catch (err) {
+        res.json({ success: false, error: err.message, stack: err.stack, code: err.code, syscall: err.syscall });
+    }
+});
 
 app.get('/api/version', (req, res) => {
     res.json({ version: '1.0.5', status: 'El servidor está corriendo el código más nuevo con la doble verificación.' });
