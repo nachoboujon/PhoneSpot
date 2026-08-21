@@ -44,8 +44,12 @@ app.use(express.static('public'));
 
 // Crear carpeta uploads si no existe
 const uploadDir = path.join(__dirname, 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
+try {
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+} catch (e) {
+    console.log('Read-only file system (Vercel). Uploads directory not created.');
 }
 
 // Configuración de multer (motor para guardar archivos locales)
@@ -579,6 +583,10 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+    // Railway, Local, or VPS: Start the server on 0.0.0.0 so it's accessible externally
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+}
+module.exports = app;
