@@ -1,4 +1,19 @@
 window.phoneSpotSettings = window.phoneSpotSettings || {};
+
+// ==================== CONFIGURACIÓN DE API ====================
+// Cambia 'http://localhost:3000' por la URL de tu servidor en producción (ej. 'https://tu-backend.onrender.com')
+window.API_URL = 'http://localhost:3000';
+// ==============================================================
+
+
+// ==================== IMAGE HELPER ====================
+window.getFullImageUrl = (url) => {
+    if (!url) return null;
+    if (url.startsWith('http')) return url;
+    return window.API_URL + url;
+};
+// ======================================================
+
 // ==================== DOLAR BLUE ====================
 window.dolarValue = 1400; // Fallback
 window.dolarPromise = fetch('https://dolarapi.com/v1/dolares/blue')
@@ -30,7 +45,10 @@ function showToast(message, icon = 'fa-circle-check') {
 let cart = [];
 try {
     const rawCart = localStorage.getItem('phoneSpotCart');
-    if (rawCart) cart = JSON.parse(rawCart) || [];
+    if (rawCart) {
+        cart = JSON.parse(rawCart) || [];
+        cart = cart.filter(item => item.price && !isNaN(item.price));
+    }
 } catch(e) {
     console.error('Cart parse error, resetting', e);
     localStorage.removeItem('phoneSpotCart');
@@ -51,6 +69,16 @@ function updateCartCount() {
 
 function addToCart(product) {
     const existingItem = cart.find(item => item.id === product.id && item.variant_name === product.variant_name);
+    
+    // Check max stock if available
+    const maxStock = product.maxStock !== undefined ? product.maxStock : Infinity;
+    const currentQty = existingItem ? existingItem.quantity : 0;
+    
+    if (currentQty + 1 > maxStock) {
+        showToast('No hay más stock disponible de este producto', 'fa-triangle-exclamation');
+        return;
+    }
+
     if(existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -65,17 +93,22 @@ function addToCart(product) {
     }
 }
 
-function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
+function removeFromCart(id, variant_name = '') {
+    cart = cart.filter(item => !(item.id === id && String(item.variant_name || '') === String(decodeURIComponent(variant_name || ''))));
     saveCart();
     renderCart(); // Solo ítil si estámás en carrito.html
     if (typeof renderSideCart === 'function') renderSideCart();
 }
 
-function changeQuantity(id, newQuantity) {
+function changeQuantity(id, newQuantity, variant_name = '') {
     if (newQuantity < 1) return;
-    const item = cart.find(item => item.id === id);
+    const item = cart.find(item => item.id === id && String(item.variant_name || '') === String(decodeURIComponent(variant_name || '')));
     if (item) {
+        const max = item.maxStock !== undefined ? item.maxStock : Infinity;
+        if (newQuantity > max) {
+            showToast('Límite de stock alcanzado', 'fa-triangle-exclamation');
+            return;
+        }
         item.quantity = newQuantity;
         saveCart();
         renderCart();
@@ -84,21 +117,6 @@ function changeQuantity(id, newQuantity) {
 }
 
 async function renderSideCart() { 
-    const drawSkeletons = (container, count) => {
-        if (!container) return;
-        container.innerHTML = Array(count).fill(`
-            <div class="skeleton-card">
-                <div class="skeleton-img"></div>
-                <div class="skeleton-title"></div>
-                <div class="skeleton-title" style="width: 50%;"></div>
-                <div class="skeleton-price"></div>
-                <div class="skeleton-btn"></div>
-            </div>
-        `).join('');
-    };
-    if (catalogContainer) drawSkeletons(catalogContainer, 8);
-    if (offersContainer) drawSkeletons(offersContainer, 4);
-
         await window.dolarPromise; 
     const sideContainer = document.getElementById('side-cart-items');
     const sideTotal = document.getElementById('side-cart-total');
@@ -110,8 +128,11 @@ async function renderSideCart() {
     // MAYORISTA LOGIC
     let totalQuantity = 0;
     cart.forEach(item => totalQuantity += item.quantity);
-    const isWholesale = totalQuantity >= 3;
-    const wholesaleDiscount = 5;
+    let wholesaleDiscount = 0;
+        if (totalQuantity >= 10) wholesaleDiscount = 10;
+        else if (totalQuantity >= 5) wholesaleDiscount = 7;
+        else if (totalQuantity >= 3) wholesaleDiscount = 5;
+        const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
         sideContainer.innerHTML = `
@@ -147,34 +168,46 @@ async function renderSideCart() {
                 </div>
                 <div style="display:flex; flex-direction:column; align-items:flex-end;">
                     <div style="display:flex; align-items:center; gap:0.5rem; background:#eee; border-radius:4px; padding:0.1rem;">
-                        <button onclick="changeQuantity('${item.id}', ${item.quantity - 1})" style="border:none; background:none; cursor:pointer; width:20px;">-</button>
+                        <button onclick="changeQuantity('${item.id}', ${item.quantity - 1}, '${encodeURIComponent(item.variant_name || String())}')" style="border:none; background:none; cursor:pointer; width:20px;">-</button>
                         <span style="font-size:0.8rem; font-weight:bold;">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.id}', ${item.quantity + 1})" style="border:none; background:none; cursor:pointer; width:20px;">+</button>
+                        <button onclick="changeQuantity('${item.id}', ${item.quantity + 1}, '${encodeURIComponent(item.variant_name || String())}')" style="border:none; background:none; cursor:pointer; width:20px;">+</button>
                     </div>
-                    <span class="side-cart-remove" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash"></i> Quitar</span>
+                    <span class="side-cart-remove" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-trash"></i> Quitar</span>
                 </div>
             </div>
         `;
     });
     
-    // Inject wholesale banner above total
+    
+    
     let bannerHtml = '';
-    if (isWholesale) {
-        bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 10px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista aplicado! (-$5 USD c/u)
+    
+    let nextTierQty = 3;
+    let nextTierDiscount = 5;
+    if (totalQuantity >= 10) { nextTierQty = 0; }
+    else if (totalQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
+    else if (totalQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
+
+    if (totalQuantity >= 10) {
+        bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado! (-${wholesaleDiscount} USD c/u)
+                      </div>`;
+    } else if (isWholesale) {
+        const remaining = nextTierQty - totalQuantity;
+        bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Activo! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.75rem; color:#d35400;">(Agrega ${remaining} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
         const remaining = 3 - totalQuantity;
-        bannerHtml = `<div id="wholesale-banner-side" style="background:#fff3e0; color:#e65100; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 10px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para activar Precio Mayorista (-$5 USD c/u)
+        bannerHtml = `<div id="wholesale-banner-side" style="background:#fff3e0; color:#e65100; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px; border: 1px dashed #ffb74d;">
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para activar Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
-    
-    // Remove old banner to avoid duplicates
-    const oldBanner = document.getElementById('wholesale-banner-side');
-    if (oldBanner) oldBanner.remove();
-    
-    sideContainer.insertAdjacentHTML('afterend', bannerHtml);
+
+    // Insert banner at the TOP of the items list
+    sideContainer.innerHTML = bannerHtml + sideContainer.innerHTML;
+
     
     sideTotal.innerText = `${window.formatPrice(total)}`;
 
@@ -192,7 +225,7 @@ async function renderSideCart() {
         } else {
             const missing = threshold - total;
             const pct = Math.min((total / threshold) * 100, 100);
-            fsText.innerHTML = `Te faltan <strong>$${window.formatPrice(missing)}</strong> para Envío Gratis`;
+            fsText.innerHTML = `Te faltan <strong>${window.formatPrice(missing)}</strong> para Envío Gratis`;
             fsBar.style.width = `${pct}%`;
             fsBar.style.background = '#f39c12';
         }
@@ -214,8 +247,11 @@ async function renderCart() { await window.dolarPromise;
     // MAYORISTA LOGIC
     let totalQuantity = 0;
     cart.forEach(item => totalQuantity += item.quantity);
-    const isWholesale = totalQuantity >= 3;
-    const wholesaleDiscount = 5;
+    let wholesaleDiscount = 0;
+        if (totalQuantity >= 10) wholesaleDiscount = 10;
+        else if (totalQuantity >= 5) wholesaleDiscount = 7;
+        else if (totalQuantity >= 3) wholesaleDiscount = 5;
+        const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p style="text-align:center; color: var(--text-muted);">Tu carrito está vacío.</p>';
@@ -223,15 +259,28 @@ async function renderCart() { await window.dolarPromise;
         return;
     }
 
+    
     // Wholesale banner injection
-    if (isWholesale) {
+    let nextTierQty = 3;
+    let nextTierDiscount = 5;
+    if (totalQuantity >= 10) { nextTierQty = 0; }
+    else if (totalQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
+    else if (totalQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
+
+    if (totalQuantity >= 10) {
         cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:1rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista activado! Estás ahorrando $5 USD por cada equipo.
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado! (-${wholesaleDiscount} USD c/u)
+                      </div>`;
+    } else if (isWholesale) {
+        const remaining = nextTierQty - totalQuantity;
+        cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:0.95rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Activo! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.85rem; color:#d35400;">(Agrega ${remaining} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
         const remaining = 3 - totalQuantity;
-        cartItemsContainer.innerHTML += `<div style="background:#fff3e0; color:#e65100; padding: 15px; text-align:center; font-size:1rem; font-weight:bold; border-radius:8px; margin-bottom: 20px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más a tu pedido para desbloquear el Precio Mayorista (-$5 USD c/u)
+        cartItemsContainer.innerHTML += `<div style="background:#fff3e0; color:#e65100; padding: 15px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 20px; border: 1px dashed #ffb74d;">
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más a tu pedido para desbloquear el Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
 
@@ -250,14 +299,14 @@ async function renderCart() { await window.dolarPromise;
                 ${isWholesale ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
                 <div class="item-quantity" style="margin-top: 5px;">
                     <span>Cantidad:</span>
-                    <input type="number" value="${item.quantity}" min="1" onchange="changeQuantity('${item.id}', parseInt(this.value))">
+                    <input type="number" value="${item.quantity}" min="1" onchange="changeQuantity('${item.id}', parseInt(this.value), '${encodeURIComponent(item.variant_name || String())}')">
                 </div>
             </div>
             <div class="item-price" style="display:flex; flex-direction:column; align-items:flex-end;">
                 <strong style="font-size: 1.2rem; color: var(--text-color);">${window.formatPrice(finalPrice * item.quantity)}</strong>
-                ${isWholesale ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -$5 USD aplicado )</span>` : ''}
+                ${isWholesale ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -${wholesaleDiscount} USD aplicado )</span>` : ''}
             </div>
-            <button onclick="removeFromCart('${item.id}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <button onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
         `;
         cartItemsContainer.appendChild(itemDiv);
     });
@@ -278,8 +327,11 @@ async function renderCheckout() { await window.dolarPromise;
     // MAYORISTA LOGIC
     let totalQuantity = 0;
     cart.forEach(item => totalQuantity += item.quantity);
-    const isWholesale = totalQuantity >= 3;
-    const wholesaleDiscount = 5;
+    let wholesaleDiscount = 0;
+        if (totalQuantity >= 10) wholesaleDiscount = 10;
+        else if (totalQuantity >= 5) wholesaleDiscount = 7;
+        else if (totalQuantity >= 3) wholesaleDiscount = 5;
+        const isWholesale = wholesaleDiscount > 0;
     
     if (isWholesale) {
         checkoutItems.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
@@ -315,6 +367,9 @@ async function renderCheckout() { await window.dolarPromise;
     const isFreeShipping = threshold > 0 && total >= threshold;
 
     const citySelect = document.getElementById('chk-city');
+    const zipInput = document.getElementById('chk-zip');
+    const userZip = zipInput ? zipInput.value.trim() : '';
+    
     if (citySelect && citySelect.value === 'Otra') {
         const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
         if (selectedShipping) {
@@ -322,7 +377,10 @@ async function renderCheckout() { await window.dolarPromise;
                 ? (settings.shipping_andreani || 12000) 
                 : (settings.shipping_correo || 8500);
             
-            if (isFreeShipping) {
+            // Envío local sin cargo
+            if (userZip === '3283' || userZip === '3280') {
+                shippingCost = 0;
+            } else if (isFreeShipping) {
                 shippingCost = 0;
             }
             
@@ -383,9 +441,24 @@ async function loadProductsFromDB() {
     
     if (!catalogContainer && !offersContainer) return;
 
+        const drawSkeletons = (container, count) => {
+        if (!container) return;
+        container.innerHTML = Array(count).fill(`
+            <div class="skeleton-card">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-title"></div>
+                <div class="skeleton-title" style="width: 50%;"></div>
+                <div class="skeleton-price"></div>
+                <div class="skeleton-btn"></div>
+            </div>
+        `).join('');
+    };
+    if (catalogContainer) drawSkeletons(catalogContainer, 8);
+    if (offersContainer) drawSkeletons(offersContainer, 4);
+    
     try {
         await window.dolarPromise;
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch(window.API_URL + '/api/products');
         let products = await response.json();
 
         if (!response.ok) throw new Error(products.error || 'Error al cargar productos');
@@ -412,11 +485,11 @@ async function loadProductsFromDB() {
 
             const priceFormatted = `${window.formatPrice(parseFloat(prod.price))}`;
             const oldPrice = parseFloat(prod.price) * 1.2; 
-            const image = prod.image_url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';
+            const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';
 
             const cardHTML = `
-                <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}">
-                    ${prod.is_offer ? `<div class="badge">OFERTA</div>` : ''}
+                <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
+                    ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                     <a href="producto.html?id=${prod.id}">
                         <img src="${image}" alt="${prod.name}">
                     </a>
@@ -429,9 +502,9 @@ async function loadProductsFromDB() {
                         ${prod.is_offer ? `<span class="old-price">$${oldPrice.toFixed(0)}</span>` : ''}
                         ${priceFormatted}
                     </p>
-                    <a href="#" class="btn btn-block add-to-cart-btn">
-                        ${prod.is_offer ? 'Aprovechar Oferta' : 'Añadir al carrito'}
-                    </a>
+                    <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : ''}>
+                        ${prod.stock <= 0 ? 'Sin Stock' : (prod.is_offer ? 'Aprovechar Oferta' : 'Añadir al carrito')}
+                    </button>
                 </div>
             `;
 
@@ -443,6 +516,7 @@ async function loadProductsFromDB() {
                 catalogCount++;
             }
         });
+        if (window.initFadeObserver) window.initFadeObserver();
 
         // Si después de todo no hay ofertas, mostrar mensaje
         if(offersCount === 0 && offersContainer) {
@@ -453,6 +527,34 @@ async function loadProductsFromDB() {
         showToast('Error al conectar con la base de datos. Verifica que server.js está corriendo.', 'fa-triangle-exclamation');
     }
 }
+
+
+window.getColorHex = (colorName) => {
+    const name = colorName.toLowerCase().trim();
+    if (name.includes('negro') || name.includes('black') || name.includes('oscuro')) return '#1e1e1e';
+    if (name.includes('blanco') || name.includes('white') || name.includes('claro')) return '#f9f6ef';
+    if (name.includes('plata') || name.includes('silver')) return '#e3e4e6';
+    if (name.includes('gris') || name.includes('grey') || name.includes('gray')) return '#737373';
+    if (name.includes('azul') || name.includes('blue')) return '#215e7c';
+    if (name.includes('rojo') || name.includes('red')) return '#a50011';
+    if (name.includes('rosa') || name.includes('pink')) return '#fcdbce';
+    if (name.includes('oro') || name.includes('gold') || name.includes('dorado')) return '#f6e2ce';
+    if (name.includes('titanio natural')) return '#b5b3a9';
+    if (name.includes('titanio azul')) return '#383b40';
+    if (name.includes('titanio blanco')) return '#e3e4e6';
+    if (name.includes('titanio negro')) return '#222324';
+    if (name.includes('verde') || name.includes('green')) return '#d0d9d2';
+    if (name.includes('amarillo') || name.includes('yellow')) return '#fce473';
+    if (name.includes('violeta') || name.includes('purple')) return '#d5c7d9';
+    
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+    return '#' + '00000'.substring(0, 6 - c.length) + c;
+};
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -468,16 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartCount();
 
-    // Inyectar Botón Flotante de WhatsApp Global
-    if (!document.getElementById('wa-float-btn')) {
-        const waBtn = document.createElement('a');
-        waBtn.id = 'wa-float-btn';
-        waBtn.href = 'https://wa.me/5493447416011'; // Reemplazar
-        waBtn.className = 'whatsapp-float';
-        waBtn.target = '_blank';
-        waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
-        document.body.appendChild(waBtn);
-    }
+    
 
     // Inyectar Side-Cart Global
     if (!document.getElementById('side-cart')) {
@@ -573,27 +666,62 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const id = card.dataset.id;
             let name = card.querySelector('h4, h2').innerText.split('.')[0]; 
-            const priceStr = card.querySelector('.price').innerText.replace('$', '').split(' ').pop();
-            const price = parseFloat(priceStr);
+            const price = parseFloat(card.dataset.price);
 
             // Verificar si hay una variante seleccionada
             let selectedVariant = '';
+            
+            const activeColor = card.querySelector('.var-btn.active[data-type="color"]');
+            const activeCap = card.querySelector('.var-btn.active[data-type="capacity"]');
+            const activeRam = card.querySelector('.var-btn.active[data-type="ram"]');
+
             const selColorBtn = card.querySelector('.variant-color-btn.selected');
             const selCapBtn = card.querySelector('.variant-cap-btn.selected');
             const selRamBtn = card.querySelector('.variant-ram-btn.selected');
             
-            if (selColorBtn || selCapBtn || selRamBtn) {
-                const color = selColorBtn ? selColorBtn.dataset.color : '';
-                const cap = selCapBtn ? selCapBtn.dataset.cap : '';
-                const ram = selRamBtn ? selRamBtn.dataset.ram : '';
+            let color = '', cap = '', ram = '';
+
+            if (activeColor || activeCap || activeRam) {
+                color = activeColor ? activeColor.dataset.val : '';
+                cap = activeCap ? activeCap.dataset.val : '';
+                ram = activeRam ? activeRam.dataset.val : '';
+            } else if (selColorBtn || selCapBtn || selRamBtn) {
+                color = selColorBtn ? selColorBtn.dataset.color : '';
+                cap = selCapBtn ? selCapBtn.dataset.cap : '';
+                ram = selRamBtn ? selRamBtn.dataset.ram : '';
+            }
+            
+            if (color || cap || ram) {
                 selectedVariant = [color, cap, ram].filter(Boolean).join(' - ');
+                // No modificar name, dejamos que el carrito maneje variant_name visualmente
+                // O si preferimos: name = `${name} (${selectedVariant})`;
+                // Lo mantenemos como estaba:
                 name = `${name} (${selectedVariant})`; 
             }
             
             let imgEl = card.querySelector('img:not([style*="display:none"])') || card.querySelector('img');
             const img = imgEl ? imgEl.src : '';
+            
+            // Evaluar stock máximo
+            let maxStock = 1; // Fallback
+            try {
+                if (card.dataset.stockInfo) {
+                    const info = JSON.parse(unescape(card.dataset.stockInfo));
+                    if (selectedVariant && info.variants && info.variants.length > 0) {
+                        const v = info.variants.find(vx => {
+                            const vName = [vx.color, vx.capacity, vx.ram].filter(Boolean).join(' - ');
+                            return vName === selectedVariant;
+                        });
+                        maxStock = v ? v.stock : 0;
+                    } else {
+                        maxStock = info.stock;
+                    }
+                }
+            } catch(e) {
+                console.error('Error parsing stock info', e);
+            }
 
-            addToCart({id, name, price, img, variant_name: selectedVariant || null});
+            addToCart({id, name, price, img, variant_name: selectedVariant || null, maxStock});
         }
     });
 
@@ -665,7 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             filtered.forEach(prod => {
-                const image = prod.image_url || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
+                const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                 const hasOffer = prod.old_price && Number(prod.old_price) > Number(prod.price);
                 const discount = hasOffer ? Math.round((1 - (Number(prod.price)/Number(prod.old_price))) * 100) : 0;
                 
@@ -675,8 +803,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="window.toggleFavorite('${prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
 
                 const cardHTML = `
-                    <div class="product-card" data-id="${prod.id}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
-                        ${hasOffer ? `<span class="badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${discount}%</span>` : ''}
+                    <div class="product-card" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                        ${prod.stock <= 0 ? `<span class="badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (hasOffer ? `<span class="badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${discount}%</span>` : '')}
                         
                         ${favIcon}
 
@@ -691,16 +819,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
                         
-                        <button onclick="
-                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
-                            const existing = cart.find(i => i.id == '${prod.id}');
-                            if(existing) existing.quantity++;
-                            else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
-                            localStorage.setItem('phoneSpotCart', JSON.stringify(cart));
-                            if(window.updateCartCount) window.updateCartCount();
-                            showToast('Añadido al carrito', 'fa-cart-plus');
-                        " class="btn btn-block" style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#111'" onmouseout="this.style.background='#555555'">
-                            <i class="fa-solid fa-cart-shopping"></i> Agregar al Carrito
+                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
+                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
                     </div>
                 `;
@@ -708,7 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
-        window.dolarPromise.then(() => fetch('http://localhost:3000/api/products')).then(res => res.json())
+        window.dolarPromise.then(() => fetch(window.API_URL + '/api/products')).then(res => res.json())
             .then(products => {
                 allCatalogProducts = products;
 
@@ -797,8 +917,8 @@ document.addEventListener('DOMContentLoaded', () => {
             singleProductContainer.innerHTML = '<p style="color:#ff4757; font-size:1.2rem;">Producto no encontrado (Falta ID).</p>';
         } else {
             Promise.all([
-                fetch(`http://localhost:3000/api/products/${productId}`).then(r => r.json()),
-                fetch(`http://localhost:3000/api/reviews/${productId}`).then(r => r.json()).catch(() => [])
+                fetch(`${window.API_URL}/api/products/${productId}`).then(r => r.json()),
+                fetch(`${window.API_URL}/api/reviews/${productId}`).then(r => r.json()).catch(() => [])
             ]).then(([prod, reviews]) => {
                 if (prod.error) {
                     singleProductContainer.innerHTML = `<p style="color:#ff4757; font-size:1.2rem;">${prod.error}</p>`;
@@ -806,9 +926,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 document.title = `${prod.name} | PhoneSpot`;
-                const image = prod.image_url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
+                const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const isOutOfStock = prod.stock <= 0;
-                const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">$${window.formatPrice(prod.price * 1.2)}</p>` : '';
+                const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : '';
 
                 let variantsHTML = '';
                 let hasVariants = prod.variants && prod.variants.length > 0;
@@ -818,32 +938,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
                     
                     variantsHTML = `
-                        <div style="margin-bottom:1.5rem;" id="variant-selector">
+                        <style>
+                            .var-btn:hover { border-color: #999 !important; }
+                            .var-btn.active { border-color: #0071e3 !important; }
+                        </style>
+                        <div style="margin-bottom:2rem; border-top: 1px solid #eee; padding-top: 2rem;" id="variant-selector">
                             ${uniqueColors.length > 0 ? `
-                            <div style="margin-bottom:1rem;">
-                                <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">Color:</h4>
-                                <div style="display:flex; gap:0.5rem;" id="color-opts">
-                                    ${uniqueColors.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="color" data-val="${c}" style="padding:0.3rem 0.8rem; border: 1px solid var(--border-color); border-radius:4px; cursor:pointer;">${c}</button>`).join('')}
+                            <div style="margin-bottom:2rem;">
+                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Color - <span id="selected-color-name" style="color: #666; font-weight: 500;">${uniqueColors[0]}</span></h4>
+                                <div style="display:flex; flex-wrap:wrap; gap:12px;" id="color-opts">
+                                    ${uniqueColors.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" onclick="document.getElementById(\'selected-color-name\').innerText=\'${c}\';" style="width:42px; height:42px; border-radius:50%; padding:3px; background:transparent; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; cursor:pointer; transition:all 0.2s ease; display:flex; align-items:center; justify-content:center;"><div style="width:100%; height:100%; border-radius:50%; background:${window.getColorHex(c)}; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);"></div></button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
+
                             ${uniqueCaps.length > 0 ? `
-                            <div style="margin-bottom:1rem;">
-                                <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">Capacidad:</h4>
-                                <div style="display:flex; gap:0.5rem;" id="cap-opts">
-                                    ${uniqueCaps.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${c}" style="padding:0.3rem 0.8rem; border: 1px solid var(--border-color); border-radius:4px; cursor:pointer;">${c}</button>`).join('')}
+                            <div style="margin-bottom:2rem;">
+                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Almacenamiento</h4>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="cap-opts">
+                                    ${uniqueCaps.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${c}" style="padding:22px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:18px; font-weight:700; font-size:1.1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
+
                             ${uniqueRams.length > 0 ? `
-                            <div style="margin-bottom:1rem;">
-                                <h4 style="font-size:0.9rem; margin-bottom:0.5rem;">RAM:</h4>
-                                <div style="display:flex; gap:0.5rem;" id="ram-opts">
-                                    ${uniqueRams.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${c}" style="padding:0.3rem 0.8rem; border: 1px solid var(--border-color); border-radius:4px; cursor:pointer;">${c}</button>`).join('')}
+                            <div style="margin-bottom:2rem;">
+                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Memoria RAM</h4>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="ram-opts">
+                                    ${uniqueRams.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${c}" style="padding:22px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:18px; font-weight:700; font-size:1.1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
-                            <p id="variant-stock-msg" style="font-size:0.85rem; color:#555555; font-weight:bold;"></p>
+                            
+                            <p id="variant-stock-msg" style="font-size:0.95rem; margin-top:0.5rem; font-weight:bold;"></p>
                         </div>
                     `;
                 }
@@ -863,165 +990,284 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 singleProductContainer.innerHTML = `
-                    <div style="width: 100%;">
-                        <div class="product-details" data-id="${prod.id}" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; max-width:1000px; margin:0 auto; padding:2rem;">
-                            <div class="product-gallery">
-                                ${prod.is_offer ? `<div class="badge" style="position:absolute; background:#ff4757; color:white; padding:0.5rem 1rem; font-weight:bold; border-radius:4px;">OFERTA</div>` : ''}
-                                <div style="position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                                    <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:100%; display:block; transition: transform 0.3s; cursor: zoom-in;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
+                    <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
+                        <div class="product-details" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="display:grid; grid-template-columns:1fr 1.1fr; gap:3rem; max-width:1100px; margin:0 auto; padding:2.5rem; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06);">
+                            <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem;">
+                                <div style="position: relative; overflow: hidden; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+                                    ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
+                                    <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
                                 </div>
-                                <div class="gallery-thumbnails">
-                                    <img src="${image}" class="gallery-thumb active" onclick="document.getElementById('main-product-img').src=this.src; document.querySelectorAll('.gallery-thumb').forEach(e=>e.classList.remove('active')); this.classList.add('active');">
-                                    <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80" class="gallery-thumb" onclick="document.getElementById('main-product-img').src=this.src; document.querySelectorAll('.gallery-thumb').forEach(e=>e.classList.remove('active')); this.classList.add('active');" title="Vista Trasera">
-                                    <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=600&q=80" class="gallery-thumb" onclick="document.getElementById('main-product-img').src=this.src; document.querySelectorAll('.gallery-thumb').forEach(e=>e.classList.remove('active')); this.classList.add('active');" title="Vista Lateral">
+                                <div class="gallery-thumbnails" style="display: flex; gap: 10px; justify-content: center;">
+                                    <img src="${image}" class="gallery-thumb active" style="width:70px; height:70px; object-fit:contain; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid #000;" onclick="document.getElementById('main-product-img').src=this.src;">
                                 </div>
                             </div>
-                            <div class="product-info" style="display:flex; flex-direction:column; justify-content:center;">
-                                <p style="color: var(--text-muted); font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem;">${prod.brand} | ${prod.category}</p>
-                                <h2 style="font-size:2.5rem; margin-bottom:0.5rem; color: var(--text-color);">${prod.name}</h2>
-                                <div class="product-rating" style="justify-content: flex-start; margin-bottom: 1rem; font-size: 1.1rem; display: flex; gap: 0.2rem; align-items: center;">
-                                    ${starsHtml}
-                                    <span style="margin-left: 0.5rem;">(${avgRating}) - ${numReviews} Reseñas</span>
+                            
+                            <div class="product-info" style="display:flex; flex-direction:column; justify-content:flex-start;">
+                                <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 0.8rem;">
+                                    <span style="background: #e3e3e3; color: #333; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">${prod.brand}</span>
+                                    <span style="color: var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">${prod.category}</span>
                                 </div>
-                                ${oldPrice}
-                                <p class="price" style="font-size:2rem; font-weight:bold; color: var(--text-color); margin-bottom:1.5rem;">$${window.formatPrice(Number(prod.price))}</p>
                                 
+                                <h2 style="font-size:2.4rem; font-weight:800; line-height:1.1; margin-bottom:1rem; color: #1d1d1f; letter-spacing:-0.5px;">${prod.name}</h2>
+                                
+                                <div class="product-rating" style="justify-content: flex-start; margin-bottom: 1.5rem; font-size: 1rem; display: flex; gap: 0.2rem; align-items: center; color:#f5c518;">
+                                    ${starsHtml}
+                                    <span style="margin-left: 0.5rem; color:#555; font-size:0.9rem;">(${avgRating}) - ${numReviews} Reseñas</span>
+                                </div>
+                                
+                                
+                                
+                                <div style="margin-bottom:1.5rem;">
+                                    ${!hasVariants ? `<p style="font-size:0.95rem; font-weight:bold; color: ${prod.stock > 0 ? '#2ecc71' : '#ff4757'};"><i class="fa-solid ${prod.stock > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock'}</p>` : ''}
+                                </div>
+
                                 ${variantsHTML}
 
-                                <!-- Calculador de Envíos -->
-                                <div style="background: var(--gray-bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
-                                    <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-truck"></i> Calcula tu envío</h4>
+                                <!-- Calculador de Envíos Moderno -->
+                                <div style="background: #fff; padding: 1.2rem; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 1.5rem; display:flex; flex-direction:column; gap:0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                                    <h4 style="font-size: 0.95rem; margin:0; color:#1d1d1f; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i> Conocer tiempos y costos de envío</h4>
                                     <div style="display: flex; gap: 0.5rem;">
-                                        <input type="text" id="calc-zip" placeholder="Tu Código Postal" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
-                                        <button id="calc-btn" class="btn" style="padding: 0.5rem 1rem;">Calcular</button>
+                                        <input type="text" id="calc-zip" placeholder="Tu CP (Ej: 3283)" style="flex: 1; padding: 0.7rem; border: 1px solid #ccc; border-radius: 8px; font-size:0.9rem; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#0071e3'" onblur="this.style.borderColor='#ccc'">
+                                        <button id="calc-btn" style="padding: 0.7rem 1.2rem; background:#f5f5f7; color:#1d1d1f; border:none; border-radius:8px; font-weight:bold; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#e8e8ed'" onmouseout="this.style.background='#f5f5f7'">Calcular</button>
                                     </div>
-                                    <p id="zip-msg" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); display: none;"></p>
+                                    <p id="zip-msg" style="margin: 0; font-size: 0.85rem; color: #555; display: none; line-height:1.4;"></p>
                                 </div>
                                 
-                                <p style="line-height:1.6; color: var(--text-muted); margin-bottom:2rem;">${prod.description}</p>
                                 
-                                <div style="display:flex; gap:1rem; align-items:center;">
-                                    <button class="btn add-to-cart-btn" style="flex:1; padding:1rem; font-size:1.1rem; ${isOutOfStock ? 'background:#ccc; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
+                                <div style="background:#f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #eee;">
+                                    ${prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : ''}
+                                    <p class="price" id="dynamic-price" style="font-size:2.2rem; font-weight:bold; color: #1d1d1f; margin-bottom:0; letter-spacing:-1px;">${window.formatPrice(Number(prod.price))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span></p>
+                                </div>
+                                <div style="display:flex; gap:1rem; align-items:center; margin-bottom: 2rem;">
+                                    <button class="btn add-to-cart-btn" style="flex:1; padding:1.2rem; font-size:1.1rem; font-weight:600; border-radius:12px; ${isOutOfStock ? 'background:#ccc; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
                                         <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}"></i> ${isOutOfStock ? 'Sin Stock' : 'Añadir al carrito'}
                                     </button>
                                 </div>
 
-                                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
-                                    <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem; color: var(--text-muted);">
-                                        <li style="margin-bottom:0.5rem;"><i class="fa-solid fa-shield-halved" style="margin-right:10px; color:#555555;"></i> 12 meses de garantía oficial</li>
-                                        <li style="margin-bottom:0.5rem;"><i class="fa-solid fa-rotate-left" style="margin-right:10px; color:#555555;"></i> Devolución gratuita en 30 días</li>
-                                        <li><i class="fa-solid fa-truck-fast" style="margin-right:10px; color: var(--text-color);"></i> <strong>Envío Inmediato</strong></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SECCIÓN DE RESEÑAS -->
-                        <div style="max-width: 1000px; margin: 4rem auto; padding: 2rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);">
-                            <h3 style="font-size: 1.8rem; margin-bottom: 2rem; border-bottom: 2px solid #555555; display: inline-block; padding-bottom: 0.5rem;">Reseñas de Clientes</h3>
-                            
-                            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;">
-                                <!-- Formulario de Reseña -->
-                                <div>
-                                    <h4 style="margin-bottom: 1rem;">Deja tu opinión</h4>
-                                    <form id="review-form">
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Calificación</label>
-                                            <select id="review-rating" style="width: 100%; padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color);">
-                                                <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
-                                                <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
-                                                <option value="3">⭐⭐⭐ Bueno</option>
-                                                <option value="2">⭐⭐ Regular</option>
-                                                <option value="1">⭐ Malo</option>
-                                            </select>
-                                        </div>
-                                        <div style="margin-bottom: 1rem;">
-                                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Comentario</label>
-                                            <textarea id="review-comment" rows="4" style="width: 100%; padding: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); resize: vertical;" placeholder="Cuéntanos tu experiencia con el producto..."></textarea>
-                                        </div>
-                                        <button type="submit" class="btn" style="width: 100%;">Publicar Reseña</button>
-                                    </form>
-                                    <p id="review-msg" style="margin-top: 1rem; font-size: 0.9rem; color: #555555; display: none;"></p>
+                                <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
+                                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
+                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${prod.description}</p>
                                 </div>
 
-                                <!-- Lista de Reseñas -->
-                                <div style="max-height: 400px; overflow-y: auto; padding-right: 1rem;">
-                                    ${reviews.length === 0 ? '<p style="color: var(--text-muted); font-style: italic;">Aún no hay reseñas. ¡Sé el primero en opinar!</p>' : ''}
-                                    ${reviews.map(r => `
-                                        <div style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color);">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <strong style="color: var(--text-color);">${r.user_name}</strong>
-                                                <span style="color: #f1c40f; font-size: 0.9rem;">${'⭐'.repeat(r.rating)}</span>
-                                            </div>
-                                            <p style="color: var(--text-muted); margin: 0; font-size: 0.95rem; line-height: 1.5;">"${r.comment}"</p>
-                                            <small style="color: #aaa; display: block; margin-top: 0.5rem;">${new Date(r.created_at).toLocaleDateString()}</small>
-                                        </div>
-                                    `).join('')}
+                                <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
+                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
+                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-shield-halved" style="color:#0071e3;"></i></div>
+                                        <span>12 meses de <strong>garantía oficial</strong></span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
+                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-rotate-left" style="color:#0071e3;"></i></div>
+                                        <span>Devolución <strong>gratuita en 30 días</strong></span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
+                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i></div>
+                                        <span><strong>Envío inmediato</strong> a todo el país</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
 
-                // Manejo de envío de reseña
-                const reviewForm = document.getElementById('review-form');
-                if (reviewForm) {
-                    reviewForm.addEventListener('submit', async (e) => {
-                        e.preventDefault();
-                        const token = localStorage.getItem('phoneSpotToken');
-                        if (!token) {
-                            alert('Debes iniciar sesión para dejar una reseña.');
-                            window.location.href = 'login.html';
-                            return;
-                        }
-                        
-                        const rating = document.getElementById('review-rating').value;
-                        const comment = document.getElementById('review-comment').value;
-                        
-                        try {
-                            const res = await fetch('http://localhost:3000/api/reviews', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                                body: JSON.stringify({ product_id: prod.id, rating: Number(rating), comment })
-                            });
-                            
-                            if (res.ok) {
-                                document.getElementById('review-msg').innerText = '¡Gracias por tu reseña! Recarga la página para verla.';
-                                document.getElementById('review-msg').style.display = 'block';
-                                reviewForm.reset();
-                            } else {
-                                const data = await res.json();
-                                alert('Error: ' + data.error);
-                            }
-                        } catch(err) {
-                            alert('Error de conexión.');
-                        }
-                    });
-                }
-
+                // AHORA SÍ CONECTAMOS LOS EVENTOS, DESPUÉS DE INNER HTML
                 if (hasVariants) {
+                    window.checkVariantStock = (prodArg) => {
+                        const colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
+                        const capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
+                        const ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
+                        
+                        const selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
+                        const selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
+                        const selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
+
+                        let stockToUse = prodArg.stock;
+                        let priceToUse = prodArg.price; // Start with base price
+                        if (variants.length > 0) {
+                            const v = variants.find(x => 
+                                (!selectedColor || x.color === selectedColor) && 
+                                (!selectedCap || x.capacity === selectedCap) &&
+                                (!selectedRam || x.ram === selectedRam)
+                            );
+                            if (v) {
+                                stockToUse = parseInt(v.stock);
+                                if (v.price && !isNaN(parseFloat(v.price))) priceToUse = parseFloat(v.price);
+                            } else {
+                                stockToUse = 0;
+                            }
+                        }
+
+                        const btn = document.querySelector('.add-to-cart-btn');
+                        const stockLabel = document.getElementById('variant-stock-msg');
+                        
+                        if (stockToUse <= 0) {
+                            if(btn) {
+                                btn.innerHTML = '<i class="fa-solid fa-box-open"></i> Sin Stock';
+                                btn.disabled = true;
+                                btn.style.background = '#ccc';
+                                btn.style.cursor = 'not-allowed';
+                            }
+                            if (stockLabel) stockLabel.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-times-circle"></i> Combinación agotada</span>';
+                        } else {
+                            if(btn) {
+                                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito';
+                                btn.disabled = false;
+                                btn.style.background = '#0071e3'; 
+                                btn.style.cursor = 'pointer';
+                            }
+                            if (stockLabel) stockLabel.innerHTML = `<span style="color:#2ecc71;"><i class="fa-solid fa-check-circle"></i> Stock disponible: ${stockToUse} unidades</span>`;
+                            const container = document.querySelector('.product-details');
+                            if (container) container.dataset.price = priceToUse;
+                            const priceEl = document.getElementById('dynamic-price');
+                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(priceToUse))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span>`;
+                        }
+                    };
+
+                    
+                    window.checkVariantStock = (prodArg) => {
+                        let colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
+                        let capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
+                        let ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
+                        
+                        let selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
+                        let selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
+                        let selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
+
+                        let variants = [];
+                        if (prodArg.variants && Array.isArray(prodArg.variants)) variants = prodArg.variants;
+
+                        // 1. Filtrar Capacidades basadas en el Color seleccionado
+                        if (selectedColor) {
+                            const validCaps = variants.filter(v => v.color === selectedColor).map(v => v.capacity);
+                            document.querySelectorAll('.var-btn[data-type="capacity"]').forEach(btn => {
+                                const val = btn.getAttribute('data-val');
+                                if (!validCaps.includes(val)) {
+                                    btn.style.opacity = '0.3';
+                                    btn.style.pointerEvents = 'none';
+                                    btn.style.textDecoration = 'line-through';
+                                    if (selectedCap === val) selectedCap = null;
+                                } else {
+                                    btn.style.opacity = '1';
+                                    btn.style.pointerEvents = 'auto';
+                                    btn.style.textDecoration = 'none';
+                                }
+                            });
+                        }
+                        
+                        // Auto-seleccionar capacidad si quedó vacía
+                        if (!selectedCap) {
+                            const firstValid = Array.from(document.querySelectorAll('.var-btn[data-type="capacity"]')).find(b => b.style.pointerEvents !== 'none');
+                            if (firstValid) {
+                                document.querySelectorAll('.var-btn[data-type="capacity"]').forEach(el => {
+                                    el.classList.remove('active');
+                                    el.style.borderColor = '#e5e5ea';
+                                    el.style.background = '#fff';
+                                });
+                                firstValid.classList.add('active');
+                                firstValid.style.borderColor = '#0071e3';
+                                firstValid.style.background = '#fff';
+                                selectedCap = firstValid.getAttribute('data-val');
+                            }
+                        }
+
+                        // 2. Filtrar RAM basada en Color y Capacidad seleccionados
+                        if (selectedColor && selectedCap) {
+                            const validRams = variants.filter(v => v.color === selectedColor && v.capacity === selectedCap).map(v => v.ram);
+                            document.querySelectorAll('.var-btn[data-type="ram"]').forEach(btn => {
+                                const val = btn.getAttribute('data-val');
+                                if (!validRams.includes(val)) {
+                                    btn.style.opacity = '0.3';
+                                    btn.style.pointerEvents = 'none';
+                                    btn.style.textDecoration = 'line-through';
+                                    if (selectedRam === val) selectedRam = null;
+                                } else {
+                                    btn.style.opacity = '1';
+                                    btn.style.pointerEvents = 'auto';
+                                    btn.style.textDecoration = 'none';
+                                }
+                            });
+                        }
+
+                        // Auto-seleccionar RAM si quedó vacía
+                        if (!selectedRam) {
+                            const firstValid = Array.from(document.querySelectorAll('.var-btn[data-type="ram"]')).find(b => b.style.pointerEvents !== 'none');
+                            if (firstValid) {
+                                document.querySelectorAll('.var-btn[data-type="ram"]').forEach(el => {
+                                    el.classList.remove('active');
+                                    el.style.borderColor = '#e5e5ea';
+                                    el.style.background = '#fff';
+                                });
+                                firstValid.classList.add('active');
+                                firstValid.style.borderColor = '#0071e3';
+                                firstValid.style.background = '#fff';
+                                selectedRam = firstValid.getAttribute('data-val');
+                            }
+                        }
+
+                        // 3. Buscar el stock real de la combinación ganadora
+                        let stockToUse = prodArg.stock;
+                        let priceToUse = prodArg.price; // Start with base price
+                        if (variants.length > 0) {
+                            const v = variants.find(x => 
+                                (!selectedColor || x.color === selectedColor) && 
+                                (!selectedCap || x.capacity === selectedCap) &&
+                                (!selectedRam || x.ram === selectedRam)
+                            );
+                            if (v) {
+                                stockToUse = parseInt(v.stock);
+                                if (v.price && !isNaN(parseFloat(v.price))) priceToUse = parseFloat(v.price);
+                            } else {
+                                stockToUse = 0;
+                            }
+                        }
+
+                        // 4. Actualizar Botones y Textos
+                        const btn = document.querySelector('.add-to-cart-btn');
+                        const stockLabel = document.getElementById('variant-stock-msg');
+                        
+                        if (stockToUse <= 0) {
+                            if(btn) {
+                                btn.innerHTML = '<i class="fa-solid fa-box-open"></i> Sin Stock de este color/modelo';
+                                btn.disabled = true;
+                                btn.style.background = '#ccc';
+                                btn.style.cursor = 'not-allowed';
+                            }
+                            if (stockLabel) stockLabel.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-times-circle"></i> Agotado en esta combinación</span>';
+                        } else {
+                            if(btn) {
+                                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito';
+                                btn.disabled = false;
+                                btn.style.background = '#0071e3'; 
+                                btn.style.cursor = 'pointer';
+                            }
+                            if (stockLabel) stockLabel.innerHTML = `<span style="color:#2ecc71;"><i class="fa-solid fa-check-circle"></i> Stock disponible: ${stockToUse} unidades</span>`;
+                            const container = document.querySelector('.product-details');
+                            if (container) container.dataset.price = priceToUse;
+                            const priceEl = document.getElementById('dynamic-price');
+                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(priceToUse))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span>`;
+                        }
+                    };
+
                     const btns = document.querySelectorAll('.var-btn');
                     btns.forEach(b => {
                         b.addEventListener('click', (e) => {
-                            const type = e.target.getAttribute('data-type');
-                            document.querySelectorAll(`[data-type="${type}"]`).forEach(el => el.classList.remove('active'));
-                            e.target.classList.add('active');
-                            e.target.style.background = '#111';
-                            e.target.style.color = '#fff';
-                            document.querySelectorAll(`[data-type="${type}"]:not(.active)`).forEach(el => {
-                                el.style.background = 'transparent';
-                                el.style.color = '#111';
+                            const targetBtn = e.target.closest('.var-btn');
+                            if (!targetBtn) return;
+                            const type = targetBtn.getAttribute('data-type');
+                            
+                            document.querySelectorAll(`.var-btn[data-type="${type}"]`).forEach(el => {
+                                el.classList.remove('active');
+                                el.style.borderColor = '#e5e5ea';
+                                if (type !== 'color') el.style.background = '#fff';
                             });
-                            checkVariantStock(prod);
+                            
+                            targetBtn.classList.add('active');
+                            targetBtn.style.borderColor = '#0071e3';
+                            if (type !== 'color') targetBtn.style.background = '#fff';
+                            
+                            window.checkVariantStock(prod);
                         });
                     });
                     
-                    // Inicializar estilos de botones active
-                    document.querySelectorAll('.var-btn.active').forEach(el => {
-                        el.style.background = '#111';
-                        el.style.color = '#fff';
-                    });
-                    checkVariantStock(prod);
+                    window.checkVariantStock(prod);
                 }
 
                 // Lógica Calculador Zip Code
@@ -1046,7 +1292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (prod.price >= freeThreshold) {
                                 zipMsg.innerHTML = '<i class="fa-solid fa-check-circle" style="color:#555555;"></i> ¡Envío GRATIS a tu código postal!';
                             } else {
-                                zipMsg.innerHTML = `<i class="fa-solid fa-truck"></i> Envío estimado: <strong>$${window.formatPrice(simulatedCost)}</strong>`;
+                                zipMsg.innerHTML = `<i class="fa-solid fa-truck"></i> Envío estimado: <strong>${window.formatPrice(simulatedCost)}</strong>`;
                             }
                         }, 800);
                     });
@@ -1060,7 +1306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function loadRelatedProducts(currentId, category) {
-        fetch('http://localhost:3000/api/products')
+        fetch(window.API_URL + '/api/products')
             .then(res => res.json())
             .then(prods => {
                 const section = document.getElementById('related-products-section');
@@ -1082,7 +1328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     section.style.display = 'block';
                     container.innerHTML = '';
                     related.forEach(prod => {
-                        const image = prod.image_url || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
+                        const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                         
     // Estrellas aleatorias entre 4 y 5
     const rating = (4 + Math.random()).toFixed(1);
@@ -1098,15 +1344,15 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
                     const cardHTML = `
-                        <div class="product-card fade-up" data-id="${prod.id}">
-                                ${prod.is_offer ? `<div class="badge">OFERTA</div>` : ''}
+                        <div class="product-card" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
+                                ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                                 <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
                                 <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
                                 <div class="product-rating">
                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                                     <span>(4.8)</span>
                                 </div>
-                                <p class="price">$${prod.price}</p>
+                                <p class="price">${window.formatPrice(Number(prod.price))}</p>
                             </div>
                         `;
                         container.innerHTML += cardHTML;
@@ -1174,7 +1420,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const city = e.target.value;
                 if (city === 'Otra') {
                     labelEfectivo.style.opacity = '0.5';
-                    labelEfectivo.title = 'Solo disponible para San Josééé, Colón, Villa Elisa y C. del Uruguay';
+                    labelEfectivo.title = 'Solo disponible para San José, Colón, Villa Elisa y C. del Uruguay';
                     radioEfectivo.disabled = true;
                     radioMp.checked = true;
                     if(shippingOptions) shippingOptions.style.display = 'block';
@@ -1190,6 +1436,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (shippingRadios.length > 0) {
             shippingRadios.forEach(r => r.addEventListener('change', renderCheckout));
+        }
+        
+        const zipInput = document.getElementById('chk-zip');
+        if (zipInput) {
+            zipInput.addEventListener('input', renderCheckout);
         }
 
         checkoutForm.addEventListener('submit', async (e) => {
@@ -1238,10 +1489,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             });
 
+            
             try {
+                let totalQuantity = 0;
+                cart.forEach(item => totalQuantity += item.quantity);
+                let wholesaleDiscount = 0;
+                if (totalQuantity >= 10) wholesaleDiscount = 10;
+                else if (totalQuantity >= 5) wholesaleDiscount = 7;
+                else if (totalQuantity >= 3) wholesaleDiscount = 5;
+                const isWholesale = wholesaleDiscount > 0;
+
+                const total = cart.reduce((acc, item) => {
+                    let finalPrice = item.price;
+                    if (isWholesale) finalPrice -= wholesaleDiscount;
+                    return acc + (finalPrice * item.quantity);
+                }, 0);
+                const orderTotal = total;
+                
                 showToast('Procesando orden...', 'fa-spinner fa-spin');
 
-                const response = await fetch('http://localhost:3000/api/orders', {
+
+                const response = await fetch(window.API_URL + '/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: (window.currentCoupon && window.currentCoupon.type === 'shipping') ? 0 : shippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null, discount_amount: (window.currentCoupon && window.currentCoupon.type === 'fixed') ? window.currentCoupon.value : ((window.currentCoupon && window.currentCoupon.type === 'percent') ? (total * (window.currentCoupon.value / 100)) : 0), dolar_value: window.dolarValue })
@@ -1250,37 +1518,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 
                 if (response.ok) {
+                    
                     if (paymentMethod === 'efectivo') {
                         // Generar mensaje de WhatsApp
-                        
-                        let totalQuantity = 0;
-                        cart.forEach(item => totalQuantity += item.quantity);
-                        const isWholesale = totalQuantity >= 3;
-                        const wholesaleDiscount = 5;
-
-                        const orderTotal = cart.reduce((acc, item) => {
-                            let finalPrice = item.price;
-                            if (isWholesale) finalPrice -= wholesaleDiscount;
-                            return acc + (finalPrice * item.quantity);
-                        }, 0);
-
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* ${window.formatPrice(orderTotal)}\n`;
-                        if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-$5 USD c/u)\n`;
-                        wpMsg += `\n*Productos:*\n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.${window.getFullImageUrl(item.img || item.image || item.image_url)}n${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Nombre:* ${customer_name}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Dirección:* ${shipping_address}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Total a pagar:* ${window.formatPrice(orderTotal)}${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
+                        if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
+                        wpMsg += `${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Productos:*${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
 
                         cart.forEach(item => {
                             let finalPrice = item.price;
                             if (isWholesale) finalPrice -= wholesaleDiscount;
-                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
+                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
                         });
-                        wpMsg += `\nQuiero coordinar el pago en efectivo con ustedes (Pesos/Dólares).`;
-
+                        wpMsg += `${window.getFullImageUrl(item.img || item.image || item.image_url)}nQuiero coordinar el pago en efectivo con ustedes (Pesos/Dólares).`;
                         
                         const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
                         const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
                         cart = [];
                         saveCart();
-                        updateCartUI();
+                        if (typeof updateCartUI === 'function') updateCartUI();
                         
                         showToast('¡Orden registrada! Redirigiendo a WhatsApp...', 'fa-check');
                         setTimeout(() => window.location.href = wpUrl, 2000);
@@ -1289,7 +1545,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast('Redirigiendo a Mercado Pago...', 'fa-spinner fa-spin');
                         // Call MP endpoint
                         try {
-                            const mpRes = await fetch('http://localhost:3000/api/mercadopago/preference', {
+                            const mpRes = await fetch(window.API_URL + '/api/mercadopago/preference', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ items: cart, customer_email, total_ars: Math.round(orderTotal * window.dolarValue) })
@@ -1397,7 +1653,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             showToast('Creando cuenta...', 'fa-spinner fa-spin');
             try {
-                const res = await fetch('http://localhost:3000/api/register', {
+                const res = await fetch(window.API_URL + '/api/register', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({name, email, password})
@@ -1423,7 +1679,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             showToast('Iniciando sesión...', 'fa-spinner fa-spin');
             try {
-                const res = await fetch('http://localhost:3000/api/login', {
+                const res = await fetch(window.API_URL + '/api/login', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({email, password})
@@ -1461,7 +1717,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.innerHTML = `
                     <input type="text" class="var-color" placeholder="Color (Ej: Blanco)" required style="flex:1; min-width:120px;">
                     <input type="text" class="var-cap" placeholder="Almacen. (Ej: 256GB)" required style="flex:1; min-width:120px;">
-                    <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:120px;">
+                    <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
+                    <input type="number" class="var-price" placeholder="Precio" min="0" style="width:110px;" title="Deja vacío para precio base">
                     <input type="number" class="var-stock" placeholder="Stock" required min="0" style="width:80px;">
                     <button type="button" class="btn-danger btn-remove-var" style="padding:0 0.8rem;"><i class="fa-solid fa-xmark"></i></button>
                 `;
@@ -1512,7 +1769,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showToast('Subiendo a la tienda...', 'fa-spinner fa-spin');
             try {
-                const res = await fetch('http://localhost:3000/api/products', {
+                const res = await fetch(window.API_URL + '/api/products', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -1536,7 +1793,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (productListContainer) {
             window.loadAdminProducts = async () => {
                 try {
-                    const res = await fetch('http://localhost:3000/api/products');
+                    const res = await fetch(window.API_URL + '/api/products');
                     const prods = await res.json();
                     productListContainer.innerHTML = '';
                     if(prods.length === 0) {
@@ -1544,46 +1801,139 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
+                    
                     prods.forEach(p => {
+                        window[`adminProduct_${p.id}`] = p; // save product data globally for easy access
                         productListContainer.innerHTML += `
-                            <div class="slide-item" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-                                <div style="flex:2;">
-                                    <h5 style="margin:0;">${p.name} <span style="color:#555555;">($${p.price})</span></h5>
-                                    <p style="margin:0; font-size:0.8rem; color: var(--text-muted);">Cat: ${p.category} | Marca: ${p.brand}</p>
+                            <div class="slide-item" style="display:flex; flex-direction:column; gap:1rem;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                                    <div style="flex:2;">
+                                        <h5 style="margin:0;">${p.name}</h5>
+                                        <p style="margin:0; font-size:0.8rem; color: var(--text-muted);">Cat: ${p.category} | Marca: ${p.brand}</p>
+                                    </div>
+                                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                                        <label style="font-size:0.8rem;">Precio (USD):</label>
+                                        <input type="number" id="price-${p.id}" value="${p.price}" style="width:80px; padding:0.2rem;">
+                                        
+                                        <label style="font-size:0.8rem;">Stock:</label>
+                                        <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;" >
+                                        
+                                        <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Precio</button>
+                                        <button onclick="toggleVariantsEdit(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:var(--text-color);">Variantes/Colores</button>
+                                        <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
                                 </div>
-                                <div style="flex:1; display:flex; gap:0.5rem; align-items:center;">
-                                    <label style="font-size:0.8rem;">Stock:</label>
-                                    <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;">
-                                    <button onclick="updateStock(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Actualizar</button>
-                                </div>
-                                <div>
-                                    <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.4rem 0.6rem;"><i class="fa-solid fa-trash"></i></button>
+                                <div id="variants-edit-${p.id}" style="display:none; padding:1rem; background:var(--bg-color); border-radius:8px; border:1px dashed var(--border-color);">
+                                    <h6 style="margin-bottom:0.5rem;">Variantes (Colores/Capacidad)</h6>
+                                    <div id="variants-list-${p.id}" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;"></div>
+                                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                                        <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul)" style="padding:0.2rem; width:120px;">
+                                        <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (ej. 128GB)" style="padding:0.2rem; width:120px;">
+                                        <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
+                                        <input type="number" id="new-vprice-${p.id}" placeholder="Precio USD (Opc)" style="padding:0.2rem; width:110px;">
+                                        <input type="number" id="new-vstock-${p.id}" placeholder="Stock" style="padding:0.2rem; width:70px;">
+                                        <button onclick="addVariantToProduct(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#2ecc71; color:#fff;">+ Agregar Variante</button>
+                                    </div>
                                 </div>
                             </div>
                         `;
                     });
+
                 } catch(e) { productListContainer.innerHTML = 'Error cargando productos'; }
             };
 
-            window.updateStock = async (id) => {
+            
+            window.updateProductBasic = async (id) => {
+                const price = document.getElementById(`price-${id}`).value;
                 const stock = document.getElementById(`stock-${id}`).value;
                 const token = localStorage.getItem('phoneSpotToken');
+                showToast('Guardando...', 'fa-spinner fa-spin');
                 try {
-                    const res = await fetch(`http://localhost:3000/api/products/${id}/stock`, {
+                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
                         method: 'PUT',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                        body: JSON.stringify({ stock })
+                        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ price, stock })
                     });
-                    if(res.ok) showToast('Stock actualizado', 'fa-check');
-                    else showToast('Error actualizando stock', 'fa-triangle-exclamation');
-                } catch(e) {}
+                    if(res.ok) {
+                        showToast('Precio actualizado', 'fa-check');
+                        window.loadAdminProducts();
+                    }
+                } catch(e) { showToast('Error al actualizar', 'fa-times'); }
+            };
+
+            window.toggleVariantsEdit = (id) => {
+                const div = document.getElementById(`variants-edit-${id}`);
+                const isHidden = div.style.display === 'none';
+                div.style.display = isHidden ? 'block' : 'none';
+                if (isHidden) renderProductVariants(id);
+            };
+
+            window.renderProductVariants = (id) => {
+                const p = window[`adminProduct_${id}`];
+                const list = document.getElementById(`variants-list-${id}`);
+                if (!p || !list) return;
+                
+                let variants = [];
+                try { variants = typeof p.variants === 'string' ? JSON.parse(p.variants) : p.variants; } catch(e){}
+                if (!variants || !Array.isArray(variants)) variants = [];
+                
+                window[`adminProductVariants_${id}`] = variants; // keep track of parsed variants
+
+                list.innerHTML = variants.map((v, index) => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px;">
+                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} - ${v.ram} (Stock: ${v.stock})${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
+                        <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer;"><i class="fa-solid fa-times"></i></button>
+                    </div>
+                `).join('');
+            };
+
+            window.addVariantToProduct = async (id) => {
+                const color = document.getElementById(`new-color-${id}`).value.trim();
+                const cap = document.getElementById(`new-cap-${id}`).value.trim();
+                const ram = document.getElementById(`new-ram-${id}`).value.trim();
+                const stock = parseInt(document.getElementById(`new-vstock-${id}`).value) || 0;
+                const rawPrice = document.getElementById(`new-vprice-${id}`).value;
+                const price = rawPrice ? parseFloat(rawPrice) : null;
+                
+                if (!color || !cap) return showToast('Color y Capacidad son obligatorios', 'fa-exclamation');
+
+                let variants = window[`adminProductVariants_${id}`] || [];
+                variants.push({ color, capacity: cap, ram, stock, price });
+                
+                await saveVariantsToDB(id, variants);
+            };
+
+            window.removeVariantFromProduct = async (id, index) => {
+                let variants = window[`adminProductVariants_${id}`] || [];
+                variants.splice(index, 1);
+                await saveVariantsToDB(id, variants);
+            };
+
+            const saveVariantsToDB = async (id, variants) => {
+                const token = localStorage.getItem('phoneSpotToken');
+                const totalStock = variants.reduce((acc, v) => acc + (parseInt(v.stock)||0), 0);
+                
+                showToast('Actualizando variantes...', 'fa-spinner fa-spin');
+                try {
+                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ variants, stock: totalStock })
+                    });
+                    if(res.ok) {
+                        showToast('Variantes actualizadas', 'fa-check');
+                        window.loadAdminProducts(); // re-fetch products
+                    } else {
+                        showToast('Error en el servidor', 'fa-times');
+                    }
+                } catch(e) { showToast('Error al actualizar', 'fa-times'); }
             };
 
             window.deleteProduct = async (id) => {
                 if(!confirm('¿Estás seguro de eliminar está producto definitivamente?')) return;
                 const token = localStorage.getItem('phoneSpotToken');
                 try {
-                    const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
                         method: 'DELETE',
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
@@ -1605,7 +1955,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const tracking = document.getElementById('tracking-'+id).value;
               const token = localStorage.getItem('phoneSpotToken');
               try {
-                  const res = await fetch('http://localhost:3000/api/orders/'+id+'/status', {
+                  const res = await fetch(window.API_URL + '/api/orders/'+id+'/status', {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
                       body: JSON.stringify({ status, tracking_code: tracking })
@@ -1621,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.loadAdminOrders = async () => {
               const token = localStorage.getItem('phoneSpotToken');
               try {
-                  const res = await fetch('http://localhost:3000/api/orders', {
+                  const res = await fetch(window.API_URL + '/api/orders', {
                       headers: { 'Authorization': 'Bearer ' + token }
                   });
                   const orders = await res.json();
@@ -1716,7 +2066,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchInput.addEventListener('focus', async () => {
                 if (!cachedProductsForSearch) {
                     try {
-                        const res = await fetch('http://localhost:3000/api/products');
+                        const res = await fetch(window.API_URL + '/api/products');
                         cachedProductsForSearch = await res.json();
                     } catch(e) {}
                 }
@@ -1826,7 +2176,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             // Cargar datos actuales
             const loadAdminSettings = async () => {
                 try {
-                    const res = await fetch('http://localhost:3000/api/settings');
+                    const res = await fetch(window.API_URL + '/api/settings');
                     const data = await res.json();
                     currentSettings = { ...currentSettings, ...data };
                     
@@ -1861,7 +2211,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                 const token = localStorage.getItem('phoneSpotToken');
                 showToast('Guardando...', 'fa-spinner fa-spin');
                 try {
-                    const res = await fetch('http://localhost:3000/api/settings', {
+                    const res = await fetch(window.API_URL + '/api/settings', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                         body: JSON.stringify(currentSettings)
@@ -1926,18 +2276,47 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             }
 
             if(carouselForm) {
-                carouselForm.addEventListener('submit', (e) => {
+                carouselForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    if(!currentSettings.carousel) currentSettings.carousel = [];
-                    currentSettings.carousel.push({
-                        title: document.getElementById('set-car-title').value,
-                        subtitle: document.getElementById('set-car-subtitle').value,
-                        link: document.getElementById('set-car-link').value,
-                        image: document.getElementById('set-car-img').value
-                    });
-                    carouselForm.reset();
-                    renderAdminCarouselList();
-                    saveSettings();
+                    const fileInput = document.getElementById('set-car-img');
+                    if(fileInput.files.length === 0) return showToast('Selecciona una imagen primero', 'fa-image');
+                    
+                    const btn = carouselForm.querySelector('button[type="submit"]');
+                    const oldBtnHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subiendo...';
+                    btn.disabled = true;
+
+                    const formData = new FormData();
+                    formData.append('image', fileInput.files[0]);
+
+                    try {
+                        const token = localStorage.getItem('phoneSpotToken');
+                        const res = await fetch(window.API_URL + '/api/upload', {
+                            method: 'POST',
+                            headers: { 'Authorization': 'Bearer ' + token },
+                            body: formData
+                        });
+                        const data = await res.json();
+                        
+                        if (!res.ok) throw new Error(data.error);
+
+                        if(!currentSettings.carousel) currentSettings.carousel = [];
+                        currentSettings.carousel.push({
+                            title: document.getElementById('set-car-title').value,
+                            subtitle: document.getElementById('set-car-subtitle').value,
+                            link: document.getElementById('set-car-link').value,
+                            image: data.url
+                        });
+                        carouselForm.reset();
+                        renderAdminCarouselList();
+                        saveSettings();
+                        showToast('Slide añadido con éxito');
+                    } catch(err) {
+                        showToast('Error al subir imagen', 'fa-triangle-exclamation');
+                    } finally {
+                        btn.innerHTML = oldBtnHTML;
+                        btn.disabled = false;
+                    }
                 });
             }
 
@@ -1949,11 +2328,26 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
 // Función para cargar ajustes en el frontend (index.html)
 async function applyFrontendSettings() {
     try {
-        const res = await fetch('http://localhost:3000/api/settings');
+        const res = await fetch(window.API_URL + '/api/settings');
         const data = await res.json();
         
         // Guardar costos globalmente para uso en checkout
         window.phoneSpotSettings = data;
+        
+        // Inyectar Boton WA Dynamico
+        if (!document.getElementById('wa-float-btn')) {
+            const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+            const waBtn = document.createElement('a');
+            waBtn.id = 'wa-float-btn';
+            waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
+            waBtn.className = 'whatsapp-float fade-up visible';
+            waBtn.target = '_blank';
+            waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
+            document.body.appendChild(waBtn);
+        } else {
+            const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+            document.getElementById('wa-float-btn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
+        }
 
         // Actualizar textos en checkout si existen
         const costCorreoEl = document.getElementById('cost-correo');
@@ -2104,7 +2498,7 @@ window.loadFavoritesUI = async () => {
     }
 
     try {
-        const res = await fetch('http://localhost:3000/api/products');
+        const res = await fetch(window.API_URL + '/api/products');
         const allProds = await res.json();
         const favProds = allProds.filter(p => favs.includes(p.id.toString()));
 
@@ -2115,7 +2509,7 @@ window.loadFavoritesUI = async () => {
 
         container.innerHTML = '';
         favProds.forEach(prod => {
-            const image = prod.image_url || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
+            const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
             container.innerHTML += `
                 <div class="favorite-item" data-id="${prod.id}" style="display: flex; align-items: center; gap: 1.5rem; background: var(--card-bg); padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 1rem; flex-wrap: wrap;">
                     
@@ -2132,16 +2526,8 @@ window.loadFavoritesUI = async () => {
 
                     <!-- Botones -->
                     <div style="display: flex; gap: 1rem; align-items: center;">
-                        <button onclick="
-                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
-                            const existing = cart.find(i => i.id == '${prod.id}');
-                            if(existing) existing.quantity++;
-                            else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
-                            localStorage.setItem('phoneSpotCart', JSON.stringify(cart));
-                            if(window.updateCartCount) window.updateCartCount();
-                            showToast('Añadido al carrito', 'fa-cart-plus');
-                        " class="btn" style="background: #333333; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#111'" onmouseout="this.style.background='#333333'">
-                            <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i> Añadir
+                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
+                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
                         
                         <button onclick="window.toggleFavorite('${prod.id}', event); window.loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
@@ -2190,7 +2576,7 @@ window.loadSidebarFavorites = async () => {
     }
 
     try {
-        const res = await fetch('http://localhost:3000/api/products');
+        const res = await fetch(window.API_URL + '/api/products');
         const allProds = await res.json();
         const favProds = allProds.filter(p => favs.includes(p.id.toString()));
 
@@ -2201,7 +2587,7 @@ window.loadSidebarFavorites = async () => {
 
         container.innerHTML = '';
         favProds.forEach(prod => {
-            const image = prod.image_url || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
+            const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
             container.innerHTML += `
                 <div class="favorite-sidebar-item" style="display: flex; gap: 1rem; background: var(--card-bg); padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); position: relative;">
                     <!-- Borrar absoluto -->
@@ -2215,18 +2601,10 @@ window.loadSidebarFavorites = async () => {
                     <!-- Info -->
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
                         <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
-                        <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">$${window.formatPrice(Number(prod.price))}</p>
+                        <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">${window.formatPrice(Number(prod.price))}</p>
                         
-                        <button onclick="
-                            const cart = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch(e) { return []; } })();
-                            const existing = cart.find(i => i.id == '${prod.id}');
-                            if(existing) existing.quantity++;
-                            else cart.push({id: '${prod.id}', name: '${prod.name}', price: ${prod.price}, image: '${image}', quantity: 1});
-                            localStorage.setItem('phoneSpotCart', JSON.stringify(cart));
-                            if(window.updateCartCount) window.updateCartCount();
-                            showToast('Añadido al carrito', 'fa-cart-plus');
-                        " style="background: #333333; color: white; border: none; padding: 0.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; font-size: 0.9rem;" onmouseover="this.style.background='#111'" onmouseout="this.style.background='#333333'">
-                            <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
+                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
+                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
                     </div>
                 </div>
@@ -2320,3 +2698,37 @@ window.applyCoupon = () => {
     }
     renderCheckout();
 };
+
+
+window.initFadeObserver = () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+};
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.initFadeObserver) window.initFadeObserver();
+});
+
+
+    
+    
+
+// Fallback WhatsApp Button (En caso de que falle la carga de settings o tarde mucho)
+setTimeout(() => {
+    if (!document.getElementById('wa-float-btn')) {
+        const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+        const waBtn = document.createElement('a');
+        waBtn.id = 'wa-float-btn';
+        waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
+        waBtn.className = 'whatsapp-float fade-up visible';
+        waBtn.target = '_blank';
+        waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
+        document.body.appendChild(waBtn);
+    }
+}, 1000);

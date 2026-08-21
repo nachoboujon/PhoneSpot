@@ -139,7 +139,39 @@ app.get('/api/products', async (req, res) => {
     try {
         const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
         if (error) throw error;
+        
+        data.forEach(prod => {
+            if (prod.variants) {
+                while (typeof prod.variants === 'string') {
+                    try { prod.variants = JSON.parse(prod.variants); }
+                    catch(e) { break; }
+                }
+                if (!Array.isArray(prod.variants)) prod.variants = [];
+            }
+        });
+
+        
+        data.forEach(p => {
+            if (p.variants && typeof p.variants === 'string') {
+                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
+            }
+        });
+        
+        data.forEach(p => {
+            if (p.variants && typeof p.variants === 'string') {
+                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
+            }
+        });
+        
+        data.forEach(p => {
+            if (p.variants && typeof p.variants === 'string') {
+                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
+            }
+        });
         res.json(data);
+    
+    
+    
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -151,7 +183,32 @@ app.get('/api/products/:id', async (req, res) => {
         const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
         if (error) throw error;
         if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
+        
+        if (data.variants) {
+            while (typeof data.variants === 'string') {
+                try { data.variants = JSON.parse(data.variants); }
+                catch(e) { break; }
+            }
+            if (!Array.isArray(data.variants)) data.variants = [];
+        }
+
+        
+        if (data.variants && typeof data.variants === 'string') {
+            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
+        }
+        
+        if (data.variants && typeof data.variants === 'string') {
+            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
+        }
+        
+        if (data.variants && typeof data.variants === 'string') {
+            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
+        }
         res.json(data);
+    
+    
+    
+    
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -204,6 +261,11 @@ app.get('/api/settings', (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Error leyendo settings' });
     }
+});
+
+app.post('/api/upload', authenticate, isAdmin, upload.single('image'), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
+    res.json({ url: '/uploads/' + req.file.filename });
 });
 
 app.post('/api/settings', authenticate, isAdmin, (req, res) => {
@@ -284,10 +346,15 @@ app.post('/api/orders', async (req, res) => {
 
         const extraShipping = Number(shipping_cost) || 0;
         
+        
         let totalQuantity = 0;
         items.forEach(item => totalQuantity += item.quantity);
-        const isWholesale = totalQuantity >= 3;
-        const wholesaleDiscount = 5;
+        let wholesaleDiscount = 0;
+        if (totalQuantity >= 10) wholesaleDiscount = 10;
+        else if (totalQuantity >= 5) wholesaleDiscount = 7;
+        else if (totalQuantity >= 3) wholesaleDiscount = 5;
+        const isWholesale = wholesaleDiscount > 0;
+
 
         const usdTotal = items.reduce((acc, item) => {
             let finalPrice = item.price;
@@ -371,6 +438,41 @@ app.post('/api/orders', async (req, res) => {
             }
         }
 
+        
+        // =========== ENVÍO DE EMAIL AL DUEÑO ===========
+        try {
+            const nodemailer = require('nodemailer');
+            if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.EMAIL_USER,
+                        pass: process.env.EMAIL_PASS
+                    }
+                });
+
+                let itemsList = '';
+                items.forEach(i => {
+                    itemsList += `- ${i.quantity}x ${i.name || 'Producto'} (${i.variant_name || 'Sin variante'})\n`;
+                });
+
+                const mailOptions = {
+                    from: process.env.EMAIL_USER,
+                    to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+                    subject: `🎉 ¡Nueva Venta en PhoneSpot! - Orden #${orderId}`,
+                    text: `¡Hola! Alguien acaba de realizar una compra.\n\nDetalles del cliente:\nNombre: ${customer_name}\nEmail: ${customer_email}\nDirección: ${shipping_address}\nMétodo de pago: ${payment_method}\nTotal de la orden: ${total.toFixed(2)} USD\n\nProductos comprados:\n${itemsList}\n\nRevisa el panel de control o tu base de datos para gestionar el envío.`
+                };
+
+                await transporter.sendMail(mailOptions);
+                console.log('Email de notificación enviado al admin.');
+            } else {
+                console.log('No se envió email porque falta configurar EMAIL_USER y EMAIL_PASS en el .env');
+            }
+        } catch (mailErr) {
+            console.error('Error enviando email:', mailErr);
+        }
+        // ===============================================
+
         res.json({ message: 'Orden creada', orderId });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -445,14 +547,33 @@ app.delete('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     }
 });
 
-app.put('/api/products/:id/stock', authenticate, isAdmin, async (req, res) => {
+
+app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        const { stock } = req.body;
-        const { error } = await supabase.from('products').update({ stock: parseInt(stock) }).eq('id', id);
+        const { stock, price, variants } = req.body;
+        
+        let updateData = {};
+        if (stock !== undefined) updateData.stock = parseInt(stock);
+        if (price !== undefined) updateData.price = parseFloat(price);
+        
+        if (variants !== undefined) {
+            if (typeof variants === 'string') {
+                try {
+                    updateData.variants = JSON.parse(variants);
+                } catch(e) {
+                    updateData.variants = [];
+                }
+            } else {
+                updateData.variants = variants;
+            }
+        }
+        
+        const { error } = await supabase.from('products').update(updateData).eq('id', id);
         if (error) throw error;
-        res.json({ message: 'Stock actualizado' });
+        res.json({ message: 'Producto actualizado' });
     } catch (error) {
+        console.error('Error PUT product:', error);
         res.status(500).json({ error: error.message });
     }
 });
