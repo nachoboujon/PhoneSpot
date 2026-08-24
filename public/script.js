@@ -23,12 +23,12 @@ window.dolarPromise = fetch('https://dolarapi.com/v1/dolares/blue')
 
 
 // ==================== AUTH GUARD ====================
-if (window.location.pathname.includes('checkout.html') && !localStorage.getItem('token')) {
+if (window.location.pathname.includes('checkout.html') && !localStorage.getItem('phoneSpotToken')) {
     window.location.href = 'login.html?redirect=checkout.html';
 }
 window.goToCheckout = (e) => {
     if (e) e.preventDefault();
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('phoneSpotToken')) {
         showToast('Debes iniciar sesión para comprar', 'fa-lock');
         setTimeout(() => window.location.href = 'login.html?redirect=checkout.html', 1500);
     } else {
@@ -1655,7 +1655,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast('Redirigiendo a Mercado Pago...', 'fa-spinner fa-spin');
                         // Call MP endpoint
                         try {
-                            const token = localStorage.getItem('phonespot_token');
+                            const token = localStorage.getItem('phoneSpotToken');
                             const payload = {
                                 items: cart.map(i => ({ product_id: i.id, quantity: i.quantity, price: i.price, variant_name: i.variant_name || null })),
                                 customer_name,
@@ -2458,7 +2458,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                     formData.append('image', fileInput.files[0]);
 
                     try {
-                        const token = localStorage.getItem('phonespot_token');
+                        const token = localStorage.getItem('phoneSpotToken');
                         const res = await fetch(window.API_URL + '/api/upload', {
                             method: 'POST',
                             headers: { 'Authorization': 'Bearer ' + token },
@@ -3112,8 +3112,8 @@ window.handleGoogleLogin = () => {
                 
                 const data = await res.json();
                 if (res.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('role', data.role);
+                    localStorage.setItem('phoneSpotToken', data.token);
+                    localStorage.setItem('phoneSpotRole', data.role);
                     showToast('¡Ingreso exitoso!', 'fa-check');
                     
                     const urlParams = new URLSearchParams(window.location.search);
@@ -3150,7 +3150,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('DOMContentLoaded', () => {
     const adminLinks = document.querySelectorAll('.footer-admin-link');
-    if (localStorage.getItem('role') === 'admin') {
+    if (localStorage.getItem('phoneSpotRole') === 'admin') {
         adminLinks.forEach(link => link.style.display = 'inline-block');
     }
 });
