@@ -583,7 +583,8 @@ async function loadProductsFromDB() {
         }
     } catch (err) {
         console.error("Error cargando productos:", err);
-        showToast('Error al conectar con la base de datos. Verifica que server.js está corriendo.', 'fa-triangle-exclamation');
+        if (catalogContainer) catalogContainer.innerHTML = '<p style="color:red; text-align:center; grid-column:1/-1;"><b>ERROR DE CONEXIÓN AL SERVIDOR</b><br>Si ves esto en VIVO (phonespot.site), tienes un error en tus DNS (están apuntando a Cloudflare 1.1.1.1 en vez de a Railway).<br>Si ves esto en LOCAL, asegúrate de haber ejecutado <code>node server.js</code> y estar accediendo desde <code>localhost:3000</code> y NO desde un archivo local (file:///).</p>';
+        showToast('Error de conexión a la API', 'fa-triangle-exclamation');
     }
 }
 
@@ -1539,43 +1540,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (zipCityMap[zip]) {
                     chkCity.value = zipCityMap[zip];
                 } else if (zip.length >= 4) {
-                    // Buscar en toda Argentina con Zippopotamus
-                    chkCity.value = 'Buscando ciudad...';
+                    shippingContainer.innerHTML = `
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; background: #fff;">
+                            <input type="radio" name="shipping_method" value="coordinar" data-cost="0" data-name="Envío a Coordinar" style="accent-color: var(--text-color);" checked>
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold; color: var(--text-color);">Envío a Coordinar</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Coordinaremos el método de envío y el costo exacto por WhatsApp.</div>
+                            </div>
+                            <div style="font-weight: bold; color: var(--text-color);">
+                                A confirmar
+                            </div>
+                        </label>
+                    `;
                     
-                    // Asegurarnos de que el input tenga un datalist asociado
-                    if (!chkCity.getAttribute('list')) {
-                        chkCity.setAttribute('list', 'city-options');
-                        let dl = document.createElement('datalist');
-                        dl.id = 'city-options';
-                        chkCity.parentNode.appendChild(dl);
-                    }
+                    document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
+                        radio.addEventListener('change', renderCheckout);
+                    });
                     
-                    fetch('https://api.zippopotam.us/ar/' + zip)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.places && data.places.length > 0) {
-                                const dl = document.getElementById('city-options');
-                                dl.innerHTML = ''; // Limpiar opciones anteriores
-                                
-                                data.places.forEach(placeObj => {
-                                    const placeName = placeObj['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
-                                    const stateName = placeObj['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
-                                    const fullString = placeName + ', ' + stateName;
-                                    
-                                    let option = document.createElement('option');
-                                    option.value = fullString;
-                                    dl.appendChild(option);
-                                });
-                                
-                                // Si solo hay 1 opción, la autocompletamos. Si hay varias, borramos el texto para que despliegue la lista.
-                                if (data.places.length === 1) {
-                                    chkCity.value = data.places[0]['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase()) + ', ' + data.places[0]['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
-                                } else {
-                                    chkCity.value = '';
-                                    chkCity.placeholder = 'Elige tu ciudad/barrio de la lista...';
-                                    chkCity.focus(); // Abrir el dropdown (depende del navegador)
-                                }
-                            } else {
+                    if(typeof renderCheckout === 'function') renderCheckout();
+                } else {
                                 chkCity.value = '';
                                 chkCity.placeholder = 'Ingresa tu ciudad manualmente';
                             }
@@ -1695,21 +1678,19 @@ const checkoutForm = document.getElementById('checkout-form');
             const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const isFreeShipping = threshold > 0 && cartTotal >= threshold;
 
-            if (city === 'Otra') {
-                const selShip = document.querySelector('input[name="shipping_method"]:checked');
-                if(selShip) {
-                    
-                    if (selShip.value === 'andreani') shipping_cost = settings.shipping_andreani || 12000;
-                    else if (selShip.value === 'andreani_sucursal') shipping_cost = Math.max(0, (settings.shipping_andreani || 12000) - 3000);
-                    else if (selShip.value === 'correo_sucursal') shipping_cost = Math.max(0, (settings.shipping_correo || 8500) - 2000);
-                    else shipping_cost = settings.shipping_correo || 8500;
 
-                    
-                    if (isFreeShipping) {
-                        shipping_cost = 0;
-                    }
+            const selShip = document.querySelector('input[name="shipping_method"]:checked');
+            if (selShip) {
+                shipping_cost = parseFloat(selShip.dataset.cost) || 0;
+                const userZip = document.getElementById('chk-zip').value.trim();
+                
+                if (userZip === '3283' || userZip === '3280' || userZip === '3265' || userZip === '3260') {
+                    shipping_cost = 0;
+                } else if (isFreeShipping) {
+                    shipping_cost = 0;
                 }
             }
+
 
             const items = cart.map(item => {
                 return {
@@ -1784,7 +1765,7 @@ const checkoutForm = document.getElementById('checkout-form');
                                 customer_email,
                                 shipping_address,
                                 payment_method: 'mercadopago',
-                                extra_shipping: 0,
+                                extra_shipping: shipping_cost,
                                 discount_amount: 0,
                                 dolar_value: window.dolarValue || 1400
                             };
@@ -2692,8 +2673,31 @@ async function applyFrontendSettings() {
         
         if (heroCarouselSection) {
             if (!data.carousel || data.carousel.length === 0) {
-                heroCarouselSection.style.display = 'none';
-            } else {
+                // FALLBACK: Inyectar 3 banners por defecto para que se vea lindo
+                data.carousel = [
+                    {
+                        title: "El vistazo al mundo Apple está aquí",
+                        subtitle: "Titanio. Tan resistente como ligero.",
+                        link: "catalogo.html",
+                        image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2000&auto=format&fit=crop"
+                    },
+                    {
+                        title: "Samsung Galaxy S24 Ultra",
+                        subtitle: "La era de la Inteligencia Artificial",
+                        link: "catalogo.html",
+                        image: "https://images.unsplash.com/photo-1707028448897-5a23f1a070eb?q=80&w=2000&auto=format&fit=crop"
+                    },
+                    {
+                        title: "Accesorios Premium",
+                        subtitle: "Fundas, cargadores y auriculares",
+                        link: "catalogo.html",
+                        image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=2000&auto=format&fit=crop"
+                    }
+                ];
+            }
+            
+            // Renderizar siempre (ya sea con los reales o los de fallback)
+            if (true) {
                 heroCarouselSection.style.display = 'block';
                 if (carouselContainer) {
                     carouselContainer.innerHTML = '';

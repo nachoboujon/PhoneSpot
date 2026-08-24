@@ -85,32 +85,27 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
     try {
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            throw new Error('Faltan configurar las credenciales de Brevo en Railway (EMAIL_USER y EMAIL_PASS)');
+            throw new Error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS)');
         }
         
-        // Brevo REST API (Bypasses all SMTP firewalls by using port 443)
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'api-key': process.env.EMAIL_PASS, // Brevo API/SMTP key
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                sender: { name: "PhoneSpot", email: process.env.EMAIL_USER },
-                to: [{ email: to }],
-                subject: subject,
-                htmlContent: html
-            })
+        const nodemailer = require('nodemailer');
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Brevo API Error:', errorData);
-            throw new Error(errorData.message || 'Error en la API de Brevo');
-        }
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: to,
+            subject: subject,
+            html: html
+        };
 
-        console.log('Email sent to', to, 'via Brevo REST API');
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent to', to, 'via Gmail/Nodemailer');
         return true;
     } catch (err) {
         console.error('Error sending email:', err);
@@ -670,9 +665,10 @@ app.post('/api/orders', async (req, res) => {
             if (!MP_ACCESS_TOKEN) {
                 return res.status(200).json({ message: 'Orden creada, pero falta MP', orderId });
             }
+            const dolarValue = Number(req.body.dolar_value) || 1400;
             const mpItems = items.map(item => ({
                 title: 'Producto PhoneSpot ' + (item.variant_name ? '('+item.variant_name+')' : ''),
-                unit_price: Number(item.price),
+                unit_price: Math.round(Number(item.price) * dolarValue),
                 quantity: Number(item.quantity),
                 currency_id: 'ARS'
             }));
@@ -689,7 +685,13 @@ app.post('/api/orders', async (req, res) => {
                 },
                 auto_return: 'approved',
                 external_reference: orderId.toString(),
-                notification_url: 'https://phonespot.site/api/mercadopago/webhook'
+                notification_url: 'https://phonespot.site/api/mercadopago/webhook',
+                payment_methods: {
+                    excluded_payment_types: [
+                        { id: 'credit_card' }
+                    ],
+                    installments: 1
+                }
             };
             const mpResponse = await fetch('https://api.mercadopago.com/checkout/preferences', {
                 method: 'POST',
@@ -700,39 +702,40 @@ app.post('/api/orders', async (req, res) => {
             if (mpResponse.ok && mpData.init_point) {
                 return res.status(200).json({ init_point: mpData.init_point });
             } else {
-                return res.status(400).json({ error: 'Error MP' });
+                console.error('MP ERROR:', mpData); return res.status(400).json({ error: 'Error MP', details: mpData });
             }
         }
 
         
         // =========== ENVÍO DE EMAIL AL DUEÑO ===========
         try {
-            const nodemailer = require('nodemailer');
-            if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-                const transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: process.env.EMAIL_USER,
-                        pass: process.env.EMAIL_PASS
-                    }
-                });
+            let itemsList = '';
+            items.forEach(i => {
+                itemsList += '- ' + i.quantity + 'x ' + (i.name || 'Producto') + ' (' + (i.variant_name || 'Sin variante') + ')\n';
+            });
 
-                let itemsList = '';
-                items.forEach(i => {
-                    itemsList += `- ${i.quantity}x ${i.name || 'Producto'} (${i.variant_name || 'Sin variante'})\n`;
-                });
+            const htmlContent = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">' +
+                '<div style="background: #111; padding: 20px; text-align: center;">' +
+                    '<h1 style="color: white; margin: 0;">¡Nueva Venta en PhoneSpot! 🎉</h1>' +
+                '</div>' +
+                '<div style="padding: 20px; font-size: 16px;">' +
+                    '<p><strong>Orden #' + orderId + '</strong></p>' +
+                    '<p><strong>Detalles del cliente:</strong><br>' +
+                    'Nombre: ' + customer_name + '<br>' +
+                    'Email: ' + customer_email + '<br>' +
+                    'Dirección: ' + shipping_address + '<br>' +
+                    'Método de pago: ' + payment_method + '<br>' +
+                    'Total de la orden: ' + total.toFixed(2) + ' USD</p>' +
+                    '<p><strong>Productos comprados:</strong><br>' +
+                    itemsList.replace(/\n/g, '<br>') + '</p>' +
+                    '<p style="font-size: 12px; color: #888; margin-top: 20px;">Revisa tu panel de administrador para más detalles.</p>' +
+                '</div>' +
+            '</div>';
 
-                const mailOptions = {
-                    from: process.env.EMAIL_USER,
-                    to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-                    subject: `🎉 ¡Nueva Venta en PhoneSpot! - Orden #${orderId}`,
-                    text: `¡Hola! Alguien acaba de realizar una compra.\n\nDetalles del cliente:\nNombre: ${customer_name}\nEmail: ${customer_email}\nDirección: ${shipping_address}\nMétodo de pago: ${payment_method}\nTotal de la orden: ${total.toFixed(2)} USD\n\nProductos comprados:\n${itemsList}\n\nRevisa el panel de control o tu base de datos para gestionar el envío.`
-                };
-
-                await transporter.sendMail(mailOptions);
-                console.log('Email de notificación enviado al admin.');
-            } else {
-                console.log('No se envió email porque falta configurar EMAIL_USER y EMAIL_PASS en el .env');
+            const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+            if (adminEmail) {
+                await sendEmail(adminEmail, '🎉 ¡Nueva Venta en PhoneSpot! - Orden #' + orderId, htmlContent);
+                console.log('Email de notificación enviado al admin vía Brevo.');
             }
         } catch (mailErr) {
             console.error('Error enviando email:', mailErr);
@@ -742,24 +745,28 @@ app.post('/api/orders', async (req, res) => {
         
             // Email de confirmación AL CLIENTE
             if (customer_email) {
-                const orderHtml = `
-                    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
-                        <div style="background: #00a650; color: #fff; padding: 20px; text-align: center;">
-                            <h1>¡Compra Confirmada!</h1>
-                        </div>
-                        <div style="padding: 20px;">
-                            <p>Hola <b>${customer_name || 'Cliente'}</b>,</p>
-                            <p>Hemos recibido tu orden <b>#${orderId}</b> con éxito.</p>
-                            <p>Total de la orden: <b>${total.toFixed(2)} USD</b></p>
-                            <p>Dirección de Envío: ${shipping_address}</p>
-                            <p>Método de Pago: ${payment_method}</p>
-                            <p>En breve comenzaremos a preparar tu paquete. Te enviaremos otro correo cuando el envío esté en camino.</p>
-                            <br>
-                            <p>¡Gracias por confiar en PhoneSpot!</p>
-                        </div>
-                    </div>
-                `;
-                sendEmail(customer_email, `Confirmación de Orden #${orderId} - PhoneSpot`, orderHtml);
+                let itemsListHtml = '';
+                items.forEach(i => {
+                    itemsListHtml += '- ' + i.quantity + 'x ' + (i.name || 'Producto') + ' (' + (i.variant_name || 'Sin variante') + ')<br>';
+                });
+
+                const orderHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">' +
+                    '<div style="background: #00a650; color: #fff; padding: 20px; text-align: center;">' +
+                        '<h1>¡Compra Confirmada!</h1>' +
+                    '</div>' +
+                    '<div style="padding: 20px;">' +
+                        '<p>Hola <b>' + (customer_name || 'Cliente') + '</b>,</p>' +
+                        '<p>Hemos recibido tu orden <b>#' + orderId + '</b> con éxito.</p>' +
+                        '<p><b>Resumen de tu compra:</b><br>' + itemsListHtml + '</p>' +
+                        '<p>Total de la orden: <b>' + total.toFixed(2) + ' USD</b></p>' +
+                        '<p>Dirección de Envío: ' + shipping_address + '</p>' +
+                        '<p>Método de Pago: Efectivo / Transferencia</p>' +
+                        '<p>Por favor, coordina el pago con nosotros a través de nuestro WhatsApp. Una vez confirmado, comenzaremos a preparar tu paquete.</p>' +
+                        '<br>' +
+                        '<p>¡Gracias por confiar en PhoneSpot!</p>' +
+                    '</div>' +
+                '</div>';
+                sendEmail(customer_email, 'Confirmación de Orden #' + orderId + ' - PhoneSpot', orderHtml);
             }
 
         res.json({ message: 'Orden creada', orderId });
