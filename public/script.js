@@ -2438,10 +2438,16 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             }
 
             if(carouselForm) {
+                
                 carouselForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    
+                    const title = document.getElementById('set-car-title').value.trim();
+                    const subtitle = document.getElementById('set-car-subtitle').value.trim();
+                    const link = document.getElementById('set-car-link').value.trim();
+                    
                     const fileInput = document.getElementById('set-car-img');
-                    if(fileInput.files.length === 0) return showToast('Selecciona una imagen primero', 'fa-image');
+                    if(fileInput.files.length === 0) return showToast('Selecciona una imagen de fondo', 'fa-image');
                     
                     const btn = carouselForm.querySelector('button[type="submit"]');
                     const oldBtnHTML = btn.innerHTML;
@@ -2452,34 +2458,32 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                     formData.append('image', fileInput.files[0]);
 
                     try {
-                        const token = localStorage.getItem('phoneSpotToken');
+                        const token = localStorage.getItem('phonespot_token');
                         const res = await fetch(window.API_URL + '/api/upload', {
                             method: 'POST',
                             headers: { 'Authorization': 'Bearer ' + token },
                             body: formData
                         });
                         const data = await res.json();
-                        
-                        if (!res.ok) throw new Error(data.error);
-
-                        if(!currentSettings.carousel) currentSettings.carousel = [];
-                        currentSettings.carousel.push({
-                            title: document.getElementById('set-car-title').value,
-                            subtitle: document.getElementById('set-car-subtitle').value,
-                            link: document.getElementById('set-car-link').value,
-                            image: data.url
-                        });
-                        carouselForm.reset();
-                        renderAdminCarouselList();
-                        saveSettings();
-                        showToast('Slide añadido con éxito');
+                        if (data.url) {
+                            if(!currentSettings.carousel) currentSettings.carousel = [];
+                            currentSettings.carousel.push({
+                                title, subtitle, link, image: data.url
+                            });
+                            await saveSettings();
+                            carouselForm.reset();
+                            renderAdminCarouselList();
+                        } else {
+                            throw new Error('Error al subir imagen');
+                        }
                     } catch(err) {
-                        showToast('Error al subir imagen', 'fa-triangle-exclamation');
+                        showToast('Error al procesar la imagen', 'fa-times');
                     } finally {
                         btn.innerHTML = oldBtnHTML;
                         btn.disabled = false;
                     }
                 });
+    
             }
 
             loadAdminSettings();
@@ -2601,19 +2605,7 @@ async function applyFrontendSettings() {
                                 
                                 <div class="parallax-bg" style="position:absolute; top:0; left:0; right:0; bottom:0; background: inherit; z-index:0; transition: transform 0.2s ease-out; pointer-events:none;"></div>
 
-                                <!-- Floating Decoratives -->
-                                ${(slide.title.toLowerCase().includes('iphone') || slide.title.toLowerCase().includes('celular') || slide.title.toLowerCase().includes('samsung')) ? `
-                                <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=300&q=80" alt="Phone" class="p-phone-1" style="position:absolute; top: 15%; left: 10%; transform: rotate(-15deg); border-radius: 20px; border: 4px solid #333; width: 200px; z-index: 10; transition: transform 0.2s ease-out; pointer-events:none; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">
-                                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80" alt="Phone" class="p-phone-2" style="position:absolute; bottom: 20%; right: 15%; transform: rotate(20deg); border-radius: 20px; border: 4px solid #333; width: 150px; z-index: 10; transition: transform 0.2s ease-out; pointer-events:none; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">
-                                ` : (slide.title.toLowerCase().includes('notebook') || slide.title.toLowerCase().includes('laptop') || slide.title.toLowerCase().includes('macbook')) ? `
-                                <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=400&q=80" alt="Notebook" class="p-phone-1" style="position:absolute; top: 20%; left: 8%; transform: rotate(-10deg); border-radius: 12px; width: 250px; z-index: 10; transition: transform 0.2s ease-out; pointer-events:none; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">
-                                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=400&q=80" alt="Laptop" class="p-phone-2" style="position:absolute; bottom: 15%; right: 10%; transform: rotate(15deg); border-radius: 12px; width: 200px; z-index: 10; transition: transform 0.2s ease-out; pointer-events:none; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));">
-                                ` : ``
-                                }
-                                <!-- Glowing background elements -->
-                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: rgba(85, 85, 85, 0.4); filter: blur(100px); border-radius: 50%; z-index: 1; pointer-events:none;"></div>
-                                
-                                <div class="hero-content" style="position: relative; z-index: 20; text-align: center; transform-style: preserve-3d; transition: transform 0.2s ease-out; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); padding: 4rem; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                                <div class="hero-content" style="position: relative; z-index: 20; text-align: center; transform-style: preserve-3d; transition: transform 0.2s ease-out; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 600px;">
                                     <h2 class="carousel-title" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); font-size: 4rem; margin-bottom: 1rem; font-weight: 800; color: white; transform: translateZ(30px);">${slide.title}</h2>
                                     <p class="carousel-subtitle" style="font-size: 1.4rem; margin-bottom: 3rem; color: #f0f0f0; transform: translateZ(20px);">${slide.subtitle}</p>
                                     <a href="${slide.link || 'catalogo.html'}" class="btn" style="background:linear-gradient(45deg, #555555, #333333); color:white; border:none; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: bold; border-radius: 50px; box-shadow: 0 10px 25px rgba(85, 85, 85, 0.5); transition: 0.3s; transform: translateZ(40px); display: inline-block;" onmouseover="this.style.transform='translateZ(50px) scale(1.05)'; this.style.boxShadow='0 15px 35px rgba(85, 85, 85, 0.7)';" onmouseout="this.style.transform='translateZ(40px) scale(1)'; this.style.boxShadow='0 10px 25px rgba(85, 85, 85, 0.5)';">

@@ -1,58 +1,39 @@
 const fs = require('fs');
-let html = fs.readFileSync('public/admin.html', 'utf8');
 
-const oldHtmlChunk = `                            <div class="form-group">
-                                <label>Link del botón (URL)</label>
-                                <input type="text" id="set-car-link" required placeholder="catalogo.html?cat=apple">
-                            </div>
-                            <div class="form-group">
-                                <label>URL de Imagen de Fondo</label>
-                                <input type="text" id="set-car-img" required placeholder="https://...">
-                            </div>`;
+// 1. Fix admin.html carousel image input
+let adminHtml = fs.readFileSync('public/admin.html', 'utf8');
+adminHtml = adminHtml.replace('<label>URL de Imagen de Fondo</label>', '<label>Subir Imagen de Fondo</label>');
+adminHtml = adminHtml.replace('<input type="text" id="set-car-img" required placeholder="https://...">', '<input type="file" id="set-car-img" accept="image/*" required>');
+fs.writeFileSync('public/admin.html', adminHtml, 'utf8');
+console.log('Fixed admin.html carousel input to type="file"');
 
-const newHtmlChunk = `                            <div class="form-group">
-                                <label>¿A dónde lleva el botón?</label>
-                                <select id="set-car-link" required style="width:100%; padding:0.8rem; border:1px solid var(--border-color); border-radius:8px; font-family:inherit;">
-                                    <option value="catalogo.html">Catálogo Completo</option>
-                                    <option value="catalogo.html?cat=apple">Apple (iPhone)</option>
-                                    <option value="catalogo.html?cat=samsung">Samsung</option>
-                                    <option value="catalogo.html?cat=motorola">Motorola</option>
-                                    <option value="catalogo.html?cat=xiaomi">Xiaomi</option>
-                                    <option value="catalogo.html?cat=notebooks">Notebooks</option>
-                                    <option value="catalogo.html?cat=tablets">Tablets</option>
-                                    <option value="catalogo.html?cat=accesorios">Accesorios</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Imagen de Fondo</label>
-                                <input type="file" id="set-car-img" accept="image/*" required style="width:100%; padding:0.6rem; border:1px solid var(--border-color); border-radius:8px; background:#fff;">
-                            </div>`;
-
-html = html.replace(oldHtmlChunk, newHtmlChunk);
-fs.writeFileSync('public/admin.html', html, 'utf8');
-
-let js = fs.readFileSync('public/script.js', 'utf8');
-const oldJsChunk = `            if(carouselForm) {
-                carouselForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    if(!currentSettings.carousel) currentSettings.carousel = [];
-                    currentSettings.carousel.push({
-                        title: document.getElementById('set-car-title').value,
-                        subtitle: document.getElementById('set-car-subtitle').value,
-                        link: document.getElementById('set-car-link').value,
-                        image: document.getElementById('set-car-img').value
-                    });
-                    carouselForm.reset();
-                    renderAdminCarouselList();
-                    saveSettings();
-                });
-            }`;
-
-const newJsChunk = `            if(carouselForm) {
+// 2. Remove floating unplash decorative phones from script.js carousel generator
+let script = fs.readFileSync('public/script.js', 'utf8');
+const startTag = '<!-- Floating Decoratives -->';
+const endTag = '<div class="hero-content"';
+const start = script.indexOf(startTag);
+const end = script.indexOf(endTag, start);
+if (start > -1 && end > -1) {
+    script = script.substring(0, start) + script.substring(end);
+    
+    // 3. Fix the "los cuadros con las fotos arruinan el fondo"
+    // The hero-content has a solid background blur box that might look bad on mobile if it blocks the background image.
+    // Let's make it transparent on mobile, or remove the background box on mobile.
+    // In style.css or inline.
+    script = script.replace('background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); padding: 4rem; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);', 'background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 600px;');
+    
+    // We also need to fix how the admin form handles the new file upload!
+    // We need to change the listener for #admin-carousel-form.
+    const uploadLogic = `
                 carouselForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    
+                    const title = document.getElementById('set-car-title').value.trim();
+                    const subtitle = document.getElementById('set-car-subtitle').value.trim();
+                    const link = document.getElementById('set-car-link').value.trim();
+                    
                     const fileInput = document.getElementById('set-car-img');
-                    if(fileInput.files.length === 0) return showToast('Selecciona una imagen primero', 'fa-image');
+                    if(fileInput.files.length === 0) return showToast('Selecciona una imagen de fondo', 'fa-image');
                     
                     const btn = carouselForm.querySelector('button[type="submit"]');
                     const oldBtnHTML = btn.innerHTML;
@@ -63,37 +44,41 @@ const newJsChunk = `            if(carouselForm) {
                     formData.append('image', fileInput.files[0]);
 
                     try {
-                        const token = localStorage.getItem('phoneSpotToken');
+                        const token = localStorage.getItem('phonespot_token');
                         const res = await fetch(window.API_URL + '/api/upload', {
                             method: 'POST',
                             headers: { 'Authorization': 'Bearer ' + token },
                             body: formData
                         });
                         const data = await res.json();
-                        
-                        if (!res.ok) throw new Error(data.error);
-
-                        if(!currentSettings.carousel) currentSettings.carousel = [];
-                        currentSettings.carousel.push({
-                            title: document.getElementById('set-car-title').value,
-                            subtitle: document.getElementById('set-car-subtitle').value,
-                            link: document.getElementById('set-car-link').value,
-                            image: data.url
-                        });
-                        carouselForm.reset();
-                        renderAdminCarouselList();
-                        saveSettings();
-                        showToast('Slide añadido con éxito');
+                        if (data.url) {
+                            if(!currentSettings.carousel) currentSettings.carousel = [];
+                            currentSettings.carousel.push({
+                                title, subtitle, link, image: data.url
+                            });
+                            await saveSettings();
+                            carouselForm.reset();
+                            renderAdminCarouselList();
+                        } else {
+                            throw new Error('Error al subir imagen');
+                        }
                     } catch(err) {
-                        showToast('Error al subir imagen', 'fa-triangle-exclamation');
+                        showToast('Error al procesar la imagen', 'fa-times');
                     } finally {
                         btn.innerHTML = oldBtnHTML;
                         btn.disabled = false;
                     }
                 });
-            }`;
-
-js = js.replace(oldJsChunk, newJsChunk);
-fs.writeFileSync('public/script.js', js, 'utf8');
-
-console.log('Fixed carousel admin panel');
+    `;
+    
+    // Replace the old form listener
+    const oldFormListenerStart = script.indexOf("carouselForm.addEventListener('submit'");
+    const oldFormListenerEnd = script.indexOf("});", script.indexOf("carouselForm.reset();", oldFormListenerStart)) + 3;
+    
+    if (oldFormListenerStart > -1 && oldFormListenerEnd > -1) {
+        script = script.substring(0, oldFormListenerStart) + uploadLogic + script.substring(oldFormListenerEnd);
+    }
+    
+    fs.writeFileSync('public/script.js', script, 'utf8');
+    console.log('Fixed script.js for carousel uploads, layout, and decoratives');
+}

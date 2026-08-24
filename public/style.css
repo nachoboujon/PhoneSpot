@@ -1381,7 +1381,7 @@ body:not(.dark-mode) .logo-slide img {
     }
     
     .product-img-wrapper {
-        height: 80px !important;
+        height: auto !important; min-height: 80px; aspect-ratio: 1/1;
         margin-bottom: 0.5rem !important;
     }
     
@@ -1401,4 +1401,11 @@ body:not(.dark-mode) .logo-slide img {
         font-size: 0.65rem !important;
         border-radius: 6px !important;
     }
+}
+
+.product-card .product-img {
+    max-height: 120px !important;
+    width: 100% !important;
+    object-fit: contain !important;
+    position: relative !important;
 }
