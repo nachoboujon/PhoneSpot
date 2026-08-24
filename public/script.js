@@ -1540,6 +1540,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (zipCityMap[zip]) {
                     chkCity.value = zipCityMap[zip];
                 } else if (zip.length >= 4) {
+                    // Buscar en toda Argentina con Zippopotamus
+                    chkCity.value = 'Buscando ciudad...';
+                    
+                    if (!chkCity.getAttribute('list')) {
+                        chkCity.setAttribute('list', 'city-options');
+                        let dl = document.createElement('datalist');
+                        dl.id = 'city-options';
+                        chkCity.parentNode.appendChild(dl);
+                    }
+                    
+                    fetch('https://api.zippopotam.us/ar/' + zip)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.places && data.places.length > 0) {
+                                const dl = document.getElementById('city-options');
+                                dl.innerHTML = ''; 
+                                
+                                data.places.forEach(placeObj => {
+                                    const placeName = placeObj['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    const stateName = placeObj['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    const fullString = placeName + ', ' + stateName;
+                                    
+                                    let option = document.createElement('option');
+                                    option.value = fullString;
+                                    dl.appendChild(option);
+                                });
+                                
+                                if (data.places.length === 1) {
+                                    chkCity.value = data.places[0]['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase()) + ', ' + data.places[0]['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                } else {
+                                    chkCity.value = '';
+                                    chkCity.placeholder = 'Elige tu ciudad/barrio de la lista...';
+                                    chkCity.focus();
+                                }
+                            } else {
+                                chkCity.value = '';
+                                chkCity.placeholder = 'Ingresa tu ciudad manualmente';
+                            }
+                        })
+                        .catch(() => {
+                            chkCity.value = '';
+                            chkCity.placeholder = 'Ingresa tu ciudad manualmente';
+                        });
+                }
+
+                if (zip.length >= 4) {
                     shippingContainer.innerHTML = `
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; background: #fff;">
                             <input type="radio" name="shipping_method" value="coordinar" data-cost="0" data-name="Envío a Coordinar" style="accent-color: var(--text-color);" checked>
@@ -1558,57 +1604,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     
                     if(typeof renderCheckout === 'function') renderCheckout();
-                } else {
-                                chkCity.value = '';
-                                chkCity.placeholder = 'Ingresa tu ciudad manualmente';
-                            }
-                        })
-                        .catch(() => {
-                            chkCity.value = '';
-                            chkCity.placeholder = 'Ingresa tu ciudad manualmente';
-                        });
-                }
-
-                if (zip.length >= 4) {
-                    shippingContainer.innerHTML = '<span style="color:#666;"><i class="fa-solid fa-spinner fa-spin"></i> Calculando envíos para CP ' + zip + '...</span>';
-                    
-                    try {
-                        const res = await fetch(window.API_URL + '/api/shipping/quote', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ zip_code: zip, items: cart })
-                        });
-                        const data = await res.json();
-                        
-                        if (data.success && data.options) {
-                            let html = '';
-                            data.options.forEach((opt, idx) => {
-                                html += `
-                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; background: #fff;">
-                                        <input type="radio" name="shipping_method" value="${opt.id}" data-cost="${opt.cost}" data-name="${opt.name}" style="accent-color: var(--text-color);" ${idx === 0 ? 'checked' : ''}>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: bold; color: var(--text-color);">${opt.name}</div>
-                                            <div style="font-size: 0.8rem; color: var(--text-muted);">Tiempo estimado: ${opt.time}</div>
-                                        </div>
-                                        <div style="font-weight: bold; color: var(--text-color);">
-                                            ${opt.cost === 0 ? 'Gratis' : window.formatPrice(opt.cost)}
-                                        </div>
-                                    </label>
-                                `;
-                            });
-                            shippingContainer.innerHTML = html;
-                            
-                            // Re-bind listeners para que el checkout renderice el nuevo total
-                            document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
-                                radio.addEventListener('change', renderCheckout);
-                            });
-                            
-                            // Forzar re-render de totales
-                            renderCheckout();
-                        }
-                    } catch (err) {
-                        shippingContainer.innerHTML = '<span style="color:red;">Error al calcular envíos. Intenta más tarde.</span>';
-                    }
                 }
             });
         }
