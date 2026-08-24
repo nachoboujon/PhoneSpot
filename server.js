@@ -52,16 +52,8 @@ try {
     console.log('Read-only file system (Vercel). Uploads directory not created.');
 }
 
-// Configuración de multer (motor para guardar archivos locales)
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, uploadDir)
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, uniqueSuffix + path.extname(file.originalname))
-    }
-});
+// Configuración de multer (motor en memoria para subir a Supabase Storage)
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Configuración Supabase
@@ -489,32 +481,63 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
     }
 });
 
-// --- RUTAS DE SETTINGS ---
-app.get('/api/settings', (req, res) => {
+
+// --- RUTAS DE SETTINGS Y UPLOADS PERSISTENTES (SUPABASE) ---
+app.get('/api/settings', async (req, res) => {
     try {
-        const settingsPath = path.join(__dirname, 'public', 'data', 'settings.json');
-        if (fs.existsSync(settingsPath)) {
-            const data = fs.readFileSync(settingsPath, 'utf8');
-            res.json(JSON.parse(data));
-        } else {
-            res.json({ top_banner: "Lanzamiento...", carousel: [] });
+        const { data, error } = await supabase.storage.from('uploads').download('settings.json');
+        if (error || !data) {
+            return res.json({ top_banner: "Lanzamiento...", carousel: [] });
         }
+        const text = await data.text();
+        res.json(JSON.parse(text));
     } catch (err) {
         res.status(500).json({ error: 'Error leyendo settings' });
     }
 });
 
-app.post('/api/upload', authenticate, isAdmin, upload.single('image'), (req, res) => {
+app.post('/api/upload', authenticate, isAdmin, upload.single('image'), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
-    res.json({ url: '/uploads/' + req.file.filename });
+    
+    try {
+        const ext = req.file.originalname.split('.').pop();
+        const fileName = `img_${Date.now()}.${ext}`;
+        
+        // Subir a Supabase Storage (persistente)
+        const { data, error } = await supabase.storage
+            .from('uploads')
+            .upload(fileName, req.file.buffer, {
+                contentType: req.file.mimetype,
+                upsert: true
+            });
+            
+        if (error) throw error;
+        
+        const { data: publicUrlData } = supabase.storage.from('uploads').getPublicUrl(fileName);
+        res.json({ url: publicUrlData.publicUrl });
+        
+    } catch(err) {
+        console.error('Error subiendo a Supabase:', err);
+        res.status(500).json({ error: 'Error al subir la imagen' });
+    }
 });
 
-app.post('/api/settings', authenticate, isAdmin, (req, res) => {
+app.post('/api/settings', authenticate, isAdmin, async (req, res) => {
     try {
-        const settingsPath = path.join(__dirname, 'public', 'data', 'settings.json');
-        fs.writeFileSync(settingsPath, JSON.stringify(req.body, null, 2), 'utf8');
-        res.json({ message: 'Ajustes guardados correctamente' });
+        const settingsJson = JSON.stringify(req.body, null, 2);
+        
+        // Subir a Supabase Storage
+        const { error } = await supabase.storage
+            .from('uploads')
+            .upload('settings.json', settingsJson, {
+                contentType: 'application/json',
+                upsert: true
+            });
+            
+        if (error) throw error;
+        res.json({ message: 'Ajustes guardados correctamente en la nube' });
     } catch (err) {
+        console.error('Error guardando settings en Supabase:', err);
         res.status(500).json({ error: 'Error guardando settings' });
     }
 });
@@ -853,10 +876,7 @@ app.post('/api/shipping/quote', async (req, res) => {
     try {
         const { zip_code, total_amount, items } = req.body;
         
-        // Aquí iría el código oficial de Zipnova cuando tengamos API Key + API Secret completos.
-        // Simulamos la respuesta de Zipnova (Zippin) con tarifas calculadas por Código Postal
-        
-        let isLocal = (zip_code === '3280' || zip_code === '3283');
+        let isLocal = (zip_code === '3280' || zip_code === '3283' || zip_code === '3265' || zip_code === '3260');
         
         if (isLocal) {
             return res.json({
@@ -867,18 +887,31 @@ app.post('/api/shipping/quote', async (req, res) => {
             });
         }
         
-        // Base costs depending on region (fake logic for now)
-        let baseCost = 8500;
-        if (zip_code && zip_code.startsWith('9')) baseCost = 15000; // Patagonia
-        else if (zip_code && (zip_code.startsWith('4') || zip_code.startsWith('5'))) baseCost = 11000; // Norte / Cuyo
+        // Fetch current settings from Supabase to use the admin's exact custom prices
+        let adminSettings = { shipping_correo: 8500, shipping_andreani: 12000 };
+        try {
+            const { data } = await supabase.storage.from('uploads').download('settings.json');
+            if (data) {
+                const text = await data.text();
+                adminSettings = JSON.parse(text);
+            }
+        } catch(e) {}
+        
+        // Calculadora de Zonas Interna (Reemplazo Inteligente de Zipnova)
+        let modifier = 1.0;
+        if (zip_code && zip_code.startsWith('9')) modifier = 1.6; // Patagonia (60% más caro)
+        else if (zip_code && (zip_code.startsWith('4') || zip_code.startsWith('5'))) modifier = 1.3; // Norte/Cuyo (30% más)
+        
+        const costCorreo = Math.round((adminSettings.shipping_correo || 8500) * modifier);
+        const costAndreani = Math.round((adminSettings.shipping_andreani || 12000) * modifier);
         
         res.json({
             success: true,
             options: [
-                { id: 'correo_sucursal', name: 'Correo Argentino (A Sucursal)', cost: Math.max(0, baseCost - 2000), time: '3-6 días' },
-                { id: 'correo_domicilio', name: 'Correo Argentino (A Domicilio)', cost: baseCost, time: '3-6 días' },
-                { id: 'andreani_sucursal', name: 'Andreani (A Sucursal)', cost: baseCost + 1500, time: '2-4 días' },
-                { id: 'andreani_domicilio', name: 'Andreani (A Domicilio)', cost: baseCost + 3500, time: '2-4 días' }
+                { id: 'correo_sucursal', name: 'Correo Argentino (A Sucursal)', cost: Math.max(0, costCorreo - 2000), time: '3-6 días' },
+                { id: 'correo_domicilio', name: 'Correo Argentino (A Domicilio)', cost: costCorreo, time: '3-6 días' },
+                { id: 'andreani_sucursal', name: 'Andreani (A Sucursal)', cost: Math.max(0, costAndreani - 3000), time: '2-4 días' },
+                { id: 'andreani_domicilio', name: 'Andreani (A Domicilio)', cost: costAndreani, time: '2-4 días' }
             ]
         });
         

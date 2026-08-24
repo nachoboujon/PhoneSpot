@@ -418,7 +418,7 @@ async function renderCheckout() { await window.dolarPromise;
         shippingName = selectedShipping.dataset.name || 'Envío';
         
         // Envío local sin cargo
-        if (userZip === '3283' || userZip === '3280') {
+        if (userZip === '3283' || userZip === '3280' || userZip === '3265' || userZip === '3260') {
             shippingCost = 0;
             shippingName = 'Envío Local (Sin Cargo)';
         } else if (isFreeShipping) {
@@ -1489,10 +1489,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('chk-email').value;
             const name = document.getElementById('chk-name').value;
             const address = document.getElementById('chk-address').value;
-            if (!email || !name || !address) {
-                showToast('Por favor completa tu correo, nombre y dirección.', 'fa-circle-exclamation');
+            
+            const city = document.getElementById('chk-city').value;
+            const zip = document.getElementById('chk-zip').value;
+            
+            if (!email || !name || !address || !city || !zip) {
+                showToast('Por favor completa todos los campos de envío.', 'fa-circle-exclamation');
                 return;
             }
+            
+            const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
+            if (!selectedShipping) {
+                showToast('Por favor selecciona una opción de envío.', 'fa-truck');
+                return;
+            }
+
             part1.style.display = 'none';
             part2.style.display = 'block';
             step1Ind.classList.remove('active');
@@ -1508,7 +1519,118 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Envío final del Checkout
-    const checkoutForm = document.getElementById('checkout-form');
+    
+        const chkZip = document.getElementById('chk-zip');
+        const chkCity = document.getElementById('chk-city');
+        const shippingContainer = document.getElementById('shipping-options-container');
+        
+        if (chkZip && chkCity && shippingContainer) {
+            chkZip.addEventListener('input', async (e) => {
+                const zip = e.target.value.trim();
+                
+                // Mapa automático de CP a Ciudades locales
+                const zipCityMap = {
+                    '3283': 'San José',
+                    '3280': 'Colón',
+                    '3265': 'Villa Elisa',
+                    '3260': 'Concepción del Uruguay'
+                };
+                
+                if (zipCityMap[zip]) {
+                    chkCity.value = zipCityMap[zip];
+                } else if (zip.length >= 4) {
+                    // Buscar en toda Argentina con Zippopotamus
+                    chkCity.value = 'Buscando ciudad...';
+                    
+                    // Asegurarnos de que el input tenga un datalist asociado
+                    if (!chkCity.getAttribute('list')) {
+                        chkCity.setAttribute('list', 'city-options');
+                        let dl = document.createElement('datalist');
+                        dl.id = 'city-options';
+                        chkCity.parentNode.appendChild(dl);
+                    }
+                    
+                    fetch('https://api.zippopotam.us/ar/' + zip)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.places && data.places.length > 0) {
+                                const dl = document.getElementById('city-options');
+                                dl.innerHTML = ''; // Limpiar opciones anteriores
+                                
+                                data.places.forEach(placeObj => {
+                                    const placeName = placeObj['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    const stateName = placeObj['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    const fullString = placeName + ', ' + stateName;
+                                    
+                                    let option = document.createElement('option');
+                                    option.value = fullString;
+                                    dl.appendChild(option);
+                                });
+                                
+                                // Si solo hay 1 opción, la autocompletamos. Si hay varias, borramos el texto para que despliegue la lista.
+                                if (data.places.length === 1) {
+                                    chkCity.value = data.places[0]['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase()) + ', ' + data.places[0]['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                } else {
+                                    chkCity.value = '';
+                                    chkCity.placeholder = 'Elige tu ciudad/barrio de la lista...';
+                                    chkCity.focus(); // Abrir el dropdown (depende del navegador)
+                                }
+                            } else {
+                                chkCity.value = '';
+                                chkCity.placeholder = 'Ingresa tu ciudad manualmente';
+                            }
+                        })
+                        .catch(() => {
+                            chkCity.value = '';
+                            chkCity.placeholder = 'Ingresa tu ciudad manualmente';
+                        });
+                }
+
+                if (zip.length >= 4) {
+                    shippingContainer.innerHTML = '<span style="color:#666;"><i class="fa-solid fa-spinner fa-spin"></i> Calculando envíos para CP ' + zip + '...</span>';
+                    
+                    try {
+                        const res = await fetch(window.API_URL + '/api/shipping/quote', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ zip_code: zip, items: cart })
+                        });
+                        const data = await res.json();
+                        
+                        if (data.success && data.options) {
+                            let html = '';
+                            data.options.forEach((opt, idx) => {
+                                html += `
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; background: #fff;">
+                                        <input type="radio" name="shipping_method" value="${opt.id}" data-cost="${opt.cost}" data-name="${opt.name}" style="accent-color: var(--text-color);" ${idx === 0 ? 'checked' : ''}>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: bold; color: var(--text-color);">${opt.name}</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-muted);">Tiempo estimado: ${opt.time}</div>
+                                        </div>
+                                        <div style="font-weight: bold; color: var(--text-color);">
+                                            ${opt.cost === 0 ? 'Gratis' : window.formatPrice(opt.cost)}
+                                        </div>
+                                    </label>
+                                `;
+                            });
+                            shippingContainer.innerHTML = html;
+                            
+                            // Re-bind listeners para que el checkout renderice el nuevo total
+                            document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
+                                radio.addEventListener('change', renderCheckout);
+                            });
+                            
+                            // Forzar re-render de totales
+                            renderCheckout();
+                        }
+                    } catch (err) {
+                        shippingContainer.innerHTML = '<span style="color:red;">Error al calcular envíos. Intenta más tarde.</span>';
+                    }
+                }
+            });
+        }
+
+const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         // Lógica de ciudad
         const citySelect = document.getElementById('chk-city');
