@@ -10,75 +10,52 @@
 </head>
 <body>
     <!-- Encabezado genérico -->
-    <header>
+    <header style="background: var(--bg-color); border-bottom: 1px solid var(--border-color);">
         <div class="logo">
-            <a href="index.html"><h1>Phone<span>Spot</span></h1></a>
+            <h1><a href="index.html" style="display:flex; align-items:center; gap:0.5rem;"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo" style="height:35px; width:auto; border-radius: 4px;"> PhoneSpot.</a></h1>
         </div>
+        <div class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html?cat=all">Catálogo</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="catalogo.html?cat=all">Productos</a></li>
             </ul>
         </nav>
         <div class="header-icons">
-            <a href="#" onclick="event.preventDefault(); toggleFavSidebar();" title="Mis Favoritos" style="margin-right: 15px; font-size: 1.2rem; color: var(--text-color);"><i class="fa-regular fa-heart"></i></a>
-            <a href="carrito.html" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i> <span id="cart-count-badge" class="badge" style="font-size:0.8rem; background:#ff4757; color:white; border-radius:50%; padding:2px 6px;">0</span></a>
-            <a href="login.html" id="user-icon-link"><i class="fa-regular fa-user"></i></a>
+            <a href="login.html" title="Mi Cuenta"><i class="fa-solid fa-user"></i></a>
+            <a href="carrito.html" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
     </header>
 
-    <main style="max-width: 900px; margin: 4rem auto; padding: 2rem; background: var(--card-bg); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-        <h1 style="margin-bottom: 2rem; color: var(--text-color); border-bottom: 2px solid #555555; padding-bottom: 1rem;"><i class="fa-solid fa-shield-halved" style="color:#555555; margin-right: 10px;"></i> Política de Garantías</h1>
+    <main style="padding: 4rem 5%; max-width: 900px; margin: 0 auto; line-height: 1.6; color: var(--text-color);">
+        <h1 style="font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 2px solid #000; padding-bottom: 1rem;">Política de Garantía</h1>
         
-        <div style="color: var(--text-muted); line-height: 1.8; font-size: 1.1rem;">
-            <p>En PhoneSpot nos comprometemos a entregarte productos originales y en perfecto estado. Todos nuestros equipos cuentan con garantía oficial o garantía directa con nosotros según el fabricante.</p>
+        <h3 style="margin-top: 2rem; font-size: 1.5rem;">1. Cobertura de Equipos Nuevos</h3>
+        <p>Todos nuestros equipos nuevos cuentan con una garantía oficial de <strong>12 meses (1 año)</strong> desde la fecha de facturación. Esta garantía cubre exclusivamente defectos de fabricación y fallas en el hardware que no sean atribuibles al mal uso por parte del usuario.</p>
+        
+        <h3 style="margin-top: 2rem; font-size: 1.5rem;">2. Cobertura de Equipos "Swap Americano" / Seminuevos</h3>
+        <p>Los equipos categorizados como "Swap Americano" cuentan con una garantía de <strong>3 a 6 meses</strong> (dependiendo del modelo especificado en la factura). Garantizamos que el equipo es 100% funcional y original.</p>
 
-            <h3 style="color: var(--text-color); margin-top: 1.5rem;">1. Cobertura de la Garantía</h3>
-            <p>La garantía cubre exclusivamente **defectos de fabricación** y problemas de software de origen durante el plazo de 12 meses (Apple/Samsung) o 6 meses (Xiaomi/Motorola) a partir de la fecha de facturación. (Solo en equipos sellados). Americanos o de uso tienen 1 mes de garantía.</p>
+        <h3 style="margin-top: 2rem; font-size: 1.5rem;">3. ¿Qué invalida la garantía?</h3>
+        <ul style="margin-left: 2rem; margin-top: 1rem; list-style-type: disc;">
+            <li>Daños físicos (pantallas rotas, abolladuras, raspones profundos).</li>
+            <li>Contacto con líquidos o humedad (incluso en equipos con certificación IP68, ya que las marcas oficiales no lo cubren).</li>
+            <li>Modificaciones de software no oficiales (Jailbreak, Root, flasheos de ROM).</li>
+            <li>Intervención técnica por parte de terceros no autorizados por PhoneSpot.</li>
+            <li>Variaciones de tensión eléctrica o uso de cargadores no homologados.</li>
+        </ul>
 
-            <h3 style="color: var(--text-color); margin-top: 1.5rem;">2. Anulación de la Garantía</h3>
-            <p>La garantía quedará automáticamente anulada si el dispositivo presenta:</p>
-            <ul>
-                <li>Daños físicos (pantalla rota, abolladuras, rayas profundas).</li>
-                <li>Daños por exposición a líquidos o humedad (incluso en teléfonos sumergibles).</li>
-                <li>Intervenciones de hardware o software por terceros (jailbreak, root).</li>
-                <li>Problemas eléctricos por uso de cargadores no originales o defectuosos.</li>
-            </ul>
+        <h3 style="margin-top: 2rem; font-size: 1.5rem;">4. Proceso de Reclamo</h3>
+        <p>Para hacer efectiva la garantía, el cliente debe contactarnos a través de nuestro canal oficial de soporte presentando:</p>
+        <ol style="margin-left: 2rem; margin-top: 1rem;">
+            <li>El comprobante de compra (Factura o Recibo Electrónico).</li>
+            <li>El equipo en su caja original con todos sus accesorios.</li>
+            <li>El equipo no debe tener cuentas vinculadas (iCloud, Google) al momento de ser entregado.</li>
+        </ol>
 
-            <h3 style="color: var(--text-color); margin-top: 1.5rem;">3. Cómo activar la Garantía</h3>
-            <p>Si tu equipo presenta fallas, contáctanos inmediatamente a través de nuestro <a href="https://wa.me/5493447416011" target="_blank" style="color:#555555; font-weight:bold;">WhatsApp de Soporte</a> enviando tu número de orden y una descripción detallada del problema. Nuestro equipo técnico evaluará el caso y coordinará el envío del equipo a revisión.</p>
-
-            <p style="margin-top: 3rem; font-size: 0.9rem; text-align: center;">Última actualización: Agosto 2026</p>
-        </div>
+        <p style="margin-top: 3rem; font-size: 0.9rem; color: #666;">Última actualización: Agosto 2026</p>
     </main>
 
-    <!-- Pie de página -->
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border-color); padding: 3rem 2rem; text-align: center;">
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem;">
-            <a href="terminos.html" style="color: var(--text-muted); text-decoration: none;">Términos y Condiciones</a>
-            <a href="garantias.html" style="color: var(--text-muted); text-decoration: none;">Garantías</a>
-        </div>
-        <p style="color: var(--text-muted);">&copy; 2026 PhoneSpot. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- WhatsApp Flotante -->
-    <a href="https://wa.me/5493447416011" class="whatsapp-float" target="_blank" title="Chatea con nosotros">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-    <script src="script.js?v=1787314505456"></script>
-
-    <!-- FAVORITES SIDEBAR -->
-    <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
-    <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
-        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
-            <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
-            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-            <!-- Renderizado por JS -->
-        </div>
-    </div>
-
+    <script src="script.js"></script>
 </body>
 </html>

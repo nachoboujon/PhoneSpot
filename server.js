@@ -76,7 +76,7 @@ if (supabaseUrl === 'https://placeholder.supabase.co') {
 // Configuración Email
 const transporter = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
-    port: 587,
+    port: 2525,
     secure: false,
     auth: {
         user: process.env.EMAIL_USER,
@@ -91,27 +91,39 @@ const transporter = nodemailer.createTransport({
 
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
-    return Promise.race([
-        new Promise(async (resolve, reject) => {
-            try {
-                if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-                    return reject(new Error('Faltan configurar las credenciales de Brevo en Railway (EMAIL_USER y EMAIL_PASS)'));
-                }
-                await transporter.sendMail({
-                    from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
-                    to,
-                    subject,
-                    html
-                });
-                console.log('Email sent to', to);
-                resolve(true);
-            } catch (err) {
-                console.error('Error sending email:', err);
-                reject(err);
-            }
-        }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout enviando correo (Google SMTP no responde)')), 6000))
-    ]);
+    try {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            throw new Error('Faltan configurar las credenciales de Brevo en Railway (EMAIL_USER y EMAIL_PASS)');
+        }
+        
+        // Brevo REST API (Bypasses all SMTP firewalls by using port 443)
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.EMAIL_PASS, // Brevo API/SMTP key
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: "PhoneSpot", email: process.env.EMAIL_USER },
+                to: [{ email: to }],
+                subject: subject,
+                htmlContent: html
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Brevo API Error:', errorData);
+            throw new Error(errorData.message || 'Error en la API de Brevo');
+        }
+
+        console.log('Email sent to', to, 'via Brevo REST API');
+        return true;
+    } catch (err) {
+        console.error('Error sending email:', err);
+        throw err;
+    }
 };
 
 const authenticate = (req, res, next) => {
@@ -181,17 +193,24 @@ app.post('/api/register', async (req, res) => {
         const verifyLink = `${protocol}://${host}/api/verify-email?token=${verificationToken}`;
         
         const verifyHtml = `
-            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
-                <div style="background: #e74c3c; color: #fff; padding: 20px; text-align: center;">
-                    <h1>Verifica tu cuenta</h1>
+            <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                <div style="background-color: #000000; padding: 40px 20px; text-align: center;">
+                    <img src="https://phonespot.site/uploads/PhoneSpot-trans.png" alt="PhoneSpot" style="height: 50px; margin-bottom: 20px;">
+                    <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Bienvenido a PhoneSpot</h1>
                 </div>
-                <div style="padding: 20px; text-align: center;">
-                    <p>Hola <b>${name}</b>,</p>
-                    <p>Estás a un solo paso de unirte a PhoneSpot. Por seguridad, necesitamos verificar que este es tu correo electrónico.</p>
-                    <br>
-                    <a href="${verifyLink}" style="display: inline-block; background: #e74c3c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 16px;">Verificar mi Correo</a>
-                    <br><br>
-                    <p style="font-size: 12px; color: #888;">Este enlace expirará en 1 hora. Si no solicitaste esta cuenta, puedes ignorar este correo.</p>
+                <div style="padding: 40px 30px; text-align: center;">
+                    <p style="font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 10px;">Hola <strong style="color: #000;">${name}</strong>,</p>
+                    <p style="font-size: 16px; color: #555555; line-height: 1.6; margin-bottom: 30px;">Estamos encantados de tenerte. Para garantizar la seguridad de tu cuenta y activar tus beneficios, necesitamos verificar tu dirección de correo electrónico.</p>
+                    
+                    <a href="${verifyLink}" style="display: inline-block; background-color: #0071e3; color: #ffffff; padding: 16px 36px; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);">Verificar mi Cuenta</a>
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eeeeee;">
+                        <p style="font-size: 12px; color: #999999; line-height: 1.5; margin: 0;">Si el botón no funciona, copia y pega este enlace en tu navegador:<br><span style="color:#0071e3">${verifyLink}</span></p>
+                        <p style="font-size: 12px; color: #999999; margin-top: 15px;">Si tú no solicitaste este registro, puedes ignorar o eliminar este correo de forma segura. El enlace expirará automáticamente en 24 horas.</p>
+                    </div>
+                </div>
+                <div style="background-color: #f9f9f9; padding: 20px; text-align: center;">
+                    <p style="font-size: 12px; color: #888888; margin: 0;">© 2026 PhoneSpot. Todos los derechos reservados.</p>
                 </div>
             </div>
         `;
@@ -641,11 +660,13 @@ app.post('/api/orders', async (req, res) => {
                 items: mpItems,
                 payer: { name: customer_name, email: customer_email },
                 back_urls: {
-                    success: req.headers.origin + '/compra-exitosa.html',
-                    failure: req.headers.origin + '/index.html?pago=error',
-                    pending: req.headers.origin + '/index.html?pago=pendiente'
+                    success: req.headers.origin + '/perfil.html?pago=exito',
+                    failure: req.headers.origin + '/carrito.html?pago=error',
+                    pending: req.headers.origin + '/perfil.html?pago=pendiente'
                 },
-                auto_return: 'approved'
+                auto_return: 'approved',
+                external_reference: orderId.toString(),
+                notification_url: 'https://phonespot.site/api/mercadopago/webhook'
             };
             const mpResponse = await fetch('https://api.mercadopago.com/checkout/preferences', {
                 method: 'POST',

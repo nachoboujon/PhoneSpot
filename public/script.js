@@ -1655,10 +1655,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast('Redirigiendo a Mercado Pago...', 'fa-spinner fa-spin');
                         // Call MP endpoint
                         try {
-                            const mpRes = await fetch(window.API_URL + '/api/mercadopago/preference', {
+                            const token = localStorage.getItem('phonespot_token');
+                            const payload = {
+                                items: cart.map(i => ({ product_id: i.id, quantity: i.quantity, price: i.price, variant_name: i.variant_name || null })),
+                                customer_name,
+                                customer_email,
+                                shipping_address,
+                                payment_method: 'mercadopago',
+                                extra_shipping: 0,
+                                discount_amount: 0,
+                                dolar_value: window.dolarValue || 1400
+                            };
+                            
+                            const mpRes = await fetch(window.API_URL + '/api/checkout', {
                                 method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ items: cart, customer_email, total_ars: finalTotalArs })
+                                headers: { 
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify(payload)
                             });
                             const mpData = await mpRes.json();
                             if (mpData.init_point) {
