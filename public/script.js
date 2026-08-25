@@ -402,7 +402,7 @@ async function renderCheckout() { await window.dolarPromise;
     // Calcular envío extra
     let shippingCost = 0;
     var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
-    const threshold = settings.free_shipping_threshold;
+    const threshold = settings_ml.free_shipping_threshold;
     
     // Si supera el umbral, envío gratis
     const isFreeShipping = threshold > 0 && total >= threshold;
@@ -1667,7 +1667,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
             let shipping_cost = 0;
             var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
-            const threshold = settings.free_shipping_threshold;
+            const threshold = settings_ml.free_shipping_threshold;
             
             // Calcular total del carrito para saber si aplica envío gratis
             const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -1729,16 +1729,16 @@ const checkoutForm = document.getElementById('checkout-form');
                     
                     if (paymentMethod === 'efectivo') {
                         // Generar mensaje de WhatsApp
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.${window.getFullImageUrl(item.img || item.image || item.image_url)}n${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Nombre:* ${customer_name}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Dirección:* ${shipping_address}${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Total a pagar:* $${finalTotalArs.toLocaleString('es-AR')}${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
-                        if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
-                        wpMsg += `${window.getFullImageUrl(item.img || item.image || item.image_url)}n*Productos:*${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* ${finalTotalArs.toLocaleString('es-AR')}\n`;
+                        if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)\n`;
+                        wpMsg += `\n*Productos:*\n`;
 
                         cart.forEach(item => {
                             let finalPrice = item.price;
                             if (isWholesale) finalPrice -= wholesaleDiscount;
-                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})${window.getFullImageUrl(item.img || item.image || item.image_url)}n`;
+                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
                         });
-                        wpMsg += `${window.getFullImageUrl(item.img || item.image || item.image_url)}nQuiero coordinar el pago en efectivo con ustedes (Pesos/Dólares).`;
+                        wpMsg += `\nQuiero coordinar el pago en efectivo con ustedes.`;
                         
                         const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
                         const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
