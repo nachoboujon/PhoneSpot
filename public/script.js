@@ -230,7 +230,7 @@ async function renderSideCart() {
     const fsText = document.getElementById('free-shipping-text');
     const fsBar = document.getElementById('free-shipping-bar');
     var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
-    const threshold = settings.free_shipping_threshold;
+    const threshold = settings_ml.free_shipping_threshold;
     
     if (fsText && fsBar && threshold > 0) {
         document.getElementById('free-shipping-container').style.display = 'block';
