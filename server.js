@@ -85,7 +85,8 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
     try {
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            throw new Error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS)');
+            console.error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS)');
+            return false;
         }
         
         const nodemailer = require('nodemailer');
@@ -94,7 +95,10 @@ const sendEmail = async (to, subject, html) => {
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
-            }
+            },
+            connectionTimeout: 5000,
+            greetingTimeout: 5000,
+            socketTimeout: 5000
         });
 
         const mailOptions = {
@@ -108,8 +112,8 @@ const sendEmail = async (to, subject, html) => {
         console.log('Email sent to', to, 'via Gmail/Nodemailer');
         return true;
     } catch (err) {
-        console.error('Error sending email:', err);
-        throw err;
+        console.error('Error sending email:', err.message);
+        return false;
     }
 };
 
@@ -617,7 +621,7 @@ app.post('/api/orders', async (req, res) => {
 
         const usdTotal = items.reduce((acc, item) => {
             let finalPrice = item.price;
-            if (isWholesale) finalPrice -= wholesaleDiscount;
+            if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
             return acc + (finalPrice * item.quantity);
         }, 0);
         const dolarValue = Number(req.body.dolar_value) || 1400;
@@ -734,7 +738,7 @@ app.post('/api/orders', async (req, res) => {
 
             const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
             if (adminEmail) {
-                await sendEmail(adminEmail, '🎉 ¡Nueva Venta en PhoneSpot! - Orden #' + orderId, htmlContent);
+                sendEmail(adminEmail, '🎉 ¡Nueva Venta en PhoneSpot! - Orden #' + orderId, htmlContent);
                 console.log('Email de notificación enviado al admin vía Brevo.');
             }
         } catch (mailErr) {

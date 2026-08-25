@@ -170,7 +170,7 @@ async function renderSideCart() {
 
     cart.forEach(item => {
         let finalPrice = item.price;
-        if (isWholesale) finalPrice -= wholesaleDiscount;
+        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         sideContainer.innerHTML += `
@@ -302,7 +302,7 @@ async function renderCart() { await window.dolarPromise;
 
     cart.forEach(item => {
         let finalPrice = item.price;
-        if (isWholesale) finalPrice -= wholesaleDiscount;
+        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         const itemDiv = document.createElement('div');
@@ -382,7 +382,7 @@ async function renderCheckout() { await window.dolarPromise;
     
     cart.forEach(item => {
         let finalPrice = item.price;
-        if (isWholesale) finalPrice -= wholesaleDiscount;
+        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         checkoutItems.innerHTML += `
@@ -1555,7 +1555,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then(data => {
                             if (data.places && data.places.length > 0) {
                                 const dl = document.getElementById('city-options');
-                                dl.innerHTML = ''; 
+                                if (dl) dl.innerHTML = ''; 
                                 
                                 data.places.forEach(placeObj => {
                                     const placeName = placeObj['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
@@ -1564,7 +1564,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     
                                     let option = document.createElement('option');
                                     option.value = fullString;
-                                    dl.appendChild(option);
+                                    if (dl) dl.appendChild(option);
                                 });
                                 
                                 if (data.places.length === 1) {
@@ -1708,7 +1708,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
                 const total = cart.reduce((acc, item) => {
                     let finalPrice = item.price;
-                    if (isWholesale) finalPrice -= wholesaleDiscount;
+                    if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                     return acc + (finalPrice * item.quantity);
                 }, 0);
                 const orderTotal = total;
@@ -1735,7 +1735,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
                         cart.forEach(item => {
                             let finalPrice = item.price;
-                            if (isWholesale) finalPrice -= wholesaleDiscount;
+                            if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                             wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
                         });
                         wpMsg += `\nQuiero coordinar el pago en efectivo con ustedes.`;
