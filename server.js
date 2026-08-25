@@ -851,7 +851,8 @@ app.delete('/api/products/:id', authenticate, isAdmin, async (req, res) => {
 app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        const { stock, price, variants } = req.body;
+        const { stock, price, variants, description } = req.body;
+        if (description !== undefined) updateData.description = description;
         
         let updateData = {};
         if (stock !== undefined) updateData.stock = parseInt(stock);

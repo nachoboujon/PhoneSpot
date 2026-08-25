@@ -1151,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
                                     <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
-                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${prod.description}</p>
+                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${(prod.description || '').replace(/\n/g, '<br>')}</p>
                                 </div>
 
                                 <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
@@ -2044,6 +2044,7 @@ const checkoutForm = document.getElementById('checkout-form');
                                     <div style="flex:2;">
                                         <h5 style="margin:0;">${p.name}</h5>
                                         <p style="margin:0; font-size:0.8rem; color: var(--text-muted);">Cat: ${p.category} | Marca: ${p.brand}</p>
+                                        <textarea id="desc-${p.id}" rows="2" style="width:100%; margin-top:0.5rem; font-size:0.8rem; padding:0.3rem;" placeholder="Descripción">${p.description || ''}</textarea>
                                     </div>
                                     <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
                                         <label style="font-size:0.8rem;">Precio (USD):</label>
@@ -2080,13 +2081,14 @@ const checkoutForm = document.getElementById('checkout-form');
             window.updateProductBasic = async (id) => {
                 const price = document.getElementById(`price-${id}`).value;
                 const stock = document.getElementById(`stock-${id}`).value;
+                const description = document.getElementById(`desc-${id}`) ? document.getElementById(`desc-${id}`).value : undefined;
                 const token = localStorage.getItem('phoneSpotToken');
                 showToast('Guardando...', 'fa-spinner fa-spin');
                 try {
                     const res = await fetch(`${window.API_URL}/api/products/${id}`, {
                         method: 'PUT',
                         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ price, stock })
+                        body: JSON.stringify({ price, stock, description })
                     });
                     if(res.ok) {
                         showToast('Precio actualizado', 'fa-check');
