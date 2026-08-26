@@ -852,9 +852,9 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const { stock, price, variants, description } = req.body;
-        if (description !== undefined) updateData.description = description;
         
         let updateData = {};
+        if (description !== undefined) updateData.description = description;
         if (stock !== undefined) updateData.stock = parseInt(stock);
         if (price !== undefined) updateData.price = parseFloat(price);
         

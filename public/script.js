@@ -2183,9 +2183,14 @@ const checkoutForm = document.getElementById('checkout-form');
                 window[`adminProductVariants_${id}`] = variants; // keep track of parsed variants
 
                 list.innerHTML = variants.map((v, index) => `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px;">
-                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} - ${v.ram} (Stock: ${v.stock})${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
-                        <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer;"><i class="fa-solid fa-times"></i></button>
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px; flex-wrap:wrap; gap:0.5rem;">
+                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} ${v.ram ? '- ' + v.ram : ''} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
+                        <div style="display:flex; align-items:center; gap:0.5rem;">
+                            <label style="font-size:0.8rem; margin:0;">Stock:</label>
+                            <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" style="width:60px; padding:0.2rem; font-size:0.8rem;">
+                            <button onclick="updateVariantStock(${id}, ${index})" style="background:#333; color:white; border:none; border-radius:4px; padding:0.2rem 0.5rem; font-size:0.8rem; cursor:pointer;">Guardar</button>
+                            <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer; margin-left:0.5rem;"><i class="fa-solid fa-times"></i></button>
+                        </div>
                     </div>
                 `).join('');
             };
@@ -2203,6 +2208,14 @@ const checkoutForm = document.getElementById('checkout-form');
                 let variants = window[`adminProductVariants_${id}`] || [];
                 variants.push({ color, capacity: cap, ram, stock, price });
                 
+                await saveVariantsToDB(id, variants);
+            };
+
+            window.updateVariantStock = async (id, index) => {
+                let variants = window[`adminProductVariants_${id}`] || [];
+                const newStock = document.getElementById(`edit-vstock-${id}-${index}`).value;
+                if (!variants[index]) return;
+                variants[index].stock = parseInt(newStock) || 0;
                 await saveVariantsToDB(id, variants);
             };
 
