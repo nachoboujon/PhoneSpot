@@ -793,8 +793,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let imgEl = card.querySelector('img:not([style*="display:none"])') || card.querySelector('img');
             const img = imgEl ? imgEl.src : '';
             
-            // Evaluar stock máximo
+            // Evaluar stock y precio máximo
             let maxStock = 1; // Fallback
+            let finalPrice = price;
             try {
                 if (card.dataset.stockInfo) {
                     const info = JSON.parse(unescape(card.dataset.stockInfo));
@@ -803,7 +804,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             const vName = [vx.color, vx.capacity, vx.ram].filter(Boolean).join(' - ');
                             return vName === selectedVariant;
                         });
-                        maxStock = v ? v.stock : 0;
+                        if (v) {
+                            maxStock = v.stock;
+                            if (v.price) finalPrice = parseFloat(v.price);
+                        } else {
+                            maxStock = 0;
+                        }
                     } else {
                         maxStock = info.stock;
                     }
@@ -812,7 +818,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error parsing stock info', e);
             }
 
-            addToCart({id, name, price, img, variant_name: selectedVariant || null, maxStock});
+            addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock});
         }
     });
 
