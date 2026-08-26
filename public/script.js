@@ -1281,16 +1281,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
                                     <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
-                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-shield-halved" style="color:#0071e3;"></i></div>
-                                        <span>12 meses de <strong>garantía oficial</strong></span>
-                                    </div>
-                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
-                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-rotate-left" style="color:#0071e3;"></i></div>
-                                        <span>Devolución <strong>gratuita en 30 días</strong></span>
-                                    </div>
-                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
                                         <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i></div>
                                         <span><strong>Envío inmediato</strong> a todo el país</span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
+                                        <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-headset" style="color:#0071e3;"></i></div>
+                                        <span><strong>Atención personalizada</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -2101,9 +2097,13 @@ const checkoutForm = document.getElementById('checkout-form');
                 const color = row.querySelector('.var-color').value.trim();
                 const capacity = row.querySelector('.var-cap').value.trim();
                 const ram = row.querySelector('.var-ram').value.trim();
+                const battEl = row.querySelector('.var-batt');
+                const batt = battEl ? battEl.value.trim() : '';
+                const priceEl = row.querySelector('.var-price');
+                const price = priceEl && priceEl.value ? parseFloat(priceEl.value) : null;
                 const stock = parseInt(row.querySelector('.var-stock').value) || 0;
                 if(color && capacity) {
-                    variantsArray.push({ color, capacity, ram, stock });
+                    variantsArray.push({ color, capacity, ram, batt, price, stock });
                     totalStock += stock;
                 }
             });
