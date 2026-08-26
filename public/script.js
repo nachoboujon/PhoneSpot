@@ -553,6 +553,7 @@ async function loadProductsFromDB() {
                     const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
+                    const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     if (uniqueColors.length > 0) {
@@ -568,6 +569,16 @@ async function loadProductsFromDB() {
                     if (uniqueRams.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueBatts.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueBatts.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -767,24 +778,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeCap = card.querySelector('.var-btn.active[data-type="capacity"]');
             const activeRam = card.querySelector('.var-btn.active[data-type="ram"]');
 
+            const activeBatt = card.querySelector('.var-btn.active[data-type="batt"]');
+            
             const selColorBtn = card.querySelector('.variant-color-btn.selected');
             const selCapBtn = card.querySelector('.variant-cap-btn.selected');
             const selRamBtn = card.querySelector('.variant-ram-btn.selected');
+            // Assuming no legacy selected batt buttons for old logic
             
-            let color = '', cap = '', ram = '';
+            let color = '', cap = '', ram = '', batt = '';
 
-            if (activeColor || activeCap || activeRam) {
+            if (activeColor || activeCap || activeRam || activeBatt) {
                 color = activeColor ? activeColor.dataset.val : '';
                 cap = activeCap ? activeCap.dataset.val : '';
                 ram = activeRam ? activeRam.dataset.val : '';
+                batt = activeBatt ? activeBatt.dataset.val : '';
             } else if (selColorBtn || selCapBtn || selRamBtn) {
                 color = selColorBtn ? selColorBtn.dataset.color : '';
                 cap = selCapBtn ? selCapBtn.dataset.cap : '';
                 ram = selRamBtn ? selRamBtn.dataset.ram : '';
             }
             
-            if (color || cap || ram) {
-                selectedVariant = [color, cap, ram].filter(Boolean).join(' - ');
+            if (color || cap || ram || batt) {
+                selectedVariant = [color, cap, ram, batt ? 'Bat: '+batt : ''].filter(Boolean).join(' - ');
             }
             if (selectedVariant) {
                 name = `${name} (${selectedVariant})`; 
@@ -801,7 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const info = JSON.parse(unescape(card.dataset.stockInfo));
                     if (selectedVariant && info.variants && info.variants.length > 0) {
                         const v = info.variants.find(vx => {
-                            const vName = [vx.color, vx.capacity, vx.ram].filter(Boolean).join(' - ');
+                            const vName = [vx.color, vx.capacity, vx.ram, vx.batt ? 'Bat: '+vx.batt : ''].filter(Boolean).join(' - ');
                             return vName === selectedVariant;
                         });
                         if (v) {
@@ -1141,6 +1156,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                             ` : ''}
+
+                            ${uniqueBatts.length > 0 ? `
+                            <div style="margin-bottom:2rem;">
+                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Condición de Batería</h4>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="batt-opts">
+                                    ${uniqueBatts.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${c}" style="padding:15px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; font-weight:700; font-size:1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
                             
                             <p id="variant-stock-msg" style="font-size:0.95rem; margin-top:0.5rem; font-weight:bold;"></p>
                         </div>
@@ -1246,10 +1270,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
                         const capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
                         const ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
+                        const battBtn = document.querySelector('.var-btn.active[data-type="batt"]');
                         
                         const selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
                         const selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
                         const selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
+                        const selectedBatt = battBtn ? battBtn.getAttribute('data-val') : null;
 
                         let stockToUse = prodArg.stock;
                         let priceToUse = prodArg.price; // Start with base price
@@ -2019,6 +2045,7 @@ const checkoutForm = document.getElementById('checkout-form');
                     <input type="text" class="var-color" placeholder="Color (Ej: Blanco)" required style="flex:1; min-width:120px;">
                     <input type="text" class="var-cap" placeholder="Almacen. (Ej: 256GB)" required style="flex:1; min-width:120px;">
                     <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
+                    <input type="text" class="var-batt" placeholder="Batería (Opc. Ej: 100%)" style="flex:1; min-width:110px;">
                     <input type="number" class="var-price" placeholder="Precio" min="0" style="width:110px;" title="Deja vacío para precio base">
                     <input type="number" class="var-stock" placeholder="Stock" required min="0" style="width:80px;">
                     <button type="button" class="btn-danger btn-remove-var" style="padding:0 0.8rem;"><i class="fa-solid fa-xmark"></i></button>
@@ -2132,6 +2159,7 @@ const checkoutForm = document.getElementById('checkout-form');
                                         <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul)" style="padding:0.2rem; width:120px;">
                                         <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (ej. 128GB)" style="padding:0.2rem; width:120px;">
                                         <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
+                                        <input type="text" id="new-batt-${p.id}" placeholder="Batería (Opc)" style="padding:0.2rem; width:90px;">
                                         <input type="number" id="new-vprice-${p.id}" placeholder="Precio USD (Opc)" style="padding:0.2rem; width:110px;">
                                         <input type="number" id="new-vstock-${p.id}" placeholder="Stock" style="padding:0.2rem; width:70px;">
                                         <button onclick="addVariantToProduct(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#2ecc71; color:#fff;">+ Agregar Variante</button>
@@ -2184,7 +2212,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
                 list.innerHTML = variants.map((v, index) => `
                     <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px; flex-wrap:wrap; gap:0.5rem;">
-                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} ${v.ram ? '- ' + v.ram : ''} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
+                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} ${v.ram ? '- ' + v.ram : ''} ${v.batt ? '- Bat: ' + v.batt : ''} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
                         <div style="display:flex; align-items:center; gap:0.5rem;">
                             <label style="font-size:0.8rem; margin:0;">Stock:</label>
                             <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" style="width:60px; padding:0.2rem; font-size:0.8rem;">
@@ -2199,6 +2227,8 @@ const checkoutForm = document.getElementById('checkout-form');
                 const color = document.getElementById(`new-color-${id}`).value.trim();
                 const cap = document.getElementById(`new-cap-${id}`).value.trim();
                 const ram = document.getElementById(`new-ram-${id}`).value.trim();
+                const battEl = document.getElementById(`new-batt-${id}`);
+                const batt = battEl ? battEl.value.trim() : '';
                 const stock = parseInt(document.getElementById(`new-vstock-${id}`).value) || 0;
                 const rawPrice = document.getElementById(`new-vprice-${id}`).value;
                 const price = rawPrice ? parseFloat(rawPrice) : null;
@@ -2206,7 +2236,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 if (!color || !cap) return showToast('Color y Capacidad son obligatorios', 'fa-exclamation');
 
                 let variants = window[`adminProductVariants_${id}`] || [];
-                variants.push({ color, capacity: cap, ram, stock, price });
+                variants.push({ color, capacity: cap, ram, batt, stock, price });
                 
                 await saveVariantsToDB(id, variants);
             };
@@ -3379,21 +3409,20 @@ window.updateCardVariant = function(el) {
         const colorSel = card.querySelector('.var-select[data-type="color"]');
         const capSel = card.querySelector('.var-select[data-type="capacity"]');
         const ramSel = card.querySelector('.var-select[data-type="ram"]');
+        const battSel = card.querySelector('.var-select[data-type="batt"]');
 
         let currentColor = colorSel ? colorSel.value : '';
         let currentCap = capSel ? capSel.value : '';
         let currentRam = ramSel ? ramSel.value : '';
+        let currentBatt = battSel ? battSel.value : '';
 
-        // Dynamic Filtering Logic
-        // If triggered by a specific select, update the subsequent ones
         const typeTriggered = el && el.tagName === 'SELECT' ? el.dataset.type : null;
 
         if (typeTriggered === 'color' || !typeTriggered) {
-            // Update capacities based on color
             if (capSel) {
                 const availableCaps = [...new Set(info.variants.filter(v => !currentColor || v.color === currentColor).map(v => v.capacity))].filter(Boolean);
                 if (availableCaps.length > 0) {
-                    if (!availableCaps.includes(currentCap)) currentCap = availableCaps[0]; // fallback to first valid
+                    if (!availableCaps.includes(currentCap)) currentCap = availableCaps[0];
                     capSel.innerHTML = availableCaps.map(c => `<option value="${c}">Cap: ${c}</option>`).join('');
                     capSel.value = currentCap;
                 }
@@ -3401,7 +3430,6 @@ window.updateCardVariant = function(el) {
         }
 
         if (typeTriggered === 'color' || typeTriggered === 'capacity' || !typeTriggered) {
-            // Update RAM based on color and capacity
             if (ramSel) {
                 const availableRams = [...new Set(info.variants.filter(v => (!currentColor || v.color === currentColor) && (!currentCap || v.capacity === currentCap)).map(v => v.ram))].filter(Boolean);
                 if (availableRams.length > 0) {
@@ -3411,17 +3439,28 @@ window.updateCardVariant = function(el) {
                 }
             }
         }
+        
+        if (typeTriggered === 'color' || typeTriggered === 'capacity' || typeTriggered === 'ram' || !typeTriggered) {
+            if (battSel) {
+                const availableBatts = [...new Set(info.variants.filter(v => (!currentColor || v.color === currentColor) && (!currentCap || v.capacity === currentCap) && (!currentRam || v.ram === currentRam)).map(v => v.batt))].filter(Boolean);
+                if (availableBatts.length > 0) {
+                    if (!availableBatts.includes(currentBatt)) currentBatt = availableBatts[0];
+                    battSel.innerHTML = availableBatts.map(b => `<option value="${b}">Bat: ${b}</option>`).join('');
+                    battSel.value = currentBatt;
+                }
+            }
+        }
 
-        // Re-read values in case they were forced to change
         const finalColor = colorSel ? colorSel.value : '';
         const finalCap = capSel ? capSel.value : '';
         const finalRam = ramSel ? ramSel.value : '';
+        const finalBatt = battSel ? battSel.value : '';
 
-        const selectedVariant = [finalColor, finalCap, finalRam].filter(Boolean).join(' - ');
+        const selectedVariant = [finalColor, finalCap, finalRam, finalBatt ? 'Bat: '+finalBatt : ''].filter(Boolean).join(' - ');
         card.dataset.selectedVariant = selectedVariant;
 
         const v = info.variants.find(vx => {
-            const vName = [vx.color, vx.capacity, vx.ram].filter(Boolean).join(' - ');
+            const vName = [vx.color, vx.capacity, vx.ram, vx.batt ? 'Bat: '+vx.batt : ''].filter(Boolean).join(' - ');
             return vName === selectedVariant;
         });
 
