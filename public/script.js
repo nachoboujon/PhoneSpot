@@ -595,6 +595,12 @@ async function loadProductsFromDB() {
                                 const end = prod.description.indexOf(']');
                                 if (end !== -1) c = prod.description.substring(12, end);
                             }
+                            if (prod.variants && prod.variants.length > 0) {
+                                const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                                if (batts.length > 0) {
+                                    c += ' | Batería: ' + batts.join('/');
+                                }
+                            }
                             return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
                         })()}
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
@@ -996,6 +1002,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const end = prod.description.indexOf(']');
                                 if (end !== -1) c = prod.description.substring(12, end);
                             }
+                            if (prod.variants && prod.variants.length > 0) {
+                                const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                                if (batts.length > 0) {
+                                    c += ' | Batería: ' + batts.join('/');
+                                }
+                            }
                             return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
                         })()}
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
@@ -1197,6 +1209,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (endIdx !== -1) {
                         prodCondition = displayDesc.substring(12, endIdx);
                         displayDesc = displayDesc.substring(endIdx + 1).trim();
+                    }
+                }
+                if (prod.variants && prod.variants.length > 0) {
+                    const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                    if (batts.length > 0) {
+                        prodCondition += ' | Batería: ' + batts.join('/');
                     }
                 }
 
