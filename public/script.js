@@ -1173,18 +1173,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }
 
-                // Calcular rating de reviews
-                let avgRating = 4.8;
-                let numReviews = reviews.length > 0 ? reviews.length : 24;
-                if(reviews.length > 0) {
-                    avgRating = (reviews.reduce((a,b) => a + b.rating, 0) / reviews.length).toFixed(1);
-                }
-
-                let starsHtml = '';
-                for(let i=1; i<=5; i++) {
-                    if (i <= Math.floor(avgRating)) starsHtml += '';
-                    else if (i - avgRating < 1) starsHtml += '';
-                    else starsHtml += '';
+                // Parsear condición de la descripción
+                let prodCondition = "Nuevo, Caja Sellada";
+                let displayDesc = prod.description || '';
+                if (displayDesc.startsWith('[Condición: ')) {
+                    const endIdx = displayDesc.indexOf(']');
+                    if (endIdx !== -1) {
+                        prodCondition = displayDesc.substring(12, endIdx);
+                        displayDesc = displayDesc.substring(endIdx + 1).trim();
+                    }
                 }
 
                 singleProductContainer.innerHTML = `
@@ -1208,9 +1205,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 
                                 <h2 style="font-size:2.4rem; font-weight:800; line-height:1.1; margin-bottom:1rem; color: #1d1d1f; letter-spacing:-0.5px;">${prod.name}</h2>
                                 
-                                <div class="product-rating" style="justify-content: flex-start; margin-bottom: 1.5rem; font-size: 1rem; display: flex; gap: 0.2rem; align-items: center; color:#f5c518;">
-                                    
-                                    <span style="margin-left: 0.5rem; color:#555; font-size:0.9rem;">(${avgRating}) - ${numReviews} Reseñas</span>
+                                <div class="product-condition-tag" style="margin-bottom: 1.5rem; font-size: 0.9rem; display: flex; align-items: center;">
+                                    <span style="background: ${prodCondition.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${prodCondition.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${prodCondition.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; padding: 4px 12px; border-radius: 20px; font-weight: 600; display: inline-block;">
+                                        <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}"></i> ${prodCondition}
+                                    </span>
                                 </div>
                                 
                                 
@@ -1244,7 +1242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
                                     <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
-                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${(prod.description || '').replace(/\n/g, '<br>')}</p>
+                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${displayDesc.replace(/\n/g, '<br>')}</p>
                                 </div>
 
                                 <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
