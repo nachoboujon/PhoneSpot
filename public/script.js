@@ -588,7 +588,15 @@ async function loadProductsFromDB() {
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
                             <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
                         </a>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.5rem;">${prod.brand || 'PhoneSpot'}</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
+                        ${(() => {
+                            let c = "Nuevo, Caja Sellada";
+                            if (prod.description && prod.description.startsWith('[Condición: ')) {
+                                const end = prod.description.indexOf(']');
+                                if (end !== -1) c = prod.description.substring(12, end);
+                            }
+                            return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
+                        })()}
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
@@ -981,7 +989,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
                             <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
                         </a>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.5rem;">${prod.brand || 'PhoneSpot'}</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
+                        ${(() => {
+                            let c = "Nuevo, Caja Sellada";
+                            if (prod.description && prod.description.startsWith('[Condición: ')) {
+                                const end = prod.description.indexOf(']');
+                                if (end !== -1) c = prod.description.substring(12, end);
+                            }
+                            return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
+                        })()}
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
