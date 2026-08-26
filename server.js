@@ -452,7 +452,20 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
         
         let image_url = '';
         if (req.file) {
-            image_url = '/uploads/' + req.file.filename;
+            const ext = req.file.originalname.split('.').pop();
+            const fileName = `prod_${Date.now()}.${ext}`;
+            
+            const { error: uploadError } = await supabase.storage
+                .from('uploads')
+                .upload(fileName, req.file.buffer, {
+                    contentType: req.file.mimetype,
+                    upsert: true
+                });
+                
+            if (uploadError) throw uploadError;
+            
+            const { data: publicUrlData } = supabase.storage.from('uploads').getPublicUrl(fileName);
+            image_url = publicUrlData.publicUrl;
         }
         
         let parsedVariants = [];
