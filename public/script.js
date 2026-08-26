@@ -3380,11 +3380,44 @@ window.updateCardVariant = function(el) {
         const capSel = card.querySelector('.var-select[data-type="capacity"]');
         const ramSel = card.querySelector('.var-select[data-type="ram"]');
 
-        const color = colorSel ? colorSel.value : '';
-        const cap = capSel ? capSel.value : '';
-        const ram = ramSel ? ramSel.value : '';
+        let currentColor = colorSel ? colorSel.value : '';
+        let currentCap = capSel ? capSel.value : '';
+        let currentRam = ramSel ? ramSel.value : '';
 
-        const selectedVariant = [color, cap, ram].filter(Boolean).join(' - ');
+        // Dynamic Filtering Logic
+        // If triggered by a specific select, update the subsequent ones
+        const typeTriggered = el && el.tagName === 'SELECT' ? el.dataset.type : null;
+
+        if (typeTriggered === 'color' || !typeTriggered) {
+            // Update capacities based on color
+            if (capSel) {
+                const availableCaps = [...new Set(info.variants.filter(v => !currentColor || v.color === currentColor).map(v => v.capacity))].filter(Boolean);
+                if (availableCaps.length > 0) {
+                    if (!availableCaps.includes(currentCap)) currentCap = availableCaps[0]; // fallback to first valid
+                    capSel.innerHTML = availableCaps.map(c => `<option value="${c}">Cap: ${c}</option>`).join('');
+                    capSel.value = currentCap;
+                }
+            }
+        }
+
+        if (typeTriggered === 'color' || typeTriggered === 'capacity' || !typeTriggered) {
+            // Update RAM based on color and capacity
+            if (ramSel) {
+                const availableRams = [...new Set(info.variants.filter(v => (!currentColor || v.color === currentColor) && (!currentCap || v.capacity === currentCap)).map(v => v.ram))].filter(Boolean);
+                if (availableRams.length > 0) {
+                    if (!availableRams.includes(currentRam)) currentRam = availableRams[0];
+                    ramSel.innerHTML = availableRams.map(r => `<option value="${r}">RAM: ${r}</option>`).join('');
+                    ramSel.value = currentRam;
+                }
+            }
+        }
+
+        // Re-read values in case they were forced to change
+        const finalColor = colorSel ? colorSel.value : '';
+        const finalCap = capSel ? capSel.value : '';
+        const finalRam = ramSel ? ramSel.value : '';
+
+        const selectedVariant = [finalColor, finalCap, finalRam].filter(Boolean).join(' - ');
         card.dataset.selectedVariant = selectedVariant;
 
         const v = info.variants.find(vx => {
