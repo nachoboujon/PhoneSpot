@@ -546,26 +546,58 @@ async function loadProductsFromDB() {
             const oldPrice = parseFloat(prod.price) * 1.2; 
             const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';
 
-            const cardHTML = `
-                <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
-                    ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                    <a href="producto.html?id=${prod.id}">
-                        <img src="${image}" alt="${prod.name}">
-                    </a>
-                    <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
-                    <div class="product-rating">
+            
+                const hasVariants = prod.variants && prod.variants.length > 0;
+                let variantsHTML = '';
+                if (hasVariants) {
+                    const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
+                    const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
+                    const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
+
+                    variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
+                    if (uniqueColors.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueCaps.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="capacity" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueCaps.forEach(c => variantsHTML += `<option value="${c}">Cap: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueRams.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
+                }
+
+                const cardHTML = `
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                        ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
-                        <span>(4.8)</span>
+                        ${typeof favIcon !== 'undefined' ? favIcon : ''}
+
+                        <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
+                            <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
+                        </a>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.5rem;">${prod.brand || 'PhoneSpot'}</p>
+                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            ${(typeof hasOffer !== 'undefined' && hasOffer) || prod.is_offer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price || prod.price*1.2))}</p>` : ''}
+                            <p class="price card-price" style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
+                        </div>
+                        
+                        ${variantsHTML}
+                        
+                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
+                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
+                        </button>
+                        ${hasVariants ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none;" onload="window.updateCardVariant(this.previousElementSibling)" />` : ''}
                     </div>
-                    <p class="price">
-                        ${prod.is_offer ? `<span class="old-price">$${oldPrice.toFixed(0)}</span>` : ''}
-                        ${priceFormatted}
-                    </p>
-                    <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : ''}>
-                        ${prod.stock <= 0 ? 'Sin Stock' : (prod.is_offer ? 'Aprovechar Oferta' : 'Añadir al carrito')}
-                    </button>
-                </div>
-            `;
+                `;
 
             if (prod.is_offer && offersContainer) {
                 offersContainer.innerHTML += cardHTML;
@@ -729,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const price = parseFloat(card.dataset.price);
 
             // Verificar si hay una variante seleccionada
-            let selectedVariant = '';
+            let selectedVariant = card.dataset.selectedVariant || '';
             
             const activeColor = card.querySelector('.var-btn.active[data-type="color"]');
             const activeCap = card.querySelector('.var-btn.active[data-type="capacity"]');
@@ -753,9 +785,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (color || cap || ram) {
                 selectedVariant = [color, cap, ram].filter(Boolean).join(' - ');
-                // No modificar name, dejamos que el carrito maneje variant_name visualmente
-                // O si preferimos: name = `${name} (${selectedVariant})`;
-                // Lo mantenemos como estaba:
+            }
+            if (selectedVariant) {
                 name = `${name} (${selectedVariant})`; 
             }
             
@@ -892,26 +923,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isActive = favs.includes(prod.id.toString()) ? 'active' : '';
                 const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="window.toggleFavorite('${prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
 
+                
+                const hasVariants = prod.variants && prod.variants.length > 0;
+                let variantsHTML = '';
+                if (hasVariants) {
+                    const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
+                    const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
+                    const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
+
+                    variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
+                    if (uniqueColors.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueCaps.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="capacity" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueCaps.forEach(c => variantsHTML += `<option value="${c}">Cap: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueRams.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
+                }
+
                 const cardHTML = `
-                    <div class="product-card" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
-                        ${prod.stock <= 0 ? `<span class="badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (hasOffer ? `<span class="badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${discount}%</span>` : '')}
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                        ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
-                        ${favIcon}
+                        ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
-                            <img src="${image}" alt="${prod.name}" class="product-img">
+                            <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.5rem;">${prod.brand || 'PhoneSpot'}</p>
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
-                            ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
-                            <p style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
+                            ${(typeof hasOffer !== 'undefined' && hasOffer) || prod.is_offer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price || prod.price*1.2))}</p>` : ''}
+                            <p class="price card-price" style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
+                        
+                        ${variantsHTML}
                         
                         <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
                             <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
+                        ${hasVariants ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none;" onload="window.updateCardVariant(this.previousElementSibling)" />` : ''}
                     </div>
                 `;
                 fullCatalogContainer.innerHTML += cardHTML;
@@ -3286,3 +3347,73 @@ window.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => showToast('Tu cuenta ya estaba verificada. Inicia sesión.', 'fa-info-circle'), 500);
     }
 });
+
+
+window.updateCardVariant = function(el) {
+    const card = el.closest('.product-card');
+    if (!card) return;
+    
+    try {
+        const info = JSON.parse(unescape(card.dataset.stockInfo || '{}'));
+        if (!info.variants || info.variants.length === 0) return;
+
+        const colorSel = card.querySelector('.var-select[data-type="color"]');
+        const capSel = card.querySelector('.var-select[data-type="capacity"]');
+        const ramSel = card.querySelector('.var-select[data-type="ram"]');
+
+        const color = colorSel ? colorSel.value : '';
+        const cap = capSel ? capSel.value : '';
+        const ram = ramSel ? ramSel.value : '';
+
+        const selectedVariant = [color, cap, ram].filter(Boolean).join(' - ');
+        card.dataset.selectedVariant = selectedVariant;
+
+        const v = info.variants.find(vx => {
+            const vName = [vx.color, vx.capacity, vx.ram].filter(Boolean).join(' - ');
+            return vName === selectedVariant;
+        });
+
+        const stockMsg = card.querySelector('.card-variant-stock');
+        const priceEl = card.querySelector('.card-price');
+        const btn = card.querySelector('.add-to-cart-btn');
+        const mainBadge = card.querySelector('.card-main-badge');
+
+        const basePrice = parseFloat(card.dataset.price);
+
+        if (v) {
+            if (priceEl) {
+                const finalPrice = v.price ? parseFloat(v.price) : basePrice;
+                priceEl.innerHTML = window.formatPrice(finalPrice);
+            }
+            if (v.stock > 0) {
+                if (stockMsg) stockMsg.innerHTML = '<span style="color:#2ecc71"><i class="fa-solid fa-check"></i> Stock: ' + v.stock + '</span>';
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.background = btn.style.background.includes('555') ? '#555555' : '';
+                    if(btn.style.cursor === 'not-allowed') btn.style.cursor = 'pointer';
+                    btn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> Agregar al Carrito';
+                }
+                if(mainBadge && mainBadge.innerText === 'AGOTADO') mainBadge.style.display = 'none';
+            } else {
+                if (stockMsg) stockMsg.innerHTML = '<span style="color:#ff4757"><i class="fa-solid fa-times"></i> Sin stock</span>';
+                if (btn) {
+                    btn.disabled = true;
+                    btn.style.background = '#ccc';
+                    btn.style.cursor = 'not-allowed';
+                    btn.innerHTML = 'Sin Stock';
+                }
+                if(mainBadge && mainBadge.innerText === 'AGOTADO') mainBadge.style.display = 'block';
+            }
+        } else {
+            if (stockMsg) stockMsg.innerHTML = '<span style="color:#ff4757"><i class="fa-solid fa-times"></i> Agotado</span>';
+            if (btn) {
+                btn.disabled = true;
+                btn.style.background = '#ccc';
+                btn.style.cursor = 'not-allowed';
+                btn.innerHTML = 'Sin Stock';
+            }
+        }
+    } catch(e) {
+        console.error(e);
+    }
+};
