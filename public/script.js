@@ -576,11 +576,6 @@ async function loadProductsFromDB() {
                         uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
                         variantsHTML += `</select>`;
                     }
-                    if (uniqueBatts.length > 0) {
-                        variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
-                        variantsHTML += `</select>`;
-                    }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
                 }
 
@@ -951,6 +946,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
+                    const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     if (uniqueColors.length > 0) {
@@ -966,6 +962,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (uniqueRams.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueBatts.length > 0) {
+                        variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -1123,6 +1124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
+                    const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
                     
                     variantsHTML = `
                         <style>
