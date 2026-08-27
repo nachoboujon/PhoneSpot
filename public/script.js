@@ -2537,9 +2537,10 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             window.updateBannerMessage = (i, val) => {
                 currentSettings.top_banner[i] = val;
             };
-            window.removeBannerMessage = (i) => {
+            window.removeBannerMessage = async (i) => {
                 currentSettings.top_banner.splice(i, 1);
                 window.renderBannerMessages();
+                await window.saveSettingsFunc(); // auto save
             };
 
 
@@ -2627,7 +2628,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                 } catch(e) { console.error('Error', e); }
             };
 
-            const saveSettings = async () => {
+            window.saveSettingsFunc = async () => {
                 const token = localStorage.getItem('phoneSpotToken');
                 showToast('Guardando...', 'fa-spinner fa-spin');
                 try {
@@ -2640,6 +2641,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                     else showToast('Error al guardar', 'fa-triangle-exclamation');
                 } catch(e) { showToast('Error de conexión', 'fa-triangle-exclamation'); }
             };
+            const saveSettings = async () => { await window.saveSettingsFunc(); };
 
             const renderAdminCarouselList = () => {
                 const list = document.getElementById('carousel-list');
@@ -2701,14 +2703,21 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             if(bannerForm) {
                 bannerForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    // top_banner ya se actualiza en tiempo real con updateBannerMessage()
-                if(document.getElementById('set-flash-date')) {
-                    currentSettings.flash_end_date = document.getElementById('set-flash-date').value;
-                }
-                if(document.getElementById('set-brands-list')) {
-                    currentSettings.brands_list = document.getElementById('set-brands-list').value;
-                }
-                    saveSettings();
+                    
+                    // Extraer los mensajes del banner en el momento del submit para evitar bugs de onchange
+                    const listContainer = document.getElementById('banner-messages-list');
+                    if (listContainer) {
+                        const inputs = listContainer.querySelectorAll('input[type="text"]');
+                        currentSettings.top_banner = Array.from(inputs).map(inp => inp.value);
+                    }
+
+                    if(document.getElementById('set-flash-date')) {
+                        currentSettings.flash_end_date = document.getElementById('set-flash-date').value;
+                    }
+                    if(document.getElementById('set-brands-list')) {
+                        currentSettings.brands_list = document.getElementById('set-brands-list').value;
+                    }
+                    window.saveSettingsFunc();
                 });
             }
 
