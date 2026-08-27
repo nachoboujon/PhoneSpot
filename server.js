@@ -161,7 +161,8 @@ app.get('/api/version', (req, res) => {
         version: '1.0.6', 
         status: 'Revisando entorno de correo',
         has_smtp_user: !!process.env.SMTP_USER,
-        has_email_user: !!process.env.EMAIL_USER
+        has_email_user: !!process.env.EMAIL_USER,
+        smtp_host: process.env.SMTP_HOST || 'not-set'
     });
 });
 
