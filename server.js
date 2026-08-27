@@ -155,7 +155,13 @@ app.get('/api/test-email', async (req, res) => {
 });
 
 app.get('/api/version', (req, res) => {
-    res.json({ version: '1.0.5', status: 'El servidor está corriendo el código más nuevo con la doble verificación.' });
+    res.json({ 
+        version: '1.0.6', 
+        status: 'Revisando entorno de correo',
+        has_smtp_user: !!process.env.SMTP_USER,
+        has_email_user: !!process.env.EMAIL_USER
+    });
+});
 });
 
 app.post('/api/register', async (req, res) => {
