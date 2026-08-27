@@ -90,31 +90,18 @@ const sendEmail = async (to, subject, html) => {
         }
         
         const nodemailer = require('nodemailer');
-        const isSendGrid = process.env.SMTP_USER === 'apikey';
-        const transporter = nodemailer.createTransport(
-            isSendGrid 
-            ? {
-                host: 'smtp.sendgrid.net',
-                port: 587,
-                auth: {
-                    user: 'apikey',
-                    pass: process.env.SMTP_PASS
-                },
-                connectionTimeout: 5000,
-                greetingTimeout: 5000,
-                socketTimeout: 5000
-            } 
-            : {
-                service: 'gmail',
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASS
-                },
-                connectionTimeout: 5000,
-                greetingTimeout: 5000,
-                socketTimeout: 5000
-            }
-        );
+        const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST || (process.env.SMTP_USER === 'apikey' ? 'smtp.sendgrid.net' : 'smtp.gmail.com'),
+            port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
+            secure: process.env.SMTP_PORT === '465',
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+            },
+            connectionTimeout: 5000,
+            greetingTimeout: 5000,
+            socketTimeout: 5000
+        });
 
         const mailOptions = {
             from: process.env.SMTP_USER,
