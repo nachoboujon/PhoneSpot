@@ -85,8 +85,8 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
     try {
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS)');
-            return false;
+            console.error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS) en las Variables de Entorno (Environment Variables) de Railway.');
+            throw new Error('Faltan variables de entorno de correo');
         }
         
         const nodemailer = require('nodemailer');
