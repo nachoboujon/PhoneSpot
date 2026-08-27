@@ -162,7 +162,6 @@ app.get('/api/version', (req, res) => {
         has_email_user: !!process.env.EMAIL_USER
     });
 });
-});
 
 app.post('/api/register', async (req, res) => {
     try {
