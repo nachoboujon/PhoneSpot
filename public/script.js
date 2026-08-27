@@ -1856,7 +1856,7 @@ const checkoutForm = document.getElementById('checkout-form');
                     
                     if (paymentMethod === 'efectivo') {
                         // Generar mensaje de WhatsApp
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar (efectivo/transferencia):* ${finalTotalArs.toLocaleString('es-AR')}\n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo/Transferencia/Dolares.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar (efectivo/transferencia):* ${finalTotalArs.toLocaleString('es-AR')}\n`;
                         if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)\n`;
                         wpMsg += `\n*Productos:*\n`;
 
@@ -1865,7 +1865,7 @@ const checkoutForm = document.getElementById('checkout-form');
                             if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                             wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
                         });
-                        wpMsg += `\nQuiero coordinar el pago en efectivo con ustedes.`;
+                        wpMsg += `\nQuiero coordinar el pago en efectivo/Transferencia/Dolares con ustedes.`;
                         
                         const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
                         const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
