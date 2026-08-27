@@ -71,8 +71,8 @@ const transporter = nodemailer.createTransport({
     port: 2525,
     secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
     },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
@@ -84,8 +84,8 @@ const transporter = nodemailer.createTransport({
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.error('Faltan configurar las credenciales de email (EMAIL_USER y EMAIL_PASS) en las Variables de Entorno (Environment Variables) de Railway.');
+        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+            console.error('Faltan configurar las credenciales de email (SMTP_USER y SMTP_PASS) en las Variables de Entorno (Environment Variables) de Railway.');
             throw new Error('Faltan variables de entorno de correo');
         }
         
@@ -93,8 +93,8 @@ const sendEmail = async (to, subject, html) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
             },
             connectionTimeout: 5000,
             greetingTimeout: 5000,
@@ -102,7 +102,7 @@ const sendEmail = async (to, subject, html) => {
         });
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.SMTP_USER,
             to: to,
             subject: subject,
             html: html
@@ -139,12 +139,12 @@ const isAdmin = (req, res, next) => {
 
 app.get('/api/test-email', async (req, res) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
             return res.json({ success: false, error: 'Faltan credenciales en Railway' });
         }
         const info = await transporter.sendMail({
-            from: '"PhoneSpot" <' + process.env.EMAIL_USER + '>',
-            to: process.env.EMAIL_USER,
+            from: '"PhoneSpot" <' + process.env.SMTP_USER + '>',
+            to: process.env.SMTP_USER,
             subject: 'Test de Diagnóstico Nodemailer',
             text: 'Si llega esto, el puerto SMTP está abierto en Railway.'
         });
@@ -749,7 +749,7 @@ app.post('/api/orders', async (req, res) => {
                 '</div>' +
             '</div>';
 
-            const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+            const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
             if (adminEmail) {
                 sendEmail(adminEmail, '🎉 ¡Nueva Venta en PhoneSpot! - Orden #' + orderId, htmlContent);
                 console.log('Email de notificación enviado al admin vía Brevo.');
