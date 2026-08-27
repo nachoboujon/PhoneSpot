@@ -879,7 +879,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Brand Filter
                 if (selectedBrands.length > 0) {
-                    const b = (p.brand || '').toLowerCase();
+                    const b = (p.brand || '').trim().toLowerCase();
                     if (!selectedBrands.includes(b)) return false;
                 }
 
@@ -890,10 +890,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const name = (p.name || '').toLowerCase();
                     const combined = name + " " + desc;
                     
+                    let isSwap = combined.includes('swap') || combined.includes('americano') || combined.includes('usado') || combined.includes('seminuevo');
+                    let isReac = combined.includes('reacondicionado') || combined.includes('refurbished');
+                    let isNuevo = !isSwap && !isReac;
+
                     let matchesCond = false;
-                    if (selectedConditions.includes('nuevo') && !combined.includes('usado') && !combined.includes('reacondicionado') && !combined.includes('seminuevo')) matchesCond = true;
-                    if (selectedConditions.includes('swap_americano') && (combined.includes('swap') || combined.includes('americano') || combined.includes('usado') || combined.includes('seminuevo'))) matchesCond = true;
-                    if (selectedConditions.includes('reacondicionado') && (combined.includes('reacondicionado') || combined.includes('refurbished'))) matchesCond = true;
+                    if (selectedConditions.includes('nuevo') && isNuevo) matchesCond = true;
+                    if (selectedConditions.includes('swap_americano') && isSwap) matchesCond = true;
+                    if (selectedConditions.includes('reacondicionado') && isReac) matchesCond = true;
                     
                     if (!matchesCond) return false;
                 }
