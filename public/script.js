@@ -2212,17 +2212,31 @@ const checkoutForm = document.getElementById('checkout-form');
 
             
             window.updateProductBasic = async (id) => {
+                const p = window[`adminProduct_${id}`];
                 const price = document.getElementById(`price-${id}`).value;
-                const stock = document.getElementById(`stock-${id}`).value;
+                let stock = document.getElementById(`stock-${id}`).value;
                 const description = document.getElementById(`desc-${id}`) ? document.getElementById(`desc-${id}`).value : undefined;
+                
+                let hasVariants = p && p.variants && p.variants.length > 0;
+                
                 const token = localStorage.getItem('phoneSpotToken');
                 showToast('Guardando...', 'fa-spinner fa-spin');
                 try {
+                    const bodyData = { price, description };
+                    if (!hasVariants) {
+                        bodyData.stock = stock;
+                    }
+                    
                     const res = await fetch(`${window.API_URL}/api/products/${id}`, {
                         method: 'PUT',
                         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ price, stock, description })
+                        body: JSON.stringify(bodyData)
                     });
+                    
+                    if (res.ok && hasVariants) {
+                        showToast('Precio guardado. (El stock se edita en Variantes)', 'fa-check');
+                    }
+                    
                     if(res.ok) {
                         showToast('Precio actualizado', 'fa-check');
                         window.loadAdminProducts();
