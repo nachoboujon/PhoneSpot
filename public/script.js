@@ -2183,9 +2183,9 @@ const checkoutForm = document.getElementById('checkout-form');
                                         <input type="number" id="price-${p.id}" value="${p.price}" style="width:80px; padding:0.2rem;">
                                         
                                         <label style="font-size:0.8rem;">Stock:</label>
-                                        <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;" >
+                                        <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;" ${(p.variants && p.variants.length > 0) ? 'disabled title="El stock se edita desde Variantes/Colores" style="background:#eee; width:70px; padding:0.2rem;"' : ''}>
                                         
-                                        <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Precio</button>
+                                        <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Info</button>
                                         <button onclick="toggleVariantsEdit(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:var(--text-color);">Variantes/Colores</button>
                                         <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash"></i></button>
                                     </div>
@@ -2233,12 +2233,8 @@ const checkoutForm = document.getElementById('checkout-form');
                         body: JSON.stringify(bodyData)
                     });
                     
-                    if (res.ok && hasVariants) {
-                        showToast('Precio guardado. (El stock se edita en Variantes)', 'fa-check');
-                    }
-                    
-                    if(res.ok) {
-                        showToast('Precio actualizado', 'fa-check');
+                    if (res.ok) {
+                        showToast('Datos actualizados', 'fa-check');
                         window.loadAdminProducts();
                     }
                 } catch(e) { showToast('Error al actualizar', 'fa-times'); }
