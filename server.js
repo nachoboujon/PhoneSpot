@@ -164,7 +164,8 @@ app.get('/api/version', (req, res) => {
         has_email_user: !!process.env.EMAIL_USER,
         smtp_user_val: process.env.SMTP_USER,
         smtp_host: process.env.SMTP_HOST || 'not-set',
-        smtp_pass_length: process.env.SMTP_PASS ? process.env.SMTP_PASS.length : 0
+        smtp_pass_length: process.env.SMTP_PASS ? process.env.SMTP_PASS.length : 0,
+        smtp_port: process.env.SMTP_PORT
     });
 });
 
