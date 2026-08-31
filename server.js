@@ -110,9 +110,9 @@ const sendEmail = async (to, subject, html) => {
             html: html
         };
 
-        await transporter.sendMail(mailOptions);
+        const info = await transporter.sendMail(mailOptions);
         console.log('Email sent to', to, 'via Gmail/Nodemailer');
-        return true;
+        return info;
     } catch (err) {
         console.error('Error sending email:', err.message);
         return false;
@@ -219,8 +219,8 @@ app.post('/api/register', async (req, res) => {
         
         
         try {
-            await sendEmail(email, 'Confirma tu registro en PhoneSpot', verifyHtml);
-            res.status(201).json({ message: 'Te hemos enviado un correo. Revisa tu bandeja de entrada para verificar tu cuenta.' });
+            const mailInfo = await sendEmail(email, 'Confirma tu registro en PhoneSpot', verifyHtml);
+            res.status(201).json({ message: 'Te hemos enviado un correo. Revisa tu bandeja de entrada para verificar tu cuenta.', messageId: mailInfo.messageId, response: mailInfo.response });
         } catch(emailErr) {
             res.status(500).json({ error: 'Tu cuenta está reservada, pero hubo un problema enviando el correo. Contacta a soporte.' });
         }
