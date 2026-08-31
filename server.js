@@ -104,7 +104,7 @@ const sendEmail = async (to, subject, html) => {
         });
 
         const mailOptions = {
-            from: process.env.SMTP_USER,
+            from: process.env.EMAIL_FROM || process.env.SMTP_USER,
             to: to,
             subject: subject,
             html: html
