@@ -84,35 +84,34 @@ const transporter = nodemailer.createTransport({
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
     try {
-        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-            console.error('Faltan configurar las credenciales de email (SMTP_USER y SMTP_PASS) en las Variables de Entorno (Environment Variables) de Railway.');
-            throw new Error('Faltan variables de entorno de correo');
+        if (!process.env.SMTP_PASS) {
+            console.error('Falta SMTP_PASS (API Key de Resend)');
+            return false;
         }
         
-        const nodemailer = require('nodemailer');
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || (process.env.SMTP_USER === 'apikey' ? 'smtp.sendgrid.net' : 'smtp.gmail.com'),
-            port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587,
-            secure: process.env.SMTP_PORT === '465',
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + process.env.SMTP_PASS,
+                'Content-Type': 'application/json'
             },
-            connectionTimeout: 5000,
-            greetingTimeout: 5000,
-            socketTimeout: 5000
+            body: JSON.stringify({
+                from: process.env.EMAIL_FROM || 'PhoneSpot <onboarding@resend.dev>',
+                to: [to],
+                subject: subject,
+                html: html
+            })
         });
-
-        const mailOptions = {
-            from: process.env.EMAIL_FROM || process.env.SMTP_USER,
-            to: to,
-            subject: subject,
-            html: html
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent to', to, 'via Gmail/Nodemailer');
-        return info;
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            console.log('Email sent via Resend API:', data.id);
+            return data;
+        } else {
+            console.error('Resend API Error:', data);
+            return false;
+        }
     } catch (err) {
         console.error('Error sending email:', err.message);
         return false;
