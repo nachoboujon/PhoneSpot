@@ -1137,9 +1137,10 @@ document.addEventListener('DOMContentLoaded', () => {
             singleProductContainer.innerHTML = '<p style="color:#ff4757; font-size:1.2rem;">Producto no encontrado (Falta ID).</p>';
         } else {
             Promise.all([
+                window.dolarPromise,
                 fetch(`${window.API_URL}/api/products/${productId}`).then(r => r.json()),
                 fetch(`${window.API_URL}/api/reviews/${productId}`).then(r => r.json()).catch(() => [])
-            ]).then(([prod, reviews]) => {
+            ]).then(([_, prod, reviews]) => {
                 if (prod.error) {
                     singleProductContainer.innerHTML = `<p style="color:#ff4757; font-size:1.2rem;">${prod.error}</p>`;
                     return;
@@ -1538,9 +1539,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function loadRelatedProducts(currentId, category) {
-        fetch(window.API_URL + '/api/products')
-            .then(res => res.json())
-            .then(prods => {
+        Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products').then(res => res.json())])
+            .then(([_, prods]) => {
                 const section = document.getElementById('related-products-section');
                 const container = document.getElementById('related-products-container');
                 if (!section || !container) return;
