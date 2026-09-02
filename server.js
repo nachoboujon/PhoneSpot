@@ -16,12 +16,18 @@ const corsOrigins = new Set(
         .map((origin) => origin.trim())
         .filter(Boolean)
 );
-app.use(cors({
-    origin(origin, callback) {
-        if (!origin || corsOrigins.has(origin)) return callback(null, true);
-        callback(new Error('Origen no permitido por CORS'));
-    }
-}));
+app.use((req, res, next) => {
+    const forwardedProtocol = String(req.headers['x-forwarded-proto'] || '').split(',')[0].trim();
+    const protocol = forwardedProtocol || req.protocol;
+    const sameOrigin = `${protocol}://${req.get('host')}`;
+
+    cors({
+        origin(origin, callback) {
+            if (!origin || origin === sameOrigin || corsOrigins.has(origin)) return callback(null, true);
+            callback(new Error('Origen no permitido por CORS'));
+        }
+    })(req, res, next);
+});
 app.use(express.json({ limit: '1mb' }));
 
 const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
@@ -905,6 +911,9 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
 app.use((error, _req, res, _next) => {
     if (error instanceof multer.MulterError || error.message === 'Solo se permiten imágenes.') {
         return res.status(400).json({ error: error.message });
+    }
+    if (error.message === 'Origen no permitido por CORS') {
+        return res.status(403).json({ error: 'Origen no permitido' });
     }
     console.error('Unhandled request error:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
