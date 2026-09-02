@@ -102,6 +102,28 @@
             </div>
         </section>
 
+        <!-- Asesor de compra -->
+        <section id="asesor" class="advisor-section" aria-labelledby="advisor-title">
+            <div class="advisor-intro">
+                <span class="advisor-eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Recomendaciones reales</span>
+                <h2 id="advisor-title">Encontrá el equipo ideal para vos</h2>
+                <p>Respondé tres preguntas y te mostramos los equipos disponibles que mejor se adaptan a lo que buscás.</p>
+                <button id="advisor-start" class="advisor-start" type="button">
+                    Empezar mi recomendación <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <p class="advisor-note"><i class="fa-solid fa-clock"></i> Te lleva menos de un minuto</p>
+            </div>
+
+            <div id="advisor-flow" class="advisor-flow" hidden aria-live="polite">
+                <div class="advisor-progress" aria-label="Progreso del asesor">
+                    <span class="active"></span><span></span><span></span>
+                </div>
+                <div id="advisor-question"></div>
+            </div>
+
+            <div id="advisor-results" class="advisor-results" hidden aria-live="polite"></div>
+        </section>
+
         <!-- Featured Categories -->
         <section class="featured-categories" style="padding: 0 5%; max-width: 1200px; margin: 0 auto 4rem;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
@@ -307,7 +329,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260902"></script>
+    <script src="script.js?v=20260903"></script>
 
     <!-- WhatsApp Flotante -->
     

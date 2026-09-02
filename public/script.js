@@ -3567,3 +3567,208 @@ window.updateCardVariant = function(el) {
         console.error(e);
     }
 };
+
+// ==================== ASESOR DE COMPRA ====================
+window.addEventListener('DOMContentLoaded', () => {
+    const startButton = document.getElementById('advisor-start');
+    const intro = document.querySelector('.advisor-intro');
+    const flow = document.getElementById('advisor-flow');
+    const questionContainer = document.getElementById('advisor-question');
+    const resultsContainer = document.getElementById('advisor-results');
+    if (!startButton || !intro || !flow || !questionContainer || !resultsContainer) return;
+
+    const questions = [
+        {
+            id: 'usage',
+            title: '¿Para qué lo vas a usar principalmente?',
+            options: [
+                { value: 'camera', icon: 'fa-camera', label: 'Fotos y videos' },
+                { value: 'gaming', icon: 'fa-gamepad', label: 'Juegos y potencia' },
+                { value: 'work', icon: 'fa-briefcase', label: 'Trabajo y estudio' },
+                { value: 'basic', icon: 'fa-comments', label: 'Uso diario' }
+            ]
+        },
+        {
+            id: 'system',
+            title: '¿Tenés alguna preferencia de sistema?',
+            options: [
+                { value: 'apple', icon: 'fa-brands fa-apple', label: 'Prefiero Apple' },
+                { value: 'android', icon: 'fa-brands fa-android', label: 'Prefiero Android' },
+                { value: 'any', icon: 'fa-mobile-screen-button', label: 'Me da igual' }
+            ]
+        },
+        {
+            id: 'budget',
+            title: '¿Cuál es tu presupuesto aproximado?',
+            options: [
+                { value: '300000', icon: 'fa-wallet', label: 'Hasta $300.000' },
+                { value: '500000', icon: 'fa-wallet', label: 'Hasta $500.000' },
+                { value: '750000', icon: 'fa-wallet', label: 'Hasta $750.000' },
+                { value: 'none', icon: 'fa-gem', label: 'Quiero ver lo mejor disponible' }
+            ]
+        }
+    ];
+    const answers = {};
+    let step = 0;
+
+    const escapeAdvisorHtml = (value = '') => String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    const renderQuestion = () => {
+        const question = questions[step];
+        questionContainer.innerHTML = `
+            <p class="advisor-step-label">Pregunta ${step + 1} de ${questions.length}</p>
+            <h3 class="advisor-question-title">${question.title}</h3>
+            <div class="advisor-options">
+                ${question.options.map(option => `
+                    <button class="advisor-option" type="button" data-advisor-answer="${option.value}">
+                        <i class="${option.icon}"></i>${option.label}
+                    </button>
+                `).join('')}
+            </div>
+            ${step > 0 ? '<button class="advisor-back" type="button">Volver a la pregunta anterior</button>' : ''}
+        `;
+        flow.querySelectorAll('.advisor-progress span').forEach((item, index) => {
+            item.classList.toggle('active', index <= step);
+        });
+
+        questionContainer.querySelectorAll('[data-advisor-answer]').forEach(button => {
+            button.addEventListener('click', () => {
+                answers[question.id] = button.dataset.advisorAnswer;
+                if (step < questions.length - 1) {
+                    step += 1;
+                    renderQuestion();
+                } else {
+                    showRecommendations();
+                }
+            });
+        });
+        questionContainer.querySelector('.advisor-back')?.addEventListener('click', () => {
+            step -= 1;
+            renderQuestion();
+        });
+    };
+
+    const productPrice = (product) => {
+        const prices = [Number(product.price), ...(Array.isArray(product.variants) ? product.variants.map(variant => Number(variant.price)) : [])]
+            .filter(price => Number.isFinite(price) && price > 0);
+        return prices.length ? Math.min(...prices) : 0;
+    };
+
+    const productScore = (product) => {
+        const name = String(product.name || '').toLowerCase();
+        const brand = String(product.brand || '').toLowerCase();
+        const specs = `${name} ${product.description || ''} ${(product.variants || []).map(variant => `${variant.capacity || ''} ${variant.ram || ''}`).join(' ')}`.toLowerCase();
+        const priceArs = productPrice(product) * window.dolarValue;
+        const capacity = Math.max(0, ...[...specs.matchAll(/(\d+)\s*(?:gb|tb)/g)].map(match => Number(match[1]) * (match[0].toLowerCase().includes('tb') ? 1024 : 1)));
+        const ram = Math.max(0, ...[...specs.matchAll(/(?:ram\D{0,5})?(\d+)\s*gb/g)].map(match => Number(match[1])));
+        let score = 10;
+
+        if (answers.system === 'apple') score += brand.includes('apple') || name.includes('iphone') ? 100 : -100;
+        if (answers.system === 'android') score += brand.includes('apple') || name.includes('iphone') ? -100 : 25;
+
+        if (answers.usage === 'camera') {
+            if (/iphone|galaxy|samsung|pixel|xiaomi|pro|max|ultra/.test(specs)) score += 22;
+        }
+        if (answers.usage === 'gaming') {
+            if (/ultra|pro|max|gaming|snapdragon|dimensity/.test(specs)) score += 18;
+            if (ram >= 8) score += 14;
+            if (capacity >= 256) score += 8;
+        }
+        if (answers.usage === 'work') {
+            if (ram >= 8) score += 14;
+            if (capacity >= 256) score += 14;
+            if (String(product.category || '').toLowerCase().includes('notebook')) score += 18;
+        }
+        if (answers.usage === 'basic') score += Math.max(0, 18 - priceArs / 25000);
+
+        if (answers.budget !== 'none') {
+            const budget = Number(answers.budget);
+            if (priceArs <= budget) score += 30 + ((budget - priceArs) / budget) * 6;
+            else if (priceArs <= budget * 1.15) score += 3;
+            else score -= 80;
+        }
+        return score;
+    };
+
+    const recommendationReason = () => {
+        const labels = {
+            camera: 'sus fotos y videos',
+            gaming: 'rendimiento y juegos',
+            work: 'trabajo y estudio',
+            basic: 'el uso diario'
+        };
+        return `Una buena opción para ${labels[answers.usage] || 'vos'}.`;
+    };
+
+    const showRecommendations = async () => {
+        flow.hidden = true;
+        resultsContainer.hidden = false;
+        resultsContainer.innerHTML = '<h3>Buscando tus mejores opciones...</h3><p>Estamos revisando el stock disponible.</p>';
+
+        try {
+            await window.dolarPromise;
+            const response = await fetch(window.API_URL + '/api/products');
+            const products = await response.json();
+            if (!response.ok) throw new Error(products.error || 'No se pudo consultar el catálogo');
+
+            const picks = products
+                .filter(product => Number(product.stock) > 0 && productPrice(product) > 0)
+                .map(product => ({ product, score: productScore(product) }))
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 3);
+
+            if (!picks.length) throw new Error('No hay productos disponibles');
+
+            resultsContainer.innerHTML = `
+                <h3>Estas son nuestras recomendaciones para vos</h3>
+                <p>${recommendationReason()} Todos los equipos mostrados tienen stock disponible.</p>
+                <div class="advisor-product-grid">
+                    ${picks.map(({ product }) => {
+                        const image = window.getFullImageUrl(product.image_url) || 'uploads/PhoneSpot-trans.png';
+                        return `
+                            <article class="advisor-product">
+                                <img src="${escapeAdvisorHtml(image)}" alt="${escapeAdvisorHtml(product.name)}">
+                                <span class="advisor-product-brand">${escapeAdvisorHtml(product.brand || 'PhoneSpot')}</span>
+                                <h4>${escapeAdvisorHtml(product.name)}</h4>
+                                <p class="advisor-product-price">${window.formatPrice(productPrice(product))}</p>
+                                <a href="producto.html?id=${encodeURIComponent(product.id)}">Ver equipo <i class="fa-solid fa-arrow-right"></i></a>
+                            </article>
+                        `;
+                    }).join('')}
+                </div>
+                <button class="advisor-restart" type="button">Cambiar mis respuestas</button>
+            `;
+            resultsContainer.querySelector('.advisor-restart').addEventListener('click', resetAdvisor);
+        } catch (error) {
+            console.error('Error en el asesor de compra:', error);
+            resultsContainer.innerHTML = `
+                <h3>No pudimos cargar las recomendaciones</h3>
+                <p>Podés explorar todos los equipos disponibles en el catálogo.</p>
+                <a class="advisor-catalog-link" href="catalogo.html?cat=all">Ver catálogo</a>
+                <button class="advisor-restart" type="button">Intentar de nuevo</button>
+            `;
+            resultsContainer.querySelector('.advisor-restart').addEventListener('click', resetAdvisor);
+        }
+    };
+
+    const resetAdvisor = () => {
+        Object.keys(answers).forEach(key => delete answers[key]);
+        step = 0;
+        resultsContainer.hidden = true;
+        intro.hidden = false;
+        flow.hidden = true;
+    };
+
+    startButton.addEventListener('click', () => {
+        intro.hidden = true;
+        resultsContainer.hidden = true;
+        flow.hidden = false;
+        renderQuestion();
+        flow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+});

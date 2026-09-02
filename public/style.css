@@ -31,6 +31,108 @@ body {
     color: #000000;
 }
 
+/* Asesor de compra */
+.advisor-section {
+    max-width: 1200px;
+    margin: 0 auto 4.5rem;
+    padding: 0 5%;
+}
+
+.advisor-intro,
+.advisor-flow,
+.advisor-results {
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: linear-gradient(135deg, #111 0%, #2b2b2b 100%);
+    color: #fff;
+    padding: 3.25rem;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.13);
+}
+
+.advisor-intro { text-align: center; }
+.advisor-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .45rem .85rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    color: #f5f5f5;
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+.advisor-intro h2 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); margin: 1rem 0 .8rem; }
+.advisor-intro > p:not(.advisor-note) { color: #d0d0d0; max-width: 610px; margin: 0 auto 1.8rem; line-height: 1.6; }
+.advisor-start {
+    border: 0;
+    border-radius: 999px;
+    padding: 1rem 1.45rem;
+    background: #fff;
+    color: #111;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+}
+.advisor-start:hover { background: #e9e9e9; transform: translateY(-2px); }
+.advisor-start i { margin-left: .45rem; }
+.advisor-note { margin: 1rem 0 0; color: #b9b9b9; font-size: .86rem; }
+.advisor-note i { margin-right: .35rem; }
+
+.advisor-flow { max-width: 800px; margin: 0 auto; text-align: center; }
+.advisor-progress { display: flex; justify-content: center; gap: .5rem; margin-bottom: 2rem; }
+.advisor-progress span { width: 48px; height: 4px; border-radius: 99px; background: rgba(255,255,255,.25); }
+.advisor-progress span.active { background: #fff; }
+.advisor-step-label { color: #bfbfbf; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.advisor-question-title { color: #fff; font-size: clamp(1.5rem, 3vw, 2.1rem); margin: .75rem auto 1.8rem; max-width: 620px; }
+.advisor-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.advisor-option {
+    min-height: 80px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 14px;
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    padding: 1rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.advisor-option:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.65); transform: translateY(-2px); }
+.advisor-option i { display: block; font-size: 1.3rem; margin-bottom: .45rem; }
+.advisor-back { margin-top: 1.4rem; border: 0; background: transparent; color: #d0d0d0; font: inherit; cursor: pointer; text-decoration: underline; }
+
+.advisor-results { margin-top: 0; background: #f7f7f7; color: #111; }
+.advisor-results h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); text-align: center; margin-bottom: .45rem; }
+.advisor-results > p { color: #666; text-align: center; margin-bottom: 1.8rem; }
+.advisor-product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.advisor-product {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: #fff;
+    padding: 1.1rem;
+    text-align: left;
+}
+.advisor-product img { width: 100%; height: 155px; object-fit: contain; margin-bottom: .75rem; }
+.advisor-product-brand { color: #777; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.advisor-product h4 { font-size: 1.05rem; margin: .35rem 0; }
+.advisor-product-price { font-size: 1.2rem; font-weight: 900; margin: .35rem 0 1rem; }
+.advisor-product a { color: #fff; background: #111; border-radius: 10px; padding: .75rem; text-align: center; text-decoration: none; font-weight: 700; margin-top: auto; }
+.advisor-catalog-link { display: block; width: fit-content; margin: 1.2rem auto 0; padding: .8rem 1.1rem; border-radius: 10px; background: #111; color: #fff; text-decoration: none; font-weight: 700; }
+.advisor-restart { display: block; margin: 1.6rem auto 0; border: 0; background: transparent; color: #444; font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+@media (max-width: 700px) {
+    .advisor-section { padding: 0 1rem; margin-bottom: 3rem; }
+    .advisor-intro, .advisor-flow, .advisor-results { padding: 2rem 1.15rem; border-radius: 18px; }
+    .advisor-options, .advisor-product-grid { grid-template-columns: 1fr; }
+    .advisor-option { min-height: 66px; }
+    .advisor-option i { display: inline; margin: 0 .5rem 0 0; }
+}
+
 /* Cartel interactivo (Top Banner) */
 .top-banner {
     background-color: #000000;
