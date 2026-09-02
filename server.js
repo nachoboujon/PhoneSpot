@@ -3,15 +3,62 @@ const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const multer = require('multer');
+const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const corsOrigins = new Set(
+    String(process.env.CORS_ORIGINS || '')
+        .split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+);
+app.use(cors({
+    origin(origin, callback) {
+        if (!origin || corsOrigins.has(origin)) return callback(null, true);
+        callback(new Error('Origen no permitido por CORS'));
+    }
+}));
+app.use(express.json({ limit: '1mb' }));
+
+const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const jwtSecret = process.env.JWT_SECRET;
+const resendApiKey = process.env.RESEND_API_KEY;
+const smtpTransport = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
+    ? nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT || 587),
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+    })
+    : null;
+
+const escapeHtml = (value = '') => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+const parseVariants = (variants) => {
+    let parsed = variants;
+    try {
+        while (typeof parsed === 'string') parsed = JSON.parse(parsed);
+    } catch (_) {
+        return [];
+    }
+    return Array.isArray(parsed) ? parsed : [];
+};
+
+const variantNameFor = (variant) => [
+    variant.color,
+    variant.capacity,
+    variant.ram,
+    variant.batt ? `Bat: ${variant.batt}` : null
+].filter(Boolean).join(' - ');
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
 app.get('/producto.html', async (req, res, next) => {
@@ -24,12 +71,13 @@ app.get('/producto.html', async (req, res, next) => {
         
         let html = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
         
-        const imageUrl = data.image_url.startsWith('http') ? data.image_url : 'http://' + req.get('host') + data.image_url;
+        const baseUrl = `${req.protocol}://${req.get('host')}`;
+        const imageUrl = new URL(data.image_url || '/uploads/PhoneSpot-trans.png', baseUrl).toString();
         
         const metaTags = `
-            <meta property="og:title" content="${data.name} | PhoneSpot">
+            <meta property="og:title" content="${escapeHtml(data.name)} | PhoneSpot">
             <meta property="og:description" content="Mira este equipo increíble disponible en PhoneSpot.">
-            <meta property="og:image" content="${imageUrl}">
+            <meta property="og:image" content="${escapeHtml(imageUrl)}">
             <meta name="twitter:card" content="summary_large_image">
         `;
         
@@ -54,7 +102,16 @@ try {
 
 // Configuración de multer (motor en memoria para subir a Supabase Storage)
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024, files: 1 },
+    fileFilter: (_req, file, callback) => {
+        if (!file.mimetype || !file.mimetype.startsWith('image/')) {
+            return callback(new Error('Solo se permiten imágenes.'));
+        }
+        callback(null, true);
+    }
+});
 
 // Configuración Supabase
 const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
@@ -65,64 +122,67 @@ if (supabaseUrl === 'https://placeholder.supabase.co') {
     console.warn('⚠️ ADVERTENCIA: SUPABASE_URL y SUPABASE_KEY no están configurados en las variables de entorno. La base de datos no funcionará.');
 }
 
-// Configuración Email
-const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 2525,
-    secure: false,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000
-});
-
-// Middleware de autenticación propio
-
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
     try {
-        if (!process.env.SMTP_PASS) {
-            console.error('Falta SMTP_PASS (API Key de Resend)');
-            return false;
-        }
-        
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + process.env.SMTP_PASS,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                from: process.env.EMAIL_FROM || 'PhoneSpot <onboarding@resend.dev>',
-                to: [to],
-                subject: subject,
-                html: html
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
+        if (resendApiKey) {
+            const response = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + resendApiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    from: process.env.EMAIL_FROM || 'PhoneSpot <onboarding@resend.dev>',
+                    to: [to],
+                    subject,
+                    html
+                })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                console.error('Resend API Error:', data);
+                return false;
+            }
             console.log('Email sent via Resend API:', data.id);
             return data;
-        } else {
-            console.error('Resend API Error:', data);
-            return false;
         }
+
+        if (smtpTransport) {
+            const result = await smtpTransport.sendMail({
+                from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+                to,
+                subject,
+                html
+            });
+            console.log('Email sent via SMTP:', result.messageId);
+            return result;
+        }
+
+        console.error('Falta RESEND_API_KEY o la configuración SMTP');
+        return false;
     } catch (err) {
         console.error('Error sending email:', err.message);
         return false;
     }
 };
 
+const getStoreSettings = async () => {
+    try {
+        const { data, error } = await supabase.storage.from('uploads').download('settings.json');
+        if (error || !data) return {};
+        return JSON.parse(await data.text());
+    } catch (_) {
+        return {};
+    }
+};
+
 const authenticate = (req, res, next) => {
+    if (!jwtSecret) return res.status(503).json({ error: 'Autenticación no configurada en el servidor' });
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
     try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro');
+        const verified = jwt.verify(token, jwtSecret);
         req.user = verified;
         next();
     } catch (error) {
@@ -137,54 +197,36 @@ const isAdmin = (req, res, next) => {
 
 // --- RUTAS DE USUARIOS ---
 
-
-app.get('/api/test-email', async (req, res) => {
-    try {
-        if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-            return res.json({ success: false, error: 'Faltan credenciales en Railway' });
-        }
-        const info = await transporter.sendMail({
-            from: '"PhoneSpot" <' + process.env.SMTP_USER + '>',
-            to: process.env.SMTP_USER,
-            subject: 'Test de Diagnóstico Nodemailer',
-            text: 'Si llega esto, el puerto SMTP está abierto en Railway.'
-        });
-        res.json({ success: true, info });
-    } catch (err) {
-        res.json({ success: false, error: err.message, stack: err.stack, code: err.code, syscall: err.syscall });
-    }
-});
-
-app.get('/api/version', (req, res) => {
-    res.json({ 
-        version: '1.0.6', 
-        status: 'Revisando entorno de correo',
-        has_smtp_user: !!process.env.SMTP_USER,
-        has_email_user: !!process.env.EMAIL_USER,
-        smtp_user_val: process.env.SMTP_USER,
-        smtp_host: process.env.SMTP_HOST || 'not-set',
-        smtp_pass_length: process.env.SMTP_PASS ? process.env.SMTP_PASS.length : 0,
-        smtp_port: process.env.SMTP_PORT
+// Diagnósticos disponibles únicamente fuera de producción y para administradores.
+if (!isProduction) {
+    app.get('/api/version', authenticate, isAdmin, (_req, res) => {
+        res.json({ version: '1.1.0', environment: process.env.NODE_ENV || 'development' });
     });
-});
+}
 
 app.post('/api/register', async (req, res) => {
     try {
-        
-        const { name, email, password } = req.body;
+        if (!jwtSecret) return res.status(503).json({ error: 'El registro no está configurado en el servidor' });
+
+        const name = String(req.body.name || '').trim();
+        const email = String(req.body.email || '').trim().toLowerCase();
+        const password = String(req.body.password || '');
+        if (name.length < 2 || name.length > 100 || !/^\S+@\S+\.\S+$/.test(email) || password.length < 8) {
+            return res.status(400).json({ error: 'Verifica nombre, email y una contraseña de al menos 8 caracteres.' });
+        }
         
         // Check if user already exists
         const { data: existingUser } = await supabase.from('users').select('id').eq('email', email).single();
         if (existingUser) return res.status(400).json({ error: 'El email ya está registrado' });
         
         const hashedPassword = await bcrypt.hash(password, 10);
-        const role = email === process.env.ADMIN_EMAIL ? 'admin' : 'client';
+        const role = email === String(process.env.ADMIN_EMAIL || '').toLowerCase() ? 'admin' : 'client';
         
         // Generate verification token (expires in 1 hour)
         const jwt = require('jsonwebtoken');
         const verificationToken = jwt.sign(
             { name, email, password: hashedPassword, role }, 
-            process.env.JWT_SECRET || 'secreto_super_seguro', 
+            jwtSecret,
             { expiresIn: '1h' }
         );
         
@@ -200,13 +242,13 @@ app.post('/api/register', async (req, res) => {
                     <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Bienvenido a PhoneSpot</h1>
                 </div>
                 <div style="padding: 40px 30px; text-align: center;">
-                    <p style="font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 10px;">Hola <strong style="color: #000;">${name}</strong>,</p>
+                    <p style="font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 10px;">Hola <strong style="color: #000;">${escapeHtml(name)}</strong>,</p>
                     <p style="font-size: 16px; color: #555555; line-height: 1.6; margin-bottom: 30px;">Estamos encantados de tenerte. Para garantizar la seguridad de tu cuenta y activar tus beneficios, necesitamos verificar tu dirección de correo electrónico.</p>
                     
-                    <a href="${verifyLink}" style="display: inline-block; background-color: #0071e3; color: #ffffff; padding: 16px 36px; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);">Verificar mi Cuenta</a>
+                    <a href="${escapeHtml(verifyLink)}" style="display: inline-block; background-color: #0071e3; color: #ffffff; padding: 16px 36px; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);">Verificar mi Cuenta</a>
                     
                     <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eeeeee;">
-                        <p style="font-size: 12px; color: #999999; line-height: 1.5; margin: 0;">Si el botón no funciona, copia y pega este enlace en tu navegador:<br><span style="color:#0071e3">${verifyLink}</span></p>
+                        <p style="font-size: 12px; color: #999999; line-height: 1.5; margin: 0;">Si el botón no funciona, copia y pega este enlace en tu navegador:<br><span style="color:#0071e3">${escapeHtml(verifyLink)}</span></p>
                         <p style="font-size: 12px; color: #999999; margin-top: 15px;">Si tú no solicitaste este registro, puedes ignorar o eliminar este correo de forma segura. El enlace expirará automáticamente en 24 horas.</p>
                     </div>
                 </div>
@@ -219,9 +261,10 @@ app.post('/api/register', async (req, res) => {
         
         try {
             const mailInfo = await sendEmail(email, 'Confirma tu registro en PhoneSpot', verifyHtml);
-            res.status(201).json({ message: 'Te hemos enviado un correo. Revisa tu bandeja de entrada para verificar tu cuenta.', messageId: mailInfo.messageId, response: mailInfo.response });
+            if (!mailInfo) throw new Error('No se pudo enviar el correo de verificación');
+            res.status(201).json({ message: 'Te hemos enviado un correo. Revisa tu bandeja de entrada para verificar tu cuenta.' });
         } catch(emailErr) {
-            res.status(500).json({ error: 'Tu cuenta está reservada, pero hubo un problema enviando el correo. Contacta a soporte.' });
+            res.status(503).json({ error: 'No se pudo enviar el correo de verificación. Inténtalo más tarde o contacta a soporte.' });
         }
 
 
@@ -235,6 +278,7 @@ app.post('/api/register', async (req, res) => {
 // --- GOOGLE OAUTH LOGIN/REGISTER ---
 app.post('/api/auth/google', async (req, res) => {
     try {
+        if (!jwtSecret) return res.status(503).json({ error: 'El inicio de sesión no está configurado en el servidor' });
         const { access_token } = req.body;
         if (!access_token) return res.status(400).json({ error: 'Token requerido' });
         
@@ -248,9 +292,9 @@ app.post('/api/auth/google', async (req, res) => {
             return res.status(401).json({ error: 'Token de Google inválido' });
         }
         
-        const email = googleUser.email;
+        const email = googleUser.email.toLowerCase();
         const name = googleUser.name || email.split('@')[0];
-        const role = email === process.env.ADMIN_EMAIL ? 'admin' : 'client';
+        const role = email === String(process.env.ADMIN_EMAIL || '').toLowerCase() ? 'admin' : 'client';
         
         // Check if user exists in our DB
         let { data: user, error: searchError } = await supabase
@@ -279,14 +323,14 @@ app.post('/api/auth/google', async (req, res) => {
             const welcomeHtml = `
                 <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
                     <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
-                        <h1>¡Bienvenido a PhoneSpot, ${name}!</h1>
+                        <h1>¡Bienvenido a PhoneSpot, ${escapeHtml(name)}!</h1>
                     </div>
                     <div style="padding: 20px;">
-                        <p>Hola <b>${name}</b>,</p>
+                        <p>Hola <b>${escapeHtml(name)}</b>,</p>
                         <p>Gracias por registrarte usando Google. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
                         <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas en celulares, notebooks y accesorios.</p>
                         <br>
-                        <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                        <a href="https://phonespot.site/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
                         <br><br>
                         <p>¡Saludos!<br>El equipo de PhoneSpot</p>
                     </div>
@@ -297,7 +341,7 @@ app.post('/api/auth/google', async (req, res) => {
         
         // Generate JWT
         const jwt = require('jsonwebtoken');
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secreto_super_seguro');
+        const token = jwt.sign({ id: user.id, role: user.role, name: user.name }, jwtSecret, { expiresIn: '7d' });
         
         res.json({ message: 'Login con Google exitoso', token, role: user.role, name: user.name });
         
@@ -311,11 +355,12 @@ app.post('/api/auth/google', async (req, res) => {
 // --- VERIFICACIÓN DE EMAIL (STATELESS) ---
 app.get('/api/verify-email', async (req, res) => {
     try {
+        if (!jwtSecret) return res.status(503).send('El registro no está configurado en el servidor.');
         const { token } = req.query;
         if (!token) return res.status(400).send('Token inválido o expirado.');
         
         const jwt = require('jsonwebtoken');
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro');
+        const decoded = jwt.verify(token, jwtSecret);
         
         // Comprobar si ya existe
         const { data: existingUser } = await supabase.from('users').select('id').eq('email', decoded.email).single();
@@ -334,14 +379,14 @@ app.get('/api/verify-email', async (req, res) => {
         const welcomeHtml = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
                 <div style="background: #111; color: #fff; padding: 20px; text-align: center;">
-                    <h1>¡Bienvenido a PhoneSpot, ${decoded.name}!</h1>
+                    <h1>¡Bienvenido a PhoneSpot, ${escapeHtml(decoded.name)}!</h1>
                 </div>
                 <div style="padding: 20px;">
-                    <p>Hola <b>${decoded.name}</b>,</p>
+                    <p>Hola <b>${escapeHtml(decoded.name)}</b>,</p>
                     <p>Tu cuenta ha sido verificada exitosamente. Ya eres parte de la comunidad de PhoneSpot, tu lugar de confianza para tecnología móvil.</p>
                     <p>Te invitamos a revisar nuestro catálogo y descubrir las mejores ofertas.</p>
                     <br>
-                    <a href="https://phonespot.com.ar/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
+                    <a href="https://phonespot.site/catalogo.html" style="background: #111; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar Catálogo</a>
                 </div>
             </div>
         `;
@@ -356,7 +401,10 @@ app.get('/api/verify-email', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        if (!jwtSecret) return res.status(503).json({ error: 'El inicio de sesión no está configurado en el servidor' });
+        const email = String(req.body.email || '').trim().toLowerCase();
+        const password = String(req.body.password || '');
+        if (!email || !password) return res.status(400).json({ error: 'Email y contraseña son obligatorios' });
         const { data, error } = await supabase
             .from('users')
             .select('*')
@@ -369,7 +417,7 @@ app.post('/api/login', async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) return res.status(400).json({ error: 'Contraseña incorrecta' });
         
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secreto_super_seguro');
+        const token = jwt.sign({ id: user.id, role: user.role, name: user.name }, jwtSecret, { expiresIn: '7d' });
         res.json({ message: 'Login exitoso', token, role: user.role, name: user.name });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -381,39 +429,8 @@ app.get('/api/products', async (req, res) => {
     try {
         const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
         if (error) throw error;
-        
-        data.forEach(prod => {
-            if (prod.variants) {
-                while (typeof prod.variants === 'string') {
-                    try { prod.variants = JSON.parse(prod.variants); }
-                    catch(e) { break; }
-                }
-                if (!Array.isArray(prod.variants)) prod.variants = [];
-            }
-        });
-
-        
-        data.forEach(p => {
-            if (p.variants && typeof p.variants === 'string') {
-                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
-            }
-        });
-        
-        data.forEach(p => {
-            if (p.variants && typeof p.variants === 'string') {
-                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
-            }
-        });
-        
-        data.forEach(p => {
-            if (p.variants && typeof p.variants === 'string') {
-                try { p.variants = JSON.parse(p.variants); } catch(e) { p.variants = []; }
-            }
-        });
+        data.forEach((product) => { product.variants = parseVariants(product.variants); });
         res.json(data);
-    
-    
-    
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -426,31 +443,8 @@ app.get('/api/products/:id', async (req, res) => {
         if (error) throw error;
         if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
         
-        if (data.variants) {
-            while (typeof data.variants === 'string') {
-                try { data.variants = JSON.parse(data.variants); }
-                catch(e) { break; }
-            }
-            if (!Array.isArray(data.variants)) data.variants = [];
-        }
-
-        
-        if (data.variants && typeof data.variants === 'string') {
-            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
-        }
-        
-        if (data.variants && typeof data.variants === 'string') {
-            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
-        }
-        
-        if (data.variants && typeof data.variants === 'string') {
-            try { data.variants = JSON.parse(data.variants); } catch(e) { data.variants = []; }
-        }
+        data.variants = parseVariants(data.variants);
         res.json(data);
-    
-    
-    
-    
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -459,6 +453,11 @@ app.get('/api/products/:id', async (req, res) => {
 app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (req, res) => {
     try {
         const { name, description, price, brand, stock, is_offer, category, variants } = req.body;
+        const parsedPrice = Number(price);
+        const parsedStock = Number.parseInt(stock, 10);
+        if (!String(name || '').trim() || !String(brand || '').trim() || !Number.isFinite(parsedPrice) || parsedPrice < 0 || !Number.isInteger(parsedStock) || parsedStock < 0) {
+            return res.status(400).json({ error: 'Verifica nombre, marca, precio y stock.' });
+        }
         
         let image_url = '';
         if (req.file) {
@@ -478,18 +477,17 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
             image_url = publicUrlData.publicUrl;
         }
         
-        let parsedVariants = [];
-        try { if(variants) parsedVariants = JSON.parse(variants); } catch(e){}
+        const parsedVariants = parseVariants(variants);
 
         const { data, error } = await supabase
             .from('products')
             .insert([{ 
-                name, 
-                description, 
-                price: parseFloat(price), 
-                brand, 
+                name: String(name).trim(),
+                description: String(description || '').trim(),
+                price: parsedPrice,
+                brand: String(brand).trim(),
                 category: category || 'celulares', 
-                stock: parseInt(stock), 
+                stock: parsedStock,
                 variants: parsedVariants,
                 is_offer: is_offer === 'true', 
                 image_url 
@@ -565,240 +563,142 @@ app.post('/api/settings', authenticate, isAdmin, async (req, res) => {
 });
 
 
-// MERCADO PAGO INTEGRATION
-app.post('/api/mercadopago/preference', async (req, res) => {
-    try {
-        const { items, customer_email, total_ars } = req.body;
-        
-        const mpAccessToken = process.env.MP_ACCESS_TOKEN;
-        if (!mpAccessToken) {
-            return res.status(400).json({ error: 'Mercado Pago no configurado en el servidor' });
-        }
-        
-        const preference = {
-            items: [
-                {
-                    title: 'Compra en PhoneSpot',
-                    quantity: 1,
-                    currency_id: 'ARS',
-                    unit_price: total_ars
-                }
-            ],
-            payer: { email: customer_email },
-            back_urls: {
-                success: req.headers.origin + '/perfil.html',
-                failure: req.headers.origin + '/carrito.html',
-                pending: req.headers.origin + '/perfil.html'
-            },
-            auto_return: 'approved'
-        };
-
-        const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${mpAccessToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(preference)
-        });
-        
-        const data = await response.json();
-        if (data.init_point) {
-            res.json({ init_point: data.init_point });
-        } else {
-            res.status(500).json({ error: 'Error de MercadoPago', details: data });
-        }
-    } catch(e) {
-        console.error(e);
-        res.status(500).json({ error: 'Error procesando Mercado Pago' });
-    }
-});
-
 // --- RUTAS DE ORDENES ---
-app.post('/api/orders', async (req, res) => {
+app.post('/api/orders', authenticate, async (req, res) => {
     try {
-        const { items, shipping_address, customer_email, customer_name, payment_method, shipping_cost } = req.body; 
-        
-        let user_id = null;
-        const authHeader = req.header('Authorization');
-        if (authHeader) {
-            const token = authHeader.split(' ')[1];
-            try {
-                const jwt = require('jsonwebtoken');
-                const verified = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro');
-                user_id = verified.id;
-            } catch(e) { }
+        const rawItems = req.body.items;
+        const customerEmail = String(req.body.customer_email || '').trim().toLowerCase();
+        const customerName = String(req.body.customer_name || '').trim();
+        const shippingAddress = String(req.body.shipping_address || '').trim();
+        let extraShipping = Number(req.body.shipping_cost || 0);
+
+        if (!Array.isArray(rawItems) || rawItems.length === 0 || rawItems.length > 30 || !/^\S+@\S+\.\S+$/.test(customerEmail) || customerName.length < 2 || shippingAddress.length < 8 || !Number.isFinite(extraShipping) || extraShipping < 0 || extraShipping > 250000) {
+            return res.status(400).json({ error: 'Los datos de la orden son inválidos.' });
+        }
+        const requestedItems = new Map();
+        for (const item of rawItems) {
+            const productId = Number.parseInt(item.product_id, 10);
+            const quantity = Number.parseInt(item.quantity, 10);
+            const variantName = item.variant_name ? String(item.variant_name).trim() : null;
+            if (!Number.isInteger(productId) || productId <= 0 || !Number.isInteger(quantity) || quantity <= 0 || quantity > 20) {
+                return res.status(400).json({ error: 'Hay un producto o una cantidad inválida.' });
+            }
+            const key = `${productId}:${variantName || ''}`;
+            const current = requestedItems.get(key);
+            requestedItems.set(key, { productId, variantName, quantity: (current?.quantity || 0) + quantity });
         }
 
-        const extraShipping = Number(shipping_cost) || 0;
-        
-        
-        let totalQuantity = 0;
-        items.forEach(item => totalQuantity += item.quantity);
-        let wholesaleDiscount = 0;
-        if (totalQuantity >= 10) wholesaleDiscount = 10;
-        else if (totalQuantity >= 5) wholesaleDiscount = 7;
-        else if (totalQuantity >= 3) wholesaleDiscount = 5;
-        const isWholesale = wholesaleDiscount > 0;
+        const secureItems = [];
+        for (const item of requestedItems.values()) {
+            const { data: product, error } = await supabase
+                .from('products')
+                .select('id, name, price, stock, variants')
+                .eq('id', item.productId)
+                .single();
+            if (error || !product) return res.status(404).json({ error: 'Uno de los productos ya no está disponible.' });
 
+            const variants = parseVariants(product.variants);
+            const selectedVariant = item.variantName ? variants.find((variant) => variantNameFor(variant) === item.variantName) : null;
+            if (variants.length > 0 && !selectedVariant) {
+                return res.status(400).json({ error: `Selecciona una variante válida para ${product.name}.` });
+            }
 
-        const usdTotal = items.reduce((acc, item) => {
-            let finalPrice = item.price;
-            if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
-            return acc + (finalPrice * item.quantity);
-        }, 0);
-        const dolarValue = Number(req.body.dolar_value) || 1400;
-        const discountUsd = Number(req.body.discount_amount) || 0;
-        const total = usdTotal + (extraShipping / dolarValue) - discountUsd;
-        
+            const availableStock = selectedVariant ? Number(selectedVariant.stock) : Number(product.stock);
+            if (!Number.isInteger(availableStock) || availableStock < item.quantity || Number(product.stock) < item.quantity) {
+                return res.status(409).json({ error: `${product.name} no tiene stock suficiente.` });
+            }
+
+            const variantPrice = selectedVariant ? Number(selectedVariant.price) : NaN;
+            const unitPrice = Number.isFinite(variantPrice) && variantPrice >= 0 ? variantPrice : Number(product.price);
+            if (!Number.isFinite(unitPrice) || unitPrice < 0) throw new Error(`Precio inválido para ${product.name}`);
+
+            secureItems.push({ ...item, product, variants, unitPrice });
+        }
+
+        const stockUpdates = new Map();
+        for (const item of secureItems) {
+            const current = stockUpdates.get(item.product.id) || {
+                product: item.product,
+                quantity: 0,
+                variants: item.variants.map((variant) => ({ ...variant }))
+            };
+            current.quantity += item.quantity;
+            if (current.quantity > Number(current.product.stock)) {
+                return res.status(409).json({ error: `${current.product.name} no tiene stock suficiente.` });
+            }
+            if (item.variantName) {
+                current.variants = current.variants.map((variant) => (
+                    variantNameFor(variant) === item.variantName
+                        ? { ...variant, stock: Number(variant.stock) - item.quantity }
+                        : variant
+                ));
+            }
+            stockUpdates.set(item.product.id, current);
+        }
+
+        const totalQuantity = secureItems.reduce((sum, item) => sum + item.quantity, 0);
+        const wholesaleDiscount = totalQuantity >= 10 ? 10 : totalQuantity >= 5 ? 7 : totalQuantity >= 3 ? 5 : 0;
+        const productsSubtotal = secureItems.reduce((sum, item) => sum + Math.max(1, item.unitPrice - wholesaleDiscount) * item.quantity, 0);
+
+        const settings = await getStoreSettings();
+        const couponCode = String(req.body.discount_code || '').trim().toUpperCase();
+        let discountUsd = 0;
+        if (couponCode) {
+            const coupon = Array.isArray(settings.coupons) && settings.coupons.find((entry) => String(entry.code || '').toUpperCase() === couponCode);
+            if (!coupon) return res.status(400).json({ error: 'El cupón no es válido.' });
+            if (coupon.type === 'percent') discountUsd = productsSubtotal * Math.min(100, Math.max(0, Number(coupon.value) || 0)) / 100;
+            if (coupon.type === 'fixed') discountUsd = Math.min(productsSubtotal, Math.max(0, Number(coupon.value) || 0));
+            if (coupon.type === 'shipping') extraShipping = 0;
+        }
+
+        const dollarRate = Number(process.env.DOLLAR_RATE) || 1400;
+        const total = Math.max(0, productsSubtotal - discountUsd + extraShipping / dollarRate);
         const { data: orderData, error: orderError } = await supabase
             .from('orders')
-            .insert([{ user_id, total, shipping_address }])
-            .select();
-            
+            .insert([{ user_id: req.user.id, total, shipping_address: shippingAddress }])
+            .select('id')
+            .single();
         if (orderError) throw orderError;
-        const orderId = orderData[0].id;
-        
-        for (const item of items) {
-            if(item.product_id) {
-                await supabase.from('order_items').insert([{
-                    order_id: orderId,
-                    product_id: item.product_id,
-                    quantity: item.quantity,
-                    price: item.price,
-                    variant_name: item.variant_name || null
-                }]);
 
-                const { data: prodData } = await supabase.from('products').select('stock, variants').eq('id', item.product_id).single();
-                if (prodData) {
-                    let newStock = prodData.stock - item.quantity;
-                    newStock = newStock < 0 ? 0 : newStock;
-                    
-                    let newVariants = prodData.variants;
-                    if (newVariants && item.variant_name) {
-                        newVariants = newVariants.map(v => {
-                            const vName = [v.color, v.capacity, v.ram].filter(Boolean).join(' - ');
-                            if (vName === item.variant_name && v.stock > 0) v.stock -= item.quantity;
-                            return v;
-                        });
-                    }
-                    await supabase.from('products').update({ stock: newStock, variants: newVariants }).eq('id', item.product_id);
-                }
+        const orderItems = secureItems.map((item) => ({
+            order_id: orderData.id,
+            product_id: item.product.id,
+            quantity: item.quantity,
+            price: item.unitPrice,
+            variant_name: item.variantName
+        }));
+        const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
+        if (itemsError) {
+            await supabase.from('orders').delete().eq('id', orderData.id);
+            throw itemsError;
+        }
+
+        for (const update of stockUpdates.values()) {
+            const { data: updatedProduct, error: stockError } = await supabase
+                .from('products')
+                .update({ stock: Number(update.product.stock) - update.quantity, variants: update.variants })
+                .eq('id', update.product.id)
+                .eq('stock', update.product.stock)
+                .select('id');
+            if (stockError || !updatedProduct?.length) {
+                await supabase.from('orders').delete().eq('id', orderData.id);
+                return res.status(409).json({ error: 'El stock cambió mientras procesábamos tu compra. Vuelve a intentarlo.' });
             }
         }
 
-        const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || '';
-        if (payment_method === 'mercadopago') {
-            if (!MP_ACCESS_TOKEN) {
-                return res.status(200).json({ message: 'Orden creada, pero falta MP', orderId });
-            }
-            const dolarValue = Number(req.body.dolar_value) || 1400;
-            const mpItems = items.map(item => ({
-                title: 'Producto PhoneSpot ' + (item.variant_name ? '('+item.variant_name+')' : ''),
-                unit_price: Math.round(Number(item.price) * dolarValue),
-                quantity: Number(item.quantity),
-                currency_id: 'ARS'
-            }));
-            if (extraShipping > 0) {
-                mpItems.push({ title: 'Costo de Envío', unit_price: extraShipping, quantity: 1, currency_id: 'ARS' });
-            }
-            const preferenceData = {
-                items: mpItems,
-                payer: { name: customer_name, email: customer_email },
-                back_urls: {
-                    success: req.headers.origin + '/perfil.html?pago=exito',
-                    failure: req.headers.origin + '/carrito.html?pago=error',
-                    pending: req.headers.origin + '/perfil.html?pago=pendiente'
-                },
-                auto_return: 'approved',
-                external_reference: orderId.toString(),
-                notification_url: 'https://phonespot.site/api/mercadopago/webhook',
-                payment_methods: {
-                    excluded_payment_types: [
-                        { id: 'credit_card' }
-                    ],
-                    installments: 1
-                }
-            };
-            const mpResponse = await fetch('https://api.mercadopago.com/checkout/preferences', {
-                method: 'POST',
-                headers: { 'Authorization': 'Bearer ' + MP_ACCESS_TOKEN, 'Content-Type': 'application/json' },
-                body: JSON.stringify(preferenceData)
-            });
-            const mpData = await mpResponse.json();
-            if (mpResponse.ok && mpData.init_point) {
-                return res.status(200).json({ init_point: mpData.init_point });
-            } else {
-                console.error('MP ERROR:', mpData); return res.status(400).json({ error: 'Error MP', details: mpData });
-            }
+        const totalArs = Math.round((productsSubtotal - discountUsd) * dollarRate + extraShipping);
+        const itemList = secureItems.map((item) => `${item.quantity}x ${escapeHtml(item.product.name)}${item.variantName ? ` (${escapeHtml(item.variantName)})` : ''}`).join('<br>');
+        const customerSummary = `Nombre: ${escapeHtml(customerName)}<br>Email: ${escapeHtml(customerEmail)}<br>Dirección: ${escapeHtml(shippingAddress)}`;
+        const adminEmail = process.env.ORDER_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+        if (adminEmail) {
+            void sendEmail(adminEmail, `Nueva orden PhoneSpot #${orderData.id}`, `<h1>Nueva orden</h1><p><strong>Orden #${escapeHtml(orderData.id)}</strong></p><p>${customerSummary}</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p>`);
         }
+        void sendEmail(customerEmail, `Confirmación de orden #${orderData.id}`, `<h1>¡Compra confirmada!</h1><p>Hola ${escapeHtml(customerName)}, recibimos tu orden #${escapeHtml(orderData.id)}.</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p><p>Coordina el pago con nosotros por WhatsApp.</p>`);
 
-        
-        // =========== ENVÍO DE EMAIL AL DUEÑO ===========
-        try {
-            let itemsList = '';
-            items.forEach(i => {
-                itemsList += '- ' + i.quantity + 'x ' + (i.name || 'Producto') + ' (' + (i.variant_name || 'Sin variante') + ')\n';
-            });
-
-            const htmlContent = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">' +
-                '<div style="background: #111; padding: 20px; text-align: center;">' +
-                    '<h1 style="color: white; margin: 0;">¡Nueva Venta en PhoneSpot! 🎉</h1>' +
-                '</div>' +
-                '<div style="padding: 20px; font-size: 16px;">' +
-                    '<p><strong>Orden #' + orderId + '</strong></p>' +
-                    '<p><strong>Detalles del cliente:</strong><br>' +
-                    'Nombre: ' + customer_name + '<br>' +
-                    'Email: ' + customer_email + '<br>' +
-                    'Dirección: ' + shipping_address + '<br>' +
-                    'Método de pago: ' + payment_method + '<br>' +
-                    'Total de la orden: ' + total.toFixed(2) + ' USD</p>' +
-                    '<p><strong>Productos comprados:</strong><br>' +
-                    itemsList.replace(/\n/g, '<br>') + '</p>' +
-                    '<p style="font-size: 12px; color: #888; margin-top: 20px;">Revisa tu panel de administrador para más detalles.</p>' +
-                '</div>' +
-            '</div>';
-
-            const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
-            if (adminEmail) {
-                sendEmail(adminEmail, '🎉 ¡Nueva Venta en PhoneSpot! - Orden #' + orderId, htmlContent);
-                console.log('Email de notificación enviado al admin vía Brevo.');
-            }
-        } catch (mailErr) {
-            console.error('Error enviando email:', mailErr);
-        }
-        // ===============================================
-
-        
-            // Email de confirmación AL CLIENTE
-            if (customer_email) {
-                let itemsListHtml = '';
-                items.forEach(i => {
-                    itemsListHtml += '- ' + i.quantity + 'x ' + (i.name || 'Producto') + ' (' + (i.variant_name || 'Sin variante') + ')<br>';
-                });
-
-                const orderHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">' +
-                    '<div style="background: #00a650; color: #fff; padding: 20px; text-align: center;">' +
-                        '<h1>¡Compra Confirmada!</h1>' +
-                    '</div>' +
-                    '<div style="padding: 20px;">' +
-                        '<p>Hola <b>' + (customer_name || 'Cliente') + '</b>,</p>' +
-                        '<p>Hemos recibido tu orden <b>#' + orderId + '</b> con éxito.</p>' +
-                        '<p><b>Resumen de tu compra:</b><br>' + itemsListHtml + '</p>' +
-                        '<p>Total de la orden: <b>' + total.toFixed(2) + ' USD</b></p>' +
-                        '<p>Dirección de Envío: ' + shipping_address + '</p>' +
-                        '<p>Método de Pago: Efectivo / Transferencia</p>' +
-                        '<p>Por favor, coordina el pago con nosotros a través de nuestro WhatsApp. Una vez confirmado, comenzaremos a preparar tu paquete.</p>' +
-                        '<br>' +
-                        '<p>¡Gracias por confiar en PhoneSpot!</p>' +
-                    '</div>' +
-                '</div>';
-                sendEmail(customer_email, 'Confirmación de Orden #' + orderId + ' - PhoneSpot', orderHtml);
-            }
-
-        res.json({ message: 'Orden creada', orderId });
+        res.status(201).json({ message: 'Orden creada', orderId: orderData.id, total, total_ars: totalArs });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error creating order:', error);
+        res.status(500).json({ error: 'No pudimos crear la orden. Intenta nuevamente.' });
     }
 });
 
@@ -815,9 +715,13 @@ app.get('/api/my-orders', authenticate, async (req, res) => {
 
 app.put('/api/orders/:id/status', authenticate, isAdmin, async (req, res) => {
     try {
-        const { status, tracking_code } = req.body;
-        const { data, error } = await supabase.from('orders').update({ status, tracking_code }).eq('id', req.params.id).select();
+        const allowedStatuses = new Set(['pending', 'completed', 'cancelled', 'shipped']);
+        const status = String(req.body.status || '');
+        const trackingCode = req.body.tracking_code == null ? null : String(req.body.tracking_code).trim().slice(0, 100);
+        if (!allowedStatuses.has(status)) return res.status(400).json({ error: 'Estado de orden inválido' });
+        const { data, error } = await supabase.from('orders').update({ status, tracking_code: trackingCode || null }).eq('id', req.params.id).select();
         if (error) throw error;
+        if (!data?.length) return res.status(404).json({ error: 'Orden no encontrada' });
         res.json({ message: 'Orden actualizada', order: data[0] });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -826,8 +730,13 @@ app.put('/api/orders/:id/status', authenticate, isAdmin, async (req, res) => {
 
 app.post('/api/reviews', authenticate, async (req, res) => {
     try {
-        const { product_id, rating, comment } = req.body;
-        const { error } = await supabase.from('reviews').insert([{ product_id, user_name: req.user.name, rating, comment }]);
+        const productId = Number.parseInt(req.body.product_id, 10);
+        const rating = Number.parseInt(req.body.rating, 10);
+        const comment = String(req.body.comment || '').trim();
+        if (!Number.isInteger(productId) || productId <= 0 || !Number.isInteger(rating) || rating < 1 || rating > 5 || comment.length < 2 || comment.length > 2000) {
+            return res.status(400).json({ error: 'La reseña no es válida' });
+        }
+        const { error } = await supabase.from('reviews').insert([{ product_id: productId, user_name: req.user.name || 'Cliente', rating, comment }]);
         if (error) throw error;
         res.json({ message: 'Reseña guardada' });
     } catch (error) {
@@ -876,22 +785,25 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         const { id } = req.params;
         const { stock, price, variants, description } = req.body;
         
-        let updateData = {};
+        const updateData = {};
         if (description !== undefined) updateData.description = description;
-        if (stock !== undefined) updateData.stock = parseInt(stock);
-        if (price !== undefined) updateData.price = parseFloat(price);
+        if (stock !== undefined) {
+            const parsedStock = Number.parseInt(stock, 10);
+            if (!Number.isInteger(parsedStock) || parsedStock < 0) return res.status(400).json({ error: 'Stock inválido' });
+            updateData.stock = parsedStock;
+        }
+        if (price !== undefined) {
+            const parsedPrice = Number(price);
+            if (!Number.isFinite(parsedPrice) || parsedPrice < 0) return res.status(400).json({ error: 'Precio inválido' });
+            updateData.price = parsedPrice;
+        }
         
         if (variants !== undefined) {
-            if (typeof variants === 'string') {
-                try {
-                    updateData.variants = JSON.parse(variants);
-                } catch(e) {
-                    updateData.variants = [];
-                }
-            } else {
-                updateData.variants = variants;
-            }
+            const parsedVariants = parseVariants(variants);
+            if (typeof variants === 'string' && variants.trim() && parsedVariants.length === 0) return res.status(400).json({ error: 'Variantes inválidas' });
+            updateData.variants = parsedVariants;
         }
+        if (Object.keys(updateData).length === 0) return res.status(400).json({ error: 'No hay datos para actualizar' });
         
         const { error } = await supabase.from('products').update(updateData).eq('id', id);
         if (error) throw error;
@@ -903,15 +815,14 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
-    // Railway, Local, or VPS: Start the server on 0.0.0.0 so it's accessible externally
-    
+
 // ==================== SHIPPING ZIPNOVA API ====================
 app.post('/api/shipping/quote', async (req, res) => {
     try {
-        const { zip_code, total_amount, items } = req.body;
+        const zipCode = String(req.body.zip_code || '').trim();
+        if (!/^\d{4,5}$/.test(zipCode)) return res.status(400).json({ success: false, error: 'Código postal inválido' });
         
-        let isLocal = (zip_code === '3280' || zip_code === '3283' || zip_code === '3265' || zip_code === '3260');
+        const isLocal = ['3280', '3283', '3265', '3260'].includes(zipCode);
         
         if (isLocal) {
             return res.json({
@@ -923,19 +834,12 @@ app.post('/api/shipping/quote', async (req, res) => {
         }
         
         // Fetch current settings from Supabase to use the admin's exact custom prices
-        let adminSettings = { shipping_correo: 8500, shipping_andreani: 12000 };
-        try {
-            const { data } = await supabase.storage.from('uploads').download('settings.json');
-            if (data) {
-                const text = await data.text();
-                adminSettings = JSON.parse(text);
-            }
-        } catch(e) {}
+        const adminSettings = { shipping_correo: 8500, shipping_andreani: 12000, ...await getStoreSettings() };
         
         // Calculadora de Zonas Interna (Reemplazo Inteligente de Zipnova)
         let modifier = 1.0;
-        if (zip_code && zip_code.startsWith('9')) modifier = 1.6; // Patagonia (60% más caro)
-        else if (zip_code && (zip_code.startsWith('4') || zip_code.startsWith('5'))) modifier = 1.3; // Norte/Cuyo (30% más)
+        if (zipCode.startsWith('9')) modifier = 1.6; // Patagonia (60% más caro)
+        else if (zipCode.startsWith('4') || zipCode.startsWith('5')) modifier = 1.3; // Norte/Cuyo (30% más)
         
         const costCorreo = Math.round((adminSettings.shipping_correo || 8500) * modifier);
         const costAndreani = Math.round((adminSettings.shipping_andreani || 12000) * modifier);
@@ -960,7 +864,10 @@ app.post('/api/shipping/quote', async (req, res) => {
 // --- MARKETING ENDPOINT ---
 app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
     try {
-        const { subject, message, link } = req.body;
+        const subject = String(req.body.subject || '¡Descubre nuestras nuevas ofertas en PhoneSpot!').trim().slice(0, 150);
+        const message = String(req.body.message || '').trim().slice(0, 5000);
+        const link = String(req.body.link || 'https://phonespot.com.ar/catalogo.html').trim();
+        if (!message || !/^https?:\/\//i.test(link)) return res.status(400).json({ error: 'Mensaje o enlace inválido' });
         
         // Obtener todos los usuarios registrados
         const { data: users, error } = await supabase.from('users').select('email, name');
@@ -972,10 +879,10 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
                     <h1>¡Nueva Oferta Exclusiva!</h1>
                 </div>
                 <div style="padding: 20px; font-size: 16px;">
-                    ${message}
+                    ${escapeHtml(message).replace(/\n/g, '<br>')}
                     <br><br>
                     <div style="text-align: center;">
-                        <a href="${link || 'https://phonespot.com.ar/catalogo.html'}" style="display: inline-block; background: #111; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 16px;">Ver Oferta</a>
+                        <a href="${escapeHtml(link)}" style="display: inline-block; background: #111; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 16px;">Ver Oferta</a>
                     </div>
                     <br><br>
                     <p style="font-size: 12px; color: #888;">Recibes este correo porque te registraste en PhoneSpot.ar</p>
@@ -985,7 +892,7 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
         
         // Send email to all users
         for (let user of users) {
-            sendEmail(user.email, subject || '¡Descubre nuestras nuevas ofertas en PhoneSpot!', marketingHtml);
+            void sendEmail(user.email, subject, marketingHtml);
         }
         
         res.json({ message: `Correos de marketing enviados a ${users.length} usuarios.` });
@@ -995,7 +902,16 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
     }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+app.use((error, _req, res, _next) => {
+    if (error instanceof multer.MulterError || error.message === 'Solo se permiten imágenes.') {
+        return res.status(400).json({ error: error.message });
+    }
+    console.error('Unhandled request error:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+});
+
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
 }

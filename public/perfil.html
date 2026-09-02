@@ -58,7 +58,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=1787832323286"></script>
+    <script src="script.js?v=20260902"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -114,7 +114,7 @@
                         <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
                                 <div>
-                                    <h4 style="margin: 0; font-size: 1.1rem;">Orden #${o.id.substring(0,8)}</h4>
+                                    <h4 style="margin: 0; font-size: 1.1rem;">Orden #${String(o.id).slice(0, 8)}</h4>
                                     <small style="color: var(--text-muted);">${new Date(o.created_at).toLocaleString()}</small>
                                 </div>
                                 <div style="text-align: right;">

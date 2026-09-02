@@ -40,6 +40,15 @@ window.goToCheckout = (e) => {
 window.formatPrice = (usdPrice) => {
     return '$' + (usdPrice * window.dolarValue).toLocaleString('es-AR');
 };
+
+window.formatArs = (arsPrice) => '$' + Number(arsPrice || 0).toLocaleString('es-AR');
+
+const escapeText = (value = '') => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 // ====================================================
 
 // Sistema de Notificaciones Elegantes (Toast)
@@ -234,14 +243,15 @@ async function renderSideCart() {
     
     if (fsText && fsBar && threshold > 0) {
         document.getElementById('free-shipping-container').style.display = 'block';
-        if (total >= threshold) {
+        const totalArs = total * window.dolarValue;
+        if (totalArs >= threshold) {
             fsText.innerHTML = '<i class="fa-solid fa-check-circle" style="color:#555555;"></i> ¡¿Tienes envío GRATIS!';
             fsBar.style.width = '100%';
             fsBar.style.background = '#555555';
         } else {
-            const missing = threshold - total;
-            const pct = Math.min((total / threshold) * 100, 100);
-            fsText.innerHTML = `Te faltan <strong>${window.formatPrice(missing)}</strong> para Envío Gratis`;
+            const missing = threshold - totalArs;
+            const pct = Math.min((totalArs / threshold) * 100, 100);
+            fsText.innerHTML = `Te faltan <strong>${window.formatArs(missing)}</strong> para Envío Gratis`;
             fsBar.style.width = `${pct}%`;
             fsBar.style.background = '#f39c12';
         }
@@ -405,7 +415,7 @@ async function renderCheckout() { await window.dolarPromise;
     const threshold = settings_ml.free_shipping_threshold;
     
     // Si supera el umbral, envío gratis
-    const isFreeShipping = threshold > 0 && total >= threshold;
+    const isFreeShipping = threshold > 0 && total * window.dolarValue >= threshold;
 
     const zipInput = document.getElementById('chk-zip');
     const userZip = zipInput ? zipInput.value.trim() : '';
@@ -429,7 +439,7 @@ async function renderCheckout() { await window.dolarPromise;
         checkoutItems.innerHTML += `
             <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: var(--text-color);">
                 <span>${shippingName}</span>
-                <span style="${shippingCost === 0 ? 'color:#555555; font-weight:bold;' : ''}">${shippingCost === 0 ? 'Gratis' : window.formatPrice(shippingCost)}</span>
+                <span style="${shippingCost === 0 ? 'color:#555555; font-weight:bold;' : ''}">${shippingCost === 0 ? 'Gratis' : window.formatArs(shippingCost)}</span>
             </div>
         `;
     }
@@ -1223,6 +1233,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
+                const reviewsHtml = Array.isArray(reviews) && reviews.length > 0
+                    ? reviews.map((review) => `
+                        <article style="padding:1rem 0; border-top:1px solid #eee;">
+                            <strong>${escapeText(review.user_name || 'Cliente')}</strong>
+                            <span style="color:#f5a623; margin-left:0.5rem;">${'★'.repeat(Math.min(5, Math.max(1, Number(review.rating) || 5)))}</span>
+                            <p style="margin:0.5rem 0 0; color:#555; line-height:1.5;">${escapeText(review.comment)}</p>
+                        </article>`).join('')
+                    : '<p style="color:var(--text-muted);">Todavía no hay reseñas para este producto.</p>';
+
                 singleProductContainer.innerHTML = `
                     <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
                         <div class="product-details" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
@@ -1284,6 +1303,24 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p style="line-height:1.7; color: #555; font-size:0.95rem;">${displayDesc.replace(/\n/g, '<br>')}</p>
                                 </div>
 
+                                <section style="padding-top:1.5rem; margin-top:1.5rem; border-top:1px solid #eee;">
+                                    <h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:#1d1d1f;">Reseñas</h4>
+                                    ${reviewsHtml}
+                                    <form id="review-form" style="margin-top:1rem; display:grid; gap:0.7rem;">
+                                        <label style="font-size:0.85rem; font-weight:600;">Tu calificación
+                                            <select name="rating" style="margin-left:0.5rem; padding:0.35rem; border-radius:6px; border:1px solid #ddd;">
+                                                <option value="5">5 estrellas</option>
+                                                <option value="4">4 estrellas</option>
+                                                <option value="3">3 estrellas</option>
+                                                <option value="2">2 estrellas</option>
+                                                <option value="1">1 estrella</option>
+                                            </select>
+                                        </label>
+                                        <textarea name="comment" required minlength="2" maxlength="2000" rows="3" placeholder="Comparte tu experiencia con este producto" style="resize:vertical; padding:0.7rem; border:1px solid #ddd; border-radius:8px; font:inherit;"></textarea>
+                                        <button type="submit" class="btn" style="justify-self:start;">Publicar reseña</button>
+                                    </form>
+                                </section>
+
                                 <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
                                     <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
                                         <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i></div>
@@ -1299,70 +1336,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
 
+                const reviewForm = document.getElementById('review-form');
+                if (reviewForm) {
+                    reviewForm.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+                        const token = localStorage.getItem('phoneSpotToken');
+                        if (!token) return showToast('Inicia sesión para dejar una reseña.', 'fa-user');
+                        const rating = Number(reviewForm.querySelector('[name="rating"]').value);
+                        const comment = reviewForm.querySelector('[name="comment"]').value.trim();
+                        try {
+                            const response = await fetch(window.API_URL + '/api/reviews', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                                body: JSON.stringify({ product_id: prod.id, rating, comment })
+                            });
+                            const result = await response.json();
+                            if (!response.ok) throw new Error(result.error || 'No se pudo guardar la reseña');
+                            showToast('¡Gracias por tu reseña!', 'fa-check');
+                            window.location.reload();
+                        } catch (error) {
+                            showToast(error.message, 'fa-triangle-exclamation');
+                        }
+                    });
+                }
+
                 // AHORA SÍ CONECTAMOS LOS EVENTOS, DESPUÉS DE INNER HTML
                 if (hasVariants) {
-                    window.checkVariantStock = (prodArg) => {
-                        const colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
-                        const capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
-                        const ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
-                        const battBtn = document.querySelector('.var-btn.active[data-type="batt"]');
-                        
-                        const selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
-                        const selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
-                        const selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
-                        const selectedBatt = battBtn ? battBtn.getAttribute('data-val') : null;
-
-                        let stockToUse = prodArg.stock;
-                        let priceToUse = prodArg.price; // Start with base price
-                        if (variants.length > 0) {
-                            const v = variants.find(x => 
-                                (!selectedColor || x.color === selectedColor) && 
-                                (!selectedCap || x.capacity === selectedCap) &&
-                                (!selectedRam || x.ram === selectedRam)
-                            );
-                            if (v) {
-                                stockToUse = parseInt(v.stock);
-                                if (v.price && !isNaN(parseFloat(v.price))) priceToUse = parseFloat(v.price);
-                            } else {
-                                stockToUse = 0;
-                            }
-                        }
-
-                        const btn = document.querySelector('.add-to-cart-btn');
-                        const stockLabel = document.getElementById('variant-stock-msg');
-                        
-                        if (stockToUse <= 0) {
-                            if(btn) {
-                                btn.innerHTML = '<i class="fa-solid fa-box-open"></i> Sin Stock';
-                                btn.disabled = true;
-                                btn.style.background = '#ccc';
-                                btn.style.cursor = 'not-allowed';
-                            }
-                            if (stockLabel) stockLabel.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-times-circle"></i> Combinación agotada</span>';
-                        } else {
-                            if(btn) {
-                                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito';
-                                btn.disabled = false;
-                                btn.style.background = '#0071e3'; 
-                                btn.style.cursor = 'pointer';
-                            }
-                            if (stockLabel) stockLabel.innerHTML = `<span style="color:#2ecc71;"><i class="fa-solid fa-check-circle"></i> Stock disponible: ${stockToUse} unidades</span>`;
-                            const container = document.querySelector('.product-details');
-                            if (container) container.dataset.price = priceToUse;
-                            const priceEl = document.getElementById('dynamic-price');
-                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(priceToUse))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span>`;
-                        }
-                    };
-
-                    
                     window.checkVariantStock = (prodArg) => {
                         let colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
                         let capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
                         let ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
+                        let battBtn = document.querySelector('.var-btn.active[data-type="batt"]');
                         
                         let selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
                         let selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
                         let selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
+                        let selectedBatt = battBtn ? battBtn.getAttribute('data-val') : null;
 
                         let variants = [];
                         if (prodArg.variants && Array.isArray(prodArg.variants)) variants = prodArg.variants;
@@ -1442,7 +1451,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             const v = variants.find(x => 
                                 (!selectedColor || x.color === selectedColor) && 
                                 (!selectedCap || x.capacity === selectedCap) &&
-                                (!selectedRam || x.ram === selectedRam)
+                                (!selectedRam || x.ram === selectedRam) &&
+                                (!selectedBatt || x.batt === selectedBatt)
                             );
                             if (v) {
                                 stockToUse = parseInt(v.stock);
@@ -1508,26 +1518,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 const calcZip = document.getElementById('calc-zip');
                 const zipMsg = document.getElementById('zip-msg');
                 if (calcBtn && calcZip && zipMsg) {
-                    calcBtn.addEventListener('click', () => {
+                    calcBtn.addEventListener('click', async () => {
                         const zip = calcZip.value.trim();
-                        if (!zip) return;
+                        if (!/^\d{4,5}$/.test(zip)) {
+                            zipMsg.style.display = 'block';
+                            zipMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Ingresa un código postal válido.';
+                            return;
+                        }
                         
                         zipMsg.style.display = 'block';
                         zipMsg.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Calculando...';
-                        
-                        setTimeout(() => {
-                            let simulatedCost = 8500;
-                            if (zip.startsWith('1') || zip.startsWith('2')) simulatedCost = 8500; // Buenos Aires
-                            else if (zip.startsWith('5')) simulatedCost = 10500; // Córdoba
-                            else simulatedCost = 13500; // Resto del país
-                            
+                        try {
+                            const response = await fetch(window.API_URL + '/api/shipping/quote', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ zip_code: zip })
+                            });
+                            const data = await response.json();
+                            if (!response.ok || !data.success || !Array.isArray(data.options)) throw new Error(data.error || 'No pudimos calcular el envío');
                             const freeThreshold = (window.phoneSpotSettings && window.phoneSpotSettings.free_shipping_threshold) || 1500000;
-                            if (prod.price >= freeThreshold) {
+                            if (Number(prod.price) * window.dolarValue >= freeThreshold) {
                                 zipMsg.innerHTML = '<i class="fa-solid fa-check-circle" style="color:#555555;"></i> ¡Envío GRATIS a tu código postal!';
                             } else {
-                                zipMsg.innerHTML = `<i class="fa-solid fa-truck"></i> Envío estimado: <strong>${window.formatPrice(simulatedCost)}</strong>`;
+                                zipMsg.innerHTML = data.options.map((option) => `<i class="fa-solid fa-truck"></i> ${escapeText(option.name)}: <strong>${option.cost === 0 ? 'Gratis' : window.formatArs(option.cost)}</strong> (${escapeText(option.time)})`).join('<br>');
                             }
-                        }, 800);
+                        } catch (error) {
+                            zipMsg.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${escapeText(error.message)}`;
+                        }
                     });
                 }
 
@@ -1737,33 +1754,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
-        // Lógica de ciudad
-        const citySelect = document.getElementById('chk-city');
-        const labelEfectivo = document.getElementById('label-efectivo');
-        const radioEfectivo = document.querySelector('input[value="efectivo"]');
-        const radioMp = document.querySelector('input[value="mercadopago"]');
-
-        const shippingOptions = document.getElementById('shipping-options');
         const shippingRadios = document.querySelectorAll('input[name="shipping_method"]');
-
-        if (citySelect && labelEfectivo) {
-            citySelect.addEventListener('change', (e) => {
-                const city = e.target.value;
-                if (city === 'Otra') {
-                    labelEfectivo.style.opacity = '0.5';
-                    labelEfectivo.title = 'Solo disponible para San José, Colón, Villa Elisa y C. del Uruguay';
-                    radioEfectivo.disabled = true;
-                    radioMp.checked = true;
-                    if(shippingOptions) shippingOptions.style.display = 'block';
-                } else {
-                    labelEfectivo.style.opacity = '1';
-                    labelEfectivo.title = '';
-                    radioEfectivo.disabled = false;
-                    if(shippingOptions) shippingOptions.style.display = 'none';
-                }
-                renderCheckout();
-            });
-        }
 
         if (shippingRadios.length > 0) {
             shippingRadios.forEach(r => r.addEventListener('change', renderCheckout));
@@ -1797,8 +1788,8 @@ const checkoutForm = document.getElementById('checkout-form');
             const threshold = settings_ml.free_shipping_threshold;
             
             // Calcular total del carrito para saber si aplica envío gratis
-            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const isFreeShipping = threshold > 0 && cartTotal >= threshold;
+            const cartTotalArs = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * window.dolarValue;
+            const isFreeShipping = threshold > 0 && cartTotalArs >= threshold;
 
 
             const selShip = document.querySelector('input[name="shipping_method"]:checked');
@@ -1846,8 +1837,11 @@ const checkoutForm = document.getElementById('checkout-form');
 
                 const response = await fetch(window.API_URL + '/api/orders', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null, discount_amount: (window.currentCoupon && window.currentCoupon.type === 'fixed') ? window.currentCoupon.value : ((window.currentCoupon && window.currentCoupon.type === 'percent') ? (total * (window.currentCoupon.value / 100)) : 0), dolar_value: window.dolarValue })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
+                    },
+                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
                 });
 
                 const data = await response.json();
@@ -1855,8 +1849,9 @@ const checkoutForm = document.getElementById('checkout-form');
                 if (response.ok) {
                     
                     if (paymentMethod === 'efectivo') {
+                        const confirmedTotalArs = Number(data.total_ars) || finalTotalArs;
                         // Generar mensaje de WhatsApp
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo/Transferencia/Dolares.\n\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar (efectivo/transferencia):* ${finalTotalArs.toLocaleString('es-AR')}\n`;
+                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo/Transferencia/Dolares.\n\n*Orden:* #${data.orderId}\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar (efectivo/transferencia):* ${confirmedTotalArs.toLocaleString('es-AR')}\n`;
                         if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)\n`;
                         wpMsg += `\n*Productos:*\n`;
 
@@ -1875,43 +1870,6 @@ const checkoutForm = document.getElementById('checkout-form');
                         
                         showToast('¡Orden registrada! Redirigiendo a WhatsApp...', 'fa-check');
                         setTimeout(() => window.location.href = wpUrl, 2000);
-                    } else if (paymentMethod === 'mercadopago') {
-                        
-                        showToast('Redirigiendo a Mercado Pago...', 'fa-spinner fa-spin');
-                        // Call MP endpoint
-                        try {
-                            const token = localStorage.getItem('phoneSpotToken');
-                            const payload = {
-                                items: cart.map(i => ({ product_id: i.id, quantity: i.quantity, price: i.price, variant_name: i.variant_name || null })),
-                                customer_name,
-                                customer_email,
-                                shipping_address,
-                                payment_method: 'mercadopago',
-                                extra_shipping: shipping_cost,
-                                discount_amount: 0,
-                                dolar_value: window.dolarValue || 1400
-                            };
-                            
-                            const mpRes = await fetch(window.API_URL + '/api/checkout', {
-                                method: 'POST',
-                                headers: { 
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${token}`
-                                },
-                                body: JSON.stringify(payload)
-                            });
-                            const mpData = await mpRes.json();
-                            if (mpData.init_point) {
-                                cart = [];
-                                saveCart();
-                                window.location.href = mpData.init_point;
-                            } else {
-                                showToast('Aviso: El admin debe colocar su MP_ACCESS_TOKEN en el archivo .env', 'fa-triangle-exclamation');
-                            }
-                        } catch(e) {
-                            showToast('Error conectando con MP', 'fa-times');
-                        }
-
                     }
                 } else {
                     showToast(data.error || 'Error procesando la compra', 'fa-triangle-exclamation');
@@ -3285,7 +3243,7 @@ if (window.location.pathname.includes('checkout.html')) {
                                     <div style="font-size: 0.8rem; color: var(--text-muted);">Tiempo estimado: ${opt.time}</div>
                                 </div>
                                 <div style="font-weight: bold; color: var(--text-color);">
-                                    ${opt.cost === 0 ? 'Gratis' : window.formatPrice(opt.cost)}
+                                    ${opt.cost === 0 ? 'Gratis' : window.formatArs(opt.cost)}
                                 </div>
                             </label>
                         `;
