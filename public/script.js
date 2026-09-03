@@ -3810,6 +3810,16 @@ window.addEventListener('DOMContentLoaded', () => {
             : `Una buena opción para ${labels[answers.usage] || 'vos'}.`;
     };
 
+    const renderNoAdvisorMatches = () => {
+        resultsContainer.innerHTML = `
+            <h3>No tenemos productos disponibles para los filtros que buscaste</h3>
+            <p>Probá ampliando el presupuesto, eligiendo otra categoría o explorá todo el catálogo.</p>
+            <a class="advisor-catalog-link" href="catalogo.html?cat=all">Ver todo el catálogo</a>
+            <button class="advisor-restart" type="button">Cambiar mi búsqueda</button>
+        `;
+        resultsContainer.querySelector('.advisor-restart').addEventListener('click', resetAdvisor);
+    };
+
     const showRecommendations = async () => {
         flow.hidden = true;
         resultsContainer.hidden = false;
@@ -3821,13 +3831,28 @@ window.addEventListener('DOMContentLoaded', () => {
             const products = await response.json();
             if (!response.ok) throw new Error(products.error || 'No se pudo consultar el catálogo');
 
-            const picks = products
+            const filteredProducts = products
                 .filter(product => Number(product.stock) > 0 && productPrice(product) > 0)
+                .filter(product => !answers.category || answers.category === 'all' || String(product.category || 'celulares').toLowerCase() === answers.category)
+                .filter(product => {
+                    const name = String(product.name || '').toLowerCase();
+                    const brand = String(product.brand || '').toLowerCase();
+                    const isApple = brand.includes('apple') || name.includes('iphone');
+                    if (answers.system === 'apple') return isApple;
+                    if (answers.system === 'android') return !isApple;
+                    return true;
+                })
+                .filter(product => answers.budget === 'none' || productPrice(product) * window.dolarValue <= Number(answers.budget));
+
+            if (!filteredProducts.length) {
+                renderNoAdvisorMatches();
+                return;
+            }
+
+            const picks = filteredProducts
                 .map(product => ({ product, score: productScore(product) }))
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 3);
-
-            if (!picks.length) throw new Error('No hay productos disponibles');
 
             resultsContainer.innerHTML = `
                 <h3>Estas son nuestras recomendaciones para vos</h3>
