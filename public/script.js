@@ -3588,7 +3588,19 @@ window.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('advisor-results');
     if (!startButton || !intro || !flow || !questionContainer || !resultsContainer) return;
 
-    const questions = [
+    const categoryQuestion = {
+        id: 'category',
+        title: '¿Qué estás buscando hoy?',
+        options: [
+            { value: 'celulares', icon: 'fa-mobile-screen-button', label: 'Un celular' },
+            { value: 'notebooks', icon: 'fa-laptop', label: 'Una notebook' },
+            { value: 'tablets', icon: 'fa-tablet-screen-button', label: 'Una tablet' },
+            { value: 'accesorios', icon: 'fa-headphones', label: 'Accesorios' },
+            { value: 'all', icon: 'fa-layer-group', label: 'Quiero explorar todo' }
+        ]
+    };
+
+    const phoneQuestions = [
         {
             id: 'usage',
             title: '¿Para qué lo vas a usar principalmente?',
@@ -3619,8 +3631,64 @@ window.addEventListener('DOMContentLoaded', () => {
             ]
         }
     ];
+
+    const budgetQuestion = {
+        id: 'budget',
+        title: '¿Cuál es tu presupuesto aproximado?',
+        options: [
+            { value: '300000', icon: 'fa-wallet', label: 'Hasta $300.000' },
+            { value: '500000', icon: 'fa-wallet', label: 'Hasta $500.000' },
+            { value: '750000', icon: 'fa-wallet', label: 'Hasta $750.000' },
+            { value: 'none', icon: 'fa-gem', label: 'Quiero ver lo mejor disponible' }
+        ]
+    };
+
+    const getQuestionsForCategory = (category) => {
+        if (category === 'celulares') return [categoryQuestion, ...phoneQuestions];
+
+        const usageByCategory = {
+            notebooks: {
+                title: '¿Para qué la necesitás principalmente?',
+                options: [
+                    { value: 'work', icon: 'fa-briefcase', label: 'Trabajo y estudio' },
+                    { value: 'gaming', icon: 'fa-gamepad', label: 'Potencia y juegos' },
+                    { value: 'basic', icon: 'fa-envelope', label: 'Uso cotidiano' }
+                ]
+            },
+            tablets: {
+                title: '¿Para qué la vas a usar principalmente?',
+                options: [
+                    { value: 'work', icon: 'fa-pen-ruler', label: 'Estudio y trabajo' },
+                    { value: 'camera', icon: 'fa-film', label: 'Contenido y entretenimiento' },
+                    { value: 'basic', icon: 'fa-house', label: 'Uso diario' }
+                ]
+            },
+            accesorios: {
+                title: '¿Qué tipo de accesorio necesitás?',
+                options: [
+                    { value: 'audio', icon: 'fa-headphones', label: 'Audio y auriculares' },
+                    { value: 'energy', icon: 'fa-bolt', label: 'Carga y energía' },
+                    { value: 'protection', icon: 'fa-shield-halved', label: 'Fundas y protección' },
+                    { value: 'wearables', icon: 'fa-clock', label: 'Smartwatches' },
+                    { value: 'basic', icon: 'fa-boxes-stacked', label: 'Quiero ver todo' }
+                ]
+            },
+            all: {
+                title: '¿Qué priorizás?',
+                options: [
+                    { value: 'work', icon: 'fa-briefcase', label: 'Trabajo y estudio' },
+                    { value: 'camera', icon: 'fa-camera', label: 'Fotos y entretenimiento' },
+                    { value: 'gaming', icon: 'fa-gamepad', label: 'Potencia y juegos' },
+                    { value: 'basic', icon: 'fa-layer-group', label: 'Ver opciones variadas' }
+                ]
+            }
+        };
+        return [categoryQuestion, { id: 'usage', ...usageByCategory[category] }, budgetQuestion];
+    };
+
     const answers = {};
     let step = 0;
+    let questions = [categoryQuestion];
 
     const escapeAdvisorHtml = (value = '') => String(value)
         .replace(/&/g, '&amp;')
@@ -3643,13 +3711,18 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
             ${step > 0 ? '<button class="advisor-back" type="button">Volver a la pregunta anterior</button>' : ''}
         `;
-        flow.querySelectorAll('.advisor-progress span').forEach((item, index) => {
+        const progress = flow.querySelector('.advisor-progress');
+        progress.innerHTML = questions.map((_, index) => '<span></span>').join('');
+        progress.querySelectorAll('span').forEach((item, index) => {
             item.classList.toggle('active', index <= step);
         });
 
         questionContainer.querySelectorAll('[data-advisor-answer]').forEach(button => {
             button.addEventListener('click', () => {
                 answers[question.id] = button.dataset.advisorAnswer;
+                if (question.id === 'category') {
+                    questions = getQuestionsForCategory(answers.category);
+                }
                 if (step < questions.length - 1) {
                     step += 1;
                     renderQuestion();
@@ -3671,6 +3744,7 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     const productScore = (product) => {
+        const category = String(product.category || 'celulares').toLowerCase();
         const name = String(product.name || '').toLowerCase();
         const brand = String(product.brand || '').toLowerCase();
         const specs = `${name} ${product.description || ''} ${(product.variants || []).map(variant => `${variant.capacity || ''} ${variant.ram || ''}`).join(' ')}`.toLowerCase();
@@ -3678,6 +3752,10 @@ window.addEventListener('DOMContentLoaded', () => {
         const capacity = Math.max(0, ...[...specs.matchAll(/(\d+)\s*(?:gb|tb)/g)].map(match => Number(match[1]) * (match[0].toLowerCase().includes('tb') ? 1024 : 1)));
         const ram = Math.max(0, ...[...specs.matchAll(/(?:ram\D{0,5})?(\d+)\s*gb/g)].map(match => Number(match[1])));
         let score = 10;
+
+        if (answers.category && answers.category !== 'all') {
+            score += category === answers.category ? 120 : -120;
+        }
 
         if (answers.system === 'apple') score += brand.includes('apple') || name.includes('iphone') ? 100 : -100;
         if (answers.system === 'android') score += brand.includes('apple') || name.includes('iphone') ? -100 : 25;
@@ -3697,6 +3775,13 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         if (answers.usage === 'basic') score += Math.max(0, 18 - priceArs / 25000);
 
+        if (answers.category === 'accesorios') {
+            if (answers.usage === 'audio' && /auricular|headphone|buds|jbl|audio/.test(specs)) score += 40;
+            if (answers.usage === 'energy' && /cargador|cable|power|bater/.test(specs)) score += 40;
+            if (answers.usage === 'protection' && /funda|case|vidrio|protector/.test(specs)) score += 40;
+            if (answers.usage === 'wearables' && /watch|smartwatch|band/.test(specs)) score += 40;
+        }
+
         if (answers.budget !== 'none') {
             const budget = Number(answers.budget);
             if (priceArs <= budget) score += 30 + ((budget - priceArs) / budget) * 6;
@@ -3713,7 +3798,16 @@ window.addEventListener('DOMContentLoaded', () => {
             work: 'trabajo y estudio',
             basic: 'el uso diario'
         };
-        return `Una buena opción para ${labels[answers.usage] || 'vos'}.`;
+        const categoryLabels = {
+            celulares: 'celulares',
+            notebooks: 'notebooks',
+            tablets: 'tablets',
+            accesorios: 'accesorios'
+        };
+        const categoryText = categoryLabels[answers.category];
+        return categoryText
+            ? `Seleccionamos ${categoryText} disponibles para ${labels[answers.usage] || 'lo que necesitás'}.`
+            : `Una buena opción para ${labels[answers.usage] || 'vos'}.`;
     };
 
     const showRecommendations = async () => {
@@ -3770,6 +3864,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const resetAdvisor = () => {
         Object.keys(answers).forEach(key => delete answers[key]);
         step = 0;
+        questions = [categoryQuestion];
         resultsContainer.hidden = true;
         intro.hidden = false;
         flow.hidden = true;
