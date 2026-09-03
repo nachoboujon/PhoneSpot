@@ -1472,6 +1472,11 @@ body:not(.dark-mode) .logo-slide img {
 
 /* --- ULTIMATE MOBILE RESPONSIVE CATALOG FIX --- */
 @media (max-width: 768px) {
+    html {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
     #full-catalog-container, #products-grid {
         grid-template-columns: repeat(2, 1fr) !important; /* Strictly 2 columns */
         gap: 0.8rem !important;
