@@ -58,7 +58,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260904"></script>
+    <script src="script.js?v=20260905"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -100,6 +100,22 @@
                     else if (o.status === 'shipped') statusHtml = '<span style="color: #3498db; font-weight: bold; display:flex; flex-direction:column; align-items:flex-end; gap:5px;"><i class="fa-solid fa-truck-fast"></i> Enviado <a href="https://www.correoargentino.com.ar/formularios/e-commerce" target="_blank" style="background:#333; color:white; padding:4px 8px; border-radius:4px; font-size:0.75rem; text-decoration:none;"><i class="fa-solid fa-location-crosshairs"></i> Rastrear Pedido</a></span>';
                     else if (o.status === 'cancelled') statusHtml = '<span style="color: #e74c3c; font-weight: bold;"><i class="fa-solid fa-xmark"></i> Cancelado</span>';
 
+                    const step = o.status === 'shipped' ? 3 : o.status === 'completed' ? 2 : o.status === 'cancelled' ? 0 : 1;
+                    const timelineHtml = o.status === 'cancelled'
+                        ? '<p style="margin:1rem 0 0; color:#c0392b; font-size:.9rem;"><i class="fa-solid fa-circle-xmark"></i> Este pedido fue cancelado. Si necesitás ayuda, escribinos por WhatsApp.</p>'
+                        : `<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:.35rem; margin:1.2rem 0;">
+                            ${[
+                                ['Pedido recibido', 'fa-receipt'],
+                                ['Confirmado', 'fa-check'],
+                                ['Enviado', 'fa-truck-fast']
+                            ].map(([label, icon], index) => {
+                                const active = index + 1 <= step;
+                                return `<div style="text-align:center; font-size:.75rem; color:${active ? '#168344' : '#999'}; font-weight:${active ? '700' : '500'};">
+                                    <span style="display:grid; place-items:center; width:28px; height:28px; margin:0 auto .4rem; border-radius:50%; background:${active ? '#168344' : '#eee'}; color:${active ? '#fff' : '#999'};"><i class="fa-solid ${active ? 'fa-check' : icon}"></i></span>${label}
+                                </div>`;
+                            }).join('')}
+                        </div>`;
+
                     let itemsHtml = o.order_items.map(item => `
                         <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
                             <img src="${item.products?.image_url || 'https://via.placeholder.com/50'}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
@@ -124,6 +140,7 @@
                             </div>
                             
                             <div>${itemsHtml}</div>
+                            ${timelineHtml}
                             
                             ${o.tracking_code ? `
                             <div style="margin-top: 1.5rem; background: #e8f4f8; padding: 1rem; border-radius: 6px; border-left: 4px solid #3498db;">

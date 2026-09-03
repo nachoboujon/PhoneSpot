@@ -25,6 +25,15 @@ CREATE TABLE IF NOT EXISTS reviews (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
+CREATE TABLE IF NOT EXISTS stock_alerts (
+    id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    UNIQUE (product_id, email)
+);
+
 CREATE INDEX IF NOT EXISTS orders_user_id_created_at_idx ON orders (user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS order_items_order_id_idx ON order_items (order_id);
 CREATE INDEX IF NOT EXISTS reviews_product_id_created_at_idx ON reviews (product_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS stock_alerts_product_id_idx ON stock_alerts (product_id);

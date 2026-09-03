@@ -1298,6 +1298,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </button>
                                 </div>
 
+                                ${isOutOfStock ? `
+                                    <form id="stock-alert-form" data-product-id="${prod.id}" style="margin:-0.8rem 0 2rem; padding:1rem; border:1px solid #e1e1e1; border-radius:12px; background:#fafafa;">
+                                        <strong style="display:block; margin-bottom:.35rem;"><i class="fa-regular fa-bell"></i> ¿Querés que te avisemos cuando ingrese?</strong>
+                                        <p style="margin:0 0 .75rem; color:#666; font-size:.88rem;">Dejanos tu email y te avisamos apenas vuelva a estar disponible.</p>
+                                        <div style="display:flex; gap:.5rem; flex-wrap:wrap;">
+                                            <input id="stock-alert-email" type="email" required placeholder="tu@email.com" style="flex:1; min-width:190px; padding:.75rem; border:1px solid #ddd; border-radius:8px; font:inherit;">
+                                            <button type="submit" class="btn" style="padding:.75rem 1rem;"><i class="fa-regular fa-bell"></i> Avisarme</button>
+                                        </div>
+                                    </form>
+                                ` : ''}
+
                                 <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
                                     <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
                                     <p style="line-height:1.7; color: #555; font-size:0.95rem;">${displayDesc.replace(/\n/g, '<br>')}</p>
@@ -3974,4 +3985,31 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     renderComparePage();
+});
+
+document.addEventListener('submit', async (event) => {
+    const form = event.target.closest('#stock-alert-form');
+    if (!form) return;
+    event.preventDefault();
+    const email = form.querySelector('#stock-alert-email')?.value.trim();
+    const productId = form.dataset.productId;
+    const button = form.querySelector('button[type="submit"]');
+    if (!email || !productId || !button) return;
+
+    button.disabled = true;
+    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando';
+    try {
+        const response = await fetch(window.API_URL + '/api/stock-alerts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ product_id: productId, email })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'No se pudo guardar el aviso');
+        form.innerHTML = '<strong style="color:#168344;"><i class="fa-solid fa-check-circle"></i> Listo, te avisaremos por email cuando vuelva a estar disponible.</strong>';
+    } catch (error) {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-regular fa-bell"></i> Avisarme';
+        showToast(error.message, 'fa-triangle-exclamation');
+    }
 });

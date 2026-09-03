@@ -173,6 +173,31 @@ const sendEmail = async (to, subject, html) => {
     }
 };
 
+const notifyStockAlerts = async (product) => {
+    if (!product || Number(product.stock) <= 0) return;
+    try {
+        const { data: alerts, error } = await supabase
+            .from('stock_alerts')
+            .select('id, email')
+            .eq('product_id', product.id);
+        if (error || !alerts?.length) return;
+
+        for (const alert of alerts) {
+            const sent = await sendEmail(alert.email, `${product.name} volvió a tener stock`, `
+                <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:32px;color:#222;">
+                    <h1>¡Volvió a estar disponible!</h1>
+                    <p>El producto <strong>${escapeHtml(product.name)}</strong> ya tiene stock en PhoneSpot.</p>
+                    <p><a href="https://www.phonespot.site/producto.html?id=${encodeURIComponent(product.id)}" style="display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:8px;text-decoration:none;font-weight:bold;">Ver producto</a></p>
+                    <p style="color:#666;font-size:13px;">Recibiste este correo porque pediste que te avisemos cuando el producto volviera a estar disponible.</p>
+                </div>
+            `);
+            if (sent) await supabase.from('stock_alerts').delete().eq('id', alert.id);
+        }
+    } catch (error) {
+        console.error('Error enviando alertas de stock:', error);
+    }
+};
+
 const getStoreSettings = async () => {
     try {
         const { data, error } = await supabase.storage.from('uploads').download('settings.json');
@@ -430,6 +455,57 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+app.post('/api/request-password-reset', async (req, res) => {
+    try {
+        const email = String(req.body.email || '').trim().toLowerCase();
+        const genericResponse = { message: 'Si existe una cuenta con ese correo, te enviamos un enlace para restablecer la contraseña.' };
+        if (!jwtSecret || !/^\S+@\S+\.\S+$/.test(email)) return res.json(genericResponse);
+
+        const { data: user } = await supabase.from('users').select('id, name, email').eq('email', email).single();
+        if (!user) return res.json(genericResponse);
+
+        const resetToken = jwt.sign({ purpose: 'password-reset', userId: user.id, email: user.email }, jwtSecret, { expiresIn: '1h' });
+        const protocol = req.protocol === 'https' || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+        const resetLink = `${protocol}://${req.get('host')}/restablecer.html?token=${encodeURIComponent(resetToken)}`;
+        const sent = await sendEmail(user.email, 'Restablece tu contraseña de PhoneSpot', `
+            <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:32px;color:#222;">
+                <h1>Restablecer contraseña</h1>
+                <p>Hola ${escapeHtml(user.name || '')}, recibimos una solicitud para cambiar tu contraseña.</p>
+                <p><a href="${escapeHtml(resetLink)}" style="display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:8px;text-decoration:none;font-weight:bold;">Crear nueva contraseña</a></p>
+                <p style="color:#666;font-size:13px;">El enlace vence en una hora. Si no solicitaste este cambio, podés ignorar este correo.</p>
+            </div>
+        `);
+        if (!sent) console.error('No se pudo enviar el correo de recuperación para:', user.id);
+        res.json(genericResponse);
+    } catch (error) {
+        console.error('Error solicitando recuperación de contraseña:', error);
+        res.json({ message: 'Si existe una cuenta con ese correo, te enviamos un enlace para restablecer la contraseña.' });
+    }
+});
+
+app.post('/api/reset-password', async (req, res) => {
+    try {
+        if (!jwtSecret) return res.status(503).json({ error: 'La recuperación de contraseña no está configurada.' });
+        const token = String(req.body.token || '');
+        const password = String(req.body.password || '');
+        if (password.length < 8) return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres.' });
+        const decoded = jwt.verify(token, jwtSecret);
+        if (decoded.purpose !== 'password-reset' || !decoded.userId || !decoded.email) throw new Error('Token inválido');
+
+        const passwordHash = await bcrypt.hash(password, 10);
+        const { data, error } = await supabase
+            .from('users')
+            .update({ password: passwordHash })
+            .eq('id', decoded.userId)
+            .eq('email', decoded.email)
+            .select('id');
+        if (error || !data?.length) throw error || new Error('Usuario no encontrado');
+        res.json({ message: 'Contraseña actualizada. Ya podés iniciar sesión.' });
+    } catch (error) {
+        res.status(400).json({ error: 'El enlace es inválido o venció. Solicitá uno nuevo.' });
+    }
+});
+
 // --- RUTAS DE PRODUCTOS ---
 app.get('/api/products', async (req, res) => {
     try {
@@ -453,6 +529,29 @@ app.get('/api/products/:id', async (req, res) => {
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/stock-alerts', async (req, res) => {
+    try {
+        const productId = Number.parseInt(req.body.product_id, 10);
+        const email = String(req.body.email || '').trim().toLowerCase();
+        if (!Number.isInteger(productId) || !/^\S+@\S+\.\S+$/.test(email)) {
+            return res.status(400).json({ error: 'Verifica el correo para recibir el aviso.' });
+        }
+        const { data: product, error: productError } = await supabase.from('products').select('id, stock').eq('id', productId).single();
+        if (productError || !product) return res.status(404).json({ error: 'Producto no encontrado.' });
+        if (Number(product.stock) > 0) return res.status(409).json({ error: 'Este producto ya tiene stock disponible.' });
+
+        const { error } = await supabase.from('stock_alerts').upsert(
+            { product_id: productId, email },
+            { onConflict: 'product_id,email', ignoreDuplicates: true }
+        );
+        if (error) throw error;
+        res.status(201).json({ message: 'Te avisaremos cuando vuelva a estar disponible.' });
+    } catch (error) {
+        console.error('Error creando alerta de stock:', error);
+        res.status(500).json({ error: 'No pudimos guardar tu aviso. Inténtalo nuevamente.' });
     }
 });
 
@@ -811,8 +910,9 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         }
         if (Object.keys(updateData).length === 0) return res.status(400).json({ error: 'No hay datos para actualizar' });
         
-        const { error } = await supabase.from('products').update(updateData).eq('id', id);
+        const { data: updatedProducts, error } = await supabase.from('products').update(updateData).eq('id', id).select('id, name, stock');
         if (error) throw error;
+        void notifyStockAlerts(updatedProducts?.[0]);
         res.json({ message: 'Producto actualizado' });
     } catch (error) {
         console.error('Error PUT product:', error);
