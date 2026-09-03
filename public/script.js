@@ -3772,3 +3772,206 @@ window.addEventListener('DOMContentLoaded', () => {
         flow.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 });
+
+// ==================== COMPARADOR DE EQUIPOS ====================
+window.addEventListener('DOMContentLoaded', () => {
+    const compareStorageKey = 'phoneSpotCompareIds';
+    const maxComparedProducts = 3;
+
+    const getCompareIds = () => {
+        try {
+            const ids = JSON.parse(localStorage.getItem(compareStorageKey) || '[]');
+            return Array.isArray(ids) ? [...new Set(ids.map(String))].slice(0, maxComparedProducts) : [];
+        } catch (_) {
+            return [];
+        }
+    };
+    const setCompareIds = (ids) => localStorage.setItem(compareStorageKey, JSON.stringify([...new Set(ids.map(String))].slice(0, maxComparedProducts)));
+    const escapeCompareHtml = (value = '') => String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    const tray = document.createElement('aside');
+    tray.className = 'compare-tray';
+    tray.setAttribute('aria-live', 'polite');
+    document.body.appendChild(tray);
+
+    const renderCompareTray = () => {
+        const ids = getCompareIds();
+        if (!ids.length) {
+            tray.classList.remove('visible');
+            tray.innerHTML = '';
+            return;
+        }
+        tray.classList.add('visible');
+        tray.innerHTML = `
+            <p><strong>${ids.length} equipo${ids.length === 1 ? '' : 's'} seleccionado${ids.length === 1 ? '' : 's'}</strong>
+            Elegí hasta ${maxComparedProducts} para comparar.</p>
+            <a href="comparar.html">Comparar <i class="fa-solid fa-arrow-right"></i></a>
+        `;
+    };
+
+    const mountCompareButtons = (scope = document) => {
+        scope.querySelectorAll?.('.product-card[data-id], .product-details[data-id]').forEach(card => {
+            if (card.querySelector('[data-compare-product]')) return;
+            const addToCartButton = card.querySelector('.add-to-cart-btn');
+            if (!addToCartButton) return;
+            const productId = String(card.dataset.id || '');
+            if (!productId) return;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'compare-action';
+            button.dataset.compareProduct = productId;
+            button.innerHTML = '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
+            addToCartButton.insertAdjacentElement('afterend', button);
+        });
+        const selected = new Set(getCompareIds());
+        document.querySelectorAll('[data-compare-product]').forEach(button => {
+            const isSelected = selected.has(String(button.dataset.compareProduct));
+            button.classList.toggle('selected', isSelected);
+            button.innerHTML = isSelected
+                ? '<i class="fa-solid fa-check"></i> Agregado al comparador'
+                : '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
+        });
+    };
+
+    document.addEventListener('click', event => {
+        const button = event.target.closest('[data-compare-product]');
+        if (!button) return;
+        const productId = String(button.dataset.compareProduct || '');
+        const ids = getCompareIds();
+        const alreadySelected = ids.includes(productId);
+        const nextIds = alreadySelected ? ids.filter(id => id !== productId) : [...ids, productId];
+
+        if (!alreadySelected && ids.length >= maxComparedProducts) {
+            showToast(`Podés comparar hasta ${maxComparedProducts} equipos a la vez.`, 'fa-scale-balanced');
+            return;
+        }
+        setCompareIds(nextIds);
+        renderCompareTray();
+        mountCompareButtons();
+        showToast(alreadySelected ? 'Equipo quitado del comparador' : 'Equipo agregado al comparador', alreadySelected ? 'fa-minus' : 'fa-check');
+    });
+
+    mountCompareButtons();
+    renderCompareTray();
+    new MutationObserver(records => {
+        records.forEach(record => record.addedNodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) mountCompareButtons(node);
+        }));
+    }).observe(document.body, { childList: true, subtree: true });
+
+    const comparePage = document.getElementById('compare-page-content');
+    if (!comparePage) return;
+
+    const productPrice = product => {
+        const prices = [Number(product.price), ...(Array.isArray(product.variants) ? product.variants.map(variant => Number(variant.price)) : [])]
+            .filter(price => Number.isFinite(price) && price > 0);
+        return prices.length ? Math.min(...prices) : 0;
+    };
+    const uniqueValues = (product, key) => [...new Set((Array.isArray(product.variants) ? product.variants : []).map(variant => variant[key]).filter(Boolean))];
+    const conditionFor = product => {
+        const description = String(product.description || '');
+        const match = description.match(/^\[Condición:\s*([^\]]+)\]/i);
+        return match ? match[1] : 'Nuevo, caja sellada';
+    };
+    const displayValue = value => value && value.length ? escapeCompareHtml(Array.isArray(value) ? value.join(' · ') : value) : '<span class="compare-no-data">No especificado</span>';
+
+    const renderComparePage = async () => {
+        comparePage.innerHTML = '<p class="compare-loading">Cargando los equipos disponibles...</p>';
+        try {
+            await window.dolarPromise;
+            const response = await fetch(window.API_URL + '/api/products');
+            const products = await response.json();
+            if (!response.ok) throw new Error(products.error || 'No se pudieron cargar los productos');
+
+            const selectedIds = getCompareIds();
+            const selectedProducts = selectedIds.map(id => products.find(product => String(product.id) === id)).filter(Boolean);
+            const availableProducts = products.filter(product => !selectedIds.includes(String(product.id)) && Number(product.stock) > 0);
+
+            if (!selectedProducts.length) {
+                comparePage.innerHTML = `
+                    <div class="compare-empty">
+                        <h3>Elegí equipos para compararlos</h3>
+                        <p>Desde el catálogo, tocá “Comparar equipo” en los modelos que quieras evaluar.</p>
+                        <a href="catalogo.html?cat=all">Ir al catálogo</a>
+                    </div>
+                `;
+                return;
+            }
+
+            comparePage.innerHTML = `
+                <div class="compare-controls">
+                    <label class="compare-picker-label">${selectedProducts.length < maxComparedProducts ? 'Sumar otro equipo' : 'Ya seleccionaste el máximo de equipos'}
+                        <span class="compare-picker-row">
+                            <select id="compare-picker" ${selectedProducts.length >= maxComparedProducts ? 'disabled' : ''}>
+                                <option value="">Seleccionar equipo disponible</option>
+                                ${availableProducts.map(product => `<option value="${product.id}">${escapeCompareHtml(product.name)} — ${window.formatPrice(productPrice(product))}</option>`).join('')}
+                            </select>
+                            <button id="compare-add" type="button" ${selectedProducts.length >= maxComparedProducts ? 'disabled' : ''}>Agregar</button>
+                        </span>
+                    </label>
+                    <button class="compare-clear" id="compare-clear" type="button">Limpiar comparación</button>
+                </div>
+                <div class="compare-table-wrap">
+                    <table class="compare-table">
+                        <thead><tr>
+                            <th>Comparar</th>
+                            ${selectedProducts.map(product => {
+                                const image = window.getFullImageUrl(product.image_url) || 'uploads/PhoneSpot-trans.png';
+                                return `<th><div class="compare-product-head">
+                                    <button class="compare-remove" type="button" data-compare-remove="${product.id}" aria-label="Quitar ${escapeCompareHtml(product.name)}"><i class="fa-solid fa-xmark"></i></button>
+                                    <img src="${escapeCompareHtml(image)}" alt="${escapeCompareHtml(product.name)}">
+                                    <small>${escapeCompareHtml(product.brand || 'PhoneSpot')}</small>
+                                    <h3>${escapeCompareHtml(product.name)}</h3>
+                                    <a href="producto.html?id=${encodeURIComponent(product.id)}">Ver ficha <i class="fa-solid fa-arrow-right"></i></a>
+                                </div></th>`;
+                            }).join('')}
+                        </tr></thead>
+                        <tbody>
+                            ${[
+                                ['Precio final', product => `<span class="compare-price">${window.formatPrice(productPrice(product))}</span>`],
+                                ['Categoría', product => displayValue(product.category)],
+                                ['Condición', product => displayValue(conditionFor(product))],
+                                ['Capacidad', product => displayValue(uniqueValues(product, 'capacity'))],
+                                ['Memoria RAM', product => displayValue(uniqueValues(product, 'ram'))],
+                                ['Batería', product => displayValue(uniqueValues(product, 'batt'))],
+                                ['Colores disponibles', product => displayValue(uniqueValues(product, 'color'))],
+                                ['Disponibilidad', product => Number(product.stock) > 0 ? `<span class="compare-stock"><i class="fa-solid fa-check-circle"></i> Stock disponible</span>` : '<span class="compare-no-data">Sin stock</span>']
+                            ].map(([label, formatter]) => `<tr><td>${label}</td>${selectedProducts.map(product => `<td>${formatter(product)}</td>`).join('')}</tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            comparePage.querySelector('#compare-add')?.addEventListener('click', () => {
+                const id = comparePage.querySelector('#compare-picker').value;
+                if (!id) return;
+                setCompareIds([...getCompareIds(), id]);
+                renderCompareTray();
+                mountCompareButtons();
+                renderComparePage();
+            });
+            comparePage.querySelector('#compare-clear')?.addEventListener('click', () => {
+                setCompareIds([]);
+                renderCompareTray();
+                mountCompareButtons();
+                renderComparePage();
+            });
+            comparePage.querySelectorAll('[data-compare-remove]').forEach(button => button.addEventListener('click', () => {
+                setCompareIds(getCompareIds().filter(id => id !== String(button.dataset.compareRemove)));
+                renderCompareTray();
+                mountCompareButtons();
+                renderComparePage();
+            }));
+        } catch (error) {
+            console.error('Error cargando el comparador:', error);
+            comparePage.innerHTML = '<div class="compare-empty"><h3>No pudimos cargar la comparación</h3><p>Intentá actualizar la página o volvé al catálogo.</p><a href="catalogo.html?cat=all">Ir al catálogo</a></div>';
+        }
+    };
+
+    renderComparePage();
+});

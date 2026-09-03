@@ -133,6 +133,83 @@ body {
     .advisor-option i { display: inline; margin: 0 .5rem 0 0; }
 }
 
+/* Comparador de equipos */
+.compare-action {
+    width: 100%;
+    margin-top: .65rem;
+    padding: .68rem;
+    border: 1px solid #222;
+    border-radius: 30px;
+    background: transparent;
+    color: #222;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 750;
+    cursor: pointer;
+}
+.compare-action:hover, .compare-action.selected { background: #111; color: #fff; }
+.compare-tray {
+    position: fixed;
+    left: 50%;
+    bottom: 1.3rem;
+    z-index: 1250;
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    width: min(94vw, 520px);
+    padding: .75rem .8rem .75rem 1.1rem;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 16px;
+    background: rgba(17,17,17,.96);
+    color: #fff;
+    box-shadow: 0 14px 35px rgba(0,0,0,.28);
+    transform: translateX(-50%);
+}
+.compare-tray.visible { display: flex; }
+.compare-tray p { flex: 1; margin: 0; font-size: .88rem; line-height: 1.25; }
+.compare-tray strong { display: block; font-size: .96rem; }
+.compare-tray a { padding: .75rem .9rem; border-radius: 10px; background: #fff; color: #111; text-decoration: none; font-size: .83rem; font-weight: 800; white-space: nowrap; }
+
+.compare-page { min-height: calc(100vh - 220px); padding: 4rem 5%; background: #fafafa; }
+.compare-page-heading { max-width: 1200px; margin: 0 auto 2.5rem; text-align: center; }
+.compare-page-heading span { color: #555; font-size: .8rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.compare-page-heading h2 { margin: .75rem 0; font-size: clamp(2rem, 4vw, 3.1rem); }
+.compare-page-heading p { color: #666; }
+#compare-page-content { max-width: 1200px; margin: 0 auto; }
+.compare-loading, .compare-empty { padding: 3rem; border: 1px solid #e8e8e8; border-radius: 18px; background: #fff; color: #666; text-align: center; }
+.compare-empty h3 { color: #111; font-size: 1.5rem; margin-bottom: .7rem; }
+.compare-empty a { display: inline-block; margin-top: 1.2rem; padding: .8rem 1.15rem; border-radius: 10px; background: #111; color: #fff; font-weight: 700; text-decoration: none; }
+.compare-controls { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.compare-picker-label { display: grid; gap: .45rem; color: #333; font-size: .88rem; font-weight: 700; }
+.compare-picker-row { display: flex; gap: .5rem; }
+.compare-picker-row select { min-width: 265px; max-width: 65vw; padding: .7rem; border: 1px solid #d9d9d9; border-radius: 9px; background: #fff; font: inherit; }
+.compare-picker-row button, .compare-clear { padding: .7rem .9rem; border: 0; border-radius: 9px; background: #111; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.compare-clear { background: transparent; color: #555; text-decoration: underline; }
+.compare-table-wrap { overflow-x: auto; border: 1px solid #e4e4e4; border-radius: 18px; background: #fff; }
+.compare-table { width: 100%; min-width: 690px; border-collapse: collapse; }
+.compare-table th, .compare-table td { padding: 1rem; border-bottom: 1px solid #ececec; text-align: left; vertical-align: middle; }
+.compare-table th:first-child, .compare-table td:first-child { width: 175px; background: #fafafa; color: #555; font-size: .83rem; font-weight: 800; }
+.compare-table thead th { width: 260px; background: #fff; vertical-align: top; }
+.compare-table thead th:first-child { background: #f4f4f4; vertical-align: middle; }
+.compare-product-head { position: relative; }
+.compare-product-head img { display: block; width: 100%; height: 145px; object-fit: contain; margin-bottom: .8rem; }
+.compare-product-head small { color: #777; text-transform: uppercase; letter-spacing: .06em; }
+.compare-product-head h3 { margin: .3rem 0; color: #111; font-size: 1.05rem; }
+.compare-product-head a { color: #111; font-size: .85rem; font-weight: 750; }
+.compare-remove { position: absolute; top: 0; right: 0; width: 30px; height: 30px; border: 1px solid #ddd; border-radius: 50%; background: #fff; color: #555; cursor: pointer; }
+.compare-price { color: #111; font-size: 1.1rem; font-weight: 900; }
+.compare-stock { color: #168344; font-weight: 700; }
+.compare-no-data { color: #999; }
+.compare-footer { padding: 2rem 5%; background: #111; color: #aaa; text-align: center; font-size: .86rem; }
+@media (max-width: 700px) {
+    .compare-page { padding: 2.5rem 1rem; }
+    .compare-tray { bottom: .75rem; gap: .65rem; padding-left: .9rem; }
+    .compare-tray p { font-size: .78rem; }
+    .compare-tray a { padding: .65rem .7rem; }
+    .compare-controls { align-items: stretch; }
+    .compare-picker-row select { min-width: 0; flex: 1; }
+}
+
 /* Cartel interactivo (Top Banner) */
 .top-banner {
     background-color: #000000;

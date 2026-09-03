@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compará equipos disponibles en PhoneSpot.">
+    <title>Comparar equipos | PhoneSpot</title>
+    <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="top-banner"><div class="scrolling-text"><span>Compará especificaciones, precios y stock disponible en PhoneSpot</span></div></div>
+    <header>
+        <h1><a href="index.html"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo" style="height:45px; vertical-align:middle; margin-right:8px;">PhoneSpot.</a></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html?cat=all">Catálogo</a></li>
+                <li><a href="index.html#asesor">Asesor de compra</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <a href="login.html" title="Mi Cuenta"><i class="fa-solid fa-user"></i></a>
+            <a href="carrito.html" class="cart-icon" title="Carrito"><i class="fa-solid fa-cart-shopping"></i><span id="cart-count-badge"></span></a>
+        </div>
+    </header>
+
+    <main class="compare-page">
+        <section class="compare-page-heading">
+            <span><i class="fa-solid fa-scale-balanced"></i> Comparador PhoneSpot</span>
+            <h2>Elegí el equipo que mejor se adapta a vos</h2>
+            <p>Compará precio, capacidad, RAM, batería y disponibilidad de hasta tres equipos.</p>
+        </section>
+        <section id="compare-page-content" aria-live="polite">
+            <p class="compare-loading">Cargando los equipos disponibles...</p>
+        </section>
+    </main>
+
+    <footer class="compare-footer">
+        <p>© 2026 PhoneSpot. Compará con tranquilidad y coordiná tu compra por WhatsApp.</p>
+    </footer>
+
+    <div id="toast-container"></div>
+    <script src="script.js?v=20260904"></script>
+</body>
+</html>
