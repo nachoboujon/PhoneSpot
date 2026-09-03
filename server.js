@@ -16,6 +16,18 @@ const corsOrigins = new Set(
         .map((origin) => origin.trim())
         .filter(Boolean)
 );
+
+// El dominio principal es www. La redirección se hace en Railway para no
+// depender de reglas DNS/proxy externas y conservar rutas y parámetros.
+app.use((req, res, next) => {
+    const forwardedHost = String(req.headers['x-forwarded-host'] || '').split(',')[0].trim();
+    const requestHost = (forwardedHost || req.get('host') || '').split(':')[0].toLowerCase();
+    if (requestHost === 'phonespot.site') {
+        return res.redirect(301, `https://www.phonespot.site${req.originalUrl}`);
+    }
+    next();
+});
+
 app.use((req, res, next) => {
     const forwardedProtocol = String(req.headers['x-forwarded-proto'] || '').split(',')[0].trim();
     const protocol = forwardedProtocol || req.protocol;
