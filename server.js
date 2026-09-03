@@ -89,14 +89,34 @@ app.get('/producto.html', async (req, res, next) => {
         
         let html = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
         
-        const baseUrl = `${req.protocol}://${req.get('host')}`;
+        const baseUrl = 'https://www.phonespot.site';
         const imageUrl = new URL(data.image_url || '/uploads/PhoneSpot-trans.png', baseUrl).toString();
+        const productUrl = `${baseUrl}/producto.html?id=${encodeURIComponent(data.id)}`;
+        const productSchema = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: data.name,
+            image: [imageUrl],
+            description: String(data.description || '').replace(/^\[Condición:.*?\]\s*/, ''),
+            brand: { '@type': 'Brand', name: data.brand || 'PhoneSpot' },
+            offers: {
+                '@type': 'Offer',
+                url: productUrl,
+                priceCurrency: 'USD',
+                price: Number(data.price || 0).toFixed(2),
+                availability: Number(data.stock) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+                itemCondition: 'https://schema.org/NewCondition'
+            }
+        }).replace(/</g, '\\u003c');
         
         const metaTags = `
+            <link rel="canonical" href="${escapeHtml(productUrl)}">
             <meta property="og:title" content="${escapeHtml(data.name)} | PhoneSpot">
-            <meta property="og:description" content="Mira este equipo increíble disponible en PhoneSpot.">
+            <meta property="og:description" content="${escapeHtml(String(data.description || 'Tecnología disponible en PhoneSpot.').slice(0, 160))}">
             <meta property="og:image" content="${escapeHtml(imageUrl)}">
+            <meta property="og:url" content="${escapeHtml(productUrl)}">
             <meta name="twitter:card" content="summary_large_image">
+            <script type="application/ld+json">${productSchema}</script>
         `;
         
         html = html.replace('</head>', metaTags + '</head>');
@@ -139,6 +159,23 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 if (supabaseUrl === 'https://placeholder.supabase.co') {
     console.warn('⚠️ ADVERTENCIA: SUPABASE_URL y SUPABASE_KEY no están configurados en las variables de entorno. La base de datos no funcionará.');
 }
+
+app.get('/sitemap.xml', async (_req, res) => {
+    const baseUrl = 'https://www.phonespot.site';
+    const fixedPages = ['/', '/catalogo.html', '/garantias.html', '/terminos.html'];
+    try {
+        const { data: products, error } = await supabase.from('products').select('id, created_at');
+        if (error) throw error;
+        const urls = [
+            ...fixedPages.map((page) => `<url><loc>${baseUrl}${page}</loc><changefreq>weekly</changefreq><priority>${page === '/' ? '1.0' : '0.8'}</priority></url>`),
+            ...(products || []).map((product) => `<url><loc>${baseUrl}/producto.html?id=${encodeURIComponent(product.id)}</loc><lastmod>${new Date(product.created_at).toISOString()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`)
+        ].join('');
+        res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`);
+    } catch (error) {
+        console.error('Error generando sitemap:', error.message);
+        res.status(503).type('text/plain').send('Sitemap temporalmente no disponible');
+    }
+});
 
 // Función genérica para enviar emails
 const sendEmail = async (to, subject, html) => {
@@ -236,6 +273,47 @@ const authenticate = (req, res, next) => {
 const isAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') return res.status(403).json({ error: 'Se requiere rol de administrador' });
     next();
+};
+
+const orderStatusLabels = {
+    pending: 'Pedido recibido',
+    confirmed: 'Pago confirmado',
+    completed: 'Pago confirmado',
+    preparing: 'En preparación',
+    shipped: 'Enviado',
+    delivered: 'Entregado',
+    cancelled: 'Cancelado'
+};
+
+const sendOrderStatusEmail = async (order) => {
+    if (!order?.customer_email) return false;
+    const label = orderStatusLabels[order.status] || 'Actualizado';
+    const tracking = order.tracking_code
+        ? `<p><strong>Código de seguimiento:</strong> ${escapeHtml(order.tracking_code)}</p>`
+        : '';
+    return sendEmail(order.customer_email, `Tu pedido #${order.id} está ${label.toLowerCase()}`, `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:32px;color:#222;">
+            <h1>Actualización de tu pedido</h1>
+            <p>Hola ${escapeHtml(order.customer_name || 'cliente')}, tu pedido <strong>#${escapeHtml(order.id)}</strong> ahora está: <strong>${escapeHtml(label)}</strong>.</p>
+            ${tracking}
+            <p>Podés consultar el detalle desde <a href="https://www.phonespot.site/perfil.html">Mi perfil</a> o escribirnos por WhatsApp si necesitás ayuda.</p>
+        </div>
+    `);
+};
+
+// Métricas anónimas y acotadas: no se almacenan IP, email ni identificadores del visitante.
+const analyticsRateBuckets = new Map();
+const canRecordEvent = (req) => {
+    const key = String(req.ip || req.headers['x-forwarded-for'] || 'unknown').split(',')[0].trim();
+    const now = Date.now();
+    const bucket = analyticsRateBuckets.get(key) || { startedAt: now, count: 0 };
+    if (now - bucket.startedAt > 60_000) {
+        bucket.startedAt = now;
+        bucket.count = 0;
+    }
+    bucket.count += 1;
+    analyticsRateBuckets.set(key, bucket);
+    return bucket.count <= 30;
 };
 
 // --- RUTAS DE USUARIOS ---
@@ -544,6 +622,34 @@ app.get('/api/products/:id', async (req, res) => {
     }
 });
 
+app.post('/api/events', async (req, res) => {
+    try {
+        if (!canRecordEvent(req)) return res.status(429).json({ error: 'Demasiados eventos.' });
+        const allowedEvents = new Set(['page_view', 'product_view', 'add_to_cart', 'checkout_started', 'order_created', 'search']);
+        const eventType = String(req.body.event_type || '');
+        const productId = req.body.product_id == null ? null : Number.parseInt(req.body.product_id, 10);
+        const pagePath = String(req.body.page_path || '').slice(0, 180);
+        if (!allowedEvents.has(eventType) || (productId !== null && (!Number.isInteger(productId) || productId < 1))) {
+            return res.status(400).json({ error: 'Evento inválido.' });
+        }
+        // Solo se permiten metadatos operativos mínimos, nunca información personal.
+        const metadata = eventType === 'search' && typeof req.body.query_length === 'number'
+            ? { query_length: Math.max(0, Math.min(100, Math.floor(req.body.query_length))) }
+            : {};
+        const { error } = await supabase.from('site_events').insert([{
+            event_type: eventType,
+            product_id: productId,
+            page_path: pagePath || null,
+            metadata
+        }]);
+        if (error) throw error;
+        res.status(204).end();
+    } catch (error) {
+        console.error('Error guardando métrica:', error.message);
+        res.status(500).json({ error: 'No se pudo registrar la métrica.' });
+    }
+});
+
 app.post('/api/stock-alerts', async (req, res) => {
     try {
         const productId = Number.parseInt(req.body.product_id, 10);
@@ -686,10 +792,13 @@ app.post('/api/orders', authenticate, async (req, res) => {
         const rawItems = req.body.items;
         const customerEmail = String(req.body.customer_email || '').trim().toLowerCase();
         const customerName = String(req.body.customer_name || '').trim();
+        const customerPhone = String(req.body.customer_phone || '').trim().slice(0, 40);
         const shippingAddress = String(req.body.shipping_address || '').trim();
+        const shippingMethod = String(req.body.shipping_method || 'A coordinar').trim().slice(0, 100);
+        const paymentMethod = String(req.body.payment_method || 'transferencia').trim().slice(0, 40);
         let extraShipping = Number(req.body.shipping_cost || 0);
 
-        if (!Array.isArray(rawItems) || rawItems.length === 0 || rawItems.length > 30 || !/^\S+@\S+\.\S+$/.test(customerEmail) || customerName.length < 2 || shippingAddress.length < 8 || !Number.isFinite(extraShipping) || extraShipping < 0 || extraShipping > 250000) {
+        if (!Array.isArray(rawItems) || rawItems.length === 0 || rawItems.length > 30 || !/^\S+@\S+\.\S+$/.test(customerEmail) || customerName.length < 2 || customerName.length > 120 || customerPhone.length < 6 || shippingAddress.length < 8 || !Number.isFinite(extraShipping) || extraShipping < 0 || extraShipping > 250000) {
             return res.status(400).json({ error: 'Los datos de la orden son inválidos.' });
         }
         const requestedItems = new Map();
@@ -772,7 +881,17 @@ app.post('/api/orders', authenticate, async (req, res) => {
         const total = Math.max(0, productsSubtotal - discountUsd + extraShipping / dollarRate);
         const { data: orderData, error: orderError } = await supabase
             .from('orders')
-            .insert([{ user_id: req.user.id, total, shipping_address: shippingAddress }])
+            .insert([{
+                user_id: req.user.id,
+                total,
+                shipping_address: shippingAddress,
+                customer_name: customerName,
+                customer_email: customerEmail,
+                customer_phone: customerPhone,
+                payment_method: paymentMethod,
+                shipping_method: shippingMethod,
+                status: 'pending'
+            }])
             .select('id')
             .single();
         if (orderError) throw orderError;
@@ -812,6 +931,7 @@ app.post('/api/orders', authenticate, async (req, res) => {
         }
         void sendEmail(customerEmail, `Confirmación de orden #${orderData.id}`, `<h1>¡Compra confirmada!</h1><p>Hola ${escapeHtml(customerName)}, recibimos tu orden #${escapeHtml(orderData.id)}.</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p><p>Coordina el pago con nosotros por WhatsApp.</p>`);
 
+        void supabase.from('site_events').insert([{ event_type: 'order_created', page_path: '/checkout.html' }]);
         res.status(201).json({ message: 'Orden creada', orderId: orderData.id, total, total_ars: totalArs });
     } catch (error) {
         console.error('Error creating order:', error);
@@ -832,13 +952,18 @@ app.get('/api/my-orders', authenticate, async (req, res) => {
 
 app.put('/api/orders/:id/status', authenticate, isAdmin, async (req, res) => {
     try {
-        const allowedStatuses = new Set(['pending', 'completed', 'cancelled', 'shipped']);
+        const allowedStatuses = new Set(['pending', 'confirmed', 'completed', 'preparing', 'shipped', 'delivered', 'cancelled']);
         const status = String(req.body.status || '');
         const trackingCode = req.body.tracking_code == null ? null : String(req.body.tracking_code).trim().slice(0, 100);
         if (!allowedStatuses.has(status)) return res.status(400).json({ error: 'Estado de orden inválido' });
-        const { data, error } = await supabase.from('orders').update({ status, tracking_code: trackingCode || null }).eq('id', req.params.id).select();
+        const { data, error } = await supabase.from('orders').update({
+            status,
+            tracking_code: trackingCode || null,
+            updated_at: new Date().toISOString()
+        }).eq('id', req.params.id).select();
         if (error) throw error;
         if (!data?.length) return res.status(404).json({ error: 'Orden no encontrada' });
+        void sendOrderStatusEmail(data[0]);
         res.json({ message: 'Orden actualizada', order: data[0] });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -853,9 +978,23 @@ app.post('/api/reviews', authenticate, async (req, res) => {
         if (!Number.isInteger(productId) || productId <= 0 || !Number.isInteger(rating) || rating < 1 || rating > 5 || comment.length < 2 || comment.length > 2000) {
             return res.status(400).json({ error: 'La reseña no es válida' });
         }
-        const { error } = await supabase.from('reviews').insert([{ product_id: productId, user_name: req.user.name || 'Cliente', rating, comment }]);
+        const { data: purchase } = await supabase
+            .from('orders')
+            .select('id, order_items!inner(product_id)')
+            .eq('user_id', req.user.id)
+            .eq('order_items.product_id', productId)
+            .limit(1);
+        if (!purchase?.length) return res.status(403).json({ error: 'Solo podés reseñar productos que hayas comprado.' });
+        const { error } = await supabase.from('reviews').insert([{
+            product_id: productId,
+            user_id: req.user.id,
+            user_name: req.user.name || 'Cliente',
+            rating,
+            comment,
+            approved: false
+        }]);
         if (error) throw error;
-        res.json({ message: 'Reseña guardada' });
+        res.json({ message: 'Reseña enviada para revisión.' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -863,9 +1002,37 @@ app.post('/api/reviews', authenticate, async (req, res) => {
 
 app.get('/api/reviews/:product_id', async (req, res) => {
     try {
-        const { data, error } = await supabase.from('reviews').select('*').eq('product_id', req.params.product_id).order('created_at', { ascending: false });
+        const { data, error } = await supabase.from('reviews').select('*').eq('product_id', req.params.product_id).eq('approved', true).order('created_at', { ascending: false });
         if (error) throw error;
         res.json(data || []);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/admin/reviews', authenticate, isAdmin, async (_req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('reviews')
+            .select('*, products(name)')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data || []);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.put('/api/admin/reviews/:id', authenticate, isAdmin, async (req, res) => {
+    try {
+        const approved = req.body.approved === true;
+        const { data, error } = await supabase.from('reviews')
+            .update({ approved, updated_at: new Date().toISOString() })
+            .eq('id', req.params.id)
+            .select('id, approved')
+            .single();
+        if (error || !data) return res.status(404).json({ error: 'Reseña no encontrada.' });
+        res.json({ message: approved ? 'Reseña publicada.' : 'Reseña ocultada.', review: data });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -879,6 +1046,26 @@ app.get('/api/orders', authenticate, isAdmin, async (req, res) => {
             .order('created_at', { ascending: false });
         if (error) throw error;
         res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/admin/analytics', authenticate, isAdmin, async (_req, res) => {
+    try {
+        const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+        const [{ count: views, error: viewsError }, { count: carts, error: cartsError }, { count: checkouts, error: checkoutsError }, { data: products, error: productsError }] = await Promise.all([
+            supabase.from('site_events').select('*', { count: 'exact', head: true }).eq('event_type', 'page_view').gte('created_at', since),
+            supabase.from('site_events').select('*', { count: 'exact', head: true }).eq('event_type', 'add_to_cart').gte('created_at', since),
+            supabase.from('site_events').select('*', { count: 'exact', head: true }).eq('event_type', 'checkout_started').gte('created_at', since),
+            supabase.from('site_events').select('product_id').eq('event_type', 'product_view').gte('created_at', since)
+        ]);
+        if (viewsError || cartsError || checkoutsError || productsError) throw viewsError || cartsError || checkoutsError || productsError;
+        const productViews = (products || []).reduce((totals, event) => {
+            if (event.product_id) totals[event.product_id] = (totals[event.product_id] || 0) + 1;
+            return totals;
+        }, {});
+        res.json({ period_days: 30, page_views: views || 0, add_to_cart: carts || 0, checkout_started: checkouts || 0, product_views: productViews });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

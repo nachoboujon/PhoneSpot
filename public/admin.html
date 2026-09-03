@@ -65,6 +65,7 @@
             <ul class="admin-nav">
                 <li><a href="#" class="active" onclick="switchTab('tab-products')"><i class="fa-solid fa-box"></i> Productos</a></li>
                 <li><a href="#" onclick="switchTab('tab-orders')"><i class="fa-solid fa-truck-fast"></i> Ventas y órdenes</a></li>
+                <li><a href="#" onclick="switchTab('tab-reviews')"><i class="fa-solid fa-star"></i> Reseñas</a></li>
                 <li><a href="#" onclick="switchTab('tab-stats')"><i class="fa-solid fa-chart-line"></i> Estadísticas</a></li>
                 <li><a href="#" onclick="switchTab('tab-design')"><i class="fa-solid fa-wand-magic-sparkles"></i> Diseño y Banners</a></li>
                 <li style="margin-top: 2rem;"><a href="index.html"><i class="fa-solid fa-store"></i> Ver Tienda</a></li>
@@ -183,6 +184,14 @@
                 </div>
             </div>
 
+            <div id="tab-reviews" class="admin-section">
+                <div class="admin-card">
+                    <h4><i class="fa-solid fa-star"></i> Moderación de reseñas</h4>
+                    <p style="color:var(--text-muted);margin-bottom:1rem;">Las reseñas verificadas quedan pendientes hasta que decidas publicarlas.</p>
+                    <div id="admin-reviews-list"><p>Cargando reseñas...</p></div>
+                </div>
+            </div>
+
             <!-- TAB: ESTADÍSTICAS -->
             <div id="tab-stats" class="admin-section">
                 <div class="admin-card" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
@@ -205,6 +214,10 @@
                     <div id="top-products-list" style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
                     <p style="color: var(--text-muted);">Cargando estadísticas...</p>
                     </div>
+                </div>
+                <div class="admin-card">
+                    <h4><i class="fa-solid fa-chart-simple"></i> Interés del sitio (últimos 30 días)</h4>
+                    <p id="analytics-summary" style="color:var(--text-muted);">Cargando métricas anónimas...</p>
                 </div>
             </div>
 
@@ -337,7 +350,7 @@
             event.currentTarget.classList.add('active');
         }
     </script>
-    <script src="script.js?v=20260905"></script>
+    <script src="script.js?v=20260908"></script>
 
     <!-- FAVORITES SIDEBAR -->
     <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>

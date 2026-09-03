@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /perfil.html
+Disallow: /checkout.html
+Disallow: /carrito.html
+Sitemap: https://www.phonespot.site/sitemap.xml

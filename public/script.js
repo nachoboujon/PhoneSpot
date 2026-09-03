@@ -5,6 +5,27 @@ window.phoneSpotSettings = window.phoneSpotSettings || {};
 window.API_URL = '';
 // ==============================================================
 
+// Analítica mínima y respetuosa de privacidad. No envía texto de búsqueda ni datos personales.
+window.trackStoreEvent = (eventType, details = {}) => {
+    const payload = {
+        event_type: eventType,
+        product_id: Number.isInteger(Number(details.productId)) ? Number(details.productId) : null,
+        page_path: window.location.pathname,
+        query_length: Number.isFinite(Number(details.queryLength)) ? Number(details.queryLength) : undefined
+    };
+    fetch(window.API_URL + '/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+    }).catch(() => {});
+};
+
+if (!sessionStorage.getItem(`phonespot:viewed:${window.location.pathname}${window.location.search}`)) {
+    sessionStorage.setItem(`phonespot:viewed:${window.location.pathname}${window.location.search}`, '1');
+    window.trackStoreEvent('page_view');
+}
+
 
 // ==================== IMAGE HELPER ====================
 window.getFullImageUrl = (url) => {
@@ -32,6 +53,7 @@ window.goToCheckout = (e) => {
         showToast('Debes iniciar sesión para comprar', 'fa-lock');
         setTimeout(() => window.location.href = 'login.html?redirect=checkout.html', 1500);
     } else {
+        window.trackStoreEvent('checkout_started');
         window.location.href = 'checkout.html';
     }
 };
@@ -110,6 +132,7 @@ function addToCart(product) {
         cart.push({...product, quantity: 1});
     }
     saveCart();
+    window.trackStoreEvent('add_to_cart', { productId: product.id });
     
     // Notificación y abrir carrito lateral
     showToast(`¡${product.name} añadido al carrito!`);
@@ -1157,6 +1180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 document.title = `${prod.name} | PhoneSpot`;
+                window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const isOutOfStock = prod.stock <= 0;
                 const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : '';
@@ -1784,6 +1808,8 @@ const checkoutForm = document.getElementById('checkout-form');
                 return;
             }
 
+            window.trackStoreEvent('checkout_started');
+
             const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'transferencia';
 
             // Recolectar datos
@@ -1804,6 +1830,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
 
             const selShip = document.querySelector('input[name="shipping_method"]:checked');
+            const shippingMethod = selShip?.dataset?.name || selShip?.value || 'A coordinar';
             if (selShip) {
                 shipping_cost = parseFloat(selShip.dataset.cost) || 0;
                 const userZip = document.getElementById('chk-zip').value.trim();
@@ -1852,7 +1879,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
                     },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
+                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, customer_phone: phone, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
                 });
 
                 const data = await response.json();
@@ -2370,8 +2397,9 @@ const checkoutForm = document.getElementById('checkout-form');
                           <div class="slide-item" style="display:flex; flex-direction:column; gap:0.5rem;">
                               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
                                   <div style="flex:2;">
-                                      <h5 style="margin:0;">Orden #${o.id.substring(0,8)} <span style="color:#555555;">($${o.total})</span></h5>
+                                      <h5 style="margin:0;">Orden #${String(o.id)} <span style="color:#555555;">($${o.total})</span></h5>
                                       <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-calendar"></i> ${new Date(o.created_at).toLocaleString()}</p>
+                                      <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-user"></i> ${escapeText(o.customer_name || 'Cliente')} · ${escapeText(o.customer_email || 'Sin email')}</p>
                                       <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Envío: ${o.shipping_address}</p>
                                   </div>
                                   <div style="flex:2; display:flex; gap:1rem; align-items:center; background: var(--gray-bg); padding:0.5rem; border-radius:8px;">
@@ -2379,8 +2407,11 @@ const checkoutForm = document.getElementById('checkout-form');
                                           <label style="font-size:0.8rem; display:block;">Estado:</label>
                                           <select id="status-${o.id}" style="padding:0.2rem; border-radius:4px;">
                                               <option value="pending" ${o.status==='pending'?'selected':''}>Pendiente</option>
-                                              <option value="completed" ${o.status==='completed'?'selected':''}>Completado</option>
+                                              <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmado</option>
+                                              <option value="preparing" ${o.status==='preparing'?'selected':''}>En preparación</option>
+                                              <option value="completed" ${o.status==='completed'?'selected':''}>Pago confirmado</option>
                                               <option value="shipped" ${o.status==='shipped'?'selected':''}>Enviado</option>
+                                              <option value="delivered" ${o.status==='delivered'?'selected':''}>Entregado</option>
                                               <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelado</option>
                                           </select>
                                       </div>
@@ -2399,9 +2430,9 @@ const checkoutForm = document.getElementById('checkout-form');
                   });
 
                   const totalRevEl = document.getElementById('stat-total-revenue');
-                  const totalVenEl = document.getElementById('stat-total-sales');
+                  const totalVenEl = document.getElementById('stat-total-orders');
                   const totalItemsEl = document.getElementById('stat-total-items');
-                  const topProdEl = document.getElementById('stat-top-product');
+                  const topProdEl = document.getElementById('top-products-list');
 
                   if(totalRevEl) totalRevEl.innerText = '$' + totalRevenue.toLocaleString('es-AR');
                   if(totalVenEl) totalVenEl.innerText = orders.length;
@@ -2409,7 +2440,7 @@ const checkoutForm = document.getElementById('checkout-form');
                   
                   if(topProdEl && Object.keys(productSales).length > 0) {
                       const topProduct = Object.keys(productSales).reduce((a, b) => productSales[a] > productSales[b] ? a : b);
-                      topProdEl.innerText = topProduct + ' (' + productSales[topProduct] + ')';
+                      topProdEl.innerHTML = `<strong>${escapeText(topProduct)}</strong> · ${productSales[topProduct]} unidades`;
                   }
 
               } catch(e) {
@@ -2417,6 +2448,49 @@ const checkoutForm = document.getElementById('checkout-form');
               }
           };
           window.loadAdminOrders();
+        }
+
+        const reviewsAdminContainer = document.getElementById('admin-reviews-list');
+        if (reviewsAdminContainer) {
+            window.loadAdminReviews = async () => {
+                const token = localStorage.getItem('phoneSpotToken');
+                try {
+                    const response = await fetch(window.API_URL + '/api/admin/reviews', { headers: { 'Authorization': `Bearer ${token}` } });
+                    const reviews = await response.json();
+                    if (!response.ok) throw new Error(reviews.error || 'No se pudieron cargar las reseñas.');
+                    reviewsAdminContainer.innerHTML = reviews.length ? reviews.map((review) => `
+                        <article class="slide-item" style="display:flex;flex-direction:column;gap:.45rem;">
+                            <strong>${escapeText(review.products?.name || 'Producto eliminado')} · ${'★'.repeat(review.rating)}</strong>
+                            <span>${escapeText(review.user_name)}: ${escapeText(review.comment)}</span>
+                            <small style="color:var(--text-muted)">${review.approved ? 'Publicada' : 'Pendiente de publicación'}</small>
+                            <button class="btn" style="align-self:flex-start;padding:.45rem .7rem;" onclick="setReviewApproval(${Number(review.id)}, ${!review.approved})">${review.approved ? 'Ocultar' : 'Publicar'}</button>
+                        </article>`).join('') : '<p>No hay reseñas todavía.</p>';
+                } catch (error) {
+                    reviewsAdminContainer.innerHTML = `<p style="color:#c0392b;">${escapeText(error.message)}</p>`;
+                }
+            };
+            window.setReviewApproval = async (id, approved) => {
+                const token = localStorage.getItem('phoneSpotToken');
+                const response = await fetch(window.API_URL + `/api/admin/reviews/${id}`, {
+                    method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ approved })
+                });
+                const result = await response.json();
+                if (!response.ok) return showToast(result.error || 'No se pudo actualizar la reseña.', 'fa-triangle-exclamation');
+                showToast(result.message, 'fa-check');
+                window.loadAdminReviews();
+            };
+            window.loadAdminReviews();
+        }
+
+        const analyticsSummary = document.getElementById('analytics-summary');
+        if (analyticsSummary) {
+            fetch(window.API_URL + '/api/admin/analytics', { headers: { 'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}` } })
+                .then(response => response.json().then(data => ({ response, data })))
+                .then(({ response, data }) => {
+                    if (!response.ok) throw new Error(data.error || 'No se pudieron cargar las métricas.');
+                    analyticsSummary.textContent = `${data.page_views} visitas · ${data.add_to_cart} agregados al carrito · ${data.checkout_started} inicios de compra.`;
+                })
+                .catch(() => { analyticsSummary.textContent = 'Las métricas se mostrarán cuando haya actividad nueva.'; });
         }
 
         // ==================== BÚSQUEDA INTELIGENTE ====================

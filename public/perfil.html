@@ -58,7 +58,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260905"></script>
+    <script src="script.js?v=20260908"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -95,12 +95,14 @@
                 container.innerHTML = '';
                 orders.forEach(o => {
                     let statusHtml = '';
-                    if (o.status === 'pending') statusHtml = '<span style="color: #e67e22; font-weight: bold;"><i class="fa-solid fa-clock"></i> Pendiente</span>';
-                    else if (o.status === 'completed') statusHtml = '<span style="color: #555555; font-weight: bold;"><i class="fa-solid fa-check"></i> Pagado</span>';
+                    if (o.status === 'pending') statusHtml = '<span style="color: #e67e22; font-weight: bold;"><i class="fa-solid fa-clock"></i> Pedido recibido</span>';
+                    else if (o.status === 'confirmed' || o.status === 'completed') statusHtml = '<span style="color: #168344; font-weight: bold;"><i class="fa-solid fa-check"></i> Pago confirmado</span>';
+                    else if (o.status === 'preparing') statusHtml = '<span style="color: #6b5b95; font-weight: bold;"><i class="fa-solid fa-box"></i> En preparación</span>';
                     else if (o.status === 'shipped') statusHtml = '<span style="color: #3498db; font-weight: bold; display:flex; flex-direction:column; align-items:flex-end; gap:5px;"><i class="fa-solid fa-truck-fast"></i> Enviado <a href="https://www.correoargentino.com.ar/formularios/e-commerce" target="_blank" style="background:#333; color:white; padding:4px 8px; border-radius:4px; font-size:0.75rem; text-decoration:none;"><i class="fa-solid fa-location-crosshairs"></i> Rastrear Pedido</a></span>';
+                    else if (o.status === 'delivered') statusHtml = '<span style="color: #168344; font-weight: bold;"><i class="fa-solid fa-circle-check"></i> Entregado</span>';
                     else if (o.status === 'cancelled') statusHtml = '<span style="color: #e74c3c; font-weight: bold;"><i class="fa-solid fa-xmark"></i> Cancelado</span>';
 
-                    const step = o.status === 'shipped' ? 3 : o.status === 'completed' ? 2 : o.status === 'cancelled' ? 0 : 1;
+                    const step = ['shipped', 'delivered'].includes(o.status) ? 3 : ['confirmed', 'completed', 'preparing'].includes(o.status) ? 2 : o.status === 'cancelled' ? 0 : 1;
                     const timelineHtml = o.status === 'cancelled'
                         ? '<p style="margin:1rem 0 0; color:#c0392b; font-size:.9rem;"><i class="fa-solid fa-circle-xmark"></i> Este pedido fue cancelado. Si necesitás ayuda, escribinos por WhatsApp.</p>'
                         : `<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:.35rem; margin:1.2rem 0;">
@@ -130,7 +132,7 @@
                         <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
                                 <div>
-                                    <h4 style="margin: 0; font-size: 1.1rem;">Orden #${String(o.id).slice(0, 8)}</h4>
+                                    <h4 style="margin: 0; font-size: 1.1rem;">Orden #${String(o.id)}</h4>
                                     <small style="color: var(--text-muted);">${new Date(o.created_at).toLocaleString()}</small>
                                 </div>
                                 <div style="text-align: right;">

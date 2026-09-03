@@ -6,7 +6,13 @@ ALTER TABLE products
     ADD COLUMN IF NOT EXISTS variants JSONB NOT NULL DEFAULT '[]'::jsonb;
 
 ALTER TABLE orders
-    ADD COLUMN IF NOT EXISTS tracking_code VARCHAR(100) DEFAULT NULL;
+    ADD COLUMN IF NOT EXISTS tracking_code VARCHAR(100) DEFAULT NULL,
+    ADD COLUMN IF NOT EXISTS customer_name VARCHAR(120),
+    ADD COLUMN IF NOT EXISTS customer_email VARCHAR(255),
+    ADD COLUMN IF NOT EXISTS customer_phone VARCHAR(40),
+    ADD COLUMN IF NOT EXISTS payment_method VARCHAR(40) NOT NULL DEFAULT 'transferencia',
+    ADD COLUMN IF NOT EXISTS shipping_method VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now());
 
 ALTER TABLE order_items
     ADD COLUMN IF NOT EXISTS variant_name VARCHAR(255) DEFAULT NULL;
@@ -14,7 +20,7 @@ ALTER TABLE order_items
 ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_status_check;
 ALTER TABLE orders
     ADD CONSTRAINT orders_status_check
-    CHECK (status IN ('pending', 'completed', 'cancelled', 'shipped'));
+    CHECK (status IN ('pending', 'confirmed', 'completed', 'preparing', 'shipped', 'delivered', 'cancelled'));
 
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
@@ -37,3 +43,4 @@ CREATE INDEX IF NOT EXISTS orders_user_id_created_at_idx ON orders (user_id, cre
 CREATE INDEX IF NOT EXISTS order_items_order_id_idx ON order_items (order_id);
 CREATE INDEX IF NOT EXISTS reviews_product_id_created_at_idx ON reviews (product_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS stock_alerts_product_id_idx ON stock_alerts (product_id);
+CREATE INDEX IF NOT EXISTS order_items_product_id_idx ON order_items (product_id);
