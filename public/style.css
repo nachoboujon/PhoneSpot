@@ -758,6 +758,176 @@ button:hover, .btn:hover {
     .dropdown:hover .dropdown-menu { display: block; }
 }
 
+/* =========================================
+   HOME — EXPERIENCIA MÓVIL
+   La portada se lee y se compra desde el teléfono: controles grandes,
+   dos productos por fila y sin el carrusel lateral de escritorio.
+   ========================================= */
+@media (max-width: 768px) {
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip !important;
+    }
+
+    .top-banner {
+        min-height: 34px;
+        padding: .55rem 0;
+    }
+    .scrolling-text {
+        font-size: .66rem;
+        letter-spacing: .55px;
+    }
+    .scrolling-text span { margin: 0 1.6rem; }
+
+    header {
+        padding: .75rem 1rem !important;
+        gap: .7rem;
+    }
+    header .logo { min-width: 0; }
+    header .logo h1 { font-size: 1.25rem !important; }
+    header .logo h1 img { height: 28px !important; }
+    header .header-icons { gap: .8rem; }
+    header .header-icons a { font-size: 1.08rem; }
+    header .header-icons a[title="Mi Cuenta"] { display: none; }
+    header .search-bar {
+        order: 3 !important;
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: .15rem 0 0 !important;
+    }
+    header .search-bar input {
+        min-height: 42px;
+        padding: .65rem 2.7rem .65rem 1rem !important;
+        border-radius: 12px !important;
+        background: #f7f7f7;
+    }
+    nav { top: 128px !important; height: calc(100vh - 128px) !important; }
+
+    .hero-carousel {
+        height: min(560px, 68svh) !important;
+        min-height: 440px;
+        background: #111;
+    }
+    .carousel-slide {
+        /* El JS desliza los banners en escritorio. En teléfono apilarlos evita
+           que el siguiente banner quede visible sobre el activo. */
+        width: 100% !important;
+        height: 100% !important;
+        transform: translateX(0) !important;
+        opacity: 0 !important;
+        pointer-events: none;
+        transition: opacity .35s ease !important;
+    }
+    .carousel-slide.active {
+        opacity: 1 !important;
+        pointer-events: auto;
+    }
+    .carousel-slide .parallax-bg { display: none !important; }
+    .hero-content {
+        width: calc(100% - 2rem) !important;
+        max-width: 520px !important;
+        margin: 0 1rem !important;
+        padding: 1.65rem 1.25rem !important;
+        border-radius: 18px !important;
+    }
+    .carousel-title, .hero-content h2 {
+        font-size: clamp(2rem, 9vw, 2.7rem) !important;
+        line-height: 1.04 !important;
+        letter-spacing: -1.25px !important;
+    }
+    .carousel-subtitle, .hero-content p {
+        font-size: .98rem !important;
+        line-height: 1.45;
+        margin-bottom: 1.6rem !important;
+        padding: 0 !important;
+    }
+    .hero-content .btn {
+        width: 100%;
+        padding: .9rem 1rem !important;
+        font-size: .88rem !important;
+    }
+    .carousel-prev, .carousel-next {
+        top: auto;
+        bottom: 1.1rem;
+        width: 42px;
+        height: 42px;
+        font-size: .9rem;
+    }
+    .carousel-prev { left: calc(50% - 50px); }
+    .carousel-next { right: calc(50% - 50px); }
+
+    .trust-badges {
+        padding: 1.25rem 1rem !important;
+        margin-bottom: 2.25rem !important;
+    }
+    .trust-badges > div {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: .7rem !important;
+    }
+    .trust-badges > div > div {
+        min-width: 0;
+        padding: .9rem .55rem;
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        background: var(--gray-bg);
+    }
+    .trust-badges i { font-size: 1.35rem !important; margin-bottom: .55rem !important; }
+    .trust-badges h4 { font-size: .78rem; line-height: 1.2; }
+    .trust-badges p { font-size: .69rem !important; line-height: 1.35; }
+
+    #preguntas {
+        margin: 0 auto 2.75rem !important;
+        padding: 0 1rem !important;
+    }
+    #preguntas h2 { font-size: 1.45rem !important; }
+    #preguntas details { padding: .9rem !important; }
+    #preguntas summary { font-size: .9rem; line-height: 1.35; }
+
+    .advisor-section { padding: 0 1rem; margin-bottom: 2.75rem; }
+    .advisor-intro, .advisor-flow, .advisor-results {
+        padding: 2rem 1.15rem;
+        border-radius: 18px;
+    }
+    .advisor-intro h2 { font-size: 1.85rem; line-height: 1.08; }
+    .advisor-start { width: 100%; padding: .95rem 1rem; }
+
+    .featured-categories { padding: 0 1rem !important; margin-bottom: 2.75rem !important; }
+    .featured-categories > div { grid-template-columns: 1fr !important; gap: .85rem !important; }
+    .featured-categories a { height: 190px !important; }
+    .featured-categories a > div:last-child { bottom: 16px !important; left: 16px !important; }
+    .featured-categories h3 { font-size: 1.3rem !important; }
+
+    /* El carrusel de logos agrega recorrido pero no ayuda a decidir una compra. */
+    #marcas { display: none; }
+
+    #ofertas, #catalogo {
+        padding: 3rem 1rem !important;
+    }
+    #ofertas > div:first-child, #catalogo > div:first-child { margin-bottom: 1.5rem !important; }
+    #ofertas h3, #catalogo h3 { font-size: 1.8rem !important; line-height: 1.08; }
+    #ofertas p, #catalogo p { font-size: .95rem !important; line-height: 1.45; }
+    #offers-container, #catalog-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: .75rem !important;
+    }
+    #offers-container .product-card, #catalog-container .product-card {
+        padding: .7rem !important;
+        border-radius: 12px !important;
+    }
+    #offers-container .product-img-wrapper, #catalog-container .product-img-wrapper {
+        min-height: 110px !important;
+        height: 110px !important;
+    }
+    #offers-container .product-card h4, #catalog-container .product-card h4 {
+        font-size: .82rem !important;
+    }
+
+    .newsletter { margin-top: 0 !important; padding: 3rem 1rem !important; }
+    .newsletter h2 { font-size: 1.7rem !important; line-height: 1.12; }
+}
+
 /* Pie de página */
 footer {
     background-color: #000000;
@@ -1592,4 +1762,21 @@ body:not(.dark-mode) .logo-slide img {
     width: 100% !important;
     object-fit: contain !important;
     position: relative !important;
+}
+
+/* Mantener estas prioridades al final: el sitio contiene reglas responsive
+   históricas para el catálogo que no deben afectar a la portada móvil. */
+@media (max-width: 768px) {
+    .carousel-slide { height: 100% !important; }
+    #offers-container, #catalog-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: .75rem !important;
+    }
+    #offers-container .product-card, #catalog-container .product-card { padding: .7rem !important; }
+    #offers-container .product-img-wrapper, #catalog-container .product-img-wrapper {
+        height: 110px !important;
+        min-height: 110px !important;
+        aspect-ratio: auto !important;
+    }
+    #offers-container .product-card h4, #catalog-container .product-card h4 { font-size: .82rem !important; }
 }
