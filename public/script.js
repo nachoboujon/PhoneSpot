@@ -2586,7 +2586,15 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
         });
 
         // ==================== CONFIGURACIÓN VISUAL DEL ADMIN (Banners y Carrusel) ====================
-        let currentSettings = { top_banner: '', carousel: [], shipping_correo: 8500, shipping_andreani: 12000, free_shipping_threshold: 1500000 };
+        const defaultEcosystemBanner = {
+            enabled: true,
+            title: 'Armá tu ecosistema',
+            description: 'Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más.',
+            button: 'Ver accesorios',
+            link: 'catalogo.html?cat=accesorios',
+            image: ''
+        };
+        let currentSettings = { top_banner: '', carousel: [], shipping_correo: 8500, shipping_andreani: 12000, free_shipping_threshold: 1500000, ecosystem_banner: defaultEcosystemBanner };
             window.renderBannerMessages = () => {
                 const list = document.getElementById('banner-messages-list');
                 if(!list) return;
@@ -2667,14 +2675,16 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
     const bannerForm = document.getElementById('admin-banner-form');
         const carouselForm = document.getElementById('admin-carousel-form');
         const shippingForm = document.getElementById('admin-shipping-form');
+        const ecosystemForm = document.getElementById('admin-ecosystem-form');
         
-        if (bannerForm || carouselForm || shippingForm) {
+        if (bannerForm || carouselForm || shippingForm || ecosystemForm) {
             // Cargar datos actuales
             const loadAdminSettings = async () => {
                 try {
                     const res = await fetch(window.API_URL + '/api/settings');
                     const data = await res.json();
                     currentSettings = { ...currentSettings, ...data };
+                    currentSettings.ecosystem_banner = { ...defaultEcosystemBanner, ...(currentSettings.ecosystem_banner || {}) };
                     
                     window.renderBannerMessages();
                     if(document.getElementById('set-flash-date')) {
@@ -2696,6 +2706,14 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
     if (waInput && currentSettings.whatsapp_number) waInput.value = currentSettings.whatsapp_number;
     window.renderAdminCoupons();
 
+                    }
+                    if (document.getElementById('set-eco-enabled')) {
+                        const ecosystem = currentSettings.ecosystem_banner;
+                        document.getElementById('set-eco-enabled').checked = ecosystem.enabled !== false;
+                        document.getElementById('set-eco-title').value = ecosystem.title;
+                        document.getElementById('set-eco-description').value = ecosystem.description;
+                        document.getElementById('set-eco-button').value = ecosystem.button;
+                        document.getElementById('set-eco-link').value = ecosystem.link;
                     }
                     renderAdminCarouselList();
                 } catch(e) { console.error('Error', e); }
@@ -2870,6 +2888,52 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
     
             }
 
+            if (ecosystemForm) {
+                ecosystemForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const submitButton = ecosystemForm.querySelector('button[type="submit"]');
+                    const originalButton = submitButton.innerHTML;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+                    try {
+                        const previous = { ...defaultEcosystemBanner, ...(currentSettings.ecosystem_banner || {}) };
+                        const imageInput = document.getElementById('set-eco-image');
+                        let image = previous.image || '';
+
+                        if (imageInput.files.length > 0) {
+                            const formData = new FormData();
+                            formData.append('image', imageInput.files[0]);
+                            const response = await fetch(window.API_URL + '/api/upload', {
+                                method: 'POST',
+                                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('phoneSpotToken') },
+                                body: formData
+                            });
+                            const upload = await response.json();
+                            if (!upload.url) throw new Error('No se pudo subir la imagen');
+                            image = upload.url;
+                        }
+
+                        currentSettings.ecosystem_banner = {
+                            enabled: document.getElementById('set-eco-enabled').checked,
+                            title: document.getElementById('set-eco-title').value.trim(),
+                            description: document.getElementById('set-eco-description').value.trim(),
+                            button: document.getElementById('set-eco-button').value.trim(),
+                            link: document.getElementById('set-eco-link').value.trim(),
+                            image
+                        };
+                        await saveSettings();
+                        imageInput.value = '';
+                    } catch (error) {
+                        console.error('Error guardando banner de accesorios:', error);
+                        showToast('No se pudo guardar el banner', 'fa-triangle-exclamation');
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButton;
+                    }
+                });
+            }
+
             loadAdminSettings();
         }
     }
@@ -2949,6 +3013,36 @@ async function applyFrontendSettings() {
         }
 
         // Carousel Múltiple
+        const ecosystemSection = document.querySelector('.ecosystem-banner');
+        if (ecosystemSection) {
+            const defaults = {
+                enabled: true,
+                title: 'Armá tu ecosistema',
+                description: 'Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más.',
+                button: 'Ver accesorios',
+                link: 'catalogo.html?cat=accesorios',
+                image: ''
+            };
+            const ecosystem = { ...defaults, ...(data.ecosystem_banner || {}) };
+            ecosystemSection.hidden = ecosystem.enabled === false;
+            const title = ecosystemSection.querySelector('#ecosystem-title');
+            const description = ecosystemSection.querySelector('.ecosystem-content p');
+            const button = ecosystemSection.querySelector('.ecosystem-cta');
+            if (title) title.textContent = ecosystem.title;
+            if (description) description.textContent = ecosystem.description;
+            if (button) {
+                button.href = ecosystem.link || defaults.link;
+                button.childNodes[0].textContent = `${ecosystem.button} `;
+            }
+            if (ecosystem.image && /^(https?:|\/)/.test(ecosystem.image)) {
+                ecosystemSection.style.setProperty('--ecosystem-image', `url("${String(ecosystem.image).replace(/["\\]/g, '\\$&')}")`);
+                ecosystemSection.classList.add('has-custom-image');
+            } else {
+                ecosystemSection.style.removeProperty('--ecosystem-image');
+                ecosystemSection.classList.remove('has-custom-image');
+            }
+        }
+
         const carouselContainer = document.querySelector('.carousel-container');
         const heroCarouselSection = document.getElementById('inicio');
         

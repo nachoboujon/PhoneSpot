@@ -303,6 +303,7 @@
 
                 <div class="admin-card">
                     <h4><i class="fa-solid fa-images"></i> Carrusel Principal</h4>
+                    <p style="color:var(--text-muted); font-size:.85rem; margin:-.5rem 0 1.25rem;">Cada banner se puede editar o eliminar. En celular y tablet los clientes pueden deslizarlo con el dedo.</p>
                     
                     <div id="carousel-list" style="margin-bottom: 2rem;">
                         <!-- Aquí se renderizan los slides dinámicamente -->
@@ -338,6 +339,43 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="admin-card">
+                    <h4><i class="fa-solid fa-mobile-screen-button"></i> Banner de accesorios</h4>
+                    <p style="color:var(--text-muted); font-size:.85rem; margin:-.5rem 0 1.25rem;">Controlá el bloque “Armá tu ecosistema” de la portada. Podés ocultarlo sin perder su configuración.</p>
+                    <form id="admin-ecosystem-form">
+                        <div class="form-group" style="display:flex; align-items:center; gap:.65rem;">
+                            <input type="checkbox" id="set-eco-enabled" style="width:auto;">
+                            <label for="set-eco-enabled" style="margin:0;">Mostrar este banner en la portada</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Título</label>
+                                <input type="text" id="set-eco-title" maxlength="70" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Texto del botón</label>
+                                <input type="text" id="set-eco-button" maxlength="35" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <input type="text" id="set-eco-description" maxlength="160" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Link del botón</label>
+                                <input type="text" id="set-eco-link" placeholder="catalogo.html?cat=accesorios" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Imagen de fondo (opcional)</label>
+                                <input type="file" id="set-eco-image" accept="image/*">
+                                <small style="color:var(--text-muted); display:block; margin-top:.3rem;">Si no cargás una imagen, se mantiene el diseño tecnológico actual.</small>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn"><i class="fa-solid fa-save"></i> Guardar banner de accesorios</button>
+                    </form>
+                </div>
             </div>
         </main>
     </div>
@@ -350,7 +388,7 @@
             event.currentTarget.classList.add('active');
         }
     </script>
-    <script src="script.js?v=20260908"></script>
+    <script src="script.js?v=20260903-admin-banners"></script>
 
     <!-- FAVORITES SIDEBAR -->
     <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
