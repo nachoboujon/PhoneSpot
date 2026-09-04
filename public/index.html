@@ -249,13 +249,20 @@
 
 
         
-        <!-- PROMO BANNER PARALLAX -->
-        <section style="margin: 4rem 0; height: 400px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=1920&q=80') center/cover fixed; z-index: 1;"></div>
-            <div style="position: relative; z-index: 2; text-align: center; color: white; max-width: 800px; padding: 0 2rem;">
-                <h2 style="font-size: 3rem; margin-bottom: 1rem; font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,0.5);">Ecosistema Completo</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #f0f0f0;">Potenciá tu celular con los mejores accesorios. Smartwatches, auriculares TWS y fundas premium.</p>
-                <a href="catalogo.html?cat=accesorios" class="btn" style="background: white; color: #111; padding: 1rem 3rem; border-radius: 30px; font-weight: bold; text-decoration: none; text-transform: uppercase; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ver Accesorios</a>
+        <!-- Ecosistema: bloque visual de accesorios -->
+        <section class="ecosystem-banner" aria-labelledby="ecosystem-title">
+            <div class="ecosystem-orb ecosystem-orb-one" aria-hidden="true"></div>
+            <div class="ecosystem-orb ecosystem-orb-two" aria-hidden="true"></div>
+            <div class="ecosystem-device-art" aria-hidden="true">
+                <span class="ecosystem-phone"></span>
+                <span class="ecosystem-earbud ecosystem-earbud-left"></span>
+                <span class="ecosystem-earbud ecosystem-earbud-right"></span>
+            </div>
+            <div class="ecosystem-content">
+                <span class="ecosystem-eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Todo conectado</span>
+                <h2 id="ecosystem-title">Armá tu ecosistema</h2>
+                <p>Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más.</p>
+                <a href="catalogo.html?cat=accesorios" class="ecosystem-cta">Ver accesorios <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </section>
 

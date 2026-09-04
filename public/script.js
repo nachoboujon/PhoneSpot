@@ -1960,6 +1960,36 @@ const checkoutForm = document.getElementById('checkout-form');
             const startAutoPlay = () => { window.slideInterval = setInterval(nextSlide, 5000); };
             const resetAutoPlay = () => { clearInterval(window.slideInterval); startAutoPlay(); };
 
+            // En celulares y tablets el carrusel responde al gesto horizontal.
+            // No bloqueamos el desplazamiento vertical de la página.
+            const carouselContainer = document.querySelector('.carousel-container');
+            if (carouselContainer) {
+                if (carouselContainer._swipeController) carouselContainer._swipeController.abort();
+                const swipeController = new AbortController();
+                carouselContainer._swipeController = swipeController;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                carouselContainer.addEventListener('touchstart', (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true, signal: swipeController.signal });
+
+                carouselContainer.addEventListener('touchend', (event) => {
+                    const touch = event.changedTouches[0];
+                    const horizontalDistance = touch.clientX - touchStartX;
+                    const verticalDistance = touch.clientY - touchStartY;
+                    const minimumSwipe = 42;
+
+                    if (Math.abs(horizontalDistance) > minimumSwipe && Math.abs(horizontalDistance) > Math.abs(verticalDistance)) {
+                        if (horizontalDistance < 0) nextSlide();
+                        else prevSlide();
+                        resetAutoPlay();
+                    }
+                }, { passive: true, signal: swipeController.signal });
+            }
+
             if(nextBtn) {
                 // Removemos listeners previos clonando el botón para evitar que giren múltiples veces si se edita en vivo
                 const newNext = nextBtn.cloneNode(true);
