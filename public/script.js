@@ -37,10 +37,21 @@ window.getFullImageUrl = (url) => {
 
 // ==================== DOLAR BLUE ====================
 window.dolarValue = 1400; // Fallback
-window.dolarPromise = fetch('https://dolarapi.com/v1/dolares/blue')
+window.dolarPromise = fetch(`${window.API_URL}/api/dollar-rate`)
     .then(res => res.json())
-    .then(data => { if (data && data.venta) window.dolarValue = data.venta + 5; })
-    .catch(e => console.error('Error fetching dolar', e));
+    .then(data => {
+        if (data && data.rate && typeof data.rate === 'number') {
+            window.dolarValue = data.rate;
+        } else {
+            throw new Error('Sin cotización del servidor');
+        }
+    })
+    .catch(() => {
+        return fetch('https://dolarapi.com/v1/dolares/blue')
+            .then(res => res.json())
+            .then(data => { if (data && data.venta) window.dolarValue = data.venta + 5; })
+            .catch(e => console.error('Error fetching dolar fallback', e));
+    });
 
 
 // ==================== AUTH GUARD ====================
@@ -522,7 +533,9 @@ async function renderCheckout() { await window.dolarPromise;
         }
     }
     
-    checkoutTotal.innerText = `${window.formatPrice(finalDisplayTotal + finalShipping)}`;
+    const finalProductsArs = Math.round(finalDisplayTotal * window.dolarValue);
+    const finalTotalArs = finalProductsArs + finalShipping;
+    checkoutTotal.innerText = window.formatArs(finalTotalArs);
 
 }
 
@@ -1867,9 +1880,13 @@ const checkoutForm = document.getElementById('checkout-form');
                     if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                     return acc + (finalPrice * item.quantity);
                 }, 0);
-                const orderTotal = total;
+                let orderSubtotal = total;
+                if (window.currentCoupon) {
+                    if (window.currentCoupon.type === 'percent') orderSubtotal -= (orderSubtotal * (Number(window.currentCoupon.value) || 0) / 100);
+                    else if (window.currentCoupon.type === 'fixed') orderSubtotal = Math.max(0, orderSubtotal - (Number(window.currentCoupon.value) || 0));
+                }
                 const finalShippingCost = (window.currentCoupon && window.currentCoupon.type === 'shipping') ? 0 : shipping_cost;
-                const finalTotalArs = Math.round(orderTotal * window.dolarValue) + finalShippingCost;
+                const finalTotalArs = Math.round(Math.max(0, orderSubtotal) * window.dolarValue) + finalShippingCost;
                 
                 showToast('Procesando orden...', 'fa-spinner fa-spin');
 
@@ -2130,7 +2147,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const battEl = row.querySelector('.var-batt');
                 const batt = battEl ? battEl.value.trim() : '';
                 const priceEl = row.querySelector('.var-price');
-                const price = priceEl && priceEl.value ? parseFloat(priceEl.value) : null;
+                const price = priceEl && priceEl.value && Number(priceEl.value) > 0 ? parseFloat(priceEl.value) : null;
                 const stock = parseInt(row.querySelector('.var-stock').value) || 0;
                 if(color && capacity) {
                     variantsArray.push({ color, capacity, ram, batt, price, stock });
@@ -2305,7 +2322,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const batt = battEl ? battEl.value.trim() : '';
                 const stock = parseInt(document.getElementById(`new-vstock-${id}`).value) || 0;
                 const rawPrice = document.getElementById(`new-vprice-${id}`).value;
-                const price = rawPrice ? parseFloat(rawPrice) : null;
+                const price = rawPrice && Number(rawPrice) > 0 ? parseFloat(rawPrice) : null;
                 
                 if (!color || !cap) return showToast('Color y Capacidad son obligatorios', 'fa-exclamation');
 

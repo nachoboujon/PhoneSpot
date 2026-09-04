@@ -71,6 +71,23 @@ const parseVariants = (variants) => {
     return Array.isArray(parsed) ? parsed : [];
 };
 
+const normalizeVariants = (variants) => {
+    const list = parseVariants(variants);
+    return list.map((v) => {
+        const rawPrice = v.price;
+        const validPrice = rawPrice !== null && rawPrice !== undefined && String(rawPrice).trim() !== '' && !Number.isNaN(Number(rawPrice)) && Number(rawPrice) > 0 ? Number(rawPrice) : null;
+        return {
+            ...v,
+            color: v.color ? String(v.color).trim() : '',
+            capacity: v.capacity ? String(v.capacity).trim() : '',
+            ram: v.ram ? String(v.ram).trim() : '',
+            batt: v.batt ? String(v.batt).trim() : '',
+            price: validPrice,
+            stock: Number.isInteger(Number(v.stock)) && Number(v.stock) >= 0 ? Number(v.stock) : 0
+        };
+    });
+};
+
 const variantNameFor = (variant) => [
     variant.color,
     variant.capacity,
@@ -153,11 +170,11 @@ const upload = multer({
 
 // Configuración Supabase
 const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseKey = process.env.SUPABASE_KEY || 'placeholder_key';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || 'placeholder_key';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 if (supabaseUrl === 'https://placeholder.supabase.co') {
-    console.warn('⚠️ ADVERTENCIA: SUPABASE_URL y SUPABASE_KEY no están configurados en las variables de entorno. La base de datos no funcionará.');
+    console.warn('⚠️ ADVERTENCIA: SUPABASE_URL y SUPABASE_KEY / SUPABASE_SERVICE_ROLE_KEY no están configurados en las variables de entorno. La base de datos no funcionará.');
 }
 
 app.get('/sitemap.xml', async (_req, res) => {
@@ -256,6 +273,53 @@ const getStoreSettings = async () => {
         return {};
     }
 };
+
+let dollarCache = { rate: null, timestamp: 0 };
+const getDollarRate = async () => {
+    const now = Date.now();
+    // Cache de 5 minutos
+    if (dollarCache.rate && (now - dollarCache.timestamp < 5 * 60 * 1000)) {
+        return dollarCache.rate;
+    }
+
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4000);
+        const response = await fetch('https://dolarapi.com/v1/dolares/blue', { signal: controller.signal });
+        clearTimeout(timeout);
+        if (response.ok) {
+            const data = await response.json();
+            if (data && typeof data.venta === 'number' && data.venta > 0) {
+                const calculatedRate = Math.round(data.venta + 5);
+                dollarCache = { rate: calculatedRate, timestamp: now };
+                return calculatedRate;
+            }
+        }
+    } catch (err) {
+        console.warn('⚠️ No se pudo consultar dolarapi.com, usando valor de respaldo:', err.message);
+    }
+
+    try {
+        const settings = await getStoreSettings();
+        if (settings && Number(settings.custom_dollar_rate) > 0) {
+            dollarCache = { rate: Number(settings.custom_dollar_rate), timestamp: now };
+            return Number(settings.custom_dollar_rate);
+        }
+    } catch (_) {}
+
+    const fallbackRate = Number(process.env.DOLLAR_RATE) || (dollarCache.rate || 1400);
+    dollarCache = { rate: fallbackRate, timestamp: now };
+    return fallbackRate;
+};
+
+app.get('/api/dollar-rate', async (_req, res) => {
+    try {
+        const rate = await getDollarRate();
+        res.json({ success: true, rate });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Error obteniendo cotización', rate: Number(process.env.DOLLAR_RATE) || 1400 });
+    }
+});
 
 const authenticate = (req, res, next) => {
     if (!jwtSecret) return res.status(503).json({ error: 'Autenticación no configurada en el servidor' });
@@ -700,7 +764,7 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
             image_url = publicUrlData.publicUrl;
         }
         
-        const parsedVariants = parseVariants(variants);
+        const parsedVariants = normalizeVariants(variants);
 
         const { data, error } = await supabase
             .from('products')
@@ -834,9 +898,10 @@ app.post('/api/orders', authenticate, async (req, res) => {
                 return res.status(409).json({ error: `${product.name} no tiene stock suficiente.` });
             }
 
-            const variantPrice = selectedVariant ? Number(selectedVariant.price) : NaN;
-            const unitPrice = Number.isFinite(variantPrice) && variantPrice >= 0 ? variantPrice : Number(product.price);
-            if (!Number.isFinite(unitPrice) || unitPrice < 0) throw new Error(`Precio inválido para ${product.name}`);
+            const rawVariantPrice = selectedVariant?.price;
+            const hasCustomPrice = rawVariantPrice !== null && rawVariantPrice !== undefined && String(rawVariantPrice).trim() !== '' && !Number.isNaN(Number(rawVariantPrice)) && Number(rawVariantPrice) > 0;
+            const unitPrice = hasCustomPrice ? Number(rawVariantPrice) : Number(product.price);
+            if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Precio inválido para ${product.name}`);
 
             secureItems.push({ ...item, product, variants, unitPrice });
         }
@@ -877,7 +942,7 @@ app.post('/api/orders', authenticate, async (req, res) => {
             if (coupon.type === 'shipping') extraShipping = 0;
         }
 
-        const dollarRate = Number(process.env.DOLLAR_RATE) || 1400;
+        const dollarRate = await getDollarRate();
         const total = Math.max(0, productsSubtotal - discountUsd + extraShipping / dollarRate);
         const { data: orderData, error: orderError } = await supabase
             .from('orders')
@@ -932,7 +997,7 @@ app.post('/api/orders', authenticate, async (req, res) => {
         void sendEmail(customerEmail, `Confirmación de orden #${orderData.id}`, `<h1>¡Compra confirmada!</h1><p>Hola ${escapeHtml(customerName)}, recibimos tu orden #${escapeHtml(orderData.id)}.</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p><p>Coordina el pago con nosotros por WhatsApp.</p>`);
 
         void supabase.from('site_events').insert([{ event_type: 'order_created', page_path: '/checkout.html' }]);
-        res.status(201).json({ message: 'Orden creada', orderId: orderData.id, total, total_ars: totalArs });
+        res.status(201).json({ message: 'Orden creada', orderId: orderData.id, total, total_ars: totalArs, dollar_rate: dollarRate });
     } catch (error) {
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'No pudimos crear la orden. Intenta nuevamente.' });
@@ -1103,7 +1168,7 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         }
         
         if (variants !== undefined) {
-            const parsedVariants = parseVariants(variants);
+            const parsedVariants = normalizeVariants(variants);
             if (typeof variants === 'string' && variants.trim() && parsedVariants.length === 0) return res.status(400).json({ error: 'Variantes inválidas' });
             updateData.variants = parsedVariants;
         }
