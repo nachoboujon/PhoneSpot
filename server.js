@@ -221,20 +221,21 @@ const sendEmail = async (to, subject, html) => {
         }
 
         if (smtpTransport) {
+            const fromAddress = process.env.EMAIL_FROM || `"PhoneSpot" <${process.env.SMTP_USER || 'ventas@phonespot.site'}>`;
             const result = await smtpTransport.sendMail({
-                from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+                from: fromAddress,
                 to,
                 subject,
                 html
             });
-            console.log('Email sent via SMTP:', result.messageId);
+            console.log('Email sent via SMTP to', to, ':', result.messageId);
             return result;
         }
 
-        console.error('Falta RESEND_API_KEY o la configuración SMTP');
+        console.error('Falta RESEND_API_KEY o la configuración SMTP para enviar a:', to);
         return false;
     } catch (err) {
-        console.error('Error sending email:', err.message);
+        console.error('Error sending email to', to, ':', err.message);
         return false;
     }
 };
@@ -882,7 +883,7 @@ app.post('/api/orders', authenticate, async (req, res) => {
         for (const item of requestedItems.values()) {
             const { data: product, error } = await supabase
                 .from('products')
-                .select('id, name, price, stock, variants')
+                .select('id, name, price, stock, variants, category')
                 .eq('id', item.productId)
                 .single();
             if (error || !product) return res.status(404).json({ error: 'Uno de los productos ya no está disponible.' });
@@ -927,9 +928,29 @@ app.post('/api/orders', authenticate, async (req, res) => {
             stockUpdates.set(item.product.id, current);
         }
 
-        const totalQuantity = secureItems.reduce((sum, item) => sum + item.quantity, 0);
-        const wholesaleDiscount = totalQuantity >= 10 ? 10 : totalQuantity >= 5 ? 7 : totalQuantity >= 3 ? 5 : 0;
-        const productsSubtotal = secureItems.reduce((sum, item) => sum + Math.max(1, item.unitPrice - wholesaleDiscount) * item.quantity, 0);
+        const isWholesaleProduct = (prod) => {
+            if (!prod) return false;
+            const cat = String(prod.category || '').toLowerCase().trim();
+            if (cat === 'accesorios') return false;
+            if (cat === 'celulares' || cat === 'tablets' || cat === 'notebooks') return true;
+            const name = String(prod.name || '').toLowerCase();
+            const accessoryKeywords = [
+                'funda', 'case', 'cable', 'cargador', 'charger', 'auricular', 'auriculares',
+                'earphones', 'airpod', 'airpods', 'vidrio', 'templado', 'protector',
+                'hidrogel', 'adaptador', 'powerbank', 'magsafe', 'correa', 'malla', 'accesorio', 'accesorios'
+            ];
+            return !accessoryKeywords.some((kw) => name.includes(kw));
+        };
+
+        const wholesaleEligibleQuantity = secureItems
+            .filter((item) => isWholesaleProduct(item.product))
+            .reduce((sum, item) => sum + item.quantity, 0);
+        const wholesaleDiscount = wholesaleEligibleQuantity >= 10 ? 10 : wholesaleEligibleQuantity >= 5 ? 7 : wholesaleEligibleQuantity >= 3 ? 5 : 0;
+        const productsSubtotal = secureItems.reduce((sum, item) => {
+            const isEligible = isWholesaleProduct(item.product);
+            const discount = isEligible ? wholesaleDiscount : 0;
+            return sum + Math.max(1, item.unitPrice - discount) * item.quantity;
+        }, 0);
 
         const settings = await getStoreSettings();
         const couponCode = String(req.body.discount_code || '').trim().toUpperCase();
@@ -961,13 +982,17 @@ app.post('/api/orders', authenticate, async (req, res) => {
             .single();
         if (orderError) throw orderError;
 
-        const orderItems = secureItems.map((item) => ({
-            order_id: orderData.id,
-            product_id: item.product.id,
-            quantity: item.quantity,
-            price: item.unitPrice,
-            variant_name: item.variantName
-        }));
+        const orderItems = secureItems.map((item) => {
+            const isEligible = isWholesaleProduct(item.product);
+            const effectivePrice = Math.max(1, item.unitPrice - (isEligible ? wholesaleDiscount : 0));
+            return {
+                order_id: orderData.id,
+                product_id: item.product.id,
+                quantity: item.quantity,
+                price: effectivePrice,
+                variant_name: item.variantName
+            };
+        });
         const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
         if (itemsError) {
             await supabase.from('orders').delete().eq('id', orderData.id);
@@ -988,13 +1013,111 @@ app.post('/api/orders', authenticate, async (req, res) => {
         }
 
         const totalArs = Math.round((productsSubtotal - discountUsd) * dollarRate + extraShipping);
-        const itemList = secureItems.map((item) => `${item.quantity}x ${escapeHtml(item.product.name)}${item.variantName ? ` (${escapeHtml(item.variantName)})` : ''}`).join('<br>');
-        const customerSummary = `Nombre: ${escapeHtml(customerName)}<br>Email: ${escapeHtml(customerEmail)}<br>Dirección: ${escapeHtml(shippingAddress)}`;
-        const adminEmail = process.env.ORDER_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || process.env.SMTP_USER;
-        if (adminEmail) {
-            void sendEmail(adminEmail, `Nueva orden PhoneSpot #${orderData.id}`, `<h1>Nueva orden</h1><p><strong>Orden #${escapeHtml(orderData.id)}</strong></p><p>${customerSummary}</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p>`);
+        const itemList = secureItems.map((item) => {
+            const isEligible = isWholesaleProduct(item.product);
+            const effectiveUnitPrice = Math.max(1, item.unitPrice - (isEligible ? wholesaleDiscount : 0));
+            const itemPriceArs = Math.round(effectiveUnitPrice * dollarRate);
+            const variantStr = item.variantName ? ` (${escapeHtml(item.variantName)})` : '';
+            const discountNote = (wholesaleDiscount > 0 && isEligible) ? ` <span style="color:#27ae60; font-size:0.85em;">(-${wholesaleDiscount} USD Mayorista)</span>` : '';
+            return `• ${item.quantity}x <strong>${escapeHtml(item.product.name)}</strong>${variantStr} — $${itemPriceArs.toLocaleString('es-AR')} ARS c/u${discountNote}`;
+        }).join('<br>');
+
+        const shippingInfo = extraShipping > 0
+            ? `<p style="margin: 4px 0; color: #555;">Envío (${escapeHtml(shippingMethod)}): <strong>$${Math.round(extraShipping).toLocaleString('es-AR')} ARS</strong></p>`
+            : `<p style="margin: 4px 0; color: #2ecc71;">Envío (${escapeHtml(shippingMethod)}): <strong>Gratis</strong></p>`;
+
+        const cleanPhone = String(customerPhone || '').replace(/\D/g, '');
+        const wpCustomerLink = cleanPhone ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`¡Hola ${customerName}! Te escribo de PhoneSpot respecto a tu pedido #${orderData.id}.`)}` : null;
+
+        const customerSummary = `
+            <strong>Nombre:</strong> ${escapeHtml(customerName)}<br>
+            <strong>Email:</strong> <a href="mailto:${escapeHtml(customerEmail)}" style="color:#2563eb; text-decoration:none;">${escapeHtml(customerEmail)}</a><br>
+            <strong>Teléfono:</strong> ${wpCustomerLink ? `<a href="${wpCustomerLink}" target="_blank" style="color:#059669; font-weight:bold; text-decoration:none;">${escapeHtml(customerPhone)} (Abrir WhatsApp)</a>` : escapeHtml(customerPhone)}<br>
+            <strong>Dirección de entrega:</strong> ${escapeHtml(shippingAddress)}<br>
+            <strong>Método de envío:</strong> ${escapeHtml(shippingMethod)}<br>
+            <strong>Método de pago:</strong> ${escapeHtml(paymentMethod)}
+            ${couponCode ? `<br><strong>Cupón de descuento:</strong> <span style="color:#d97706; font-weight:bold;">${escapeHtml(couponCode)}</span> (-$${discountUsd.toFixed(2)} USD)` : ''}
+        `;
+
+        const adminEmail = settings.admin_email || settings.contact_email || settings.email || process.env.ORDER_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || process.env.SMTP_USER || 'boujonnacho@gmail.com';
+        
+        const adminEmailHtml = `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 640px; margin: auto; padding: 24px; color: #1f2937; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; line-height: 1.6;">
+                <div style="border-bottom: 2px solid #f3f4f6; padding-bottom: 16px; margin-bottom: 20px;">
+                    <span style="background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; float: right;">Nueva Venta</span>
+                    <h2 style="margin: 0; color: #111827; font-size: 1.35rem;">🛍️ Orden PhoneSpot #${escapeHtml(orderData.id)}</h2>
+                    <p style="margin: 4px 0 0; font-size: 0.85rem; color: #6b7280;">Fecha y hora: ${new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' })} hs</p>
+                </div>
+
+                <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 10px; font-size: 0.95rem; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;">👤 Datos del Comprador</h3>
+                    <div style="line-height: 1.7; font-size: 0.92rem;">
+                        ${customerSummary}
+                    </div>
+                </div>
+
+                <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 10px; font-size: 0.95rem; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;">📦 Especificaciones de los Productos</h3>
+                    <div style="line-height: 1.8; font-size: 0.92rem;">
+                        ${itemList}
+                    </div>
+                    <div style="border-top: 1px dashed #d1d5db; margin-top: 14px; padding-top: 12px;">
+                        ${shippingInfo}
+                        <p style="font-size: 1.3rem; margin: 10px 0 4px; color: #111827;">
+                            <strong>Total a cobrar: $${totalArs.toLocaleString('es-AR')} ARS</strong> 
+                            <span style="font-size: 0.95rem; color: #6b7280; font-weight: normal;">(${total.toFixed(2)} USD)</span>
+                        </p>
+                        <p style="font-size: 0.82rem; color: #6b7280; margin: 0;">(Cotización del dólar del día: 1 USD = $${dollarRate.toLocaleString('es-AR')} ARS)</p>
+                    </div>
+                </div>
+
+                ${wpCustomerLink ? `
+                <div style="text-align: center; margin-top: 24px;">
+                    <a href="${wpCustomerLink}" target="_blank" style="background: #25D366; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 0.95rem; display: inline-block;">
+                        💬 Abrir WhatsApp con el Cliente (${escapeHtml(customerPhone)})
+                    </a>
+                </div>` : ''}
+            </div>
+        `;
+
+        const wpOrderMsg = `¡Hola PhoneSpot! Acabo de hacer el pedido #${orderData.id}. Mi nombre es ${customerName} y el total a abonar es $${totalArs.toLocaleString('es-AR')} ARS. Quisiera coordinar el pago y entrega.`;
+        const wpOrderUrl = `https://wa.me/5493447416011?text=${encodeURIComponent(wpOrderMsg)}`;
+
+        const customerEmailHtml = `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 24px; color: #222; line-height: 1.6;">
+                <h1 style="color: #111; margin-bottom: 0.5rem;">¡Compra confirmada!</h1>
+                <p>Hola <strong>${escapeHtml(customerName)}</strong>, recibimos tu orden <strong>#${escapeHtml(orderData.id)}</strong> correctamente.</p>
+                <div style="background: #f8f9fa; border: 1px solid #e5e5ea; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                    <p style="margin: 0 0 8px; font-weight: bold;">Productos seleccionados:</p>
+                    <p style="margin: 0; line-height: 1.6;">${itemList}</p>
+                    ${shippingInfo}
+                    <div style="border-top: 1px solid #e0e0e0; padding-top: 8px; margin-top: 8px;">
+                        <p style="font-size: 1.3rem; margin: 0; color: #111;"><strong>Total a pagar: $${totalArs.toLocaleString('es-AR')} ARS</strong></p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 4px 0 0;">(Cotización del dólar del día: 1 USD = $${dollarRate.toLocaleString('es-AR')} ARS)</p>
+                    </div>
+                </div>
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center;">
+                    <p style="margin: 0 0 8px; font-weight: bold; color: #166534;">Coordinación de pago y envío</p>
+                    <p style="margin: 0 0 12px; font-size: 0.95rem; color: #15803d;">Para coordinar el pago en pesos (Transferencia bancaria o Efectivo) y la entrega de tu pedido <strong>#${escapeHtml(orderData.id)}</strong>, hacé clic en el botón a continuación:</p>
+                    <a href="${wpOrderUrl}" target="_blank" style="background: #25D366; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-block;">Coordinar por WhatsApp</a>
+                </div>
+                <p style="color: #888; font-size: 0.85rem; text-align: center; margin-top: 24px;">Gracias por elegir PhoneSpot. Si tenés alguna duda o consulta, respondé a este correo o contactanos por WhatsApp.</p>
+            </div>
+        `;
+
+        // Despachar los correos tanto al cliente como al administrador
+        try {
+            const emailJobs = [];
+            if (customerEmail) {
+                emailJobs.push(sendEmail(customerEmail, `Confirmación de orden #${orderData.id} - PhoneSpot`, customerEmailHtml));
+            }
+            if (adminEmail) {
+                emailJobs.push(sendEmail(adminEmail, `🔔 Nueva Orden Recibida #${orderData.id} - $${totalArs.toLocaleString('es-AR')} ARS`, adminEmailHtml));
+            }
+            await Promise.allSettled(emailJobs);
+        } catch (emailErr) {
+            console.error('Error despachando correos de orden:', emailErr);
         }
-        void sendEmail(customerEmail, `Confirmación de orden #${orderData.id}`, `<h1>¡Compra confirmada!</h1><p>Hola ${escapeHtml(customerName)}, recibimos tu orden #${escapeHtml(orderData.id)}.</p><p><strong>Productos:</strong><br>${itemList}</p><p>Total: ${total.toFixed(2)} USD</p><p>Coordina el pago con nosotros por WhatsApp.</p>`);
 
         void supabase.from('site_events').insert([{ event_type: 'order_created', page_path: '/checkout.html' }]);
         res.status(201).json({ message: 'Orden creada', orderId: orderData.id, total, total_ars: totalArs, dollar_rate: dollarRate });

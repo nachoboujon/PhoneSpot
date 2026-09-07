@@ -125,6 +125,22 @@ function updateCartCount() {
     }
 }
 
+window.isWholesaleEligible = function(item) {
+    if (!item) return false;
+    const cat = String(item.category || '').toLowerCase().trim();
+    if (cat === 'accesorios') return false;
+    if (cat === 'celulares' || cat === 'tablets' || cat === 'notebooks') return true;
+
+    // Fallback if item does not have category property
+    const name = String(item.name || '').toLowerCase();
+    const accessoryKeywords = [
+        'funda', 'case', 'cable', 'cargador', 'charger', 'auricular', 'auriculares',
+        'earphones', 'airpod', 'airpods', 'vidrio', 'templado', 'protector',
+        'hidrogel', 'adaptador', 'powerbank', 'magsafe', 'correa', 'malla', 'accesorio', 'accesorios'
+    ];
+    return !accessoryKeywords.some(kw => name.includes(kw));
+};
+
 function addToCart(product) {
     const existingItem = cart.find(item => item.id === product.id && item.variant_name === product.variant_name);
     
@@ -155,7 +171,7 @@ function addToCart(product) {
 function removeFromCart(id, variant_name = '') {
     cart = cart.filter(item => !(item.id === id && String(item.variant_name || '') === String(decodeURIComponent(variant_name || ''))));
     saveCart();
-    renderCart(); // Solo ítil si estámás en carrito.html
+    renderCart(); // Solo útil si estamos en carrito.html
     if (typeof renderSideCart === 'function') renderSideCart();
 }
 
@@ -184,14 +200,18 @@ async function renderSideCart() {
     sideContainer.innerHTML = '';
     let total = 0;
     
-    // MAYORISTA LOGIC
-    let totalQuantity = 0;
-    cart.forEach(item => totalQuantity += item.quantity);
+    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    let eligibleQuantity = 0;
+    cart.forEach(item => {
+        if (window.isWholesaleEligible(item)) {
+            eligibleQuantity += item.quantity;
+        }
+    });
     let wholesaleDiscount = 0;
-        if (totalQuantity >= 10) wholesaleDiscount = 10;
-        else if (totalQuantity >= 5) wholesaleDiscount = 7;
-        else if (totalQuantity >= 3) wholesaleDiscount = 5;
-        const isWholesale = wholesaleDiscount > 0;
+    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
+    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
+    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
         sideContainer.innerHTML = `
@@ -212,8 +232,9 @@ async function renderSideCart() {
     }
 
     cart.forEach(item => {
+        const itemIsEligible = window.isWholesaleEligible(item);
         let finalPrice = item.price;
-        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
+        if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         sideContainer.innerHTML += `
@@ -222,7 +243,7 @@ async function renderSideCart() {
                 <div class="side-cart-item-info">
                     <h4>${item.name}</h4>
                     <p>${item.variant_name || ''}</p>
-                    ${isWholesale ? `<p style="color: #ff4757; font-size:0.8rem; text-decoration:line-through;">${window.formatPrice(item.price)}</p>` : ''}
+                    ${isWholesale && itemIsEligible ? `<p style="color: #ff4757; font-size:0.8rem; text-decoration:line-through;">${window.formatPrice(item.price)}</p>` : ''}
                     <p style="color: var(--text-color); font-weight:bold; margin-top:0.3rem;">${window.formatPrice(finalPrice)} x ${item.quantity}</p>
                 </div>
                 <div style="display:flex; flex-direction:column; align-items:flex-end;">
@@ -237,30 +258,28 @@ async function renderSideCart() {
         `;
     });
     
-    
-    
     let bannerHtml = '';
     
     let nextTierQty = 3;
     let nextTierDiscount = 5;
-    if (totalQuantity >= 10) { nextTierQty = 0; }
-    else if (totalQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
-    else if (totalQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
+    if (eligibleQuantity >= 10) { nextTierQty = 0; }
+    else if (eligibleQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
+    else if (eligibleQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
 
-    if (totalQuantity >= 10) {
+    if (eligibleQuantity >= 10) {
         bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado! (-${wholesaleDiscount} USD c/u)
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en equipos! (-${wholesaleDiscount} USD c/u)
                       </div>`;
     } else if (isWholesale) {
-        const remaining = nextTierQty - totalQuantity;
+        const remaining = nextTierQty - eligibleQuantity;
         bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Activo! (-${wholesaleDiscount} USD c/u)<br>
-                        <span style="font-size:0.75rem; color:#d35400;">(Agrega ${remaining} más para llegar a -${nextTierDiscount} USD c/u)</span>
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Equipos! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.75rem; color:#d35400;">(Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
-        const remaining = 3 - totalQuantity;
+        const remaining = 3 - eligibleQuantity;
         bannerHtml = `<div id="wholesale-banner-side" style="background:#fff3e0; color:#e65100; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para activar Precio Mayorista (-5 USD c/u)
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más (Celulares, Tablets o Notebooks) para activar Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
 
@@ -304,14 +323,18 @@ async function renderCart() { await window.dolarPromise;
     cartItemsContainer.innerHTML = '';
     let total = 0;
     
-    // MAYORISTA LOGIC
-    let totalQuantity = 0;
-    cart.forEach(item => totalQuantity += item.quantity);
+    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    let eligibleQuantity = 0;
+    cart.forEach(item => {
+        if (window.isWholesaleEligible(item)) {
+            eligibleQuantity += item.quantity;
+        }
+    });
     let wholesaleDiscount = 0;
-        if (totalQuantity >= 10) wholesaleDiscount = 10;
-        else if (totalQuantity >= 5) wholesaleDiscount = 7;
-        else if (totalQuantity >= 3) wholesaleDiscount = 5;
-        const isWholesale = wholesaleDiscount > 0;
+    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
+    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
+    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p style="text-align:center; color: var(--text-muted);">Tu carrito está vacío.</p>';
@@ -323,30 +346,31 @@ async function renderCart() { await window.dolarPromise;
     // Wholesale banner injection
     let nextTierQty = 3;
     let nextTierDiscount = 5;
-    if (totalQuantity >= 10) { nextTierQty = 0; }
-    else if (totalQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
-    else if (totalQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
+    if (eligibleQuantity >= 10) { nextTierQty = 0; }
+    else if (eligibleQuantity >= 5) { nextTierQty = 10; nextTierDiscount = 10; }
+    else if (eligibleQuantity >= 3) { nextTierQty = 5; nextTierDiscount = 7; }
 
-    if (totalQuantity >= 10) {
+    if (eligibleQuantity >= 10) {
         cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:1rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado! (-${wholesaleDiscount} USD c/u)
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en equipos! (-${wholesaleDiscount} USD c/u)
                       </div>`;
     } else if (isWholesale) {
-        const remaining = nextTierQty - totalQuantity;
+        const remaining = nextTierQty - eligibleQuantity;
         cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:0.95rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Activo! (-${wholesaleDiscount} USD c/u)<br>
-                        <span style="font-size:0.85rem; color:#d35400;">(Agrega ${remaining} más para llegar a -${nextTierDiscount} USD c/u)</span>
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Equipos! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.85rem; color:#d35400;">(Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
-        const remaining = 3 - totalQuantity;
+        const remaining = 3 - eligibleQuantity;
         cartItemsContainer.innerHTML += `<div style="background:#fff3e0; color:#e65100; padding: 15px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 20px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más a tu pedido para desbloquear el Precio Mayorista (-5 USD c/u)
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más a tu pedido (Celulares, Tablets o Notebooks) para desbloquear el Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
 
     cart.forEach(item => {
+        const itemIsEligible = window.isWholesaleEligible(item);
         let finalPrice = item.price;
-        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
+        if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         const itemDiv = document.createElement('div');
@@ -356,7 +380,7 @@ async function renderCart() { await window.dolarPromise;
             <div class="item-details">
                 <h4>${item.name}</h4>
                 ${item.variant_name ? `<p>${item.variant_name}</p>` : ''}
-                ${isWholesale ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
+                ${isWholesale && itemIsEligible ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
                 <div class="item-quantity" style="margin-top: 5px;">
                     <span>Cantidad:</span>
                     <input type="number" value="${item.quantity}" min="1" onchange="changeQuantity('${item.id}', parseInt(this.value), '${encodeURIComponent(item.variant_name || String())}')">
@@ -364,7 +388,7 @@ async function renderCart() { await window.dolarPromise;
             </div>
             <div class="item-price" style="display:flex; flex-direction:column; align-items:flex-end;">
                 <strong style="font-size: 1.2rem; color: var(--text-color);">${window.formatPrice(finalPrice * item.quantity)}</strong>
-                ${isWholesale ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -${wholesaleDiscount} USD aplicado )</span>` : ''}
+                ${isWholesale && itemIsEligible ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -${wholesaleDiscount} USD aplicado )</span>` : ''}
             </div>
             <button onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
         `;
@@ -409,24 +433,29 @@ async function renderCheckout() { await window.dolarPromise;
     let total = 0;
     checkoutItems.innerHTML = '';
     
-    // MAYORISTA LOGIC
-    let totalQuantity = 0;
-    cart.forEach(item => totalQuantity += item.quantity);
+    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    let eligibleQuantity = 0;
+    cart.forEach(item => {
+        if (window.isWholesaleEligible(item)) {
+            eligibleQuantity += item.quantity;
+        }
+    });
     let wholesaleDiscount = 0;
-        if (totalQuantity >= 10) wholesaleDiscount = 10;
-        else if (totalQuantity >= 5) wholesaleDiscount = 7;
-        else if (totalQuantity >= 3) wholesaleDiscount = 5;
-        const isWholesale = wholesaleDiscount > 0;
+    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
+    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
+    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    const isWholesale = wholesaleDiscount > 0;
     
     if (isWholesale) {
         checkoutItems.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-tags"></i> Precio Mayorista Aplicado
+                        <i class="fa-solid fa-tags"></i> Precio Mayorista Aplicado en Equipos (-${wholesaleDiscount} USD c/u)
                       </div>`;
     }
     
     cart.forEach(item => {
+        const itemIsEligible = window.isWholesaleEligible(item);
         let finalPrice = item.price;
-        if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
+        if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
         total += finalPrice * item.quantity;
         
         checkoutItems.innerHTML += `
@@ -436,7 +465,7 @@ async function renderCheckout() { await window.dolarPromise;
                     ${item.variant_name ? `<span style="color:var(--text-muted); font-size:0.8rem;">${item.variant_name}</span>` : ''}
                 </div>
                 <div style="text-align: right;">
-                    ${isWholesale ? `<span style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; display:block;">${window.formatPrice(item.price * item.quantity)}</span>` : ''}
+                    ${isWholesale && itemIsEligible ? `<span style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; display:block;">${window.formatPrice(item.price * item.quantity)}</span>` : ''}
                     <strong>${window.formatPrice(finalPrice * item.quantity)}</strong>
                 </div>
             </div>
@@ -626,7 +655,7 @@ async function loadProductsFromDB() {
                 }
 
                 const cardHTML = `
-                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
                         ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
@@ -788,12 +817,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Mení Hamburguesa Móvil
+    // Menú Hamburguesa Móvil
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const nav = document.querySelector('nav');
+    const headerEl = document.querySelector('header');
     if (mobileBtn && nav) {
-        mobileBtn.addEventListener('click', () => {
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (headerEl) {
+                const headerHeight = headerEl.offsetHeight || 80;
+                nav.style.top = `${headerHeight}px`;
+                nav.style.height = `calc(100dvh - ${headerHeight}px)`;
+            }
             nav.classList.toggle('active');
+            const icon = mobileBtn.querySelector('i');
+            if (icon) {
+                if (nav.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-xmark';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        });
+
+        // Cerrar menú al hacer clic en cualquier enlace
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = mobileBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
+            });
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (nav.classList.contains('active') && !nav.contains(e.target) && !mobileBtn.contains(e.target)) {
+                nav.classList.remove('active');
+                const icon = mobileBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
+            }
         });
     }
     
@@ -823,6 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = btn.closest('.product-card') || btn.closest('.product-details') || btn.closest('.hero-content');
             
             const id = card.dataset.id;
+            const category = (card.dataset.category || '').toLowerCase();
             let name = card.querySelector('h4, h2').innerText.split('.')[0]; 
             const price = parseFloat(card.dataset.price);
 
@@ -888,7 +951,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error parsing stock info', e);
             }
 
-            addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock});
+            addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category});
         }
     });
 
@@ -1037,7 +1100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const cardHTML = `
-                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
                         ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
@@ -1281,7 +1344,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 singleProductContainer.innerHTML = `
                     <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
-                        <div class="product-details" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
+                        <div class="product-details" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
                             <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem;">
                                 <div style="position: relative; overflow: hidden; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; padding: 2rem;">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
@@ -1641,7 +1704,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
                     const cardHTML = `
-                        <div class="product-card" data-id="${prod.id}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
+                        <div class="product-card" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
                                 ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                                 <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
                                 <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
@@ -1867,17 +1930,22 @@ const checkoutForm = document.getElementById('checkout-form');
 
             
             try {
-                let totalQuantity = 0;
-                cart.forEach(item => totalQuantity += item.quantity);
+                let eligibleQuantity = 0;
+                cart.forEach(item => {
+                    if (window.isWholesaleEligible(item)) {
+                        eligibleQuantity += item.quantity;
+                    }
+                });
                 let wholesaleDiscount = 0;
-                if (totalQuantity >= 10) wholesaleDiscount = 10;
-                else if (totalQuantity >= 5) wholesaleDiscount = 7;
-                else if (totalQuantity >= 3) wholesaleDiscount = 5;
+                if (eligibleQuantity >= 10) wholesaleDiscount = 10;
+                else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
+                else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
                 const isWholesale = wholesaleDiscount > 0;
 
                 const total = cart.reduce((acc, item) => {
+                    const itemIsEligible = window.isWholesaleEligible(item);
                     let finalPrice = item.price;
-                    if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
+                    if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                     return acc + (finalPrice * item.quantity);
                 }, 0);
                 let orderSubtotal = total;
@@ -1902,30 +1970,41 @@ const checkoutForm = document.getElementById('checkout-form');
                 const data = await response.json();
                 
                 if (response.ok) {
+                    const confirmedTotalArs = Number(data.total_ars) || finalTotalArs;
                     
-                    if (paymentMethod === 'efectivo') {
-                        const confirmedTotalArs = Number(data.total_ars) || finalTotalArs;
-                        // Generar mensaje de WhatsApp
-                        let wpMsg = `Hola PhoneSpot! Acabo de hacer un pedido de pago en efectivo/Transferencia/Dolares.\n\n*Orden:* #${data.orderId}\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar (efectivo/transferencia):* ${confirmedTotalArs.toLocaleString('es-AR')}\n`;
-                        if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista Activado (-${wholesaleDiscount} USD c/u)\n`;
-                        wpMsg += `\n*Productos:*\n`;
+                    // Generar mensaje de WhatsApp con precios en pesos argentinos
+                    let wpMsg = `¡Hola PhoneSpot! Acabo de hacer el pedido #${data.orderId}.\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* $${confirmedTotalArs.toLocaleString('es-AR')} ARS\n`;
+                    if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista en Equipos (-${wholesaleDiscount} USD c/u)\n`;
+                    wpMsg += `\n*Productos:*\n`;
 
-                        cart.forEach(item => {
-                            let finalPrice = item.price;
-                            if (isWholesale) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
-                            wpMsg += `- ${item.quantity}x ${item.name} (${window.formatPrice(finalPrice)})\n`;
-                        });
-                        wpMsg += `\nQuiero coordinar el pago en efectivo/Transferencia/Dolares con ustedes.`;
-                        
-                        const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
-                        const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
-                        cart = [];
-                        saveCart();
-                        if (typeof updateCartUI === 'function') updateCartUI();
-                        
-                        showToast('¡Orden registrada! Redirigiendo a WhatsApp...', 'fa-check');
-                        setTimeout(() => window.location.href = wpUrl, 2000);
-                    }
+                    cart.forEach(item => {
+                        const itemIsEligible = window.isWholesaleEligible(item);
+                        let finalPrice = item.price;
+                        if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
+                        const finalArs = Math.round(finalPrice * window.dolarValue);
+                        wpMsg += `- ${item.quantity}x ${item.name} ($${finalArs.toLocaleString('es-AR')} ARS)\n`;
+                    });
+                    wpMsg += `\nQuiero coordinar el pago en pesos (Transferencia/Efectivo) con ustedes.`;
+                    
+                    const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+                    const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
+                    
+                    cart = [];
+                    saveCart();
+                    if (typeof updateCartUI === 'function') updateCartUI();
+
+                    // Intentar abrir WhatsApp en una pestaña nueva para que el usuario no pierda el sitio
+                    try {
+                        window.open(wpUrl, '_blank');
+                    } catch (_) {}
+
+                    showToast('¡Compra registrada con éxito!', 'fa-check');
+
+                    // Redirigir siempre a la página de compra exitosa dentro del sitio web
+                    const targetUrl = `compra-exitosa.html?orderId=${encodeURIComponent(data.orderId)}&total=${encodeURIComponent(confirmedTotalArs)}&wpUrl=${encodeURIComponent(wpUrl)}`;
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 800);
                 } else {
                     showToast(data.error || 'Error procesando la compra', 'fa-triangle-exclamation');
                 }
