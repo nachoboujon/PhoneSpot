@@ -2119,8 +2119,8 @@ const checkoutForm = document.getElementById('checkout-form');
                 row.className = 'variant-row';
                 row.style.cssText = 'display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap;';
                 row.innerHTML = `
-                    <input type="text" class="var-color" placeholder="Color (Ej: Blanco)" required style="flex:1; min-width:120px;">
-                    <input type="text" class="var-cap" placeholder="Almacen. (Ej: 256GB)" required style="flex:1; min-width:120px;">
+                    <input type="text" class="var-color" placeholder="Color (Ej: Blanco o Único)" required style="flex:1; min-width:120px;">
+                    <input type="text" class="var-cap" placeholder="Almacen. (Opcional)" style="flex:1; min-width:120px;">
                     <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
                     <input type="text" class="var-batt" placeholder="Batería (Opc. Ej: 100%)" style="flex:1; min-width:110px;">
                     <input type="number" class="var-price" placeholder="Precio" min="0" style="width:110px;" title="Deja vacío para precio base">
@@ -2131,6 +2131,16 @@ const checkoutForm = document.getElementById('checkout-form');
 
                 row.querySelector('.btn-remove-var').addEventListener('click', () => row.remove());
             });
+
+            const prodCategoryEl = document.getElementById('prod-category');
+            if (prodCategoryEl) {
+                prodCategoryEl.addEventListener('change', () => {
+                    const isAccessory = prodCategoryEl.value === 'accesorios';
+                    document.querySelectorAll('.var-cap').forEach(input => {
+                        input.placeholder = isAccessory ? 'Almacen. (No aplica / Opcional)' : 'Almacen. (Opcional)';
+                    });
+                });
+            }
         }
 
         adminForm.addEventListener('submit', async (e) => {
@@ -2149,8 +2159,15 @@ const checkoutForm = document.getElementById('checkout-form');
                 const priceEl = row.querySelector('.var-price');
                 const price = priceEl && priceEl.value && Number(priceEl.value) > 0 ? parseFloat(priceEl.value) : null;
                 const stock = parseInt(row.querySelector('.var-stock').value) || 0;
-                if(color && capacity) {
-                    variantsArray.push({ color, capacity, ram, batt, price, stock });
+                if(color || capacity || stock > 0) {
+                    variantsArray.push({
+                        color: color || (capacity ? '' : 'Único'),
+                        capacity: capacity || '',
+                        ram,
+                        batt,
+                        price,
+                        stock
+                    });
                     totalStock += stock;
                 }
             });
@@ -2237,8 +2254,8 @@ const checkoutForm = document.getElementById('checkout-form');
                                     <h6 style="margin-bottom:0.5rem;">Variantes (Colores/Capacidad)</h6>
                                     <div id="variants-list-${p.id}" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;"></div>
                                     <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-                                        <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul)" style="padding:0.2rem; width:120px;">
-                                        <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (ej. 128GB)" style="padding:0.2rem; width:120px;">
+                                        <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul o Único)" style="padding:0.2rem; width:120px;">
+                                        <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (Opcional)" style="padding:0.2rem; width:120px;">
                                         <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
                                         <input type="text" id="new-batt-${p.id}" placeholder="Batería (Opc)" style="padding:0.2rem; width:90px;">
                                         <input type="number" id="new-vprice-${p.id}" placeholder="Precio USD (Opc)" style="padding:0.2rem; width:110px;">
@@ -2301,9 +2318,11 @@ const checkoutForm = document.getElementById('checkout-form');
                 
                 window[`adminProductVariants_${id}`] = variants; // keep track of parsed variants
 
-                list.innerHTML = variants.map((v, index) => `
+                list.innerHTML = variants.map((v, index) => {
+                    const variantDesc = [v.color, v.capacity, v.ram, v.batt ? 'Bat: ' + v.batt : ''].filter(Boolean).join(' - ') || 'Variante';
+                    return `
                     <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px; flex-wrap:wrap; gap:0.5rem;">
-                        <span style="font-size:0.85rem;">${v.color} - ${v.capacity} ${v.ram ? '- ' + v.ram : ''} ${v.batt ? '- Bat: ' + v.batt : ''} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
+                        <span style="font-size:0.85rem;">${variantDesc} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
                         <div style="display:flex; align-items:center; gap:0.5rem;">
                             <label style="font-size:0.8rem; margin:0;">Stock:</label>
                             <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" style="width:60px; padding:0.2rem; font-size:0.8rem;">
@@ -2311,7 +2330,8 @@ const checkoutForm = document.getElementById('checkout-form');
                             <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer; margin-left:0.5rem;"><i class="fa-solid fa-times"></i></button>
                         </div>
                     </div>
-                `).join('');
+                `;
+                }).join('');
             };
 
             window.addVariantToProduct = async (id) => {
@@ -2324,10 +2344,10 @@ const checkoutForm = document.getElementById('checkout-form');
                 const rawPrice = document.getElementById(`new-vprice-${id}`).value;
                 const price = rawPrice && Number(rawPrice) > 0 ? parseFloat(rawPrice) : null;
                 
-                if (!color || !cap) return showToast('Color y Capacidad son obligatorios', 'fa-exclamation');
+                if (!color && !cap) return showToast('Ingresa al menos un Color o Capacidad', 'fa-exclamation');
 
                 let variants = window[`adminProductVariants_${id}`] || [];
-                variants.push({ color, capacity: cap, ram, batt, stock, price });
+                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, stock, price });
                 
                 await saveVariantsToDB(id, variants);
             };
@@ -4119,6 +4139,19 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Navegación directa al clickear cualquier tarjeta de producto
+document.addEventListener('click', (event) => {
+    const card = event.target.closest('.product-card[data-id]');
+    if (!card) return;
+    if (event.target.closest('a, button, select, input, .fav-btn, .compare-action, .add-to-cart-btn, .var-btn, .var-select, label')) {
+        return;
+    }
+    const productId = card.dataset.id;
+    if (productId) {
+        window.location.href = `producto.html?id=${encodeURIComponent(productId)}`;
+    }
+});
+
 // ==================== COMPARADOR DE EQUIPOS ====================
 window.addEventListener('DOMContentLoaded', () => {
     const compareStorageKey = 'phoneSpotCompareIds';
@@ -4160,28 +4193,48 @@ window.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
+    let isMutatingCompare = false;
     const mountCompareButtons = (scope = document) => {
-        scope.querySelectorAll?.('.product-card[data-id], .product-details[data-id]').forEach(card => {
-            if (card.querySelector('[data-compare-product]')) return;
-            const addToCartButton = card.querySelector('.add-to-cart-btn');
-            if (!addToCartButton) return;
-            const productId = String(card.dataset.id || '');
-            if (!productId) return;
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'compare-action';
-            button.dataset.compareProduct = productId;
-            button.innerHTML = '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
-            addToCartButton.insertAdjacentElement('afterend', button);
-        });
-        const selected = new Set(getCompareIds());
-        document.querySelectorAll('[data-compare-product]').forEach(button => {
-            const isSelected = selected.has(String(button.dataset.compareProduct));
-            button.classList.toggle('selected', isSelected);
-            button.innerHTML = isSelected
-                ? '<i class="fa-solid fa-check"></i> Agregado al comparador'
-                : '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
-        });
+        if (isMutatingCompare) return;
+        isMutatingCompare = true;
+        try {
+            const targetContainer = (scope && scope.nodeType === Node.ELEMENT_NODE) ? scope : document;
+            const cards = [];
+            if (targetContainer.matches?.('.product-card[data-id], .product-details[data-id]')) {
+                cards.push(targetContainer);
+            }
+            if (targetContainer.querySelectorAll) {
+                targetContainer.querySelectorAll('.product-card[data-id], .product-details[data-id]').forEach(c => cards.push(c));
+            }
+
+            cards.forEach(card => {
+                if (card.querySelector('[data-compare-product]')) return;
+                const addToCartButton = card.querySelector('.add-to-cart-btn');
+                if (!addToCartButton) return;
+                const productId = String(card.dataset.id || '');
+                if (!productId) return;
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'compare-action';
+                button.dataset.compareProduct = productId;
+                button.innerHTML = '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
+                addToCartButton.insertAdjacentElement('afterend', button);
+            });
+
+            const selected = new Set(getCompareIds());
+            document.querySelectorAll('[data-compare-product]').forEach(button => {
+                const isSelected = selected.has(String(button.dataset.compareProduct));
+                const wasSelected = button.classList.contains('selected');
+                if (isSelected !== wasSelected || !button.querySelector('i')) {
+                    button.classList.toggle('selected', isSelected);
+                    button.innerHTML = isSelected
+                        ? '<i class="fa-solid fa-check"></i> Agregado al comparador'
+                        : '<i class="fa-solid fa-scale-balanced"></i> Comparar equipo';
+                }
+            });
+        } finally {
+            isMutatingCompare = false;
+        }
     };
 
     document.addEventListener('click', event => {
@@ -4205,8 +4258,12 @@ window.addEventListener('DOMContentLoaded', () => {
     mountCompareButtons();
     renderCompareTray();
     new MutationObserver(records => {
+        if (isMutatingCompare) return;
         records.forEach(record => record.addedNodes.forEach(node => {
-            if (node.nodeType === Node.ELEMENT_NODE) mountCompareButtons(node);
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.closest?.('.compare-action') || node.classList?.contains('compare-action')) return;
+                mountCompareButtons(node);
+            }
         }));
     }).observe(document.body, { childList: true, subtree: true });
 
