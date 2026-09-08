@@ -25,3 +25,8 @@ El pago no se procesa dentro del sitio: se crea el pedido y se coordina por What
 - [[02 Arquitectura/Arquitectura del sistema]]
 - [[03 Dominios/Catálogo y productos]]
 - [[03 Dominios/Pedidos y checkout]]
+# Banners de portada
+
+La portada utiliza tres imágenes fotográficas de producto creadas para PhoneSpot: smartphone, notebook y accesorios. La dirección visual es monocromática (negro, grafito y plata), sin logos ni texto dentro de las imágenes, para priorizar la legibilidad del mensaje y de los llamados a la acción.
+
+Los archivos viven en `public/uploads/` y se utilizan como carrusel predeterminado desde `public/data/settings.json` y como respaldo en `public/script.js`.

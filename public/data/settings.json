@@ -5,16 +5,22 @@
   ],
   "carousel": [
     {
-      "title": "Nuevos iPhone 15 Pro",
-      "subtitle": "Descubre la potencia del titanio. Stock limitado.",
-      "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=80",
+      "title": "Tecnología que se siente premium",
+      "subtitle": "Smartphones seleccionados. Diseño, potencia y confianza.",
+      "image": "uploads/hero-graphite-phone-v1.png",
       "link": "catalogo.html?cat=apple"
     },
     {
-      "title": "Renueva tu Notebook",
-      "subtitle": "Equipos ideales para trabajar, estudiar y jugar.",
-      "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=80",
+      "title": "Tu próximo equipo empieza acá",
+      "subtitle": "Notebooks para crear, estudiar y trabajar sin límites.",
+      "image": "uploads/hero-graphite-laptop-v1.png",
       "link": "catalogo.html?cat=notebooks"
+    },
+    {
+      "title": "Los detalles también importan",
+      "subtitle": "Accesorios esenciales, elegidos para acompañarte todos los días.",
+      "image": "uploads/hero-graphite-accessories-v1.png",
+      "link": "catalogo.html?cat=accesorios"
     }
   ],
   "shipping_correo": 8500,

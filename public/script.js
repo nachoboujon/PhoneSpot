@@ -3191,22 +3191,22 @@ async function applyFrontendSettings() {
                 // FALLBACK: Inyectar 3 banners por defecto para que se vea lindo
                 data.carousel = [
                     {
-                        title: "El vistazo al mundo Apple está aquí",
-                        subtitle: "Titanio. Tan resistente como ligero.",
-                        link: "catalogo.html",
-                        image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=2000&auto=format&fit=crop"
+                        title: "Tecnología que se siente premium",
+                        subtitle: "Smartphones seleccionados. Diseño, potencia y confianza.",
+                        link: "catalogo.html?cat=apple",
+                        image: "uploads/hero-graphite-phone-v1.png"
                     },
                     {
-                        title: "Samsung Galaxy S24 Ultra",
-                        subtitle: "La era de la Inteligencia Artificial",
-                        link: "catalogo.html",
-                        image: "https://images.unsplash.com/photo-1707028448897-5a23f1a070eb?q=80&w=2000&auto=format&fit=crop"
+                        title: "Tu próximo equipo empieza acá",
+                        subtitle: "Notebooks para crear, estudiar y trabajar sin límites.",
+                        link: "catalogo.html?cat=notebooks",
+                        image: "uploads/hero-graphite-laptop-v1.png"
                     },
                     {
-                        title: "Accesorios Premium",
-                        subtitle: "Fundas, cargadores y auriculares",
-                        link: "catalogo.html",
-                        image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=2000&auto=format&fit=crop"
+                        title: "Los detalles también importan",
+                        subtitle: "Accesorios esenciales, elegidos para acompañarte todos los días.",
+                        link: "catalogo.html?cat=accesorios",
+                        image: "uploads/hero-graphite-accessories-v1.png"
                     }
                 ];
             }
