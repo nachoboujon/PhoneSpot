@@ -34,7 +34,8 @@
                             <h3 style="margin-bottom:1.5rem; font-size:1.4rem; border-bottom:1px solid #eee; padding-bottom:0.5rem;"><i class="fa-solid fa-address-card"></i> 1. Datos de Contacto</h3>
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" id="chk-email" placeholder="tu@email.com" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
+                                <input type="email" id="chk-email" placeholder="tu@email.com" autocomplete="email" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
+                                <small style="display:block; margin-top:.45rem; color:var(--text-muted);">Usaremos el email verificado de tu cuenta para confirmar el pedido.</small>
                             </div>
                             <div class="form-group" style="display: flex; gap: 10px;">
                                 <div style="flex:1;">
@@ -49,11 +50,11 @@
                             <div class="form-group" style="display: flex; gap: 10px;">
                                 <div style="flex:1;">
                                     <label>DNI / CUIL *</label>
-                                    <input type="number" id="chk-dni" placeholder="Sin puntos ni espacios" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
+                                    <input type="text" id="chk-dni" inputmode="numeric" pattern="[0-9]{7,8}" maxlength="8" placeholder="Sin puntos ni espacios" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
                                 </div>
                                 <div style="flex:1;">
                                     <label>Teléfono (WhatsApp) *</label>
-                                    <input type="tel" id="chk-phone" placeholder="Ej: 1123456789" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
+                                    <input type="tel" id="chk-phone" inputmode="tel" autocomplete="tel" pattern="[0-9+() -]{10,20}" maxlength="20" placeholder="Ej: +54 9 11 2345-6789" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
                                 </div>
                             </div>
                         </div>
@@ -65,9 +66,15 @@
                                 <input type="text" id="chk-address" placeholder="Ej: Av. Rivadavia 1234, Piso 2, Dpto A" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
                             </div>
                             <div class="form-group" style="display: flex; gap: 10px;">
-                                <div style="flex:2;">
-                                    <label>Provincia / Ciudad *</label>
-                                    <input type="text" id="chk-city" placeholder="Ej: CABA, Buenos Aires" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
+                                <div style="flex:1;">
+                                    <label>Provincia *</label>
+                                    <select id="chk-province" autocomplete="address-level1" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd; background:#fff;">
+                                        <option value="">Elegí tu provincia</option><option>Buenos Aires</option><option>Ciudad Autónoma de Buenos Aires</option><option>Catamarca</option><option>Chaco</option><option>Chubut</option><option>Córdoba</option><option>Corrientes</option><option>Entre Ríos</option><option>Formosa</option><option>Jujuy</option><option>La Pampa</option><option>La Rioja</option><option>Mendoza</option><option>Misiones</option><option>Neuquén</option><option>Río Negro</option><option>Salta</option><option>San Juan</option><option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option><option>Santiago del Estero</option><option>Tierra del Fuego, Antártida e Islas del Atlántico Sur</option><option>Tucumán</option>
+                                    </select>
+                                </div>
+                                <div style="flex:1;">
+                                    <label>Ciudad / Localidad *</label>
+                                    <input type="text" id="chk-city" autocomplete="address-level2" placeholder="Ej: San José" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
                                 </div>
                                 <div style="flex:1;">
                                     <label>Código Postal *</label>

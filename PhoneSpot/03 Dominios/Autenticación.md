@@ -38,3 +38,4 @@ Los clientes se registran con correo y contraseña, verifican su dirección y re
 - Después de iniciar sesión con email o Google, los clientes son dirigidos a `perfil.html`; se respeta `?redirect=perfil.html` al llegar desde una ruta protegida.
 - El menú móvil ofrece un acceso textual a **Mi cuenta** (o al panel si es administrador), además del ícono de cabecera.
 - El perfil obtiene y actualiza únicamente el registro identificado por el JWT mediante `GET /api/me` y `PUT /api/me`. El email se mantiene bloqueado para evitar cambios sin verificación.
+- El email verificado de esa cuenta es el que se usa para confirmar compras; no se admite sustituirlo por otro email desde el checkout.

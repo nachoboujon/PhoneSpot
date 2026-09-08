@@ -82,6 +82,11 @@ const escapeText = (value = '') => String(value)
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+const isValidCheckoutEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(value || '').trim());
+const isValidArgentinePhone = (value) => {
+    const nationalNumber = String(value || '').replace(/\D/g, '').replace(/^54/, '').replace(/^9/, '');
+    return /^\d{10}$/.test(nationalNumber) && !/^(\d)\1+$/.test(nationalNumber);
+};
 // ====================================================
 
 // Sistema de Notificaciones Elegantes (Toast)
@@ -1764,10 +1769,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const address = document.getElementById('chk-address').value;
             
             const city = document.getElementById('chk-city').value;
+            const province = document.getElementById('chk-province')?.value;
             const zip = document.getElementById('chk-zip').value;
+            const phone = document.getElementById('chk-phone')?.value;
+            const dni = document.getElementById('chk-dni')?.value.replace(/\D/g, '');
             
-            if (!email || !name || !address || !city || !zip) {
+            if (!email || !name || !address || !province || !city || !zip || !phone || !dni) {
                 showToast('Por favor completa todos los campos de envío.', 'fa-circle-exclamation');
+                return;
+            }
+            if (!isValidCheckoutEmail(email) || !isValidArgentinePhone(phone) || !/^\d{7,8}$/.test(dni)) {
+                showToast('Revisá el email, DNI y teléfono antes de continuar.', 'fa-circle-exclamation');
                 return;
             }
             
@@ -1795,6 +1807,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         const chkZip = document.getElementById('chk-zip');
         const chkCity = document.getElementById('chk-city');
+        const chkProvince = document.getElementById('chk-province');
         const shippingContainer = document.getElementById('shipping-options-container');
         
         if (chkZip && chkCity && shippingContainer) {
@@ -1811,6 +1824,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (zipCityMap[zip]) {
                     chkCity.value = zipCityMap[zip];
+                    if (chkProvince) chkProvince.value = 'Entre Ríos';
                 } else if (zip.length >= 4) {
                     // Buscar en toda Argentina con Zippopotamus
                     chkCity.value = 'Buscando ciudad...';
@@ -1840,7 +1854,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 });
                                 
                                 if (data.places.length === 1) {
-                                    chkCity.value = data.places[0]['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase()) + ', ' + data.places[0]['state'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    chkCity.value = data.places[0]['place name'].toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+                                    if (chkProvince) {
+                                        const matchingOption = Array.from(chkProvince.options).find((option) => option.textContent.toLowerCase() === String(data.places[0]['state']).toLowerCase());
+                                        if (matchingOption) chkProvince.value = matchingOption.value;
+                                    }
                                 } else {
                                     chkCity.value = '';
                                     chkCity.placeholder = 'Elige tu ciudad/barrio de la lista...';
@@ -1882,6 +1900,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
+        const checkoutEmail = document.getElementById('chk-email');
+        const checkoutToken = localStorage.getItem('phoneSpotToken');
+        if (checkoutEmail && checkoutToken) {
+            fetch(window.API_URL + '/api/me', { headers: { Authorization: `Bearer ${checkoutToken}` } })
+                .then((response) => response.ok ? response.json() : Promise.reject())
+                .then((user) => { checkoutEmail.value = user.email; checkoutEmail.readOnly = true; })
+                .catch(() => {});
+        }
         const shippingRadios = document.querySelectorAll('input[name="shipping_method"]');
 
         if (shippingRadios.length > 0) {
@@ -1909,9 +1935,14 @@ const checkoutForm = document.getElementById('checkout-form');
             const customer_email = document.getElementById('chk-email').value;
             const customer_name = document.getElementById('chk-name').value + ' ' + document.getElementById('chk-lastname').value;
             const city = document.getElementById('chk-city').value;
+            const province = document.getElementById('chk-province').value;
             const phone = document.getElementById('chk-phone') ? document.getElementById('chk-phone').value : '';
             const dni = document.getElementById('chk-dni') ? document.getElementById('chk-dni').value : '';
-            const shipping_address = `Tel: ${phone} - DNI: ${dni} - ${document.getElementById('chk-address').value}, ${city} CP: ${document.getElementById('chk-zip').value}`;
+            if (!isValidCheckoutEmail(customer_email) || !isValidArgentinePhone(phone) || !/^\d{7,8}$/.test(String(dni).replace(/\D/g, '')) || !province || !city.trim()) {
+                showToast('Revisá tus datos de contacto y envío antes de confirmar.', 'fa-circle-exclamation');
+                return;
+            }
+            const shipping_address = `Tel: ${phone} - DNI: ${dni} - ${document.getElementById('chk-address').value}, ${city}, ${province} CP: ${document.getElementById('chk-zip').value}`;
 
             let shipping_cost = 0;
             var settings_ml = window.phoneSpotSettings || { free_shipping_threshold: 1500000 };
@@ -1981,7 +2012,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
                     },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, customer_phone: phone, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
+                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
                 });
 
                 const data = await response.json();

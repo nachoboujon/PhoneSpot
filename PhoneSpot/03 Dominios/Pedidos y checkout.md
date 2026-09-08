@@ -12,6 +12,13 @@ El checkout valida el carrito, solicita una opción de envío y crea un pedido a
 - Productos, variantes, cantidad y total.
 - Método de pago, envío, estado y código de seguimiento.
 
+## Validación de contacto y entrega
+
+- El email de compra se completa desde la cuenta autenticada y el servidor exige que coincida con su email verificado. Aplica por igual a cuentas con contraseña y a Google Sign-In.
+- Se valida el formato de teléfono argentino, el DNI (7 u 8 dígitos), nombre, ciudad y código postal antes de crear un pedido. Estas comprobaciones también se repiten en el servidor.
+- La provincia es una selección obligatoria de las 24 jurisdicciones argentinas; la ciudad se ingresa por separado para evitar direcciones ambiguas.
+- La verificación de propiedad del teléfono por SMS/WhatsApp requiere integrar un proveedor de mensajería y no se simula como una validación real.
+
 ## Estados
 
 `pending` → `confirmed` / `preparing` → `shipped` → `delivered`.

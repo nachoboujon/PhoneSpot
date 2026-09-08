@@ -100,6 +100,16 @@ const hasStrongPassword = (password) => (
     && /\d/.test(password)
 );
 
+const isValidArgentinePhone = (value) => {
+    const digits = String(value || '').replace(/\D/g, '');
+    const nationalNumber = digits.replace(/^54/, '').replace(/^9/, '');
+    return /^\d{10}$/.test(nationalNumber) && !/^(\d)\1+$/.test(nationalNumber);
+};
+
+const argentinaProvinces = new Set([
+    'Buenos Aires', 'Ciudad Autónoma de Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego, Antártida e Islas del Atlántico Sur', 'Tucumán'
+]);
+
 const createAccessToken = (user) => jwt.sign(
     { id: user.id, role: user.role, name: user.name },
     jwtSecret,
@@ -948,12 +958,24 @@ app.post('/api/orders', authenticate, async (req, res) => {
         const customerName = String(req.body.customer_name || '').trim();
         const customerPhone = String(req.body.customer_phone || '').trim().slice(0, 40);
         const shippingAddress = String(req.body.shipping_address || '').trim();
+        const province = String(req.body.province || '').trim();
         const shippingMethod = String(req.body.shipping_method || 'A coordinar').trim().slice(0, 100);
         const paymentMethod = String(req.body.payment_method || 'transferencia').trim().slice(0, 40);
         let extraShipping = Number(req.body.shipping_cost || 0);
 
-        if (!Array.isArray(rawItems) || rawItems.length === 0 || rawItems.length > 30 || !/^\S+@\S+\.\S+$/.test(customerEmail) || customerName.length < 2 || customerName.length > 120 || customerPhone.length < 6 || shippingAddress.length < 8 || !Number.isFinite(extraShipping) || extraShipping < 0 || extraShipping > 250000) {
+        if (!Array.isArray(rawItems) || rawItems.length === 0 || rawItems.length > 30 || !/^\S+@\S+\.\S+$/.test(customerEmail) || customerName.length < 2 || customerName.length > 120 || !isValidArgentinePhone(customerPhone) || shippingAddress.length < 8 || !argentinaProvinces.has(province) || !Number.isFinite(extraShipping) || extraShipping < 0 || extraShipping > 250000) {
             return res.status(400).json({ error: 'Los datos de la orden son inválidos.' });
+        }
+
+        // El checkout requiere sesión: el correo de la orden debe pertenecer a esa
+        // cuenta ya validada (por enlace de email o por Google email_verified).
+        const { data: account, error: accountError } = await supabase
+            .from('users')
+            .select('email')
+            .eq('id', req.user.id)
+            .single();
+        if (accountError || !account || String(account.email).toLowerCase() !== customerEmail) {
+            return res.status(400).json({ error: 'Usá el email verificado de tu cuenta para confirmar la compra.' });
         }
         const requestedItems = new Map();
         for (const item of rawItems) {
