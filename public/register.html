@@ -239,6 +239,7 @@
         .divider::after { margin-left: .5em; }
 
     </style>
+    <link rel="stylesheet" href="auth-premium.css?v=20260908-google-auth">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
@@ -272,11 +273,19 @@
             </div>
             
             <div class="auth-form-wrapper">
-                <h1>Crear Cuenta</h1>
+                <span class="auth-kicker">Comunidad PhoneSpot</span>
+                <h1>Crear cuenta</h1>
                 <p class="subtitle">Completa tus datos para crear una cuenta nueva.</p>
                 
-                <div class="social-login google-only">
-                    <div id="google-login-button" class="google-login-button" aria-label="Continuar con Google"></div>
+                <div class="google-auth-panel" data-google-auth data-state="loading">
+                    <div class="google-auth-panel__meta">
+                        <span class="google-auth-panel__title">Empezá más rápido</span>
+                        <span class="google-auth-panel__trust"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Protegido por Google</span>
+                    </div>
+                    <div id="google-login-button" class="google-login-button" aria-label="Continuar con Google">
+                        <span class="google-button-loading">Preparando Google</span>
+                    </div>
+                    <p class="google-auth-help" id="google-login-status">Tu cuenta se crea de forma segura en un solo paso.</p>
                 </div>
                 
                 <div class="divider">o usa tu email</div>
@@ -285,21 +294,21 @@
                     
             <div class="auth-input-group">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" id="reg-name" placeholder="Tu nombre completo" required>
+                <input type="text" id="reg-name" placeholder="Tu nombre completo" aria-label="Nombre completo" autocomplete="name" required>
             </div>
         
                     <div class="auth-input-group">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+                        <input type="email" id="reg-email" placeholder="Correo electrónico" aria-label="Correo electrónico" autocomplete="email" required>
                     </div>
                     
                     <div class="auth-input-group">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="reg-password" placeholder="Contraseña segura" required>
+                        <input type="password" id="reg-password" placeholder="Contraseña segura" aria-label="Contraseña" autocomplete="new-password" required>
                     </div>
                     <div class="auth-input-group">
                         <i class="fa-solid fa-check-double"></i>
-                        <input type="password" id="reg-password-confirm" placeholder="Repite tu contraseña" required>
+                        <input type="password" id="reg-password-confirm" placeholder="Repite tu contraseña" aria-label="Repetir contraseña" autocomplete="new-password" required>
                     </div>
 
                     

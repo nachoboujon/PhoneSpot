@@ -1,6 +1,6 @@
 # Publicar PhoneSpot en Railway
 
-1. Ejecuta `migration_schema_sync.sql` en el SQL Editor de Supabase.
+1. Ejecuta `database/migrations/migration_schema_sync.sql` en el SQL Editor de Supabase.
 2. Crea un servicio desde este repositorio en Railway. El comando de inicio es `npm start`; Railway asigna `PORT` automáticamente.
 3. Configura estas variables en Railway:
 

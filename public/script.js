@@ -3744,7 +3744,10 @@ window.handleGoogleCredential = async ({ credential } = {}) => {
 window.setupGoogleLogin = async () => {
     const target = document.getElementById('google-login-button');
     if (!target || target.dataset.ready) return;
+    const panel = target.closest('[data-google-auth]');
+    const status = document.getElementById('google-login-status');
     try {
+        if (panel) panel.dataset.state = 'loading';
         const configResponse = await fetch(window.API_URL + '/api/auth/google/config');
         const config = await configResponse.json();
         if (!configResponse.ok || !config.clientId) throw new Error(config.error || 'Google Sign-In no está configurado');
@@ -3760,18 +3763,24 @@ window.setupGoogleLogin = async () => {
             auto_select: false,
             cancel_on_tap_outside: true
         });
+        target.replaceChildren();
         target.dataset.ready = 'true';
         google.accounts.id.renderButton(target, {
             theme: 'outline',
             size: 'large',
-            text: 'signin_with',
-            shape: 'rectangular',
+            text: 'continue_with',
+            shape: 'pill',
             locale: 'es',
-            width: Math.min(400, Math.floor(target.getBoundingClientRect().width || 360))
+            logo_alignment: 'left',
+            width: Math.min(440, Math.floor(target.getBoundingClientRect().width || 360))
         });
+        if (panel) panel.dataset.state = 'ready';
+        if (status) status.textContent = 'Elegí tu cuenta de Google para continuar de forma segura.';
     } catch (error) {
         console.error('Google Sign-In:', error);
         target.innerHTML = '<p class="google-login-error">Google no está disponible por el momento.</p>';
+        if (panel) panel.dataset.state = 'error';
+        if (status) status.textContent = 'Podés ingresar con tu correo y contraseña.';
     }
 };
 

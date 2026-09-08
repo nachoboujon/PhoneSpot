@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "node --check server.js && node --check public/script.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "npm run test:syntax",
+    "test:syntax": "node --check server.js && node --check public/script.js",
+    "test:purchase-flow": "node scripts/tests/test-purchase-flow.js",
+    "test:supabase": "node scripts/tests/test-supabase.js"
   },
   "keywords": [],
   "author": "",

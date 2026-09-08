@@ -1,5 +1,14 @@
-Esta es su nueva *bóveda*.
+---
+tags: [phonespot, entrada]
+---
 
-Cree una nota de algo, [[cree un enlace]], o pruebe [el Importador](https://help.obsidian.md/Plugins/Importer)!
+# Bienvenido a la bóveda de PhoneSpot
 
-Cuando esté listo, borre esta nota y aprópiese de la bóveda
+Esta bóveda documenta el producto, su arquitectura y su operación. Empezá por [[00 Inicio]] para navegar el sistema o abrí la **Vista de grafo** para explorar las relaciones.
+
+## Atajos
+
+- [[01 Producto/Visión de producto]]
+- [[02 Arquitectura/Arquitectura del sistema]]
+- [[03 Dominios/Administración]]
+- [[05 Operación/Despliegue]]

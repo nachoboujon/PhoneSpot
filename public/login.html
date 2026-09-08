@@ -333,6 +333,7 @@
         .divider::after { margin-left: .5em; }
 
     </style>
+    <link rel="stylesheet" href="auth-premium.css?v=20260908-google-auth">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
@@ -372,11 +373,19 @@
             </div>
             
             <div class="auth-form-wrapper">
-                <h1>Iniciar Sesión</h1>
+                <span class="auth-kicker">Acceso seguro</span>
+                <h1>Iniciar sesión</h1>
                 <p class="subtitle">Ingresa tus credenciales para acceder a tu panel.</p>
                 
-                <div class="social-login google-only">
-                    <div id="google-login-button" class="google-login-button" aria-label="Iniciar sesión con Google"></div>
+                <div class="google-auth-panel" data-google-auth data-state="loading">
+                    <div class="google-auth-panel__meta">
+                        <span class="google-auth-panel__title">Acceso rápido</span>
+                        <span class="google-auth-panel__trust"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Protegido por Google</span>
+                    </div>
+                    <div id="google-login-button" class="google-login-button" aria-label="Iniciar sesión con Google">
+                        <span class="google-button-loading">Preparando Google</span>
+                    </div>
+                    <p class="google-auth-help" id="google-login-status">Continuá con tu cuenta en un solo paso.</p>
                 </div>
                 
                 <div class="divider">o usa tu email</div>
@@ -385,11 +394,11 @@
                     
                     <div class="auth-input-group">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="log-email" placeholder="Correo electrónico" required>
+                        <input type="email" id="log-email" placeholder="Correo electrónico" aria-label="Correo electrónico" autocomplete="email" required>
                     </div>
                     <div class="auth-input-group">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="log-password" placeholder="Contraseña segura" required>
+                        <input type="password" id="log-password" placeholder="Contraseña segura" aria-label="Contraseña" autocomplete="current-password" required>
                     </div>
                     <div style="text-align:right; margin-top:-0.4rem;">
                         <a href="recuperar.html" style="font-size:.85rem; color:var(--text-muted);">¿Olvidaste tu contraseña?</a>
