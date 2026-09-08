@@ -3817,6 +3817,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
+    if (!document.querySelector('.instagram-follow-cta')) {
+        const instagramLink = document.createElement('a');
+        instagramLink.className = 'instagram-follow-cta';
+        instagramLink.href = 'https://www.instagram.com/phonespotsj';
+        instagramLink.target = '_blank';
+        instagramLink.rel = 'noopener noreferrer';
+        instagramLink.setAttribute('aria-label', 'Seguinos en Instagram: @phonespotsj');
+        instagramLink.innerHTML = `
+            <span class="instagram-follow-cta__icon" aria-hidden="true"><i class="fa-brands fa-instagram"></i></span>
+            <span class="instagram-follow-cta__copy"><span class="instagram-follow-cta__label">Seguinos en Instagram</span><span class="instagram-follow-cta__handle">@phonespotsj</span></span>
+        `;
+        document.body.append(instagramLink);
+    }
+
     const adminLinks = document.querySelectorAll('.footer-admin-link');
     if (localStorage.getItem('phoneSpotRole') === 'admin') {
         adminLinks.forEach(link => link.style.display = 'inline-block');

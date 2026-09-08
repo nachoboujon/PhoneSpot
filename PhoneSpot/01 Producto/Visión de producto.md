@@ -12,6 +12,7 @@ PhoneSpot es una tienda de tecnología orientada a la venta de teléfonos y acce
 - Carrito, checkout y coordinación de pago por WhatsApp.
 - Registro, verificación de correo, recuperación de contraseña e inicio con Google.
 - Administración de catálogo, pedidos, reseñas, contenido y métricas.
+- Canal social visible en todas las páginas: Instagram [@phonespotsj](https://www.instagram.com/phonespotsj).
 
 ## Límites del producto
 
