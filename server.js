@@ -1216,6 +1216,42 @@ app.post('/api/orders', authenticate, async (req, res) => {
     }
 });
 
+// PERFIL: cada usuario sólo puede leer y actualizar su propio registro.
+app.get('/api/me', authenticate, async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('users')
+            .select('id, name, email, created_at')
+            .eq('id', req.user.id)
+            .single();
+        if (error || !data) return res.status(404).json({ error: 'No encontramos tu cuenta.' });
+        res.json(data);
+    } catch (error) {
+        console.error('Error leyendo perfil:', error.message);
+        res.status(500).json({ error: 'No pudimos cargar tu perfil.' });
+    }
+});
+
+app.put('/api/me', authenticate, limitByClient('profile-update', 20, 15 * 60 * 1000), async (req, res) => {
+    try {
+        const name = String(req.body.name || '').trim();
+        if (name.length < 2 || name.length > 100) {
+            return res.status(400).json({ error: 'Tu nombre debe tener entre 2 y 100 caracteres.' });
+        }
+        const { data, error } = await supabase
+            .from('users')
+            .update({ name })
+            .eq('id', req.user.id)
+            .select('id, name, email, created_at')
+            .single();
+        if (error || !data) throw error || new Error('Cuenta no encontrada');
+        res.json({ message: 'Datos actualizados.', user: data });
+    } catch (error) {
+        console.error('Error actualizando perfil:', error.message);
+        res.status(500).json({ error: 'No pudimos actualizar tus datos.' });
+    }
+});
+
 // NUEVAS RUTAS
 app.get('/api/my-orders', authenticate, async (req, res) => {
     try {

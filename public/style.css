@@ -12,7 +12,7 @@
 /* Instagram: acceso visible y consistente en toda la tienda. */
 .instagram-follow-cta {
     position: fixed;
-    z-index: 950;
+    z-index: 1002;
     left: 1.25rem;
     bottom: 1.25rem;
     display: inline-flex;
@@ -75,6 +75,10 @@
     font-size: .88rem;
     font-weight: 700;
 }
+
+.mobile-account-link { display: none; }
+.header-instagram-link a { display: inline-flex !important; align-items: center; gap: .45rem; }
+.header-instagram-link i { color: #111; }
 
 @media (max-width: 640px) {
     .instagram-follow-cta { left: .75rem; bottom: .85rem; min-height: 44px; padding: .55rem .82rem .55rem .58rem; }
@@ -1023,7 +1027,7 @@ button:hover, .btn:hover {
         min-height: 440px;
         background: #111;
     }
-    .carousel-slide {
+    .hero-carousel:not(.spotlight-carousel) .carousel-slide {
         /* El JS conserva la posición de cada banner para permitir el swipe. */
         width: 100% !important;
         height: 100% !important;
@@ -1032,7 +1036,7 @@ button:hover, .btn:hover {
         touch-action: pan-y;
         transition: transform .42s cubic-bezier(.22,.61,.36,1) !important;
     }
-    .carousel-slide.active {
+    .hero-carousel:not(.spotlight-carousel) .carousel-slide.active {
         opacity: 1 !important;
         pointer-events: auto;
     }
@@ -1255,7 +1259,7 @@ footer {
     .hero-content {
         padding: 1rem;
     }
-    .carousel-slide {
+    .hero-carousel:not(.spotlight-carousel) .carousel-slide {
         height: 85vh !important; /* Adjust height for mobile */
     }
 }
@@ -1698,6 +1702,49 @@ body:not(.dark-mode) .logo-slide img {
     }
 }
 
+/* Mi cuenta: panel claro, ordenado y consistente con la estética PhoneSpot. */
+.account-page { max-width: 1180px; min-height: calc(100vh - 180px); margin: 0 auto; padding: 3rem 5% 4rem; }
+.account-hero { display: flex; align-items: center; gap: 1.25rem; padding: 2rem; border: 1px solid #242424; border-radius: 24px; background: radial-gradient(circle at 86% 12%, #464646 0, transparent 18rem), linear-gradient(135deg, #080808, #202020); color: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.16); }
+.account-avatar { display: grid; flex: 0 0 64px; width: 64px; height: 64px; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 20px; background: rgba(255,255,255,.12); font-size: 1.65rem; }
+.account-kicker, .account-card-heading span, .account-section-heading span { display: block; margin-bottom: .4rem; color: #8b8b8b; font-size: .72rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.account-kicker { color: #d2d2d2; }
+.account-hero h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.55rem); letter-spacing: -.055em; }
+.account-hero p { margin: .35rem 0 0; color: #d0d0d0; }
+.account-shop-link { margin-left: auto; padding: .85rem 1rem; border-radius: 12px; background: #fff; color: #111; font-size: .86rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.account-shop-link:hover { color: #111; transform: translateY(-2px); }
+.account-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 1.25rem; margin-top: 1.25rem; }
+.account-card, .account-orders-section { border: 1px solid #e5e5e5; border-radius: 20px; background: #fff; box-shadow: 0 12px 35px rgba(0,0,0,.045); }
+.account-card { padding: 1.65rem; }
+.account-card-heading, .account-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.account-card-heading h2, .account-section-heading h2 { margin: 0; color: #111; font-size: 1.4rem; letter-spacing: -.035em; }
+.account-card-heading > i, .account-section-heading > i { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 13px; background: #111; color: #fff; }
+.account-form { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.account-form label { display: grid; gap: .45rem; color: #333; font-size: .83rem; font-weight: 750; }
+.account-form input { width: 100%; min-height: 50px; padding: .75rem .9rem; border: 1px solid #dcdcdc; border-radius: 11px; background: #fff; color: #111; font: inherit; }
+.account-form input:focus { outline: 0; border-color: #111; box-shadow: 0 0 0 4px rgba(0,0,0,.08); }
+.account-form input:disabled { background: #f4f4f4; color: #777; cursor: not-allowed; }
+.account-form small { color: #777; font-size: .76rem; line-height: 1.4; }
+.account-save, .account-secondary-action, .account-logout { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .75rem 1rem; border-radius: 11px; font: inherit; font-size: .86rem; font-weight: 800; text-decoration: none; cursor: pointer; }
+.account-save { border: 0; background: #111; color: #fff; }
+.account-save:disabled { opacity: .65; cursor: wait; transform: none; }
+.account-security-card { display: flex; flex-direction: column; }
+.account-security-card > p { margin: 1.45rem 0 1.2rem; color: #666; line-height: 1.55; }
+.account-secondary-action { border: 1px solid #d9d9d9; background: #fff; color: #111; }
+.account-secondary-action:hover { border-color: #111; color: #111; }
+.account-logout { margin-top: .75rem; border: 0; background: transparent; color: #777; }
+.account-logout:hover { color: #b42318; box-shadow: none; transform: none; background: #fff5f4; }
+.account-message { min-height: 1.2rem; margin: 0; font-size: .84rem; font-weight: 650; }
+.account-message.is-success { color: #168344; }.account-message.is-error { color: #b42318; }
+.account-orders-section { margin-top: 1.25rem; padding: 1.65rem; }
+.account-section-heading p { margin: .45rem 0 0; color: #717171; }.account-section-heading > i { flex: 0 0 auto; }
+.account-orders { display: grid; gap: .9rem; margin-top: 1.5rem; }
+.account-loading, .account-empty { display: grid; min-height: 180px; place-content: center; justify-items: center; gap: .65rem; padding: 2rem; border: 1px dashed #d8d8d8; border-radius: 15px; color: #707070; text-align: center; }
+.account-empty i { color: #111; font-size: 1.5rem; }.account-empty h3, .account-empty p { margin: 0; }.account-empty h3 { color: #111; font-size: 1.1rem; }.account-empty a { margin-top: .45rem; border-radius: 10px; background: #111; color: #fff; padding: .75rem 1rem; font-size: .85rem; font-weight: 750; text-decoration: none; }.account-empty.is-error i, .account-empty.is-error h3 { color: #b42318; }
+.order-card { padding: 1.2rem; border: 1px solid #e7e7e7; border-radius: 15px; background: #fff; }
+.order-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }.order-number { display: block; color: #111; font-weight: 850; }.order-card time { display: block; margin-top: .28rem; color: #777; font-size: .78rem; }.order-total { display: grid; justify-items: end; gap: .42rem; }.order-total > strong { font-size: 1.1rem; }.order-status { display: inline-flex; align-items: center; gap: .32rem; border-radius: 999px; padding: .32rem .55rem; font-size: .72rem; font-weight: 800; }.order-status.pending { background: #fff4dc; color: #956800; }.order-status.confirmed, .order-status.delivered { background: #eaf8ee; color: #15753a; }.order-status.preparing { background: #eeeafe; color: #5639a4; }.order-status.shipped { background: #eaf4ff; color: #1a65a3; }.order-status.cancelled { background: #fff0f0; color: #b42318; }
+.order-items { display: grid; gap: .65rem; margin: 1rem 0 0; padding: 0; list-style: none; }.order-items li { display: grid; grid-template-columns: 42px minmax(0,1fr) auto; align-items: center; gap: .75rem; }.order-items img { width: 42px; height: 42px; border: 1px solid #eee; border-radius: 10px; object-fit: cover; }.order-items span { min-width: 0; }.order-items strong, .order-items small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.order-items strong { font-size: .88rem; }.order-items small { margin-top: .15rem; color: #777; font-size: .74rem; }.order-items b { color: #444; font-size: .84rem; }.order-tracking { display: flex; align-items: center; gap: .55rem; margin-top: 1rem; padding: .75rem; border-radius: 10px; background: #f3f7fb; color: #27597c; font-size: .83rem; }.order-tracking b { display: block; margin-top: .1rem; color: #111; font-family: monospace; }.account-footer { padding: 1.7rem 5%; background: #111; color: #aaa; text-align: center; font-size: .85rem; }.account-footer a { color: #fff; font-weight: 700; }
+@media (max-width: 768px) { .mobile-account-link { display: list-item; }.header-instagram-link { display: none !important; }.account-page { padding: 1.25rem 1rem 2.5rem; }.account-hero { align-items: flex-start; flex-wrap: wrap; padding: 1.35rem; border-radius: 18px; }.account-avatar { flex-basis: 54px; width: 54px; height: 54px; border-radius: 16px; }.account-hero h1 { font-size: 1.75rem; }.account-shop-link { width: 100%; margin: .25rem 0 0; text-align: center; }.account-grid { grid-template-columns: 1fr; gap: .9rem; margin-top: .9rem; }.account-card, .account-orders-section { padding: 1.2rem; border-radius: 16px; }.order-card { padding: 1rem; }.order-card-top { align-items: start; }.order-total > strong { font-size: 1rem; }.account-footer { padding-bottom: 6rem; } }
+
 
 /* ========================================= */
 /* 📱 SMART RESPONSIVE OVERHAUL (TABLET & MOBILE) */
@@ -2034,7 +2081,7 @@ body:not(.dark-mode) .logo-slide img {
         transition: transform .42s cubic-bezier(.22,.61,.36,1) !important;
         touch-action: pan-y;
     }
-    .carousel-slide.active { pointer-events: auto; }
+    .hero-carousel:not(.spotlight-carousel) .carousel-slide.active { pointer-events: auto; }
     #offers-container, #catalog-container {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: .75rem !important;

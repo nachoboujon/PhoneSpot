@@ -33,3 +33,8 @@ Los clientes se registran con correo y contraseña, verifican su dirección y re
 - [[Pedidos y checkout]]
 - [[Administración]]
 - [[05 Operación/Variables de entorno]]
+# Cuenta y acceso móvil
+
+- Después de iniciar sesión con email o Google, los clientes son dirigidos a `perfil.html`; se respeta `?redirect=perfil.html` al llegar desde una ruta protegida.
+- El menú móvil ofrece un acceso textual a **Mi cuenta** (o al panel si es administrador), además del ícono de cabecera.
+- El perfil obtiene y actualiza únicamente el registro identificado por el JWT mediante `GET /api/me` y `PUT /api/me`. El email se mantiene bloqueado para evitar cambios sin verificación.

@@ -2196,8 +2196,12 @@ const checkoutForm = document.getElementById('checkout-form');
                     localStorage.setItem('phoneSpotToken', data.token);
                     localStorage.setItem('phoneSpotRole', data.role);
                     showToast('¡Bienvenido!', 'fa-check');
-                    if(data.role === 'admin') setTimeout(() => window.location.href = 'admin.html', 1500);
-                    else setTimeout(() => window.location.href = 'index.html', 1500);
+                    const requestedRedirect = new URLSearchParams(window.location.search).get('redirect');
+                    const safeRedirect = requestedRedirect && /^[a-zA-Z0-9_-]+\.html(?:[?#].*)?$/.test(requestedRedirect)
+                        ? requestedRedirect
+                        : null;
+                    if(data.role === 'admin') setTimeout(() => window.location.href = safeRedirect || 'admin.html', 900);
+                    else setTimeout(() => window.location.href = safeRedirect || 'perfil.html', 900);
                 } else {
                     showToast(data.error, 'fa-triangle-exclamation');
                 }
@@ -3827,7 +3831,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.instagram-follow-cta')) {
         const instagramLink = document.createElement('a');
         instagramLink.className = 'instagram-follow-cta';
-        instagramLink.href = 'https://www.instagram.com/phonespotsj';
+        instagramLink.href = 'https://www.instagram.com/phonespotsj/';
         instagramLink.target = '_blank';
         instagramLink.rel = 'noopener noreferrer';
         instagramLink.setAttribute('aria-label', 'Seguinos en Instagram: @phonespotsj');
@@ -3836,6 +3840,29 @@ window.addEventListener('DOMContentLoaded', () => {
             <span class="instagram-follow-cta__copy"><span class="instagram-follow-cta__label">Seguinos en Instagram</span><span class="instagram-follow-cta__handle">@phonespotsj</span></span>
         `;
         document.body.append(instagramLink);
+    }
+
+    const navList = document.querySelector('header nav ul');
+    if (navList && !navList.querySelector('.header-instagram-link')) {
+        const instagramMenuLink = document.createElement('li');
+        instagramMenuLink.className = 'header-instagram-link';
+        instagramMenuLink.innerHTML = '<a href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a>';
+        navList.append(instagramMenuLink);
+    }
+
+    let mobileAccountLink = navList?.querySelector('.mobile-account-link');
+    if (navList && !mobileAccountLink) {
+        mobileAccountLink = document.createElement('li');
+        mobileAccountLink.className = 'mobile-account-link';
+        navList.append(mobileAccountLink);
+    }
+    if (mobileAccountLink && !mobileAccountLink.dataset.synced) {
+        const token = localStorage.getItem('phoneSpotToken');
+        const role = localStorage.getItem('phoneSpotRole');
+        mobileAccountLink.innerHTML = token
+            ? `<a href="${role === 'admin' ? 'admin.html' : 'perfil.html'}"><i class="fa-solid fa-user"></i> ${role === 'admin' ? 'Panel de control' : 'Mi cuenta'}</a>`
+            : '<a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Ingresar</a>';
+        mobileAccountLink.dataset.synced = 'true';
     }
 
     const adminLinks = document.querySelectorAll('.footer-admin-link');

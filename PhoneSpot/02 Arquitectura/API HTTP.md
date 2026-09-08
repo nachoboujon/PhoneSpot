@@ -26,3 +26,9 @@ tags: [arquitectura, api]
 - [[03 Dominios/Autenticación]]
 - [[04 Datos/Base de datos]]
 - [[05 Operación/Variables de entorno]]
+# Perfil de cuenta
+
+| Método | Ruta | Acceso | Uso |
+| --- | --- | --- | --- |
+| `GET` | `/api/me` | Usuario autenticado | Devuelve sus datos públicos de cuenta. |
+| `PUT` | `/api/me` | Usuario autenticado | Actualiza sólo su nombre validado. |

@@ -3,182 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260908-mobile-menu">
+    <title>Mi cuenta | PhoneSpot</title>
+    <link rel="stylesheet" href="style.css?v=20260908-account">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
 <body>
-    
     <header>
-        <div class="logo">
-            <h1><a href="index.html" style="display:flex; align-items:center; gap:0.5rem;"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo" style="height:35px; width:auto; border-radius: 4px;"> PhoneSpot.</a></h1>
-        </div>
-        <div class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html?cat=all">Catálogo</a></li>
-            </ul>
-        </nav>
-        <div class="header-icons">
-            <a href="#" id="logout-btn" title="Cerrar Sesión"><i class="fa-solid fa-right-from-bracket"></i></a>
-            <a href="#" onclick="event.preventDefault(); toggleFavSidebar();" title="Mis Favoritos" style="margin-right: 15px; font-size: 1.2rem; color: var(--text-color);"><i class="fa-regular fa-heart"></i></a>
-            <a href="carrito.html" class="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="cart-count-badge" style="font-size: 0.8rem; font-weight: bold; margin-left: 2px;"></span>
-            </a>
-        </div>
+        <div class="logo"><h1><a href="index.html"><img src="uploads/PhoneSpot-trans.png" alt="PhoneSpot"> <span>PhoneSpot.</span></a></h1></div>
+        <div class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir menú" role="button" tabindex="0"><i class="fa-solid fa-bars"></i></div>
+        <nav><ul><li><a href="index.html">Inicio</a></li><li><a href="catalogo.html?cat=all">Catálogo</a></li><li class="mobile-account-link"><a href="perfil.html"><i class="fa-solid fa-user"></i> Mi cuenta</a></li></ul></nav>
+        <div class="header-icons"><a href="perfil.html" title="Mi Cuenta" id="user-icon-link"><i class="fa-solid fa-user"></i></a><a href="carrito.html" class="cart-icon" title="Carrito"><i class="fa-solid fa-cart-shopping"></i><span id="cart-count-badge"></span></a></div>
     </header>
-
-    <main style="padding: 2rem 5%; max-width: 1000px; margin: 0 auto; min-height: 70vh;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;"><i class="fa-solid fa-circle-user"></i> Mi Perfil</h2>
-        
-        <div style="background: var(--gray-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
-            
-        <div style="background: var(--gray-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
-            
-
-<h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid #555555; display: inline-block; padding-bottom: 0.5rem;"><i class="fa-solid fa-box"></i> Mis Compras</h3>
-            
-            <div id="my-orders-container" style="display: flex; flex-direction: column; gap: 1rem;">
-                <p style="color: var(--text-muted);">Cargando historial...</p>
-            </div>
-        </div>
+    <main class="account-page">
+        <section class="account-hero"><div class="account-avatar"><i class="fa-solid fa-user"></i></div><div><span class="account-kicker"><i class="fa-solid fa-shield-halved"></i> Cuenta protegida</span><h1 id="profile-name">Mi cuenta</h1><p id="profile-email">Cargando tus datos…</p></div><a class="account-shop-link" href="catalogo.html?cat=all">Seguir comprando <i class="fa-solid fa-arrow-right"></i></a></section>
+        <section class="account-grid">
+            <article class="account-card account-details-card"><div class="account-card-heading"><div><span>Datos personales</span><h2>Tu información</h2></div><i class="fa-solid fa-id-card"></i></div><form id="profile-form" class="account-form"><label>Nombre completo<input id="profile-name-input" name="name" autocomplete="name" required minlength="2" maxlength="100" placeholder="Tu nombre"></label><label>Correo electrónico<input id="profile-email-input" type="email" autocomplete="email" disabled aria-describedby="email-help"></label><small id="email-help">El correo es tu identificador de cuenta y no se puede cambiar desde aquí.</small><button type="submit" class="account-save"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios</button><p id="profile-message" class="account-message" role="status"></p></form></article>
+            <article class="account-card account-security-card"><div class="account-card-heading"><div><span>Seguridad</span><h2>Acceso a tu cuenta</h2></div><i class="fa-solid fa-lock"></i></div><p>Tu sesión está protegida. Si necesitás actualizar tu contraseña, te enviaremos un enlace seguro a tu correo.</p><a class="account-secondary-action" href="recuperar.html"><i class="fa-solid fa-key"></i> Cambiar contraseña</a><button id="logout-btn" class="account-logout" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión</button></article>
+        </section>
+        <section class="account-orders-section"><div class="account-section-heading"><div><span>Historial</span><h2>Mis pedidos</h2><p>Seguí el estado de tus compras y revisá cada detalle.</p></div><i class="fa-solid fa-box-open"></i></div><div id="my-orders-container" class="account-orders" aria-live="polite"><div class="account-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando historial…</div></div></section>
     </main>
-
-    <footer style="background-color: var(--text-color); color: #fff; padding: 5rem 5% 2rem; margin-top: 4rem;">
-        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; margin-bottom: 4rem;">
-            <div class="footer-logo">
-                <h2 style="font-size: 2.2rem; margin-bottom: 1rem; color: #fff; letter-spacing: -1px;">PhoneSpot.</h2>
-                <p style="color: #aaa; line-height: 1.6; margin-bottom: 1.5rem;">Tu tienda de confianza para tecnología móvil.</p>
-            </div>
-        </div>
-        <div style="border-top: 1px solid #333; padding-top: 2rem; text-align: center; color: var(--text-muted);">
-            <p>&copy; 2026 PhoneSpot. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <script src="script.js?v=20260908-mobile-menu"></script>
+    <footer class="account-footer"><p>¿Necesitás ayuda? <a href="https://wa.me/5493447416011" target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a> o seguinos en <a href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p></footer>
+    <script src="script.js?v=20260908-account"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem('phoneSpotToken');
-                    localStorage.removeItem('phoneSpotRole');
-                    window.location.href = 'index.html';
-                });
-            }
-
-            const container = document.getElementById('my-orders-container');
-            
+            if (!token) { window.location.replace('login.html?redirect=perfil.html'); return; }
+            const authHeaders = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+            const escapeHtml = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[char]);
+            const statusInfo = { pending: ['Pedido recibido', 'fa-clock', 'pending'], confirmed: ['Pago confirmado', 'fa-circle-check', 'confirmed'], completed: ['Pago confirmado', 'fa-circle-check', 'confirmed'], preparing: ['En preparación', 'fa-box', 'preparing'], shipped: ['Enviado', 'fa-truck-fast', 'shipped'], delivered: ['Entregado', 'fa-circle-check', 'delivered'], cancelled: ['Cancelado', 'fa-circle-xmark', 'cancelled'] };
+            const nameText = document.getElementById('profile-name'), emailText = document.getElementById('profile-email'), nameInput = document.getElementById('profile-name-input'), emailInput = document.getElementById('profile-email-input'), message = document.getElementById('profile-message'), ordersContainer = document.getElementById('my-orders-container');
             try {
-                const res = await fetch(window.API_URL + '/api/my-orders', {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                });
-                const orders = await res.json();
-                
-                if (!res.ok) throw new Error(orders.error || 'Error al cargar');
-
-                if (orders.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-muted);">Aún no has realizado ninguna compra.</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                orders.forEach(o => {
-                    let statusHtml = '';
-                    if (o.status === 'pending') statusHtml = '<span style="color: #e67e22; font-weight: bold;"><i class="fa-solid fa-clock"></i> Pedido recibido</span>';
-                    else if (o.status === 'confirmed' || o.status === 'completed') statusHtml = '<span style="color: #168344; font-weight: bold;"><i class="fa-solid fa-check"></i> Pago confirmado</span>';
-                    else if (o.status === 'preparing') statusHtml = '<span style="color: #6b5b95; font-weight: bold;"><i class="fa-solid fa-box"></i> En preparación</span>';
-                    else if (o.status === 'shipped') statusHtml = '<span style="color: #3498db; font-weight: bold; display:flex; flex-direction:column; align-items:flex-end; gap:5px;"><i class="fa-solid fa-truck-fast"></i> Enviado <a href="https://www.correoargentino.com.ar/formularios/e-commerce" target="_blank" style="background:#333; color:white; padding:4px 8px; border-radius:4px; font-size:0.75rem; text-decoration:none;"><i class="fa-solid fa-location-crosshairs"></i> Rastrear Pedido</a></span>';
-                    else if (o.status === 'delivered') statusHtml = '<span style="color: #168344; font-weight: bold;"><i class="fa-solid fa-circle-check"></i> Entregado</span>';
-                    else if (o.status === 'cancelled') statusHtml = '<span style="color: #e74c3c; font-weight: bold;"><i class="fa-solid fa-xmark"></i> Cancelado</span>';
-
-                    const step = ['shipped', 'delivered'].includes(o.status) ? 3 : ['confirmed', 'completed', 'preparing'].includes(o.status) ? 2 : o.status === 'cancelled' ? 0 : 1;
-                    const timelineHtml = o.status === 'cancelled'
-                        ? '<p style="margin:1rem 0 0; color:#c0392b; font-size:.9rem;"><i class="fa-solid fa-circle-xmark"></i> Este pedido fue cancelado. Si necesitás ayuda, escribinos por WhatsApp.</p>'
-                        : `<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:.35rem; margin:1.2rem 0;">
-                            ${[
-                                ['Pedido recibido', 'fa-receipt'],
-                                ['Confirmado', 'fa-check'],
-                                ['Enviado', 'fa-truck-fast']
-                            ].map(([label, icon], index) => {
-                                const active = index + 1 <= step;
-                                return `<div style="text-align:center; font-size:.75rem; color:${active ? '#168344' : '#999'}; font-weight:${active ? '700' : '500'};">
-                                    <span style="display:grid; place-items:center; width:28px; height:28px; margin:0 auto .4rem; border-radius:50%; background:${active ? '#168344' : '#eee'}; color:${active ? '#fff' : '#999'};"><i class="fa-solid ${active ? 'fa-check' : icon}"></i></span>${label}
-                                </div>`;
-                            }).join('')}
-                        </div>`;
-
-                    let itemsHtml = o.order_items.map(item => `
-                        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
-                            <img src="${item.products?.image_url || 'https://via.placeholder.com/50'}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
-                            <div style="font-size: 0.9rem;">
-                                <strong>${item.quantity}x</strong> ${item.products?.name || 'Producto'} ${item.variant_name ? `(${item.variant_name})` : ''}<br>
-                                <span style="color: var(--text-muted);">$${Number(item.price).toLocaleString('es-AR')} c/u</span>
-                            </div>
-                        </div>
-                    `).join('');
-
-                    container.innerHTML += `
-                        <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
-                                <div>
-                                    <h4 style="margin: 0; font-size: 1.1rem;">Orden #${String(o.id)}</h4>
-                                    <small style="color: var(--text-muted);">${new Date(o.created_at).toLocaleString()}</small>
-                                </div>
-                                <div style="text-align: right;">
-                                    <div style="font-size: 1.2rem; font-weight: bold;">$${Number(o.total).toLocaleString('es-AR')}</div>
-                                    <div style="margin-top: 0.3rem;">${statusHtml}</div>
-                                </div>
-                            </div>
-                            
-                            <div>${itemsHtml}</div>
-                            ${timelineHtml}
-                            
-                            ${o.tracking_code ? `
-                            <div style="margin-top: 1.5rem; background: #e8f4f8; padding: 1rem; border-radius: 6px; border-left: 4px solid #3498db;">
-                                <h5 style="margin: 0 0 0.5rem 0; color: #2980b9;"><i class="fa-solid fa-location-crosshairs"></i> Código de Seguimiento</h5>
-                                <p style="margin: 0; font-family: monospace; font-size: 1.1rem; font-weight: bold;">${o.tracking_code}</p>
-                            </div>
-                            ` : ''}
-                        </div>
-                    `;
-                });
-
-            } catch (err) {
-                container.innerHTML = '<p style="color: red;">Error al cargar tus compras: ' + err.message + '</p>';
-            }
+                const response = await fetch(window.API_URL + '/api/me', { headers: authHeaders }); const user = await response.json();
+                if (!response.ok) throw new Error(user.error || 'No pudimos cargar tu cuenta.');
+                nameText.textContent = user.name; emailText.textContent = user.email; nameInput.value = user.name; emailInput.value = user.email;
+            } catch (_) { localStorage.removeItem('phoneSpotToken'); localStorage.removeItem('phoneSpotRole'); window.location.replace('login.html?redirect=perfil.html'); return; }
+            document.getElementById('profile-form').addEventListener('submit', async (event) => {
+                event.preventDefault(); const button = event.currentTarget.querySelector('button'); button.disabled = true; button.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Guardando…'; message.textContent = '';
+                try {
+                    const response = await fetch(window.API_URL + '/api/me', { method: 'PUT', headers: authHeaders, body: JSON.stringify({ name: nameInput.value }) }); const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'No pudimos guardar los cambios.');
+                    nameText.textContent = data.user.name; nameInput.value = data.user.name; message.className = 'account-message is-success'; message.textContent = 'Tus datos se actualizaron correctamente.';
+                } catch (error) { message.className = 'account-message is-error'; message.textContent = error.message; }
+                finally { button.disabled = false; button.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar cambios'; }
+            });
+            document.getElementById('logout-btn').addEventListener('click', () => { localStorage.removeItem('phoneSpotToken'); localStorage.removeItem('phoneSpotRole'); window.location.href = 'index.html'; });
+            try {
+                const response = await fetch(window.API_URL + '/api/my-orders', { headers: authHeaders }); const orders = await response.json(); if (!response.ok) throw new Error(orders.error || 'No pudimos cargar tus pedidos.');
+                if (!orders.length) { ordersContainer.innerHTML = '<div class="account-empty"><i class="fa-solid fa-bag-shopping"></i><h3>Todavía no hiciste compras</h3><p>Cuando realices un pedido, vas a poder seguirlo desde acá.</p><a href="catalogo.html?cat=all">Explorar catálogo</a></div>'; return; }
+                ordersContainer.innerHTML = orders.map((order) => {
+                    const [label, icon, tone] = statusInfo[order.status] || statusInfo.pending;
+                    const items = (order.order_items || []).map((item) => `<li><img src="${escapeHtml(item.products?.image_url || 'uploads/PhoneSpot-trans.png')}" alt=""><span><strong>${escapeHtml(item.products?.name || 'Producto')}</strong>${item.variant_name ? `<small>${escapeHtml(item.variant_name)}</small>` : ''}</span><b>${item.quantity}×</b></li>`).join('');
+                    return `<article class="order-card"><div class="order-card-top"><div><span class="order-number">Pedido #${escapeHtml(order.id)}</span><time>${new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div><div class="order-total"><strong>$${Number(order.total).toLocaleString('es-AR')}</strong><span class="order-status ${tone}"><i class="fa-solid ${icon}"></i> ${label}</span></div></div><ul class="order-items">${items}</ul>${order.tracking_code ? `<div class="order-tracking"><i class="fa-solid fa-location-crosshairs"></i><span>Seguimiento <b>${escapeHtml(order.tracking_code)}</b></span></div>` : ''}</article>`;
+                }).join('');
+            } catch (error) { ordersContainer.innerHTML = `<div class="account-empty is-error"><i class="fa-solid fa-triangle-exclamation"></i><h3>No pudimos cargar tus pedidos</h3><p>${escapeHtml(error.message)}</p></div>`; }
         });
     </script>
-
-    <!-- WhatsApp Flotante -->
-    <a href="https://wa.me/5493447416011" class="whatsapp-float" target="_blank" title="Chatea con nosotros">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-
-    <!-- FAVORITES SIDEBAR -->
-    <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
-    <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
-        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
-            <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
-            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-            <!-- Renderizado por JS -->
-        </div>
-    </div>
-    <div id="toast-container"></div>
-    <script src="script.js?v=20260908-mobile-menu"></script>
 </body>
 </html>
