@@ -14,6 +14,7 @@ tags: [producto, roadmap]
 
 - Consolidar estilos y componentes reutilizables del frontend.
 - Mantener el sistema de microinteracciones: entradas escalonadas de contenido, respuesta de botones y confirmación visual del carrito, respetando `prefers-reduced-motion`.
+- Mantener una navegación con jerarquía visible: encabezado compacto al desplazarse, indicador de avance y enlaces de sección con estado activo.
 - Agregar pruebas automatizadas para los flujos de compra y autenticación.
 - Definir métricas de conversión y un tablero operativo.
 

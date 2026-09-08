@@ -155,7 +155,7 @@ function addToCart(product) {
     
     if (currentQty + 1 > maxStock) {
         showToast('No hay más stock disponible de este producto', 'fa-triangle-exclamation');
-        return;
+        return false;
     }
 
     if(existingItem) {
@@ -172,6 +172,7 @@ function addToCart(product) {
     if (window.openSideCart && !window.location.pathname.includes('carrito.html') && !window.location.pathname.includes('checkout.html')) {
         window.openSideCart();
     }
+    return true;
 }
 
 function removeFromCart(id, variant_name = '') {
@@ -974,7 +975,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error parsing stock info', e);
             }
 
-            addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category});
+            if (addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category})) {
+                const originalLabel = btn.innerHTML;
+                btn.classList.add('is-added');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado';
+                window.setTimeout(() => {
+                    if (!btn.isConnected) return;
+                    btn.classList.remove('is-added');
+                    btn.innerHTML = originalLabel;
+                }, 1500);
+            }
         }
     });
 
@@ -3627,9 +3637,33 @@ window.pulseCartFeedback = () => {
         badge.classList.add('cart-count-pop');
     }
 };
+
+window.initNavigationPolish = () => {
+    const header = document.querySelector('header');
+    const progress = document.createElement('div');
+    progress.className = 'reading-progress';
+    progress.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(progress);
+
+    const updateHeader = () => {
+        const atTop = window.scrollY < 12;
+        header?.classList.toggle('is-scrolled', !atTop);
+        const maximum = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = `scaleX(${maximum > 0 ? Math.min(1, window.scrollY / maximum) : 0})`;
+    };
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a[href]').forEach((link) => {
+        const destination = link.getAttribute('href').split('#')[0];
+        if (destination && destination === currentPage && !link.hash) link.classList.add('is-current');
+    });
+};
 document.addEventListener('DOMContentLoaded', () => {
     if (window.initFadeObserver) window.initFadeObserver();
     if (window.initMotionDesign) window.initMotionDesign();
+    if (window.initNavigationPolish) window.initNavigationPolish();
 });
 
 

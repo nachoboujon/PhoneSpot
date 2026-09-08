@@ -337,6 +337,14 @@ header {
     top: 0;
     z-index: 10000;
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    transition: padding .28s ease, box-shadow .28s ease, background-color .28s ease;
+}
+
+header.is-scrolled {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 12px 30px rgba(0,0,0,.09);
 }
 
 header h1 {
@@ -378,6 +386,22 @@ nav a {
 
 nav a:hover {
     color: #000000;
+}
+
+nav a.is-current {
+    color: #111;
+    position: relative;
+}
+
+nav a.is-current::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -.55rem;
+    left: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: #111;
 }
 
 /* Dropdown Marcas */
@@ -460,6 +484,51 @@ button:hover, .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     color: #ffffff;
+}
+
+.reading-progress {
+    position: fixed;
+    z-index: 11060;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(90deg, #111, #707070);
+    transition: transform .12s linear;
+    pointer-events: none;
+}
+
+.add-to-cart-btn.is-added {
+    background: #111 !important;
+    box-shadow: 0 10px 22px rgba(0,0,0,.2) !important;
+    pointer-events: none;
+}
+
+.featured-categories > div > a {
+    box-shadow: 0 14px 32px rgba(0,0,0,.1);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
+}
+
+.featured-categories > div > a:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 22px 45px rgba(0,0,0,.18);
+}
+
+details {
+    transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+details[open] {
+    border-color: #bcbcbc !important;
+    box-shadow: 0 10px 26px rgba(0,0,0,.06);
+    transform: translateY(-1px);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid rgba(17,17,17,.45);
+    outline-offset: 3px;
 }
 
 .btn-block {
