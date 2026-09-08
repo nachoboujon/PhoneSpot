@@ -11,12 +11,30 @@ const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
+const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV || process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_SERVICE_NAME);
+const defaultPublicAppUrl = isProduction ? 'https://www.phonespot.site' : 'http://localhost:3000';
+let publicAppUrl = String(process.env.PUBLIC_APP_URL || defaultPublicAppUrl).trim().replace(/\/$/, '');
+try {
+    const parsedPublicUrl = new URL(publicAppUrl);
+    if (!['http:', 'https:'].includes(parsedPublicUrl.protocol)) throw new Error('Protocolo no válido');
+    publicAppUrl = parsedPublicUrl.origin;
+} catch (_) {
+    throw new Error('PUBLIC_APP_URL debe ser una URL http(s) válida.');
+}
+
+// Railway agrega un único proxy delante de la aplicación. Esto permite usar req.ip
+// para los límites de tasa sin aceptar valores arbitrarios de x-forwarded-for.
+app.set('trust proxy', 1);
 const corsOrigins = new Set(
-    String(process.env.CORS_ORIGINS || '')
+    [publicAppUrl, ...String(process.env.CORS_ORIGINS || '')
         .split(',')
         .map((origin) => origin.trim())
-        .filter(Boolean)
+        .filter(Boolean)]
 );
+if (!isProduction) {
+    corsOrigins.add('http://localhost:3000');
+    corsOrigins.add('http://127.0.0.1:3000');
+}
 
 // El dominio principal es www. La redirección se hace en Railway para no
 // depender de reglas DNS/proxy externas y conservar rutas y parámetros.
@@ -30,21 +48,30 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    const forwardedProtocol = String(req.headers['x-forwarded-proto'] || '').split(',')[0].trim();
-    const protocol = forwardedProtocol || req.protocol;
-    const sameOrigin = `${protocol}://${req.get('host')}`;
-
     cors({
         origin(origin, callback) {
-            if (!origin || origin === sameOrigin || corsOrigins.has(origin)) return callback(null, true);
+            // Las peticiones same-origin no envían Origin. Cualquier origen cruzado
+            // debe figurar explícitamente en la configuración del servidor.
+            if (!origin || corsOrigins.has(origin)) return callback(null, true);
             callback(new Error('Origen no permitido por CORS'));
         }
     })(req, res, next);
 });
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Content-Security-Policy', "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https://accounts.google.com;");
+    if (isProduction) res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    next();
+});
 app.use(express.json({ limit: '1mb' }));
 
-const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 const jwtSecret = process.env.JWT_SECRET;
+const jwtIssuer = 'phonespot';
+const accessTokenLifetime = process.env.JWT_EXPIRES_IN || '1d';
 // El valor por defecto conserva el cliente web ya usado por PhoneSpot; en producción
 // puede reemplazarse sin tocar código con GOOGLE_CLIENT_ID.
 const googleClientId = String(process.env.GOOGLE_CLIENT_ID || '31583713582-ur3n2o5b9or6anv24mac34e69r35bauu.apps.googleusercontent.com').trim();
@@ -65,6 +92,34 @@ const escapeHtml = (value = '') => String(value)
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+
+const hasStrongPassword = (password) => (
+    typeof password === 'string'
+    && password.length >= 10
+    && /[A-Za-z]/.test(password)
+    && /\d/.test(password)
+);
+
+const createAccessToken = (user) => jwt.sign(
+    { id: user.id, role: user.role, name: user.name },
+    jwtSecret,
+    { algorithm: 'HS256', expiresIn: accessTokenLifetime, issuer: jwtIssuer, audience: 'phonespot-web' }
+);
+
+const rateLimitBuckets = new Map();
+const limitByClient = (scope, maxRequests, windowMs) => (req, res, next) => {
+    const now = Date.now();
+    const key = `${scope}:${req.ip}`;
+    const bucket = rateLimitBuckets.get(key);
+    if (!bucket || now >= bucket.resetAt) {
+        rateLimitBuckets.set(key, { count: 1, resetAt: now + windowMs });
+        return next();
+    }
+    bucket.count += 1;
+    if (bucket.count <= maxRequests) return next();
+    res.setHeader('Retry-After', Math.ceil((bucket.resetAt - now) / 1000));
+    return res.status(429).json({ error: 'Demasiados intentos. Esperá unos minutos antes de volver a probar.' });
+};
 
 const parseVariants = (variants) => {
     let parsed = variants;
@@ -166,12 +221,23 @@ const upload = multer({
     storage,
     limits: { fileSize: 5 * 1024 * 1024, files: 1 },
     fileFilter: (_req, file, callback) => {
-        if (!file.mimetype || !file.mimetype.startsWith('image/')) {
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.mimetype)) {
             return callback(new Error('Solo se permiten imágenes.'));
         }
         callback(null, true);
     }
 });
+
+const hasValidImageSignature = (file) => {
+    if (!file?.buffer || file.buffer.length < 12) return false;
+    const bytes = file.buffer;
+    const isPng = bytes.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]));
+    const isJpeg = bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF;
+    const isWebp = bytes.subarray(0, 4).toString('ascii') === 'RIFF' && bytes.subarray(8, 12).toString('ascii') === 'WEBP';
+    return (file.mimetype === 'image/png' && isPng)
+        || (file.mimetype === 'image/jpeg' && isJpeg)
+        || (file.mimetype === 'image/webp' && isWebp);
+};
 
 // Configuración Supabase
 const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
@@ -332,7 +398,11 @@ const authenticate = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
     try {
-        const verified = jwt.verify(token, jwtSecret);
+        const verified = jwt.verify(token, jwtSecret, {
+            algorithms: ['HS256'],
+            issuer: jwtIssuer,
+            audience: 'phonespot-web'
+        });
         req.user = verified;
         next();
     } catch (error) {
@@ -395,15 +465,15 @@ if (!isProduction) {
     });
 }
 
-app.post('/api/register', async (req, res) => {
+app.post('/api/register', limitByClient('register', 5, 60 * 60 * 1000), async (req, res) => {
     try {
         if (!jwtSecret) return res.status(503).json({ error: 'El registro no está configurado en el servidor' });
 
         const name = String(req.body.name || '').trim();
         const email = String(req.body.email || '').trim().toLowerCase();
         const password = String(req.body.password || '');
-        if (name.length < 2 || name.length > 100 || !/^\S+@\S+\.\S+$/.test(email) || password.length < 8) {
-            return res.status(400).json({ error: 'Verifica nombre, email y una contraseña de al menos 8 caracteres.' });
+        if (name.length < 2 || name.length > 100 || !/^\S+@\S+\.\S+$/.test(email) || !hasStrongPassword(password)) {
+            return res.status(400).json({ error: 'Usá un nombre y email válidos, y una contraseña de 10 caracteres o más que incluya letras y números.' });
         }
         
         // Check if user already exists
@@ -418,13 +488,11 @@ app.post('/api/register', async (req, res) => {
         const verificationToken = jwt.sign(
             { name, email, password: hashedPassword, role }, 
             jwtSecret,
-            { expiresIn: '1h' }
+            { algorithm: 'HS256', expiresIn: '1h', issuer: jwtIssuer, audience: 'phonespot-email-verification' }
         );
         
         // Create verification link
-        const host = req.get('host');
-        const protocol = req.protocol === 'https' || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-        const verifyLink = `${protocol}://${host}/api/verify-email?token=${verificationToken}`;
+        const verifyLink = `${publicAppUrl}/api/verify-email?token=${encodeURIComponent(verificationToken)}`;
         
         const verifyHtml = `
             <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
@@ -473,7 +541,7 @@ app.get('/api/auth/google/config', (req, res) => {
 });
 
 // --- GOOGLE OAUTH LOGIN/REGISTER ---
-app.post('/api/auth/google', async (req, res) => {
+app.post('/api/auth/google', limitByClient('google-auth', 15, 15 * 60 * 1000), async (req, res) => {
     try {
         if (!jwtSecret) return res.status(503).json({ error: 'El inicio de sesión no está configurado en el servidor' });
         if (!googleOAuthClient) return res.status(503).json({ error: 'Google Sign-In no está configurado' });
@@ -534,8 +602,7 @@ app.post('/api/auth/google', async (req, res) => {
         }
         
         // Generate JWT
-        const jwt = require('jsonwebtoken');
-        const token = jwt.sign({ id: user.id, role: user.role, name: user.name }, jwtSecret, { expiresIn: '7d' });
+        const token = createAccessToken(user);
         
         res.json({ message: 'Login con Google exitoso', token, role: user.role, name: user.name });
         
@@ -554,7 +621,11 @@ app.get('/api/verify-email', async (req, res) => {
         if (!token) return res.status(400).send('Token inválido o expirado.');
         
         const jwt = require('jsonwebtoken');
-        const decoded = jwt.verify(token, jwtSecret);
+        const decoded = jwt.verify(token, jwtSecret, {
+            algorithms: ['HS256'],
+            issuer: jwtIssuer,
+            audience: 'phonespot-email-verification'
+        });
         
         // Comprobar si ya existe
         const { data: existingUser } = await supabase.from('users').select('id').eq('email', decoded.email).single();
@@ -593,7 +664,7 @@ app.get('/api/verify-email', async (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res) => {
+app.post('/api/login', limitByClient('login', 10, 15 * 60 * 1000), async (req, res) => {
     try {
         if (!jwtSecret) return res.status(503).json({ error: 'El inicio de sesión no está configurado en el servidor' });
         const email = String(req.body.email || '').trim().toLowerCase();
@@ -605,20 +676,21 @@ app.post('/api/login', async (req, res) => {
             .eq('email', email)
             .single();
 
-        if (error || !data) return res.status(404).json({ error: 'Usuario no encontrado' });
+        if (error || !data) return res.status(401).json({ error: 'Email o contraseña incorrectos' });
         
         const user = data;
         const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) return res.status(400).json({ error: 'Contraseña incorrecta' });
+        if (!validPassword) return res.status(401).json({ error: 'Email o contraseña incorrectos' });
         
-        const token = jwt.sign({ id: user.id, role: user.role, name: user.name }, jwtSecret, { expiresIn: '7d' });
+        const token = createAccessToken(user);
         res.json({ message: 'Login exitoso', token, role: user.role, name: user.name });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error de inicio de sesión:', error.message);
+        res.status(500).json({ error: 'No pudimos iniciar sesión. Intentá nuevamente más tarde.' });
     }
 });
 
-app.post('/api/request-password-reset', async (req, res) => {
+app.post('/api/request-password-reset', limitByClient('password-reset-request', 5, 60 * 60 * 1000), async (req, res) => {
     try {
         const email = String(req.body.email || '').trim().toLowerCase();
         const genericResponse = { message: 'Si existe una cuenta con ese correo, te enviamos un enlace para restablecer la contraseña.' };
@@ -627,9 +699,12 @@ app.post('/api/request-password-reset', async (req, res) => {
         const { data: user } = await supabase.from('users').select('id, name, email').eq('email', email).single();
         if (!user) return res.json(genericResponse);
 
-        const resetToken = jwt.sign({ purpose: 'password-reset', userId: user.id, email: user.email }, jwtSecret, { expiresIn: '1h' });
-        const protocol = req.protocol === 'https' || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-        const resetLink = `${protocol}://${req.get('host')}/restablecer.html?token=${encodeURIComponent(resetToken)}`;
+        const resetToken = jwt.sign(
+            { purpose: 'password-reset', userId: user.id, email: user.email },
+            jwtSecret,
+            { algorithm: 'HS256', expiresIn: '1h', issuer: jwtIssuer, audience: 'phonespot-password-reset' }
+        );
+        const resetLink = `${publicAppUrl}/restablecer.html?token=${encodeURIComponent(resetToken)}`;
         const sent = await sendEmail(user.email, 'Restablece tu contraseña de PhoneSpot', `
             <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:32px;color:#222;">
                 <h1>Restablecer contraseña</h1>
@@ -646,13 +721,17 @@ app.post('/api/request-password-reset', async (req, res) => {
     }
 });
 
-app.post('/api/reset-password', async (req, res) => {
+app.post('/api/reset-password', limitByClient('password-reset', 8, 60 * 60 * 1000), async (req, res) => {
     try {
         if (!jwtSecret) return res.status(503).json({ error: 'La recuperación de contraseña no está configurada.' });
         const token = String(req.body.token || '');
         const password = String(req.body.password || '');
-        if (password.length < 8) return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres.' });
-        const decoded = jwt.verify(token, jwtSecret);
+        if (!hasStrongPassword(password)) return res.status(400).json({ error: 'La contraseña debe tener 10 caracteres o más e incluir letras y números.' });
+        const decoded = jwt.verify(token, jwtSecret, {
+            algorithms: ['HS256'],
+            issuer: jwtIssuer,
+            audience: 'phonespot-password-reset'
+        });
         if (decoded.purpose !== 'password-reset' || !decoded.userId || !decoded.email) throw new Error('Token inválido');
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -757,6 +836,7 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
         
         let image_url = '';
         if (req.file) {
+            if (!hasValidImageSignature(req.file)) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
             const ext = req.file.originalname.split('.').pop();
             const fileName = `prod_${Date.now()}.${ext}`;
             
@@ -814,6 +894,7 @@ app.get('/api/settings', async (req, res) => {
 
 app.post('/api/upload', authenticate, isAdmin, upload.single('image'), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
+    if (!hasValidImageSignature(req.file)) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
     
     try {
         const ext = req.file.originalname.split('.').pop();
