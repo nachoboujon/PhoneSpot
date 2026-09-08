@@ -3790,12 +3790,28 @@ window.addEventListener('DOMContentLoaded', window.setupGoogleLogin);
 // Preserve Auth Redirect params
 window.addEventListener('DOMContentLoaded', () => {
     const authLink = document.getElementById('auth-switch-link');
+    const transition = document.documentElement.dataset.authTransition;
+    if (transition) {
+        window.setTimeout(() => {
+            delete document.documentElement.dataset.authTransition;
+            try { sessionStorage.removeItem('phoneSpotAuthTransition'); } catch (_) {}
+        }, 650);
+    }
     if (authLink) {
         const urlParams = new URLSearchParams(window.location.search);
         const redirect = urlParams.get('redirect');
         if (redirect) {
             authLink.href = authLink.getAttribute('href') + '?redirect=' + redirect;
         }
+        authLink.addEventListener('click', (event) => {
+            if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            const destination = authLink.href;
+            const nextPage = document.body.dataset.authPage === 'login' ? 'register' : 'login';
+            try { sessionStorage.setItem('phoneSpotAuthTransition', nextPage); } catch (_) {}
+            document.body.classList.add('auth-is-leaving');
+            window.setTimeout(() => { window.location.href = destination; }, 340);
+        });
     }
 });
 

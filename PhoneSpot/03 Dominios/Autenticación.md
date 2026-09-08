@@ -17,12 +17,14 @@ Los clientes se registran con correo y contraseña, verifican su dirección y re
 - Inicio de sesión → JWT guardado en el cliente.
 - Recuperación → enlace temporal → nueva contraseña.
 - Google Sign-In → verificación del ID token en el servidor → JWT local. La experiencia visual compartida de acceso y registro vive en `public/auth-premium.css`; el botón sigue siendo el control oficial de Google.
+- El acceso y registro comparten una paleta monocroma y una transición de panel al alternar entre ambas pantallas. La transición respeta `prefers-reduced-motion`.
 
 ## Verificación de Google
 
 - La configuración se publica en `/api/auth/google/config`.
 - El servidor valida la credencial recibida en `/api/auth/google` antes de crear una sesión.
 - El dominio productivo debe figurar como origen autorizado en Google Cloud para completar el selector de cuentas.
+- Para desarrollo local, el origen exacto `http://localhost:3000` también debe estar autorizado. Si falta alguno, Google devuelve `Error 400: origin_mismatch`.
 
 ## Relacionado
 

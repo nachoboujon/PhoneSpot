@@ -1,18 +1,26 @@
 /* Capa visual compartida para acceso y registro. */
 :root {
-    --auth-accent: #5c4cf1;
-    --auth-accent-deep: #3f32c7;
+    --auth-accent: #2d2d2d;
+    --auth-accent-deep: #0b0b0b;
     --auth-surface: #ffffff;
-    --auth-ink: #111226;
-    --auth-muted: #68708a;
-    --auth-line: #e5e7f1;
+    --auth-ink: #101010;
+    --auth-muted: #6f6f6f;
+    --auth-line: #dedede;
 }
 
 .auth-form-container {
     background:
-        radial-gradient(circle at 100% 0%, rgba(112, 92, 255, .10), transparent 25rem),
+        radial-gradient(circle at 100% 0%, rgba(0, 0, 0, .06), transparent 25rem),
         var(--auth-surface);
 }
+
+.auth-banner {
+    background:
+        radial-gradient(circle at 50% 18%, #454545 0, transparent 28rem),
+        linear-gradient(145deg, #0b0b0b 0%, #1c1c1c 54%, #080808 100%) !important;
+}
+
+.phone-crew { filter: grayscale(1) contrast(1.08); }
 
 .auth-form-wrapper {
     max-width: 470px;
@@ -24,7 +32,7 @@
     align-items: center;
     gap: .45rem;
     margin-bottom: .85rem;
-    color: var(--auth-accent-deep);
+    color: #2d2d2d;
     font-size: .74rem;
     font-weight: 800;
     letter-spacing: .12em;
@@ -35,8 +43,8 @@
     width: .55rem;
     height: .55rem;
     border-radius: 50%;
-    background: #7dffb2;
-    box-shadow: 0 0 0 5px rgba(125, 255, 178, .18);
+    background: #909090;
+    box-shadow: 0 0 0 5px rgba(144, 144, 144, .18);
     content: '';
 }
 
@@ -61,8 +69,8 @@
     padding: 1rem;
     border: 1px solid var(--auth-line);
     border-radius: 18px;
-    background: linear-gradient(135deg, #fff 0%, #f7f7ff 100%);
-    box-shadow: 0 12px 30px rgba(32, 28, 92, .07);
+    background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .07);
     transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
 
@@ -73,15 +81,15 @@
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(92, 76, 241, .16), transparent 68%);
+    background: radial-gradient(circle, rgba(0, 0, 0, .1), transparent 68%);
     content: '';
     pointer-events: none;
 }
 
 .google-auth-panel:hover,
 .google-auth-panel:focus-within {
-    border-color: rgba(92, 76, 241, .4);
-    box-shadow: 0 16px 34px rgba(51, 41, 152, .12);
+    border-color: rgba(0, 0, 0, .4);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, .12);
     transform: translateY(-2px);
 }
 
@@ -109,7 +117,7 @@
     font-weight: 650;
 }
 
-.google-auth-panel__trust i { color: #28a164; }
+.google-auth-panel__trust i { color: #4e4e4e; }
 
 .google-login-button {
     position: relative;
@@ -137,7 +145,7 @@
     width: 1rem;
     height: 1rem;
     border: 2px solid #d8d8ec;
-    border-top-color: var(--auth-accent);
+    border-top-color: #111;
     border-radius: 50%;
     content: '';
     animation: auth-spin .8s linear infinite;
@@ -193,33 +201,71 @@
 }
 
 .auth-input-group:focus-within input {
-    border-color: var(--auth-accent);
+    border-color: #151515;
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(92, 76, 241, .12);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, .1);
     transform: translateY(-1px);
 }
 
-.auth-input-group:focus-within i { color: var(--auth-accent); }
+.auth-input-group:focus-within i { color: #111; }
 
 .auth-btn {
     min-height: 57px;
     margin-top: 1.35rem;
     border-radius: 15px;
-    background: linear-gradient(105deg, var(--auth-accent-deep), var(--auth-accent));
-    box-shadow: 0 12px 22px rgba(70, 54, 199, .25);
+    background: linear-gradient(105deg, #090909, #303030);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, .22);
     font-size: 1rem;
     letter-spacing: .01em;
 }
 
 .auth-btn:hover {
-    background: linear-gradient(105deg, #3327ac, #6a5bff);
-    box-shadow: 0 16px 28px rgba(70, 54, 199, .34);
+    background: linear-gradient(105deg, #000, #1d1d1d);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, .34);
 }
 
 .auth-footer { color: var(--auth-muted); }
 .auth-footer a { color: var(--auth-ink); }
 
 @keyframes auth-spin { to { transform: rotate(360deg); } }
+
+/* Transición entre acceso y alta de cuenta, inspirada en un panel deslizante. */
+html[data-auth-transition] .auth-banner,
+html[data-auth-transition] .auth-form-container {
+    will-change: transform, opacity;
+}
+
+html[data-auth-transition='register'] .auth-banner { animation: auth-banner-enter-left .58s cubic-bezier(.22,.8,.23,1) both; }
+html[data-auth-transition='register'] .auth-form-container { animation: auth-panel-enter-right .58s cubic-bezier(.22,.8,.23,1) both; }
+html[data-auth-transition='login'] .auth-banner { animation: auth-banner-enter-right .58s cubic-bezier(.22,.8,.23,1) both; }
+html[data-auth-transition='login'] .auth-form-container { animation: auth-panel-enter-left .58s cubic-bezier(.22,.8,.23,1) both; }
+
+body.auth-is-leaving .auth-banner { animation: auth-banner-leave-left .34s cubic-bezier(.55,0,1,.45) both; }
+body.auth-is-leaving .auth-form-container { animation: auth-panel-leave-right .34s cubic-bezier(.55,0,1,.45) both; }
+body.auth-is-leaving .auth-switch-link { pointer-events: none; }
+
+@keyframes auth-banner-enter-left {
+    from { opacity: .35; transform: translateX(-8%) scale(1.025); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes auth-banner-enter-right {
+    from { opacity: .35; transform: translateX(8%) scale(1.025); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes auth-panel-enter-right {
+    from { opacity: 0; transform: translateX(12%) scale(.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes auth-panel-enter-left {
+    from { opacity: 0; transform: translateX(-12%) scale(.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes auth-banner-leave-left {
+    to { opacity: 0; transform: translateX(-10%) scale(1.025); }
+}
+@keyframes auth-panel-leave-right {
+    to { opacity: 0; transform: translateX(14%) scale(.97); }
+}
 
 @media (max-width: 900px) {
     .auth-form-container { background: var(--auth-surface); }
@@ -237,4 +283,8 @@
     .auth-input-group input,
     .auth-btn { transition: none; }
     .google-button-loading::before { animation: none; }
+    html[data-auth-transition] .auth-banner,
+    html[data-auth-transition] .auth-form-container,
+    body.auth-is-leaving .auth-banner,
+    body.auth-is-leaving .auth-form-container { animation: none; }
 }

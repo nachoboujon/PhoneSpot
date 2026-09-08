@@ -239,11 +239,12 @@
         .divider::after { margin-left: .5em; }
 
     </style>
-    <link rel="stylesheet" href="auth-premium.css?v=20260908-google-auth">
+    <script>try { document.documentElement.dataset.authTransition = sessionStorage.getItem('phoneSpotAuthTransition') || ''; } catch (_) {}</script>
+    <link rel="stylesheet" href="auth-premium.css?v=20260908-auth-motion">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
-<body>
+<body data-auth-page="register">
     
     <div class="auth-layout">
         <div class="auth-banner">
@@ -333,12 +334,12 @@
                 </form>
                 
                 <div class="auth-footer">
-                    <a href="login.html" id="auth-switch-link">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+                    <a href="login.html" id="auth-switch-link" class="auth-switch-link">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="script.js?v=20260908-mobile-menu"></script>
+    <script src="script.js?v=20260908-auth-motion"></script>
 </body>
 </html>
