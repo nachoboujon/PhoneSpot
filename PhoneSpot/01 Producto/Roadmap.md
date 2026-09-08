@@ -13,6 +13,7 @@ tags: [producto, roadmap]
 ## Evolucionar
 
 - Consolidar estilos y componentes reutilizables del frontend.
+- Mantener el sistema de microinteracciones: entradas escalonadas de contenido, respuesta de botones y confirmación visual del carrito, respetando `prefers-reduced-motion`.
 - Agregar pruebas automatizadas para los flujos de compra y autenticación.
 - Definir métricas de conversión y un tablero operativo.
 

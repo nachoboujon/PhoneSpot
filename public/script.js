@@ -165,6 +165,7 @@ function addToCart(product) {
     }
     saveCart();
     window.trackStoreEvent('add_to_cart', { productId: product.id });
+    window.pulseCartFeedback?.();
     
     // Notificación y abrir carrito lateral
     showToast(`¡${product.name} añadido al carrito!`);
@@ -3572,8 +3573,63 @@ window.initFadeObserver = () => {
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 };
+
+// Microinteracciones de interfaz: dan respuesta a cada recorrido sin forzar
+// animaciones continuas ni esconder contenido a quien prefiera reducir movimiento.
+window.initMotionDesign = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const selector = [
+        'main > section:not(.hero-carousel)',
+        '.product-card',
+        '.account-card',
+        '.account-orders-section',
+        '.checkout-card',
+        '.trust-badges > div > div'
+    ].join(', ');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('motion-visible');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -18px' });
+
+    const reveal = (element, index = 0) => {
+        if (!(element instanceof Element) || element.dataset.motionReady || element.closest('.hero-carousel')) return;
+        element.dataset.motionReady = 'true';
+        element.classList.add('motion-reveal');
+        element.style.setProperty('--motion-delay', `${Math.min(index, 6) * 55}ms`);
+        observer.observe(element);
+    };
+    const revealWithin = (root) => {
+        if (!(root instanceof Element || root instanceof Document)) return;
+        if (root instanceof Element && root.matches(selector)) reveal(root);
+        root.querySelectorAll(selector).forEach((element, index) => reveal(element, index));
+    };
+
+    revealWithin(document);
+    new MutationObserver((records) => {
+        records.forEach((record) => record.addedNodes.forEach((node) => revealWithin(node)));
+    }).observe(document.body, { childList: true, subtree: true });
+};
+
+window.pulseCartFeedback = () => {
+    document.querySelectorAll('.cart-icon').forEach((icon) => {
+        icon.classList.remove('cart-bump');
+        void icon.offsetWidth;
+        icon.classList.add('cart-bump');
+    });
+    const badge = document.getElementById('cart-count-badge');
+    if (badge) {
+        badge.classList.remove('cart-count-pop');
+        void badge.offsetWidth;
+        badge.classList.add('cart-count-pop');
+    }
+};
 document.addEventListener('DOMContentLoaded', () => {
     if (window.initFadeObserver) window.initFadeObserver();
+    if (window.initMotionDesign) window.initMotionDesign();
 });
 
 
