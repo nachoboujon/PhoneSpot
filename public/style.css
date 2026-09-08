@@ -500,6 +500,79 @@ button:hover, .btn:hover {
     z-index: 2;
 }
 
+/* Hero tipo "spotlight": la colección activa toma el color y las demás quedan detrás. */
+.spotlight-carousel {
+    min-height: 720px;
+    height: min(82vh, 820px);
+    background:
+        radial-gradient(circle at 50% 45%, #303030 0, transparent 28rem),
+        linear-gradient(135deg, #060606, #1c1c1c 52%, #090909);
+}
+
+.spotlight-carousel::before {
+    position: absolute;
+    z-index: 0;
+    top: 2rem;
+    left: 50%;
+    color: rgba(255,255,255,.32);
+    content: 'PHONESPOT / SELECCIÓN';
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .24em;
+    transform: translateX(-50%);
+}
+
+.spotlight-carousel .carousel-slide {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(68vw, 760px) !important;
+    height: min(66vh, 610px) !important;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.48);
+    filter: grayscale(1) brightness(.52);
+    opacity: .28 !important;
+    overflow: hidden;
+    transition: transform .68s cubic-bezier(.22,.75,.22,1), opacity .5s ease, filter .5s ease, box-shadow .5s ease !important;
+}
+
+.spotlight-carousel .carousel-slide.active {
+    filter: grayscale(0) brightness(1) !important;
+    opacity: 1 !important;
+    box-shadow: 0 40px 100px rgba(0,0,0,.7);
+}
+
+.spotlight-carousel .carousel-slide:not(.active) .hero-content {
+    opacity: 0;
+    transform: translateZ(0) scale(.94) !important;
+    pointer-events: none;
+}
+
+.spotlight-carousel .hero-content {
+    width: min(88%, 560px) !important;
+    padding: 2.2rem !important;
+    background: rgba(0,0,0,.56) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.spotlight-carousel .carousel-title { font-size: clamp(2.25rem, 5vw, 4.3rem) !important; }
+.spotlight-carousel .carousel-subtitle { margin-bottom: 1.8rem !important; }
+.spotlight-carousel .carousel-prev, .spotlight-carousel .carousel-next { background: #fff; z-index: 20; }
+.spotlight-carousel .carousel-prev { left: 7%; }
+.spotlight-carousel .carousel-next { right: 7%; }
+
+@media (max-width: 700px) {
+    .spotlight-carousel { min-height: 570px; height: 72vh; }
+    .spotlight-carousel::before { top: 1.15rem; font-size: .55rem; }
+    .spotlight-carousel .carousel-slide { width: 76vw !important; height: min(58vh, 480px) !important; }
+    .spotlight-carousel .hero-content { padding: 1.45rem !important; }
+    .spotlight-carousel .carousel-prev, .spotlight-carousel .carousel-next { width: 40px; height: 40px; }
+    .spotlight-carousel .carousel-prev { left: 4%; }
+    .spotlight-carousel .carousel-next { right: 4%; }
+}
+
 .hero-content {
     max-width: 900px;
     padding: 2rem;

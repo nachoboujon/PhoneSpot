@@ -2035,6 +2035,7 @@ const checkoutForm = document.getElementById('checkout-form');
     // La lógica del carrusel se inicializará después de cargar los settings
     initHeroCarousel = () => {
         const slides = document.querySelectorAll('.carousel-slide');
+        const isSpotlightCarousel = document.querySelector('.spotlight-carousel') !== null;
         if(slides.length > 0) {
             const prevBtn = document.querySelector('.carousel-prev');
             const nextBtn = document.querySelector('.carousel-next');
@@ -2044,7 +2045,13 @@ const checkoutForm = document.getElementById('checkout-form');
 
             const initCarousel = () => {
                 slides.forEach((slide, index) => {
-                    slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`;
+                    const distance = index - currentSlide;
+                    if (isSpotlightCarousel) {
+                        const wrappedDistance = distance > slides.length / 2 ? distance - slides.length : distance < -slides.length / 2 ? distance + slides.length : distance;
+                        slide.style.transform = `translate(-50%, -50%) translateX(${wrappedDistance * 43}%) rotate(${wrappedDistance * 3.5}deg) scale(${wrappedDistance === 0 ? 1 : .86})`;
+                    } else {
+                        slide.style.transform = `translateX(${100 * distance}%)`;
+                    }
                     slide.classList.remove('active');
                     if(dots[index]) {
                         dots[index].style.display = 'inline-block';
