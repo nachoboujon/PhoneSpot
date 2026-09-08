@@ -146,7 +146,39 @@ window.isWholesaleEligible = function(item) {
     return !accessoryKeywords.some(kw => name.includes(kw));
 };
 
-function addToCart(product) {
+function animateProductToCart(sourceElement) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return Promise.resolve();
+
+    const sourceImage = sourceElement?.querySelector('img');
+    const cartTarget = document.querySelector('.cart-icon');
+    if (!sourceImage || !cartTarget) return Promise.resolve();
+
+    const sourceRect = sourceImage.getBoundingClientRect();
+    const targetRect = cartTarget.getBoundingClientRect();
+    if (!sourceRect.width || !sourceRect.height || !targetRect.width || !targetRect.height) return Promise.resolve();
+
+    const flyer = sourceImage.cloneNode(true);
+    flyer.className = 'cart-fly-product';
+    flyer.alt = '';
+    flyer.setAttribute('aria-hidden', 'true');
+    flyer.style.left = `${sourceRect.left}px`;
+    flyer.style.top = `${sourceRect.top}px`;
+    flyer.style.width = `${sourceRect.width}px`;
+    flyer.style.height = `${sourceRect.height}px`;
+    document.body.appendChild(flyer);
+
+    const deltaX = targetRect.left + (targetRect.width / 2) - (sourceRect.left + (sourceRect.width / 2));
+    const deltaY = targetRect.top + (targetRect.height / 2) - (sourceRect.top + (sourceRect.height / 2));
+    const animation = flyer.animate([
+        { transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1, borderRadius: '14px', filter: 'drop-shadow(0 14px 18px rgba(0,0,0,.22))' },
+        { transform: `translate3d(${deltaX * .42}px, ${deltaY * .2 - 36}px, 0) scale(.72) rotate(-4deg)`, opacity: .96, offset: .38 },
+        { transform: `translate3d(${deltaX}px, ${deltaY}px, 0) scale(.12) rotate(8deg)`, opacity: 0, borderRadius: '50%', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,.12))' }
+    ], { duration: 620, easing: 'cubic-bezier(.22,.72,.2,1)', fill: 'forwards' });
+
+    return animation.finished.catch(() => {}).then(() => flyer.remove());
+}
+
+function addToCart(product, sourceElement = null) {
     const existingItem = cart.find(item => item.id === product.id && item.variant_name === product.variant_name);
     
     // Check max stock if available
@@ -165,13 +197,16 @@ function addToCart(product) {
     }
     saveCart();
     window.trackStoreEvent('add_to_cart', { productId: product.id });
-    window.pulseCartFeedback?.();
-    
-    // Notificación y abrir carrito lateral
-    showToast(`¡${product.name} añadido al carrito!`);
-    if (window.openSideCart && !window.location.pathname.includes('carrito.html') && !window.location.pathname.includes('checkout.html')) {
-        window.openSideCart();
-    }
+
+    const finishCartFeedback = () => {
+        window.pulseCartFeedback?.();
+        showToast(`¡${product.name} añadido al carrito!`);
+        if (window.openSideCart && !window.location.pathname.includes('carrito.html') && !window.location.pathname.includes('checkout.html')) {
+            window.openSideCart();
+        }
+    };
+    if (sourceElement) animateProductToCart(sourceElement).then(finishCartFeedback);
+    else finishCartFeedback();
     return true;
 }
 
@@ -975,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error parsing stock info', e);
             }
 
-            if (addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category})) {
+            if (addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card)) {
                 const originalLabel = btn.innerHTML;
                 btn.classList.add('is-added');
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado';
