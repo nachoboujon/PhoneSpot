@@ -291,6 +291,10 @@
             margin-top: 1rem;
             margin-bottom: 2rem;
         }
+        .social-login.google-only { display: block; }
+        .google-login-button { min-height: 44px; }
+        .google-login-button > div,
+        .google-login-button iframe { width: 100% !important; }
         .social-btn {
             flex: 1;
             padding: 12px;
@@ -371,13 +375,8 @@
                 <h1>Iniciar Sesión</h1>
                 <p class="subtitle">Ingresa tus credenciales para acceder a tu panel.</p>
                 
-                <div class="social-login">
-                    <button type="button" class="social-btn" onclick="handleGoogleLogin()">
-                        <i class="fa-brands fa-google social-btn google"></i> Google
-                    </button>
-                    <button type="button" class="social-btn" onclick="alert('Integración con Apple próximamente');">
-                        <i class="fa-brands fa-apple social-btn apple"></i> Apple
-                    </button>
+                <div class="social-login google-only">
+                    <div id="google-login-button" class="google-login-button" aria-label="Iniciar sesión con Google"></div>
                 </div>
                 
                 <div class="divider">o usa tu email</div>

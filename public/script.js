@@ -3715,58 +3715,67 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// ==================== GOOGLE LOGIN ====================
-window.handleGoogleLogin = () => {
-    // Para que funcione con un botón personalizado, usamos el flujo implícito
-    // pero como GIS restringe los botones personalizados para ID tokens, usamos una API estándar o el One Tap.
-    // Usaremos google.accounts.oauth2.initTokenClient para obtener el perfil de forma segura
-    
-    if (typeof google === 'undefined') {
-        return showToast('Google no está cargado. Revisa tu conexión.', 'fa-triangle-exclamation');
-    }
-    
-    const client = google.accounts.oauth2.initTokenClient({
-        client_id: '31583713582-ur3n2o5b9or6anv24mac34e69r35bauu.apps.googleusercontent.com',
-        scope: 'email profile',
-        callback: async (response) => {
-            if (response.error) {
-                console.error(response);
-                return showToast('Error al conectar con Google', 'fa-triangle-exclamation');
-            }
-            
-            showToast('Conectando con el servidor...', 'fa-spinner fa-spin');
-            
-            try {
-                // Enviar token al backend
-                const res = await fetch(window.API_URL + '/api/auth/google', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ access_token: response.access_token })
-                });
-                
-                const data = await res.json();
-                if (res.ok) {
-                    localStorage.setItem('phoneSpotToken', data.token);
-                    localStorage.setItem('phoneSpotRole', data.role);
-                    showToast('¡Ingreso exitoso!', 'fa-check');
-                    
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const redirect = urlParams.get('redirect');
-                    setTimeout(() => {
-                        if (redirect) window.location.href = redirect;
-                        else window.location.href = data.role === 'admin' ? 'admin.html' : 'perfil.html';
-                    }, 1500);
+// ==================== GOOGLE SIGN-IN ====================
+// Google entrega un ID token firmado. El servidor lo verifica antes de crear la sesión local.
+window.handleGoogleCredential = async ({ credential } = {}) => {
+    if (!credential) return showToast('No recibimos la credencial de Google.', 'fa-triangle-exclamation');
+    showToast('Verificando tu cuenta de Google...', 'fa-spinner fa-spin');
+    try {
+        const res = await fetch(window.API_URL + '/api/auth/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credential })
+        });
+        const data = await res.json();
+        if (!res.ok) return showToast(data.error || 'No pudimos iniciar sesión con Google', 'fa-triangle-exclamation');
 
-                } else {
-                    showToast(data.error || 'Error en el servidor', 'fa-triangle-exclamation');
-                }
-            } catch (err) {
-                showToast('Error de conexión', 'fa-triangle-exclamation');
-            }
-        },
-    });
-    client.requestAccessToken();
+        localStorage.setItem('phoneSpotToken', data.token);
+        localStorage.setItem('phoneSpotRole', data.role);
+        showToast('¡Ingreso exitoso!', 'fa-check');
+        const redirect = new URLSearchParams(window.location.search).get('redirect');
+        setTimeout(() => {
+            window.location.href = redirect || (data.role === 'admin' ? 'admin.html' : 'perfil.html');
+        }, 900);
+    } catch (_) {
+        showToast('No pudimos conectar con el servidor.', 'fa-triangle-exclamation');
+    }
 };
+
+window.setupGoogleLogin = async () => {
+    const target = document.getElementById('google-login-button');
+    if (!target || target.dataset.ready) return;
+    try {
+        const configResponse = await fetch(window.API_URL + '/api/auth/google/config');
+        const config = await configResponse.json();
+        if (!configResponse.ok || !config.clientId) throw new Error(config.error || 'Google Sign-In no está configurado');
+
+        for (let attempt = 0; attempt < 20 && !window.google?.accounts?.id; attempt += 1) {
+            await new Promise(resolve => setTimeout(resolve, 150));
+        }
+        if (!window.google?.accounts?.id) throw new Error('No se pudo cargar Google Sign-In');
+
+        google.accounts.id.initialize({
+            client_id: config.clientId,
+            callback: window.handleGoogleCredential,
+            auto_select: false,
+            cancel_on_tap_outside: true
+        });
+        target.dataset.ready = 'true';
+        google.accounts.id.renderButton(target, {
+            theme: 'outline',
+            size: 'large',
+            text: 'signin_with',
+            shape: 'rectangular',
+            locale: 'es',
+            width: Math.min(400, Math.floor(target.getBoundingClientRect().width || 360))
+        });
+    } catch (error) {
+        console.error('Google Sign-In:', error);
+        target.innerHTML = '<p class="google-login-error">Google no está disponible por el momento.</p>';
+    }
+};
+
+window.addEventListener('DOMContentLoaded', window.setupGoogleLogin);
 
 
 // Preserve Auth Redirect params

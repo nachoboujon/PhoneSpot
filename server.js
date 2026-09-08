@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
+const { OAuth2Client } = require('google-auth-library');
 const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
@@ -44,6 +45,10 @@ app.use(express.json({ limit: '1mb' }));
 
 const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 const jwtSecret = process.env.JWT_SECRET;
+// El valor por defecto conserva el cliente web ya usado por PhoneSpot; en producción
+// puede reemplazarse sin tocar código con GOOGLE_CLIENT_ID.
+const googleClientId = String(process.env.GOOGLE_CLIENT_ID || '31583713582-ur3n2o5b9or6anv24mac34e69r35bauu.apps.googleusercontent.com').trim();
+const googleOAuthClient = googleClientId ? new OAuth2Client(googleClientId) : null;
 const resendApiKey = process.env.RESEND_API_KEY;
 const smtpTransport = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
     ? nodemailer.createTransport({
@@ -461,21 +466,24 @@ app.post('/api/register', async (req, res) => {
 });
 
 
+// El ID de cliente es público; el secreto de OAuth nunca llega al navegador.
+app.get('/api/auth/google/config', (req, res) => {
+    if (!googleClientId) return res.status(503).json({ error: 'Google Sign-In no está configurado' });
+    res.json({ clientId: googleClientId });
+});
+
 // --- GOOGLE OAUTH LOGIN/REGISTER ---
 app.post('/api/auth/google', async (req, res) => {
     try {
         if (!jwtSecret) return res.status(503).json({ error: 'El inicio de sesión no está configurado en el servidor' });
-        const { access_token } = req.body;
-        if (!access_token) return res.status(400).json({ error: 'Token requerido' });
-        
-        // Fetch user info from Google
-        const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-            headers: { Authorization: `Bearer ${access_token}` }
-        });
-        const googleUser = await googleRes.json();
-        
-        if (!googleRes.ok || !googleUser.email) {
-            return res.status(401).json({ error: 'Token de Google inválido' });
+        if (!googleOAuthClient) return res.status(503).json({ error: 'Google Sign-In no está configurado' });
+        const { credential } = req.body;
+        if (!credential) return res.status(400).json({ error: 'Credencial de Google requerida' });
+
+        const ticket = await googleOAuthClient.verifyIdToken({ idToken: credential, audience: googleClientId });
+        const googleUser = ticket.getPayload();
+        if (!googleUser?.email || googleUser.email_verified !== true) {
+            return res.status(401).json({ error: 'No pudimos verificar el correo de Google' });
         }
         
         const email = googleUser.email.toLowerCase();
