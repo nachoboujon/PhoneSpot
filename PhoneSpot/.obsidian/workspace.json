@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02 Arquitectura/Arquitectura del sistema.md",
+                "file": "03 Dominios/Autenticación.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Arquitectura del sistema"
+              "title": "Autenticación"
             }
           }
         ]
@@ -187,6 +187,7 @@
   },
   "active": "bc437b6e45eaaa47",
   "lastOpenFiles": [
+    "02 Arquitectura/Arquitectura del sistema.md",
     "02 Arquitectura/API HTTP.md",
     "01 Producto/Roadmap.md",
     "04 Datos/Base de datos.md",
@@ -206,7 +207,6 @@
     "03 Dominios/Administración.md",
     "03 Dominios",
     "02 Arquitectura/Frontend.md",
-    "02 Arquitectura/Arquitectura del sistema.md",
     "02 Arquitectura",
     "01 Producto/Visión de producto.md",
     "01 Producto",
