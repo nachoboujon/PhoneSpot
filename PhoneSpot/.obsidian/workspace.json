@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Bienvenido.md",
+                "file": "02 Arquitectura/Arquitectura del sistema.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Bienvenido"
+              "title": "Arquitectura del sistema"
             }
           }
         ]
@@ -187,7 +187,34 @@
   },
   "active": "bc437b6e45eaaa47",
   "lastOpenFiles": [
-    "cree un enlace.md",
-    "Bienvenido.md"
+    "02 Arquitectura/API HTTP.md",
+    "01 Producto/Roadmap.md",
+    "04 Datos/Base de datos.md",
+    "06 Decisiones/ADR-001 Arquitectura actual.md",
+    "06 Decisiones",
+    "05 Operación/Variables de entorno.md",
+    "05 Operación/Pruebas y calidad.md",
+    "05 Operación/Despliegue.md",
+    "05 Operación",
+    "04 Datos/Settings y archivos.md",
+    "04 Datos/Analítica.md",
+    "04 Datos",
+    "03 Dominios/Pedidos y checkout.md",
+    "03 Dominios/Envíos y precios.md",
+    "03 Dominios/Catálogo y productos.md",
+    "03 Dominios/Autenticación.md",
+    "03 Dominios/Administración.md",
+    "03 Dominios",
+    "02 Arquitectura/Frontend.md",
+    "02 Arquitectura/Arquitectura del sistema.md",
+    "02 Arquitectura",
+    "01 Producto/Visión de producto.md",
+    "01 Producto",
+    "00 Inicio.md",
+    "Proyecto PhoneSpot.md",
+    "Bienvenido.md",
+    "Sin título.canvas",
+    "2026-09-08.md",
+    "cree un enlace.md"
   ]
 }
