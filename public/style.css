@@ -12,7 +12,7 @@
 /* Instagram: acceso visible y consistente en toda la tienda. */
 .instagram-follow-cta {
     position: fixed;
-    z-index: 1002;
+    z-index: 11020;
     left: 1.25rem;
     bottom: 1.25rem;
     display: inline-flex;
@@ -22,7 +22,7 @@
     padding: .65rem 1rem .65rem .72rem;
     border: 1px solid rgba(255, 255, 255, .22);
     border-radius: 999px;
-    background: #111;
+    background: linear-gradient(135deg, #111, #303030);
     box-shadow: 0 12px 30px rgba(0, 0, 0, .23);
     color: #fff;
     text-decoration: none;
@@ -34,6 +34,8 @@
     background: #252525;
     box-shadow: 0 16px 34px rgba(0, 0, 0, .32);
 }
+
+.instagram-follow-cta:active { transform: translateY(-1px) scale(.98); }
 
 .instagram-follow-cta:focus-visible {
     outline: 3px solid #fff;
