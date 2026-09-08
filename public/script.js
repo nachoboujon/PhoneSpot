@@ -280,23 +280,23 @@ async function renderSideCart() {
         total += finalPrice * item.quantity;
         
         sideContainer.innerHTML += `
-            <div class="side-cart-item">
-                <img src="${item.img || item.image || item.image_url}" alt="${item.name}">
+            <article class="side-cart-item">
+                <div class="side-cart-item__media"><img src="${item.img || item.image || item.image_url}" alt="${item.name}"></div>
                 <div class="side-cart-item-info">
                     <h4>${item.name}</h4>
-                    <p>${item.variant_name || ''}</p>
-                    ${isWholesale && itemIsEligible ? `<p style="color: #ff4757; font-size:0.8rem; text-decoration:line-through;">${window.formatPrice(item.price)}</p>` : ''}
-                    <p style="color: var(--text-color); font-weight:bold; margin-top:0.3rem;">${window.formatPrice(finalPrice)} x ${item.quantity}</p>
+                    ${item.variant_name ? `<p class="side-cart-item__variant">${item.variant_name}</p>` : ''}
+                    ${isWholesale && itemIsEligible ? `<p class="side-cart-item__old-price">${window.formatPrice(item.price)}</p>` : ''}
+                    <p class="side-cart-item__price">${window.formatPrice(finalPrice)}</p>
                 </div>
-                <div style="display:flex; flex-direction:column; align-items:flex-end;">
-                    <div style="display:flex; align-items:center; gap:0.5rem; background:#eee; border-radius:4px; padding:0.1rem;">
-                        <button onclick="changeQuantity('${item.id}', ${item.quantity - 1}, '${encodeURIComponent(item.variant_name || String())}')" style="border:none; background:none; cursor:pointer; width:20px;">-</button>
-                        <span style="font-size:0.8rem; font-weight:bold;">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.id}', ${item.quantity + 1}, '${encodeURIComponent(item.variant_name || String())}')" style="border:none; background:none; cursor:pointer; width:20px;">+</button>
+                <div class="side-cart-item__actions">
+                    <div class="side-cart-quantity" role="group" aria-label="Cantidad de ${item.name}">
+                        <button type="button" aria-label="Quitar una unidad" onclick="changeQuantity('${item.id}', ${item.quantity - 1}, '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-minus"></i></button>
+                        <span aria-label="${item.quantity} unidades">${item.quantity}</span>
+                        <button type="button" aria-label="Agregar una unidad" onclick="changeQuantity('${item.id}', ${item.quantity + 1}, '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <span class="side-cart-remove" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-trash"></i> Quitar</span>
+                    <button type="button" class="side-cart-remove" aria-label="Quitar ${item.name} del carrito" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-trash-can"></i><span>Quitar</span></button>
                 </div>
-            </div>
+            </article>
         `;
     });
     

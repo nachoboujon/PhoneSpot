@@ -23,6 +23,7 @@ Los clientes se registran con correo y contraseña, verifican su dirección y re
 
 - La configuración se publica en `/api/auth/google/config`.
 - El servidor valida la credencial recibida en `/api/auth/google` antes de crear una sesión.
+- La cabecera `Cross-Origin-Opener-Policy` usa `same-origin-allow-popups`: conserva el aislamiento del sitio y permite que Google Identity Services devuelva la credencial desde su popup.
 - El dominio productivo debe figurar como origen autorizado en Google Cloud para completar el selector de cuentas.
 - Para desarrollo local, el origen exacto `http://localhost:3000` también debe estar autorizado. Si falta alguno, Google devuelve `Error 400: origin_mismatch`.
 - Configuración aplicada en Google Cloud: `https://phonespot.up.railway.app`, `http://localhost`, `http://localhost:3000` y `https://www.phonespot.site`. Google puede demorar unos minutos en propagar el cambio.

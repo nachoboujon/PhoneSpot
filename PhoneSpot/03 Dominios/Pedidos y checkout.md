@@ -18,6 +18,7 @@ El checkout valida el carrito, solicita una opción de envío y crea un pedido a
 - Se valida el formato de teléfono argentino, el DNI (7 u 8 dígitos), nombre, ciudad y código postal antes de crear un pedido. Estas comprobaciones también se repiten en el servidor.
 - La provincia es una selección obligatoria de las 24 jurisdicciones argentinas; la ciudad se ingresa por separado para evitar direcciones ambiguas.
 - La verificación de propiedad del teléfono por SMS/WhatsApp requiere integrar un proveedor de mensajería y no se simula como una validación real.
+- El carrito lateral presenta cada producto en una tarjeta con imagen, variante, precio, controles de cantidad y acción de quitar separada; en móvil los controles pasan a una fila inferior para conservar la legibilidad.
 
 ## Estados
 
