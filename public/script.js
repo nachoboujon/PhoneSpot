@@ -1951,7 +1951,20 @@ const checkoutForm = document.getElementById('checkout-form');
         if (checkoutEmail && checkoutToken) {
             fetch(window.API_URL + '/api/me', { headers: { Authorization: `Bearer ${checkoutToken}` } })
                 .then((response) => response.ok ? response.json() : Promise.reject())
-                .then((user) => { checkoutEmail.value = user.email; checkoutEmail.readOnly = true; })
+                .then((user) => {
+                    checkoutEmail.value = user.email;
+                    checkoutEmail.readOnly = true;
+                    const [firstName = '', ...lastName] = String(user.name || '').trim().split(/\s+/);
+                    const fill = (id, value) => { const field = document.getElementById(id); if (field && value && !field.value) field.value = value; };
+                    fill('chk-name', firstName);
+                    fill('chk-lastname', lastName.join(' '));
+                    fill('chk-phone', user.phone);
+                    fill('chk-dni', user.dni);
+                    fill('chk-address', user.address);
+                    fill('chk-province', user.province);
+                    fill('chk-city', user.city);
+                    fill('chk-zip', user.postal_code);
+                })
                 .catch(() => {});
         }
         const shippingRadios = document.querySelectorAll('input[name="shipping_method"]');

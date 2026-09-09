@@ -11,6 +11,7 @@ Supabase/Postgres persiste usuarios, productos, pedidos, líneas de pedido, rese
 - Esquema inicial: `database/schema.supabase.sql`.
 - Actualizaciones: `database/migrations/`.
 - Alineación de una instalación existente: `migration_schema_sync.sql`.
+- Perfil de cliente: `supabase/migrations/20260908233154_add_customer_profile_fields.sql` añade teléfono, DNI y domicilio de entrega a `users`.
 
 ## Entidades conectadas
 

@@ -41,3 +41,5 @@ Los clientes se registran con correo y contraseña, verifican su dirección y re
 - El perfil obtiene y actualiza únicamente el registro identificado por el JWT mediante `GET /api/me` y `PUT /api/me`. El email se mantiene bloqueado para evitar cambios sin verificación.
 - El email verificado de esa cuenta es el que se usa para confirmar compras; no se admite sustituirlo por otro email desde el checkout.
 - El encabezado de perfil reutiliza la clase visual `brand-mark` de la tienda para mantener el logo en tamaño compacto y no alterar el layout de la cuenta.
+- La marca del encabezado usa un contenedor horizontal, con medidas específicas para escritorio y móvil, para que el símbolo y el nombre se perciban como una sola unidad.
+- La ficha de cliente reúne nombre, teléfono, DNI y domicilio de entrega. La API sólo permite leer o modificar esos datos para el `id` contenido en el JWT; el email permanece bloqueado.

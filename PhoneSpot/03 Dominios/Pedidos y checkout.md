@@ -19,6 +19,7 @@ El checkout valida el carrito, solicita una opción de envío y crea un pedido a
 - La provincia es una selección obligatoria de las 24 jurisdicciones argentinas; la ciudad se ingresa por separado para evitar direcciones ambiguas.
 - La verificación de propiedad del teléfono por SMS/WhatsApp requiere integrar un proveedor de mensajería y no se simula como una validación real.
 - El carrito lateral presenta cada producto en una tarjeta con imagen, variante, precio, controles de cantidad y acción de quitar separada; en móvil los controles pasan a una fila inferior para conservar la legibilidad.
+- El checkout puede reutilizar la ficha de entrega guardada en el perfil del cliente; el email sigue siendo el verificado por la cuenta.
 
 ## Estados
 

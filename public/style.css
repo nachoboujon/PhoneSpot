@@ -349,26 +349,43 @@ header.is-scrolled {
     box-shadow: 0 12px 30px rgba(0,0,0,.09);
 }
 
+header .logo {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
 header h1 {
     font-size: 2.2rem;
     color: #000000;
     font-weight: 800;
     letter-spacing: -1px;
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 header h1 a {
     color: #000;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    line-height: 1;
+    white-space: nowrap;
 }
 
-.brand-mark {
-    display: block;
-    width: 44px !important;
-    height: 44px !important;
-    /* El archivo tiene margen blanco interno; cover evita que el ícono quede
-       ópticamente más chico que el nombre de la marca. */
-    object-fit: cover;
-    mix-blend-mode: multiply;
+.brand-mark,
+header .logo h1 img,
+header .logo img {
+    display: inline-block;
+    height: 38px;
+    width: auto;
+    max-height: 38px;
+    object-fit: contain;
+    flex-shrink: 0;
+    vertical-align: middle;
 }
 
 nav ul {
@@ -1086,9 +1103,36 @@ details[open] {
         padding: .75rem 1rem !important;
         gap: .7rem;
     }
-    header .logo { min-width: 0; }
-    header .logo h1 { font-size: 1.25rem !important; }
-    header .logo h1 img { width: 36px !important; height: 36px !important; }
+    header .logo {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    header .logo h1 {
+        font-size: 1.32rem !important;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+    header .logo h1 a {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.45rem !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+    }
+    header .logo h1 img,
+    header .logo .brand-mark {
+        height: 28px !important;
+        width: auto !important;
+        max-height: 28px !important;
+        object-fit: contain !important;
+        flex-shrink: 0 !important;
+    }
     header .header-icons { gap: .8rem; }
     header .header-icons a { font-size: 1.08rem; }
     header .header-icons a[title="Mi Cuenta"] { display: none; }
@@ -1885,8 +1929,12 @@ body:not(.dark-mode) .logo-slide img {
 }
 
 @media (max-width: 480px) {
-    /* Very Small Phones (iPhone SE, etc) */
-    header .logo h1 { font-size: 1.3rem !important; }
+    header .logo h1 { font-size: 1.2rem !important; }
+    header .logo h1 img,
+    header .logo .brand-mark {
+        height: 25px !important;
+        max-height: 25px !important;
+    }
     .hero-content h2 { font-size: 1.6rem !important; }
     #products-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
@@ -1895,6 +1943,20 @@ body:not(.dark-mode) .logo-slide img {
 }
 
 /* Mi cuenta: panel claro, ordenado y consistente con la estética PhoneSpot. */
+.account-page ~ .account-footer { margin-top: 0; }
+header .logo h1 > a {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    line-height: 1;
+}
+header .logo h1 > a .brand-mark {
+    flex: 0 0 38px;
+    width: 38px !important;
+    height: 38px !important;
+    margin: 0;
+}
+header .logo h1 > a span { display: block; white-space: nowrap; }
 .account-page { max-width: 1180px; min-height: calc(100vh - 180px); margin: 0 auto; padding: 3rem 5% 4rem; }
 .account-hero { display: flex; align-items: center; gap: 1.25rem; padding: 2rem; border: 1px solid #242424; border-radius: 24px; background: radial-gradient(circle at 86% 12%, #464646 0, transparent 18rem), linear-gradient(135deg, #080808, #202020); color: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.16); }
 .account-avatar { display: grid; flex: 0 0 64px; width: 64px; height: 64px; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 20px; background: rgba(255,255,255,.12); font-size: 1.65rem; }
@@ -1916,6 +1978,12 @@ body:not(.dark-mode) .logo-slide img {
 .account-form input:focus { outline: 0; border-color: #111; box-shadow: 0 0 0 4px rgba(0,0,0,.08); }
 .account-form input:disabled { background: #f4f4f4; color: #777; cursor: not-allowed; }
 .account-form small { color: #777; font-size: .76rem; line-height: 1.4; }
+.account-form select { width: 100%; min-height: 50px; padding: .75rem .9rem; border: 1px solid #dcdcdc; border-radius: 11px; background: #fff; color: #111; font: inherit; }
+.account-form select:focus { outline: 0; border-color: #111; box-shadow: 0 0 0 4px rgba(0,0,0,.08); }
+.account-form-section { display: grid; gap: 1rem; margin-top: .35rem; padding: 1.1rem; border: 1px solid #e5e5e5; border-radius: 14px; background: #fafafa; }
+.account-form-section > div:first-child span { color: #555; font-size: .72rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.account-form-section > div:first-child p { margin: .28rem 0 0; color: #666; font-size: .78rem; line-height: 1.4; }
+.account-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
 .account-save, .account-secondary-action, .account-logout { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .75rem 1rem; border-radius: 11px; font: inherit; font-size: .86rem; font-weight: 800; text-decoration: none; cursor: pointer; }
 .account-save { border: 0; background: #111; color: #fff; }
 .account-save:disabled { opacity: .65; cursor: wait; transform: none; }
@@ -1935,7 +2003,7 @@ body:not(.dark-mode) .logo-slide img {
 .order-card { padding: 1.2rem; border: 1px solid #e7e7e7; border-radius: 15px; background: #fff; }
 .order-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }.order-number { display: block; color: #111; font-weight: 850; }.order-card time { display: block; margin-top: .28rem; color: #777; font-size: .78rem; }.order-total { display: grid; justify-items: end; gap: .42rem; }.order-total > strong { font-size: 1.1rem; }.order-status { display: inline-flex; align-items: center; gap: .32rem; border-radius: 999px; padding: .32rem .55rem; font-size: .72rem; font-weight: 800; }.order-status.pending { background: #fff4dc; color: #956800; }.order-status.confirmed, .order-status.delivered { background: #eaf8ee; color: #15753a; }.order-status.preparing { background: #eeeafe; color: #5639a4; }.order-status.shipped { background: #eaf4ff; color: #1a65a3; }.order-status.cancelled { background: #fff0f0; color: #b42318; }
 .order-items { display: grid; gap: .65rem; margin: 1rem 0 0; padding: 0; list-style: none; }.order-items li { display: grid; grid-template-columns: 42px minmax(0,1fr) auto; align-items: center; gap: .75rem; }.order-items img { width: 42px; height: 42px; border: 1px solid #eee; border-radius: 10px; object-fit: cover; }.order-items span { min-width: 0; }.order-items strong, .order-items small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.order-items strong { font-size: .88rem; }.order-items small { margin-top: .15rem; color: #777; font-size: .74rem; }.order-items b { color: #444; font-size: .84rem; }.order-tracking { display: flex; align-items: center; gap: .55rem; margin-top: 1rem; padding: .75rem; border-radius: 10px; background: #f3f7fb; color: #27597c; font-size: .83rem; }.order-tracking b { display: block; margin-top: .1rem; color: #111; font-family: monospace; }.account-footer { padding: 1.7rem 5%; background: #111; color: #aaa; text-align: center; font-size: .85rem; }.account-footer a { color: #fff; font-weight: 700; }
-@media (max-width: 768px) { .mobile-account-link { display: list-item; }.header-instagram-link { display: none !important; }.account-page { padding: 1.25rem 1rem 2.5rem; }.account-hero { align-items: flex-start; flex-wrap: wrap; padding: 1.35rem; border-radius: 18px; }.account-avatar { flex-basis: 54px; width: 54px; height: 54px; border-radius: 16px; }.account-hero h1 { font-size: 1.75rem; }.account-shop-link { width: 100%; margin: .25rem 0 0; text-align: center; }.account-grid { grid-template-columns: 1fr; gap: .9rem; margin-top: .9rem; }.account-card, .account-orders-section { padding: 1.2rem; border-radius: 16px; }.order-card { padding: 1rem; }.order-card-top { align-items: start; }.order-total > strong { font-size: 1rem; }.account-footer { padding-bottom: 6rem; } }
+@media (max-width: 768px) { .mobile-account-link { display: list-item; }.header-instagram-link { display: none !important; }header .logo h1 > a { gap: .42rem; } header .logo h1 > a .brand-mark { flex-basis: 32px; width: 32px !important; height: 32px !important; }.account-page { padding: 1.25rem 1rem 2.5rem; }.account-hero { align-items: flex-start; flex-wrap: wrap; padding: 1.35rem; border-radius: 18px; }.account-avatar { flex-basis: 54px; width: 54px; height: 54px; border-radius: 16px; }.account-hero h1 { font-size: 1.75rem; }.account-shop-link { width: 100%; margin: .25rem 0 0; text-align: center; }.account-grid { grid-template-columns: 1fr; gap: .9rem; margin-top: .9rem; }.account-card, .account-orders-section { padding: 1.2rem; border-radius: 16px; }.account-form-grid { grid-template-columns: 1fr; }.account-form-section { padding: .95rem; }.order-card { padding: 1rem; }.order-card-top { align-items: start; }.order-total > strong { font-size: 1rem; }.account-footer { padding-bottom: 6rem; } }
 
 
 /* ========================================= */
@@ -1990,7 +2058,15 @@ body:not(.dark-mode) .logo-slide img {
         flex-wrap: wrap !important;
         padding: 1rem 5% !important;
     }
-    header .logo { order: 1; flex: 1; text-align: center; }
+    header .logo {
+        order: 1;
+        flex: 1;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+    }
     header .menu-toggle { order: 0; }
     header .header-icons { order: 2; }
     header .search-bar { order: 3; width: 100%; margin-top: 1rem; }
@@ -2334,11 +2410,14 @@ body:not(.dark-mode) .logo-slide img {
         left: 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
-        min-height: 116px;
+        min-height: 60px;
         z-index: 10000 !important;
         background-color: #ffffff !important;
         box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
         transition: box-shadow 0.2s ease;
+    }
+    header:has(.search-bar) {
+        min-height: 116px;
     }
 
     /* Fijado garantizado durante scroll en móvil */
