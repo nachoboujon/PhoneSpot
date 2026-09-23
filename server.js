@@ -418,7 +418,10 @@ const authenticate = (req, res, next) => {
         req.user = verified;
         next();
     } catch (error) {
-        res.status(400).json({ error: 'Token inválido' });
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ code: 'SESSION_EXPIRED', error: 'La sesión venció. Iniciá sesión nuevamente.' });
+        }
+        res.status(401).json({ code: 'SESSION_INVALID', error: 'La sesión no es válida. Iniciá sesión nuevamente.' });
     }
 };
 
@@ -426,6 +429,8 @@ const isAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') return res.status(403).json({ error: 'Se requiere rol de administrador' });
     next();
 };
+
+app.get('/api/admin/session', authenticate, isAdmin, (_req, res) => res.status(204).end());
 
 const validCartId = (value) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
 

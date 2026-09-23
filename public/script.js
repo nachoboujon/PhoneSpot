@@ -55,6 +55,31 @@ window.dolarPromise = fetch(`${window.API_URL}/api/dollar-rate`)
 
 
 // ==================== AUTH GUARD ====================
+const adminSessionPromise = window.location.pathname.endsWith('/admin.html') ? (async () => {
+    const token = localStorage.getItem('phoneSpotToken');
+    if (!token) {
+        window.location.replace('login.html?redirect=admin.html&reason=session-expired');
+        return false;
+    }
+    try {
+        const response = await fetch(`${window.API_URL}/api/admin/session`, {
+            headers: { Authorization: `Bearer ${token}` }, cache: 'no-store'
+        });
+        if (response.ok) {
+            document.documentElement.classList.add('admin-verified');
+            return true;
+        }
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem('phoneSpotToken');
+            localStorage.removeItem('phoneSpotRole');
+            window.location.replace('login.html?redirect=admin.html&reason=session-expired');
+            return false;
+        }
+    } catch (error) { console.error('Error verificando sesión:', error); }
+    document.getElementById('admin-session-check').innerHTML = 'No pudimos comprobar la sesión. <a href="admin.html">Reintentar</a>';
+    return false;
+})() : null;
+
 if (window.location.pathname.includes('checkout.html') && !localStorage.getItem('phoneSpotToken')) {
     window.location.href = 'login.html?redirect=checkout.html';
 }
@@ -803,7 +828,8 @@ window.getColorHex = (colorName) => {
 };
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (adminSessionPromise && !(await adminSessionPromise)) return;
 
     const globalLogoutBtn = document.getElementById('logout-btn') || document.getElementById('btn-logout');
     if (globalLogoutBtn) {
@@ -2289,6 +2315,9 @@ const checkoutForm = document.getElementById('checkout-form');
     // Login
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
+        if (new URLSearchParams(window.location.search).get('reason') === 'session-expired') {
+            showToast('Tu sesión venció. Iniciá sesión para continuar.', 'fa-lock');
+        }
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('log-email').value;
@@ -2311,7 +2340,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         ? requestedRedirect
                         : null;
                     if(data.role === 'admin') setTimeout(() => window.location.href = safeRedirect || 'admin.html', 900);
-                    else setTimeout(() => window.location.href = safeRedirect || 'perfil.html', 900);
+                    else setTimeout(() => window.location.href = safeRedirect === 'admin.html' ? 'perfil.html' : (safeRedirect || 'perfil.html'), 900);
                 } else {
                     showToast(data.error, 'fa-triangle-exclamation');
                 }
@@ -2322,11 +2351,6 @@ const checkoutForm = document.getElementById('checkout-form');
     // Admin Panel - Crear Producto
     const adminForm = document.getElementById('admin-product-form');
     if (adminForm) {
-        if(localStorage.getItem('phoneSpotRole') !== 'admin') {
-            showToast('Acceso Denegado. Solo administradores.', 'fa-lock');
-            setTimeout(() => window.location.href = 'index.html', 1500);
-        }
-
         // Lógica de añadir variantes
         const btnAddVariant = document.getElementById('btn-add-variant');
         const variantsContainer = document.getElementById('variants-container');
@@ -2604,7 +2628,7 @@ const checkoutForm = document.getElementById('checkout-form');
             };
 
             window.deleteProduct = async (id) => {
-                if(!confirm('¿Estás seguro de eliminar está producto definitivamente?')) return;
+                if(!confirm('¿Querés quitar este producto del catálogo?')) return;
                 const token = localStorage.getItem('phoneSpotToken');
                 try {
                     const res = await fetch(`${window.API_URL}/api/products/${id}`, {
@@ -2615,6 +2639,12 @@ const checkoutForm = document.getElementById('checkout-form');
                         showToast('Producto eliminado', 'fa-check');
                         window.loadAdminProducts();
                     } else {
+                        if (res.status === 401 || res.status === 403) {
+                            localStorage.removeItem('phoneSpotToken');
+                            localStorage.removeItem('phoneSpotRole');
+                            window.location.href = 'login.html?redirect=admin.html&reason=session-expired';
+                            return;
+                        }
                         const result = await res.json().catch(() => ({}));
                         showToast(result.error || 'Error eliminando producto', 'fa-triangle-exclamation');
                     }
@@ -3935,7 +3965,9 @@ window.handleGoogleCredential = async ({ credential } = {}) => {
         localStorage.setItem('phoneSpotToken', data.token);
         localStorage.setItem('phoneSpotRole', data.role);
         showToast('¡Ingreso exitoso!', 'fa-check');
-        const redirect = new URLSearchParams(window.location.search).get('redirect');
+        const requestedRedirect = new URLSearchParams(window.location.search).get('redirect');
+        const redirect = requestedRedirect && /^[a-zA-Z0-9_-]+\.html(?:[?#].*)?$/.test(requestedRedirect)
+            && (requestedRedirect !== 'admin.html' || data.role === 'admin') ? requestedRedirect : null;
         setTimeout(() => {
             window.location.href = redirect || (data.role === 'admin' ? 'admin.html' : 'perfil.html');
         }, 900);
