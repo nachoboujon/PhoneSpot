@@ -104,21 +104,47 @@ function showToast(message, icon = 'fa-circle-check') {
     setTimeout(() => toast.remove(), 3300);
 }
 
-// Estado del carrito en LocalStorage
+// La reserva vive en el servidor; localStorage conserva sólo el identificador secreto.
 let cart = [];
-try {
-    const rawCart = localStorage.getItem('phoneSpotCart');
-    if (rawCart) {
-        cart = JSON.parse(rawCart) || [];
-        cart = cart.filter(item => item.price && !isNaN(item.price));
-    }
-} catch(e) {
-    console.error('Cart parse error, resetting', e);
-    localStorage.removeItem('phoneSpotCart');
+let cartId = localStorage.getItem('phoneSpotCartId');
+let legacyCart = [];
+try { legacyCart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch (_) { /* Carrito antiguo inválido. */ }
+if (!cartId || !/^[0-9a-f-]{36}$/i.test(cartId)) {
+    cartId = crypto.randomUUID();
+    localStorage.setItem('phoneSpotCartId', cartId);
 }
 
+const cartReady = (async () => {
+    if (Array.isArray(legacyCart)) {
+        for (const item of legacyCart) {
+            if (!Number.isInteger(Number(item.id)) || !Number.isInteger(Number(item.quantity))) continue;
+            try {
+                await fetch(`${window.API_URL}/api/cart/${cartId}/items`, {
+                    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ product_id: Number(item.id), variant_name: item.variant_name || '', quantity: item.quantity })
+                });
+            } catch (_) { /* La actualización final traerá sólo reservas confirmadas. */ }
+        }
+    }
+    await refreshCart();
+    localStorage.removeItem('phoneSpotCart');
+})().catch((error) => { console.error('Error sincronizando carrito:', error); });
+
+async function refreshCart() {
+    const response = await fetch(`${window.API_URL}/api/cart/${cartId}`);
+    if (!response.ok) throw new Error('No se pudo cargar el carrito');
+    cart = await response.json();
+    saveCart();
+    renderCart();
+    renderCheckout();
+    if (typeof renderSideCart === 'function') renderSideCart();
+}
+setInterval(() => { if (!document.hidden) refreshCart().catch(console.error); }, 60 * 1000);
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refreshCart().catch(console.error);
+});
+
 function saveCart() {
-    localStorage.setItem('phoneSpotCart', JSON.stringify(cart));
     updateCartCount();
 }
 
@@ -178,24 +204,27 @@ function animateProductToCart(sourceElement) {
     return animation.finished.catch(() => {}).then(() => flyer.remove());
 }
 
-function addToCart(product, sourceElement = null) {
-    const existingItem = cart.find(item => item.id === product.id && item.variant_name === product.variant_name);
-    
-    // Check max stock if available
-    const maxStock = product.maxStock !== undefined ? product.maxStock : Infinity;
-    const currentQty = existingItem ? existingItem.quantity : 0;
-    
-    if (currentQty + 1 > maxStock) {
-        showToast('No hay más stock disponible de este producto', 'fa-triangle-exclamation');
+async function setCartQuantity(id, variantName, quantity) {
+    await cartReady;
+    const response = await fetch(`${window.API_URL}/api/cart/${cartId}/items`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product_id: Number(id), variant_name: variantName || '', quantity })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'No pudimos actualizar el carrito.');
+    await refreshCart();
+    return result;
+}
+
+async function addToCart(product, sourceElement = null) {
+    try {
+        await cartReady;
+        const existingItem = cart.find(item => String(item.id) === String(product.id) && item.variant_name === product.variant_name);
+        await setCartQuantity(product.id, product.variant_name, (existingItem?.quantity || 0) + 1);
+    } catch (error) {
+        showToast(error.message, 'fa-triangle-exclamation');
         return false;
     }
-
-    if(existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({...product, quantity: 1});
-    }
-    saveCart();
     window.trackStoreEvent('add_to_cart', { productId: product.id });
 
     const finishCartFeedback = () => {
@@ -210,27 +239,15 @@ function addToCart(product, sourceElement = null) {
     return true;
 }
 
-function removeFromCart(id, variant_name = '') {
-    cart = cart.filter(item => !(item.id === id && String(item.variant_name || '') === String(decodeURIComponent(variant_name || ''))));
-    saveCart();
-    renderCart(); // Solo útil si estamos en carrito.html
-    if (typeof renderSideCart === 'function') renderSideCart();
+async function removeFromCart(id, variant_name = '') {
+    try { await setCartQuantity(id, decodeURIComponent(variant_name || ''), 0); }
+    catch (error) { showToast(error.message, 'fa-triangle-exclamation'); }
 }
 
-function changeQuantity(id, newQuantity, variant_name = '') {
-    if (newQuantity < 1) return;
-    const item = cart.find(item => item.id === id && String(item.variant_name || '') === String(decodeURIComponent(variant_name || '')));
-    if (item) {
-        const max = item.maxStock !== undefined ? item.maxStock : Infinity;
-        if (newQuantity > max) {
-            showToast('Límite de stock alcanzado', 'fa-triangle-exclamation');
-            return;
-        }
-        item.quantity = newQuantity;
-        saveCart();
-        renderCart();
-        if (typeof renderSideCart === 'function') renderSideCart();
-    }
+async function changeQuantity(id, newQuantity, variant_name = '') {
+    if (!Number.isInteger(newQuantity)) return;
+    try { await setCartQuantity(id, decodeURIComponent(variant_name || ''), Math.max(0, newQuantity)); }
+    catch (error) { showToast(error.message, 'fa-triangle-exclamation'); await refreshCart(); }
 }
 
 async function renderSideCart() { 
@@ -422,6 +439,7 @@ async function renderCart() { await window.dolarPromise;
             <div class="item-details">
                 <h4>${item.name}</h4>
                 ${item.variant_name ? `<p>${item.variant_name}</p>` : ''}
+                <small>Reservado hasta ${new Date(item.expires_at).toLocaleString('es-AR')}</small>
                 ${isWholesale && itemIsEligible ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
                 <div class="item-quantity" style="margin-top: 5px;">
                     <span>Cantidad:</span>
@@ -936,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Delegación de eventos para el botón "Añadir al carrito"
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', async (e) => {
         const btn = e.target.closest('.add-to-cart-btn');
         if (btn) {
             if(btn.disabled) return;
@@ -1010,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error parsing stock info', e);
             }
 
-            if (addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card)) {
+            if (await addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card)) {
                 const originalLabel = btn.innerHTML;
                 btn.classList.add('is-added');
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado';
@@ -1980,6 +1998,8 @@ const checkoutForm = document.getElementById('checkout-form');
 
         checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            try { await cartReady; await refreshCart(); }
+            catch (error) { showToast('No pudimos verificar tu reserva. Intentá de nuevo.', 'fa-triangle-exclamation'); return; }
             
             if (cart.length === 0) {
                 showToast('No hay productos en el carrito.', 'fa-cart-shopping');
@@ -2071,7 +2091,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
                     },
-                    body: JSON.stringify({ items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
+                    body: JSON.stringify({ cart_id: cartId, items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
                 });
 
                 const data = await response.json();
@@ -2594,8 +2614,11 @@ const checkoutForm = document.getElementById('checkout-form');
                     if(res.ok) {
                         showToast('Producto eliminado', 'fa-check');
                         window.loadAdminProducts();
-                    } else showToast('Error eliminando producto', 'fa-triangle-exclamation');
-                } catch(e) {}
+                    } else {
+                        const result = await res.json().catch(() => ({}));
+                        showToast(result.error || 'Error eliminando producto', 'fa-triangle-exclamation');
+                    }
+                } catch(e) { showToast('No se pudo conectar con el servidor', 'fa-triangle-exclamation'); }
             };
 
             window.loadAdminProducts();

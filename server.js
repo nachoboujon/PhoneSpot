@@ -427,6 +427,57 @@ const isAdmin = (req, res, next) => {
     next();
 };
 
+const validCartId = (value) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
+
+app.get('/api/cart/:cartId', async (req, res) => {
+    if (!validCartId(req.params.cartId)) return res.status(400).json({ error: 'Carrito inválido.' });
+    try {
+        const { error: expiryError } = await supabase.rpc('expire_cart_reservations');
+        if (expiryError) throw expiryError;
+        const { data, error } = await supabase.from('cart_reservations')
+            .select('product_id, variant_name, quantity, expires_at, products(id, name, price, image_url, category, variants)')
+            .eq('cart_id', req.params.cartId);
+        if (error) throw error;
+        res.json((data || []).map((row) => {
+            const product = row.products;
+            const variant = parseVariants(product.variants).find((entry) => variantNameFor(entry) === row.variant_name);
+            return {
+                id: String(product.id), name: product.name, img: product.image_url,
+                category: product.category, variant_name: row.variant_name || null,
+                price: Number(variant?.price) > 0 ? Number(variant.price) : Number(product.price),
+                quantity: row.quantity, expires_at: row.expires_at
+            };
+        }));
+    } catch (error) {
+        console.error('Error leyendo carrito:', error);
+        res.status(500).json({ error: 'No pudimos cargar el carrito.' });
+    }
+});
+
+app.put('/api/cart/:cartId/items', limitByClient('cart-update', 90, 15 * 60 * 1000), async (req, res) => {
+    const productId = Number(req.body.product_id);
+    const quantity = Number(req.body.quantity);
+    const variantName = String(req.body.variant_name || '');
+    if (!validCartId(req.params.cartId) || !Number.isInteger(productId) || productId <= 0 ||
+        !Number.isInteger(quantity) || quantity < 0 || quantity > 20 || variantName.length > 255) {
+        return res.status(400).json({ error: 'Datos del carrito inválidos.' });
+    }
+    try {
+        const { data, error } = await supabase.rpc('set_cart_reservation', {
+            p_cart_id: req.params.cartId, p_product_id: productId,
+            p_variant_name: variantName, p_quantity: quantity
+        });
+        if (error) {
+            if (/Stock insuficiente|Producto no disponible/i.test(error.message)) return res.status(409).json({ error: error.message });
+            throw error;
+        }
+        res.json(data?.[0] || { quantity: 0, expires_at: null });
+    } catch (error) {
+        console.error('Error reservando carrito:', error);
+        res.status(500).json({ error: 'No pudimos actualizar el carrito.' });
+    }
+});
+
 const orderStatusLabels = {
     pending: 'Pedido recibido',
     confirmed: 'Pago confirmado',
@@ -763,7 +814,9 @@ app.post('/api/reset-password', limitByClient('password-reset', 8, 60 * 60 * 100
 // --- RUTAS DE PRODUCTOS ---
 app.get('/api/products', async (req, res) => {
     try {
-        const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+        const { error: expiryError } = await supabase.rpc('expire_cart_reservations');
+        if (expiryError) throw expiryError;
+        const { data, error } = await supabase.from('products').select('*').is('archived_at', null).order('created_at', { ascending: false });
         if (error) throw error;
         data.forEach((product) => { product.variants = parseVariants(product.variants); });
         res.json(data);
@@ -774,8 +827,10 @@ app.get('/api/products', async (req, res) => {
 
 app.get('/api/products/:id', async (req, res) => {
     try {
+        const { error: expiryError } = await supabase.rpc('expire_cart_reservations');
+        if (expiryError) throw expiryError;
         const { id } = req.params;
-        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).is('archived_at', null).single();
         if (error) throw error;
         if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
         
@@ -980,6 +1035,8 @@ app.post('/api/orders', authenticate, async (req, res) => {
             return res.status(400).json({ error: 'Usá el email verificado de tu cuenta para confirmar la compra.' });
         }
         const requestedItems = new Map();
+        const cartId = req.body.cart_id;
+        if (!validCartId(cartId)) return res.status(400).json({ error: 'El carrito no tiene una reserva válida.' });
         for (const item of rawItems) {
             const productId = Number.parseInt(item.product_id, 10);
             const quantity = Number.parseInt(item.quantity, 10);
@@ -990,6 +1047,16 @@ app.post('/api/orders', authenticate, async (req, res) => {
             const key = `${productId}:${variantName || ''}`;
             const current = requestedItems.get(key);
             requestedItems.set(key, { productId, variantName, quantity: (current?.quantity || 0) + quantity });
+        }
+
+        const { data: reservations, error: reservationError } = await supabase.from('cart_reservations')
+            .select('product_id, variant_name, quantity, expires_at').eq('cart_id', cartId);
+        if (reservationError) throw reservationError;
+        const reserved = new Map((reservations || []).map((item) => [`${item.product_id}:${item.variant_name}`, item]));
+        if (reserved.size !== requestedItems.size || [...requestedItems].some(([key, item]) =>
+            !reserved.has(key) || reserved.get(key).quantity !== item.quantity ||
+            Date.parse(reserved.get(key).expires_at) <= Date.now())) {
+            return res.status(409).json({ error: 'La reserva del carrito venció o cambió. Actualizá el carrito.' });
         }
 
         const secureItems = [];
@@ -1007,38 +1074,12 @@ app.post('/api/orders', authenticate, async (req, res) => {
                 return res.status(400).json({ error: `Selecciona una variante válida para ${product.name}.` });
             }
 
-            const availableStock = selectedVariant ? Number(selectedVariant.stock) : Number(product.stock);
-            if (!Number.isInteger(availableStock) || availableStock < item.quantity || Number(product.stock) < item.quantity) {
-                return res.status(409).json({ error: `${product.name} no tiene stock suficiente.` });
-            }
-
             const rawVariantPrice = selectedVariant?.price;
             const hasCustomPrice = rawVariantPrice !== null && rawVariantPrice !== undefined && String(rawVariantPrice).trim() !== '' && !Number.isNaN(Number(rawVariantPrice)) && Number(rawVariantPrice) > 0;
             const unitPrice = hasCustomPrice ? Number(rawVariantPrice) : Number(product.price);
             if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Precio inválido para ${product.name}`);
 
             secureItems.push({ ...item, product, variants, unitPrice });
-        }
-
-        const stockUpdates = new Map();
-        for (const item of secureItems) {
-            const current = stockUpdates.get(item.product.id) || {
-                product: item.product,
-                quantity: 0,
-                variants: item.variants.map((variant) => ({ ...variant }))
-            };
-            current.quantity += item.quantity;
-            if (current.quantity > Number(current.product.stock)) {
-                return res.status(409).json({ error: `${current.product.name} no tiene stock suficiente.` });
-            }
-            if (item.variantName) {
-                current.variants = current.variants.map((variant) => (
-                    variantNameFor(variant) === item.variantName
-                        ? { ...variant, stock: Number(variant.stock) - item.quantity }
-                        : variant
-                ));
-            }
-            stockUpdates.set(item.product.id, current);
         }
 
         const isWholesaleProduct = (prod) => {
@@ -1112,17 +1153,15 @@ app.post('/api/orders', authenticate, async (req, res) => {
             throw itemsError;
         }
 
-        for (const update of stockUpdates.values()) {
-            const { data: updatedProduct, error: stockError } = await supabase
-                .from('products')
-                .update({ stock: Number(update.product.stock) - update.quantity, variants: update.variants })
-                .eq('id', update.product.id)
-                .eq('stock', update.product.stock)
-                .select('id');
-            if (stockError || !updatedProduct?.length) {
-                await supabase.from('orders').delete().eq('id', orderData.id);
-                return res.status(409).json({ error: 'El stock cambió mientras procesábamos tu compra. Vuelve a intentarlo.' });
-            }
+        const { data: consumed, error: consumeError } = await supabase.rpc('consume_cart_reservations', {
+            p_cart_id: cartId, p_items: [...requestedItems.values()].map((item) => ({
+                product_id: item.productId, variant_name: item.variantName || '', quantity: item.quantity
+            }))
+        });
+        if (consumeError || !consumed) {
+            await supabase.from('orders').delete().eq('id', orderData.id);
+            if (consumeError) throw consumeError;
+            return res.status(409).json({ error: 'La reserva del carrito venció o cambió. Actualizá el carrito.' });
         }
 
         const totalArs = Math.round((productsSubtotal - discountUsd) * dollarRate + extraShipping);
@@ -1443,10 +1482,14 @@ app.get('/api/admin/analytics', authenticate, isAdmin, async (_req, res) => {
 app.delete('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        const { error } = await supabase.from('products').delete().eq('id', id);
+        const { data, error } = await supabase.from('products')
+            .update({ archived_at: new Date().toISOString() }).eq('id', id)
+            .is('archived_at', null).select('id');
         if (error) throw error;
-        res.json({ message: 'Producto eliminado' });
+        if (!data?.length) return res.status(404).json({ error: 'Producto no encontrado.' });
+        res.json({ message: 'Producto eliminado del catálogo' });
     } catch (error) {
+        console.error('Error archivando producto:', error);
         res.status(500).json({ error: error.message });
     }
 });
