@@ -22,14 +22,17 @@ const puppeteer = require('puppeteer');
         assert.equal(await page.$$eval('.gallery-thumb', elements => elements.length), 16);
         await page.click('.var-btn[data-type="color"][data-val="Morado"]');
         await page.click('.var-btn[data-type="capacity"][data-val="256GB"]');
+        await page.waitForFunction(() => document.querySelector('#main-product-img')?.naturalWidth > 0, { timeout: 10000 });
         const selected = await page.evaluate(() => ({
             name: document.querySelector('.product-details').dataset.selectedVariant,
             price: Number(document.querySelector('.product-details').dataset.price),
-            image: document.querySelector('#main-product-img').src
+            image: document.querySelector('#main-product-img').src,
+            imageLoaded: document.querySelector('#main-product-img').naturalWidth > 0
         }));
         assert.equal(selected.name, 'Morado - 256GB - Bat: 100% - Cond: eSIM');
         assert.equal(selected.price, expected.price);
         assert.equal(selected.image, expected.image_url);
+        assert.ok(selected.imageLoaded);
         console.log('Live catalog, model gallery, variant price and image verified.');
     } finally {
         await browser.close();

@@ -5,11 +5,13 @@ This script only prepares local data; import-iphone-list.js publishes it.
 """
 
 import json
+import io
 import re
 import sys
 from pathlib import Path
 
 import pdfplumber
+from PIL import Image
 
 
 source = Path(sys.argv[1])
@@ -34,6 +36,15 @@ with pdfplumber.open(source) as pdf:
                 raise ValueError(f"Page {page_number} card {index + 1}: expected one price, found {prices}: {raw!r}")
             image_name = f"iphone-p{page_number:02d}-{index + 1:02d}.jpg"
             image_bytes = photo["stream"].get_data()
+            # DCT streams are already JPEGs. Flate streams decode to raw RGB bytes;
+            # saving those bytes with a .jpg suffix produces broken browser images.
+            if not image_bytes.startswith(b"\xff\xd8\xff"):
+                width, height = photo["srcsize"]
+                image = Image.frombytes("RGB", (width, height), image_bytes)
+                buffer = io.BytesIO()
+                image.save(buffer, format="JPEG", quality=90)
+                image_bytes = buffer.getvalue()
+            Image.open(io.BytesIO(image_bytes)).verify()
             (images_dir / image_name).write_bytes(image_bytes)
             cards.append({
                 "page": page_number,
