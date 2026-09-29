@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhoneSpot | Tecnología para vos</title>
-    <link rel="stylesheet" href="style.css?v=20260908-logo-align">
+    <title>PhoneSpot | Celulares para tu negocio</title>
+    <link rel="stylesheet" href="style.css?v=20260929-catalog-fixes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <meta property="og:title" content="PhoneSpot | Tu tienda de tecnología">
@@ -73,6 +73,18 @@
 
     <main>
         <!-- Carrusel Principal -->
+        <section class="phone-showcase" aria-labelledby="phone-showcase-title">
+            <div class="phone-showcase__copy">
+                <h2 id="phone-showcase-title">Celulares para tu negocio, con atención directa.</h2>
+                <p>Compará modelos, capacidad, color y condición en un solo lugar. Si necesitás ayuda para comprar, escribinos y coordinamos tu pedido.</p>
+                <a class="phone-showcase__link" href="catalogo.html?cat=celulares">Explorar celulares <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="phone-showcase__contact" href="https://wa.me/5493447416011?text=Hola%20PhoneSpot%2C%20quiero%20consultar%20por%20celulares%20para%20mi%20negocio" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+            </div>
+            <div class="phone-showcase__art">
+                <img src="uploads/phones-3d-showcase-v1.png" alt="Render 3D ilustrativo de tres teléfonos vistos de frente y de espaldas" width="1200" height="1200" loading="lazy" decoding="async">
+            </div>
+        </section>
+
         <section id="inicio" class="hero-carousel spotlight-carousel" aria-label="Colecciones destacadas">
             <div class="carousel-container">
                 <!-- Se llena con JavaScript desde el archivo settings.json -->
@@ -84,24 +96,26 @@
             
         </section>
 
+
+
         <!-- Trust Badges -->
         <section class="trust-badges" style="background: var(--card-bg); padding: 2rem 5%; border-bottom: 1px solid var(--border-color); margin-bottom: 3rem;">
             <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
                 <div>
                     <i class="fa-solid fa-truck-fast" style="font-size: 2rem; color: #555555; margin-bottom: 1rem;"></i>
-                    <h4 style="color: var(--text-color); margin-bottom: 0.5rem;">Envío Gratis</h4>
+                    <h3 style="color: var(--text-color); margin-bottom: 0.5rem;">Envío Gratis</h3>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">En compras superiores a $1.000.000 pesos</p>
                 </div>
                 
                 <div>
                     <i class="fa-solid fa-credit-card" style="font-size: 2rem; color: #555555; margin-bottom: 1rem;"></i>
-                    <h4 style="color: var(--text-color); margin-bottom: 0.5rem;">Compra acompañada</h4>
+                    <h3 style="color: var(--text-color); margin-bottom: 0.5rem;">Compra acompañada</h3>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">Confirmamos el pago y envío por WhatsApp.</p>
                 </div>
                 <div>
                     <i class="fa-solid fa-headset" style="font-size: 2rem; color: #555555; margin-bottom: 1rem;"></i>
-                    <h4 style="color: var(--text-color); margin-bottom: 0.5rem;">Soporte 24/7</h4>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Te asesoramos vía WhatsApp</p>
+                    <h3 style="color: var(--text-color); margin-bottom: 0.5rem;">Atención por WhatsApp</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Consultanos antes o después de hacer tu pedido.</p>
                 </div>
             </div>
         </section>
@@ -354,7 +368,7 @@
         <span class="instagram-follow-cta__copy"><span class="instagram-follow-cta__label">Seguinos en Instagram</span><span class="instagram-follow-cta__handle">@phonespotsj</span></span>
     </a>
 
-    <script src="script.js?v=20260923-cart-reservations"></script>
+    <script src="script.js?v=20260929-catalog-fixes"></script>
 
 
     <!-- FAVORITES SIDEBAR -->

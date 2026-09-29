@@ -1823,6 +1823,8 @@ body:not(.dark-mode) .logo-slide img {
     .motion-reveal { opacity: 1; transform: none; }
 }
 
+
+
 /* =================== STARS =================== */
 .stars {
     color: #f1c40f;
@@ -2613,3 +2615,237 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
     .social-login { gap: .6rem !important; }
     .social-btn { min-width: 0; padding: .85rem .55rem !important; font-size: .85rem !important; }
 }
+
+/* Portada: render 3D de teléfonos con profundidad y sin alterar las fotos del catálogo. */
+.phone-showcase {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr);
+    align-items: center;
+    min-height: 520px;
+    max-width: 1320px;
+    margin: 0 auto 4rem;
+    padding: 2.5rem clamp(1.5rem, 5vw, 5rem);
+    overflow: hidden;
+    background: #f1f2f3;
+    color: #141519;
+}
+.phone-showcase__copy { position: relative; z-index: 2; max-width: 530px; }
+.phone-showcase__copy h2 {
+    max-width: 12ch;
+    margin: 0 0 1.3rem;
+    font-size: clamp(2.3rem, 4.4vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+}
+.phone-showcase__copy p {
+    max-width: 36ch;
+    margin: 0 0 2rem;
+    color: #474a50;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+}
+.phone-showcase__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+    min-height: 48px;
+    padding: .75rem 1.25rem;
+    border-radius: 999px;
+    background: #17191d;
+    color: #fff;
+    font-weight: 750;
+    text-decoration: none;
+    transition: background .25s ease, transform .25s ease;
+}
+.phone-showcase__link:hover { background: #39414e; color: #fff; transform: translateY(-2px); }
+.phone-showcase__link:focus-visible { outline: 3px solid #334b73; outline-offset: 4px; }
+.phone-showcase__art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 470px;
+    perspective: 1200px;
+}
+.phone-showcase__art::before {
+    content: '';
+    position: absolute;
+    width: min(88%, 560px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, #e2e5e9 55%, transparent 72%);
+}
+.phone-showcase__art::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    bottom: 3%;
+    width: min(78%, 490px);
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(20, 25, 34, .23);
+    filter: blur(20px);
+}
+.phone-showcase__art img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: min(100%, 610px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(16px 24px 20px rgba(23, 27, 35, .17));
+    transform: rotateY(-7deg) rotateX(2deg);
+    transition: transform .7s cubic-bezier(.18,.8,.22,1), filter .7s ease;
+}
+.phone-showcase:hover .phone-showcase__art img {
+    transform: rotateY(1deg) rotateX(0) translateY(-8px);
+    filter: drop-shadow(18px 34px 26px rgba(23, 27, 35, .21));
+}
+
+/* Un escenario discreto para las fotos reales de teléfonos en las tarjetas. */
+.product-card[data-category*="celular"] .product-img-wrapper {
+    position: relative;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #f5f6f7, #e9ebee);
+    perspective: 900px;
+}
+.product-card[data-category*="celular"] .product-img-wrapper::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    bottom: 8%;
+    width: 52%;
+    height: 12%;
+    border-radius: 50%;
+    background: rgba(20, 25, 34, .18);
+    filter: blur(12px);
+}
+.product-card[data-category*="celular"] .product-img-wrapper .product-img {
+    margin: 0;
+    transform: translateY(-2px) rotateY(-5deg);
+    transition: transform .45s cubic-bezier(.2,.75,.25,1);
+}
+.product-card[data-category*="celular"]:hover .product-img-wrapper .product-img,
+.product-card[data-category*="celular"]:focus-within .product-img-wrapper .product-img {
+    transform: translateY(-8px) rotateY(4deg) scale(1.04);
+}
+@media (max-width: 768px) {
+    .phone-showcase {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        margin-bottom: 2.5rem;
+        padding: 2.75rem 1.5rem 1rem;
+    }
+    .phone-showcase__copy h2 { max-width: 17ch; font-size: clamp(2.1rem, 8vw, 3.3rem); }
+    .phone-showcase__copy p { margin-bottom: 1.4rem; }
+    .phone-showcase__art { min-height: 0; max-height: 420px; margin-top: .25rem; }
+    .phone-showcase__art img { width: min(100%, 460px); max-height: 420px; }
+}
+@media (max-width: 420px) {
+    .phone-showcase { padding-inline: 1.25rem; }
+    .phone-showcase__art img { max-height: 350px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .phone-showcase__art img,
+    .phone-showcase__link,
+    .product-card[data-category*="celular"] .product-img-wrapper .product-img { transition: none; }
+    .phone-showcase:hover .phone-showcase__art img { transform: none; }
+}
+
+/* Filtros compactos y operables por teclado en el catálogo. */
+#catalog-filter-toggle { display: none; }
+.filter-title { width: 100%; border: 0; background: transparent; font: inherit; text-align: left; }
+.filter-title:focus-visible, #catalog-filter-toggle:focus-visible, .var-btn:focus-visible, .gallery-thumb:focus-visible {
+    outline: 3px solid #2264a5;
+    outline-offset: 3px;
+}
+.filter-content:not(.open) { visibility: hidden; }
+@media (max-width: 768px) {
+    .catalog-container { padding-top: 1rem !important; }
+    #catalog-filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        min-height: 46px;
+        padding: .65rem 1rem;
+        border: 1px solid #c8c8c8;
+        border-radius: 10px;
+        background: #fff;
+        color: #111;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    #filters-sidebar { display: none !important; margin-bottom: 0 !important; }
+    #filters-sidebar.is-open { display: flex !important; }
+    #catalog-title { font-size: 2rem !important; }
+    .catalog-container > div:last-child { width: 100%; }
+    body:has(#catalog-filter-toggle) main > section:first-child { height: 150px !important; }
+}
+
+/* Fotos reales de cada color, con el nombre siempre visible. */
+#color-opts { gap: .75rem !important; }
+.color-photo-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .35rem;
+    width: 86px !important;
+    min-height: 104px;
+    height: auto !important;
+    padding: .4rem !important;
+    border: 2px solid #e5e5ea;
+    border-radius: 12px !important;
+    background: #fff !important;
+    color: #1d1d1f;
+    cursor: pointer;
+}
+.color-photo-btn img { display: block; width: 66px; height: 66px; object-fit: contain; }
+.color-photo-btn span { font-size: .76rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+.gallery-thumb img { display: block; width: 100%; height: 62px; padding: 0; box-sizing: border-box; border-radius: 6px; background: transparent; object-fit: contain; }
+.gallery-thumb { flex: none; width: 82px; min-height: 96px; padding: 4px; border: 2px solid #ddd; border-radius: 10px; background: #f5f5f7; cursor: pointer; }
+.gallery-thumb span { display: block; margin-top: 2px; color: #333; font-size: .7rem; line-height: 1.1; text-align: center; }
+
+.phone-showcase__contact {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    margin-left: 1rem;
+    color: #182d48;
+    font-weight: 700;
+    text-underline-offset: .2em;
+}
+.phone-showcase__contact:focus-visible { outline: 3px solid #2264a5; outline-offset: 4px; }
+@media (max-width: 768px) {
+    .phone-showcase__contact { margin: .65rem 0 0; }
+    .phone-showcase__copy { display: flex; flex-direction: column; align-items: flex-start; }
+    .phone-showcase__art { max-height: 290px; }
+    .phone-showcase__art img { max-height: 290px; }
+}
+
+/* Los accesos sociales viven en el pie y no cubren el catálogo. */
+.instagram-follow-cta { display: none !important; }
+footer .whatsapp-float {
+    position: static;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    padding: .2rem .5rem;
+    gap: .4rem;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    font-size: 1rem;
+    font-weight: 700;
+}
+footer .whatsapp-float:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }

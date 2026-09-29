@@ -30,6 +30,9 @@ if (!sessionStorage.getItem(`phonespot:viewed:${window.location.pathname}${windo
 // ==================== IMAGE HELPER ====================
 window.getFullImageUrl = (url) => {
     if (!url) return null;
+    if (url.includes('/iphone-americano-2026-09-28/') && !url.includes('v=20260929-valid-jpeg')) {
+        return url + (url.includes('?') ? '&' : '?') + 'v=20260929-valid-jpeg';
+    }
     if (url.startsWith('http')) return url;
     return window.API_URL + url;
 };
@@ -43,6 +46,37 @@ window.productGalleryImages = (product) => [...new Set([
     ...(Array.isArray(product.images) ? product.images : []),
     ...(Array.isArray(product.variants) ? product.variants.map(variant => variant.image_url) : [])
 ].filter(Boolean))].map(window.getFullImageUrl);
+window.galleryForColor = (product, color) => {
+    const variants = Array.isArray(product.variants) ? product.variants : [];
+    const seen = new Set();
+    const photos = variants.filter(v => v.image_url && !seen.has(v.image_url) && seen.add(v.image_url));
+    photos.sort((a, b) => Number(b.color === color) - Number(a.color === color));
+    return photos.length ? photos.map(v => ({url: window.getFullImageUrl(v.image_url), color: v.color}))
+        : window.productGalleryImages(product).map(url => ({url, color: ''}));
+};
+window.renderProductGallery = (product, color) => {
+    const holder = document.querySelector('.gallery-thumbnails');
+    if (!holder) return;
+    const photos = window.galleryForColor(product, color);
+    holder.replaceChildren(...photos.map((photo, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'gallery-thumb';
+        button.dataset.image = photo.url;
+        button.setAttribute('aria-label', `Ver foto ${index + 1} de ${photo.color || product.name}`);
+        const img = document.createElement('img');
+        img.src = photo.url;
+        img.alt = '';
+        img.loading = 'eager';
+        button.append(img);
+        if (photo.color) {
+            const label = document.createElement('span');
+            label.textContent = photo.color;
+            button.append(label);
+        }
+        return button;
+    }));
+};
 window.setProductImage = (url) => {
     const main = document.getElementById('main-product-img');
     if (!main || !url) return;
@@ -803,15 +837,16 @@ async function loadProductsFromDB() {
                         <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
                             <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
-                        ${hasVariants ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none;" onload="window.updateCardVariant(this.previousElementSibling)" />` : ''}
                     </div>
                 `;
 
             if (prod.is_offer && offersContainer) {
-                offersContainer.innerHTML += cardHTML;
+                offersContainer.insertAdjacentHTML('beforeend', cardHTML);
+                if (hasVariants) window.updateCardVariant(offersContainer.lastElementChild.querySelector('.var-select'));
                 offersCount++;
             } else if (catalogContainer) {
-                catalogContainer.innerHTML += cardHTML;
+                catalogContainer.insertAdjacentHTML('beforeend', cardHTML);
+                if (hasVariants) window.updateCardVariant(catalogContainer.lastElementChild.querySelector('.var-select'));
                 catalogCount++;
             }
         });
@@ -1020,6 +1055,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             let name = card.querySelector('h4, h2').innerText.split('.')[0]; 
             const price = parseFloat(card.dataset.price);
 
+            // Resolver la selección antes de reservar, incluso si la tarjeta acaba de renderizarse.
+            if (card.classList.contains('product-card') && card.querySelector('.var-select')) {
+                window.updateCardVariant(card.querySelector('.var-select'));
+            }
             // Verificar si hay una variante seleccionada
             let selectedVariant = card.dataset.selectedVariant || '';
             
@@ -1286,10 +1325,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
                             <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
-                        ${hasVariants ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none;" onload="window.updateCardVariant(this.previousElementSibling)" />` : ''}
                     </div>
                 `;
-                fullCatalogContainer.innerHTML += cardHTML;
+                fullCatalogContainer.insertAdjacentHTML('beforeend', cardHTML);
+                if (hasVariants) window.updateCardVariant(fullCatalogContainer.lastElementChild.querySelector('.var-select'));
             });
         };
 
@@ -1432,7 +1471,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div style="margin-bottom:2rem;">
                                 <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Color - <span id="selected-color-name" style="color: #666; font-weight: 500;">${uniqueColors[0]}</span></h4>
                                 <div style="display:flex; flex-wrap:wrap; gap:12px;" id="color-opts">
-                                    ${uniqueColors.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" onclick="document.getElementById(\'selected-color-name\').innerText=\'${c}\';" style="width:42px; height:42px; border-radius:50%; padding:3px; background:transparent; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; cursor:pointer; transition:all 0.2s ease; display:flex; align-items:center; justify-content:center;"><div style="width:100%; height:100%; border-radius:50%; background:${window.getColorHex(c)}; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);"></div></button>`).join('')}
+                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn color-photo-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}" style="border-color:${i===0?'#0071e3':'#e5e5ea'}"><img src="${window.getFullImageUrl(prod.variants.find(v => v.color === c && v.image_url)?.image_url || prod.image_url)}" alt="" loading="lazy"><span>${c}</span></button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1649,12 +1688,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 button.disabled = !available;
                                 button.style.opacity = available ? '1' : '0.35';
                                 button.classList.toggle('active', button.dataset.val === selected);
+                                if (key === 'color') button.setAttribute('aria-pressed', button.dataset.val === selected);
                                 button.style.borderColor = button.dataset.val === selected ? '#0071e3' : '#e5e5ea';
                             });
                             matches = matches.filter(variant => variant[key] === selected);
                             if (key === 'color') {
                                 const label = document.getElementById('selected-color-name');
                                 if (label) label.textContent = selected || '';
+                                window.renderProductGallery(prodArg, selected);
                             }
                         }
                         const variant = matches[0];
@@ -3253,6 +3294,10 @@ async function applyFrontendSettings() {
         
         // Guardar costos globalmente para uso en checkout
         window.phoneSpotSettings = data;
+        const businessContact = document.querySelector('.phone-showcase__contact');
+        if (businessContact && data.whatsapp_number) {
+            businessContact.href = `https://wa.me/${data.whatsapp_number}?text=${encodeURIComponent('Hola PhoneSpot, quiero consultar por celulares para mi negocio')}`;
+        }
         
         // Inyectar Boton WA Dynamico
         if (!document.getElementById('wa-float-btn')) {
@@ -3262,8 +3307,9 @@ async function applyFrontendSettings() {
             waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
             waBtn.className = 'whatsapp-float fade-up visible';
             waBtn.target = '_blank';
-            waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
-            document.body.appendChild(waBtn);
+            waBtn.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>';
+            waBtn.setAttribute('aria-label', 'Consultar por WhatsApp');
+            (document.querySelector('footer .social-icons') || document.querySelector('footer') || document.body).appendChild(waBtn);
         } else {
             const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
             document.getElementById('wa-float-btn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
@@ -3799,8 +3845,9 @@ setTimeout(() => {
         waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
         waBtn.className = 'whatsapp-float fade-up visible';
         waBtn.target = '_blank';
-        waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
-        document.body.appendChild(waBtn);
+        waBtn.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>';
+            waBtn.setAttribute('aria-label', 'Consultar por WhatsApp');
+        (document.querySelector('footer .social-icons') || document.querySelector('footer') || document.body).appendChild(waBtn);
     }
 }, 1000);
 
@@ -4071,19 +4118,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    if (!document.querySelector('.instagram-follow-cta')) {
-        const instagramLink = document.createElement('a');
-        instagramLink.className = 'instagram-follow-cta';
-        instagramLink.href = 'https://www.instagram.com/phonespotsj/';
-        instagramLink.target = '_blank';
-        instagramLink.rel = 'noopener noreferrer';
-        instagramLink.setAttribute('aria-label', 'Seguinos en Instagram: @phonespotsj');
-        instagramLink.innerHTML = `
-            <span class="instagram-follow-cta__icon" aria-hidden="true"><i class="fa-brands fa-instagram"></i></span>
-            <span class="instagram-follow-cta__copy"><span class="instagram-follow-cta__label">Seguinos en Instagram</span><span class="instagram-follow-cta__handle">@phonespotsj</span></span>
-        `;
-        document.body.append(instagramLink);
-    }
+    document.querySelectorAll('.instagram-follow-cta').forEach(link => link.remove());
 
     const navList = document.querySelector('header nav ul');
     if (navList && !navList.querySelector('.header-instagram-link')) {
