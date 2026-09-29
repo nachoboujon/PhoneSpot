@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo Completo | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260929-stock-gallery-perf">
+    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
@@ -14,7 +14,7 @@
         <div class="logo">
             <h1><a href="index.html"><img class="brand-mark" src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo"> <span>PhoneSpot.</span></a></h1>
         </div>
-        <div class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
+        <button class="menu-toggle" id="mobile-menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -34,7 +34,7 @@
         
         <!-- BARRA DE BÚSQUEDA -->
         <div class="search-bar" style="position:relative; margin-right:1rem; flex:1; max-width:250px;">
-            <input type="text" id="search-input" placeholder="Buscar producto..." style="width:100%; padding:0.5rem 1rem; border-radius:20px; border: 1px solid var(--border-color); outline:none; font-family:inherit;">
+            <input type="search" id="search-input" aria-label="Buscar productos" placeholder="Buscar producto..." style="width:100%; padding:0.5rem 1rem; border-radius:20px; border: 1px solid var(--border-color); outline:none; font-family:inherit;">
             <i class="fa-solid fa-magnifying-glass" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color: var(--text-muted);"></i>
             <div id="search-results" style="position:absolute; top:110%; left:0; right:0; background: var(--card-bg); border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.1); display:none; flex-direction:column; z-index:1000; max-height:350px; overflow-y:auto;"></div>
         </div>
@@ -318,7 +318,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260929-stock-gallery-perf"></script>
+    <script src="script.js?v=20260929-admin-social-catalog"></script>
 
     <!-- WhatsApp Flotante -->
     

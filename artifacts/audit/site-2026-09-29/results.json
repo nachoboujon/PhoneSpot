@@ -1,0 +1,1896 @@
+[
+  {
+    "route": "index.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "PhoneSpot | Tecnología para vos",
+    "url": "http://localhost:3000/index.html",
+    "bodyChars": 2754,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "scrolling-text",
+        "right": 2842
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 1729
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2055
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2453
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2778
+      },
+      {
+        "tag": "DIV",
+        "class": "logo-track",
+        "right": 5817
+      },
+      {
+        "tag": "DIV",
+        "class": "logo-slide",
+        "right": 1610
+      },
+      {
+        "tag": "IMG",
+        "class": "",
+        "right": 1508
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Tecnología que se siente premium",
+      "H2: Tu próximo equipo empieza acá",
+      "H2: Los detalles también importan",
+      "H2: Tecnología que se luce desde todos los ángulos.",
+      "H2: Preguntas frecuentes",
+      "H2: Encontrá la tecnología ideal para vos",
+      "H2: Armá tu ecosistema",
+      "H2: ¡No te pierdas ninguna oferta!",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 8,
+    "links": 30,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "catalogo.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Catálogo Completo | PhoneSpot",
+    "url": "http://localhost:3000/catalogo.html",
+    "bodyChars": 5119,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1659
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 1488
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 1768
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 19,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: CATÁLOGO",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 61,
+    "links": 58,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "producto.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Detalle del Producto | PhoneSpot",
+    "url": "http://localhost:3000/producto.html",
+    "bodyChars": 956,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1659
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 1488
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 1768
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 4,
+    "links": 20,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "comparar.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Comparar equipos | PhoneSpot",
+    "url": "http://localhost:3000/comparar.html",
+    "bodyChars": 974,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "scrolling-text",
+        "right": 2841
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 1728
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2054
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2451
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "right": 2777
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Elegí el equipo que mejor se adapta a vos"
+    ],
+    "buttons": 3,
+    "links": 12,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "carrito.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Carrito de Compras | PhoneSpot",
+    "url": "http://localhost:3000/carrito.html",
+    "bodyChars": 1011,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1659
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 1488
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 1768
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Tu Carrito",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 4,
+    "links": 21,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "checkout.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=checkout.html",
+    "bodyChars": 823,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H2: Bienvenido de nuevo",
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "login.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html",
+    "bodyChars": 823,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H2: Bienvenido de nuevo",
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "register.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Crear Cuenta | PhoneSpot",
+    "url": "http://localhost:3000/register.html",
+    "bodyChars": 911,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H2: Únete a la evolución",
+      "H1: Crear cuenta"
+    ],
+    "buttons": 4,
+    "links": 7,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "recuperar.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Recuperar contraseña | PhoneSpot",
+    "url": "http://localhost:3000/recuperar.html",
+    "bodyChars": 527,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Recuperá tu contraseña"
+    ],
+    "buttons": 4,
+    "links": 5,
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "restablecer.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Nueva contraseña | PhoneSpot",
+    "url": "http://localhost:3000/restablecer.html",
+    "bodyChars": 472,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Creá una nueva contraseña"
+    ],
+    "buttons": 4,
+    "links": 4,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "perfil.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=perfil.html",
+    "bodyChars": 782,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-footer",
+        "right": 1840
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H2: Bienvenido de nuevo",
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 3,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "admin.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=admin.html&reason=session-expired",
+    "bodyChars": 871,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H2: Bienvenido de nuevo",
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "garantias.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Garantías | PhoneSpot",
+    "url": "http://localhost:3000/garantias.html",
+    "bodyChars": 1930,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H1: Política de Garantía"
+    ],
+    "buttons": 3,
+    "links": 11,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "terminos.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "Términos y Condiciones | PhoneSpot",
+    "url": "http://localhost:3000/terminos.html",
+    "bodyChars": 1961,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 1840
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 1554
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 1816
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 1840
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 1816
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 1667
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 1714
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H1: Términos y Condiciones"
+    ],
+    "buttons": 3,
+    "links": 10,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "compra-exitosa.html",
+    "viewport": "desktop",
+    "status": 200,
+    "title": "¡Compra Exitosa! | PhoneSpot",
+    "url": "http://localhost:3000/compra-exitosa.html",
+    "bodyChars": 191,
+    "viewportWidth": 1440,
+    "documentWidth": 1440,
+    "overflow": false,
+    "overflowing": [],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: ¡Compra Confirmada!"
+    ],
+    "buttons": 0,
+    "links": 1,
+    "errors": [],
+    "failed": []
+  },
+  {
+    "route": "index.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "PhoneSpot | Tecnología para vos",
+    "url": "http://localhost:3000/index.html",
+    "bodyChars": 4288,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "carousel-slide",
+        "right": 462
+      },
+      {
+        "tag": "DIV",
+        "class": "hero-content",
+        "right": 436
+      },
+      {
+        "tag": "H2",
+        "class": "carousel-title",
+        "right": 415
+      },
+      {
+        "tag": "P",
+        "class": "carousel-subtitle",
+        "right": 407
+      },
+      {
+        "tag": "A",
+        "class": "btn",
+        "right": 403
+      },
+      {
+        "tag": "DIV",
+        "class": "ecosystem-orb ecosystem-orb-one",
+        "right": 515
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 8,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Tecnología que se siente premium",
+      "H2: Tu próximo equipo empieza acá",
+      "H2: Los detalles también importan",
+      "H2: Tecnología que se luce desde todos los ángulos.",
+      "H2: Preguntas frecuentes",
+      "H2: Encontrá la tecnología ideal para vos",
+      "H2: Armá tu ecosistema",
+      "H2: ¡No te pierdas ninguna oferta!",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 24,
+    "links": 50,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "catalogo.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Catálogo Completo | PhoneSpot",
+    "url": "http://localhost:3000/catalogo.html",
+    "bodyChars": 5160,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 619
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 448
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 766
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 718
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 19,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: CATÁLOGO",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 61,
+    "links": 62,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "producto.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Detalle del Producto | PhoneSpot",
+    "url": "http://localhost:3000/producto.html",
+    "bodyChars": 997,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 619
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 448
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 766
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 718
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 4,
+    "links": 24,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "comparar.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Comparar equipos | PhoneSpot",
+    "url": "http://localhost:3000/comparar.html",
+    "bodyChars": 770,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Elegí el equipo que mejor se adapta a vos"
+    ],
+    "buttons": 3,
+    "links": 11,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "carrito.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Carrito de Compras | PhoneSpot",
+    "url": "http://localhost:3000/carrito.html",
+    "bodyChars": 989,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 619
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-heart",
+        "right": 448
+      },
+      {
+        "tag": "BUTTON",
+        "class": "",
+        "right": 766
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark",
+        "right": 718
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H2: Tu Carrito",
+      "H2: PhoneSpot."
+    ],
+    "buttons": 4,
+    "links": 21,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "checkout.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=checkout.html",
+    "bodyChars": 663,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "login.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html",
+    "bodyChars": 663,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "register.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Crear Cuenta | PhoneSpot",
+    "url": "http://localhost:3000/register.html",
+    "bodyChars": 738,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Crear cuenta"
+    ],
+    "buttons": 4,
+    "links": 7,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "recuperar.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Recuperar contraseña | PhoneSpot",
+    "url": "http://localhost:3000/recuperar.html",
+    "bodyChars": 505,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Recuperá tu contraseña"
+    ],
+    "buttons": 4,
+    "links": 5,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "restablecer.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Nueva contraseña | PhoneSpot",
+    "url": "http://localhost:3000/restablecer.html",
+    "bodyChars": 450,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Creá una nueva contraseña"
+    ],
+    "buttons": 4,
+    "links": 4,
+    "errors": [],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "perfil.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=perfil.html",
+    "bodyChars": 663,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": [
+      "http://localhost:3000/api/events: net::ERR_ABORTED"
+    ]
+  },
+  {
+    "route": "admin.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Iniciar Sesión | PhoneSpot",
+    "url": "http://localhost:3000/login.html?redirect=admin.html&reason=session-expired",
+    "bodyChars": 711,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: Iniciar sesión"
+    ],
+    "buttons": 4,
+    "links": 8,
+    "errors": [
+      "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+      "Loading the stylesheet 'https://accounts.google.com/gsi/style' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ],
+    "failed": []
+  },
+  {
+    "route": "garantias.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Garantías | PhoneSpot",
+    "url": "http://localhost:3000/garantias.html",
+    "bodyChars": 1908,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H1: Política de Garantía"
+    ],
+    "buttons": 3,
+    "links": 10,
+    "errors": [
+      "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+    ],
+    "failed": []
+  },
+  {
+    "route": "terminos.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "Términos y Condiciones | PhoneSpot",
+    "url": "http://localhost:3000/terminos.html",
+    "bodyChars": 1939,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-header",
+        "right": 790
+      },
+      {
+        "tag": "H3",
+        "class": "",
+        "right": 510
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-xmark close-cart-btn",
+        "right": 770
+      },
+      {
+        "tag": "DIV",
+        "class": "side-cart-body",
+        "right": 790
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "right": 774
+      },
+      {
+        "tag": "I",
+        "class": "fa-solid fa-cart-arrow-down",
+        "right": 622
+      },
+      {
+        "tag": "P",
+        "class": "",
+        "right": 665
+      }
+    ],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: PhoneSpot.",
+      "H1: Términos y Condiciones"
+    ],
+    "buttons": 3,
+    "links": 9,
+    "errors": [
+      "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+    ],
+    "failed": []
+  },
+  {
+    "route": "compra-exitosa.html",
+    "viewport": "mobile",
+    "status": 304,
+    "title": "¡Compra Exitosa! | PhoneSpot",
+    "url": "http://localhost:3000/compra-exitosa.html",
+    "bodyChars": 191,
+    "viewportWidth": 390,
+    "documentWidth": 390,
+    "overflow": false,
+    "overflowing": [],
+    "brokenImages": [],
+    "missingAlt": 0,
+    "headings": [
+      "H1: ¡Compra Confirmada!"
+    ],
+    "buttons": 0,
+    "links": 1,
+    "errors": [],
+    "failed": []
+  }
+]

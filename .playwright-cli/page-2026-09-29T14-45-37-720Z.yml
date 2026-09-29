@@ -1,0 +1,276 @@
+- generic [active] [ref=f9e1]:
+  - banner [ref=f9e2]:
+    - heading [level=1] [ref=f9e4]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f9e5] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f9e6]
+        - generic [ref=f9e7]: PhoneSpot.
+    - text: 
+    - navigation [ref=f9e8]:
+      - list [ref=f9e9]:
+        - listitem [ref=f9e10]:
+          - link "Inicio" [ref=f9e11] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f9e12]:
+          - link "Productos " [ref=f9e13] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f9e14]: 
+        - listitem [ref=f9e15]:
+          - link "Ofertas del Día" [ref=f9e16] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - listitem [ref=f9e17]:
+          - link " Instagram" [ref=f9e18] [cursor=pointer]:
+            - /url: https://www.instagram.com/phonespotsj/
+            - generic [ref=f9e19]: 
+            - text: Instagram
+        - text: 
+    - generic [ref=f9e20]:
+      - textbox "Buscar producto..." [ref=f9e21]
+      - generic [ref=f9e22]: 
+    - generic [ref=f9e23]:
+      - link "" [ref=f9e24] [cursor=pointer]:
+        - /url: login.html
+      - link "" [ref=f9e26] [cursor=pointer]:
+        - /url: "#"
+      - link "" [ref=f9e28] [cursor=pointer]:
+        - /url: carrito.html
+  - main [ref=f9e30]:
+    - generic [ref=f9e106]:
+      - generic [ref=f9e107]:
+        - img "iPhone 14 Pro" [ref=f9e109]
+        - generic [ref=f9e110]:
+          - button "Ver foto 1 de Morado" [ref=f9e258] [cursor=pointer]:
+            - generic [ref=f9e259]: Morado
+          - button "Ver foto 2 de Morado" [ref=f9e260] [cursor=pointer]:
+            - generic [ref=f9e261]: Morado
+          - button "Ver foto 3 de Morado" [ref=f9e262] [cursor=pointer]:
+            - generic [ref=f9e263]: Morado
+          - button "Ver foto 4 de Blanco" [ref=f9e264] [cursor=pointer]:
+            - generic [ref=f9e265]: Blanco
+          - button "Ver foto 5 de Negro" [ref=f9e266] [cursor=pointer]:
+            - generic [ref=f9e267]: Negro
+          - button "Ver foto 6 de Plata" [ref=f9e268] [cursor=pointer]:
+            - generic [ref=f9e269]: Plata
+          - button "Ver foto 7 de Oro" [ref=f9e270] [cursor=pointer]:
+            - generic [ref=f9e271]: Oro
+          - button "Ver foto 8 de Plata" [ref=f9e272] [cursor=pointer]:
+            - generic [ref=f9e273]: Plata
+          - button "Ver foto 9 de Negro" [ref=f9e274] [cursor=pointer]:
+            - generic [ref=f9e275]: Negro
+          - button "Ver foto 10 de Oro" [ref=f9e276] [cursor=pointer]:
+            - generic [ref=f9e277]: Oro
+          - button "Ver foto 11 de Negro" [ref=f9e278] [cursor=pointer]:
+            - generic [ref=f9e279]: Negro
+          - button "Ver foto 12 de Negro" [ref=f9e280] [cursor=pointer]:
+            - generic [ref=f9e281]: Negro
+          - button "Ver foto 13 de Plata" [ref=f9e282] [cursor=pointer]:
+            - generic [ref=f9e283]: Plata
+          - button "Ver foto 14 de Oro" [ref=f9e284] [cursor=pointer]:
+            - generic [ref=f9e285]: Oro
+          - button "Ver foto 15 de Negro" [ref=f9e286] [cursor=pointer]:
+            - generic [ref=f9e287]: Negro
+          - button "Ver foto 16 de Plata" [ref=f9e288] [cursor=pointer]:
+            - generic [ref=f9e289]: Plata
+      - generic [ref=f9e143]:
+        - generic [ref=f9e144]:
+          - generic [ref=f9e145]: Apple
+          - generic [ref=f9e146]: celulares
+        - heading "iPhone 14 Pro" [level=2] [ref=f9e147]
+        - generic [ref=f9e149]:
+          - generic [ref=f9e150]: 
+          - text: "Americano | Batería: 100%/80%"
+        - generic [ref=f9e151]:
+          - generic [ref=f9e152]:
+            - heading "Color - Morado" [level=4] [ref=f9e290]
+            - generic [ref=f9e154]:
+              - button "Color Blanco" [ref=f9e155] [cursor=pointer]:
+                - generic [ref=f9e156]: Blanco
+              - button "Color Negro" [ref=f9e157] [cursor=pointer]:
+                - generic [ref=f9e158]: Negro
+              - button "Color Plata" [ref=f9e159] [cursor=pointer]:
+                - generic [ref=f9e160]: Plata
+              - button "Color Morado" [pressed] [ref=f9e161] [cursor=pointer]:
+                - generic [ref=f9e162]: Morado
+              - button "Color Oro" [ref=f9e163] [cursor=pointer]:
+                - generic [ref=f9e164]: Oro
+          - generic [ref=f9e165]:
+            - heading "Almacenamiento" [level=4] [ref=f9e166]
+            - generic [ref=f9e167]:
+              - button "128GB" [ref=f9e168] [cursor=pointer]
+              - button "256GB" [ref=f9e169] [cursor=pointer]
+          - generic [ref=f9e170]:
+            - heading "Condición de Batería" [level=4] [ref=f9e171]
+            - generic [ref=f9e172]:
+              - button "100%" [ref=f9e173] [cursor=pointer]
+              - button "80%" [disabled] [ref=f9e174] [cursor=pointer]
+          - generic [ref=f9e175]:
+            - heading "Condición / tipo" [level=4] [ref=f9e176]
+            - generic [ref=f9e177]:
+              - button "ASLY" [disabled] [ref=f9e178] [cursor=pointer]
+              - button "eSIM" [ref=f9e179] [cursor=pointer]
+          - paragraph [ref=f9e180]: "Stock disponible: 10 unidades"
+        - generic [ref=f9e181]:
+          - heading " Conocer tiempos y costos de envío" [level=4] [ref=f9e182]:
+            - generic [ref=f9e183]: 
+            - text: Conocer tiempos y costos de envío
+          - generic [ref=f9e184]:
+            - 'textbox "Tu CP (Ej: 3283)" [ref=f9e185]'
+            - button "Calcular" [ref=f9e186] [cursor=pointer]
+        - paragraph [ref=f9e188]: $737.900 / Final ARS
+        - generic [ref=f9e189]:
+          - button " Añadir al carrito" [ref=f9e190] [cursor=pointer]:
+            - generic [ref=f9e291]: 
+            - text: Añadir al carrito
+          - button " Comparar equipo" [ref=f9e192] [cursor=pointer]:
+            - generic [ref=f9e193]: 
+            - text: Comparar equipo
+        - generic [ref=f9e194]:
+          - heading "Descripción del producto" [level=4] [ref=f9e195]
+          - paragraph [ref=f9e196]: iPhone 14 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.
+        - generic [ref=f9e197]:
+          - heading "Reseñas" [level=4] [ref=f9e198]
+          - paragraph [ref=f9e199]: Todavía no hay reseñas para este producto.
+          - generic [ref=f9e200]:
+            - generic [ref=f9e201]:
+              - text: Tu calificación
+              - combobox "Tu calificación" [ref=f9e202]:
+                - option "5 estrellas" [selected]
+                - option "4 estrellas"
+                - option "3 estrellas"
+                - option "2 estrellas"
+                - option "1 estrella"
+            - textbox "Comparte tu experiencia con este producto" [ref=f9e203]
+            - button "Publicar reseña" [ref=f9e204] [cursor=pointer]
+        - generic [ref=f9e205]:
+          - generic [ref=f9e206]:
+            - generic [ref=f9e207]: 
+            - generic [ref=f9e209]:
+              - strong [ref=f9e210]: Envío inmediato
+              - text: a todo el país
+          - generic [ref=f9e211]:
+            - generic [ref=f9e212]: 
+            - strong [ref=f9e215]: Atención personalizada
+    - generic [ref=f9e216]:
+      - heading "También te podría interesar" [level=3] [ref=f9e217]
+      - generic [ref=f9e218]:
+        - generic [ref=f9e219] [cursor=pointer]:
+          - link [ref=f9e220]:
+            - /url: producto.html?id=44
+            - img "iPhone 12 Pro Max" [ref=f9e221]
+          - heading [level=4] [ref=f9e222]:
+            - link "iPhone 12 Pro Max" [ref=f9e223]:
+              - /url: producto.html?id=44
+          - generic [ref=f9e224]: (4.8)
+          - paragraph [ref=f9e226]: $518.100
+        - generic [ref=f9e227] [cursor=pointer]:
+          - link [ref=f9e228]:
+            - /url: producto.html?id=52
+            - img "iPhone 13 mini" [ref=f9e229]
+          - heading [level=4] [ref=f9e230]:
+            - link "iPhone 13 mini" [ref=f9e231]:
+              - /url: producto.html?id=52
+          - generic [ref=f9e232]: (4.8)
+          - paragraph [ref=f9e234]: $345.400
+        - generic [ref=f9e235] [cursor=pointer]:
+          - link [ref=f9e236]:
+            - /url: producto.html?id=83
+            - img "iPhone 14 Pro Max" [ref=f9e237]
+          - heading [level=4] [ref=f9e238]:
+            - link "iPhone 14 Pro Max" [ref=f9e239]:
+              - /url: producto.html?id=83
+          - generic [ref=f9e240]: (4.8)
+          - paragraph [ref=f9e242]: $832.100
+        - generic [ref=f9e243] [cursor=pointer]:
+          - link [ref=f9e244]:
+            - /url: producto.html?id=124
+            - img "iPhone 17 Pro Max" [ref=f9e245]
+          - heading [level=4] [ref=f9e246]:
+            - link "iPhone 17 Pro Max" [ref=f9e247]:
+              - /url: producto.html?id=124
+          - generic [ref=f9e248]: (4.8)
+          - paragraph [ref=f9e250]: $2.135.200
+  - contentinfo [ref=f9e34]:
+    - generic [ref=f9e35]:
+      - generic [ref=f9e36]:
+        - heading "PhoneSpot." [level=2] [ref=f9e37]
+        - paragraph [ref=f9e38]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - generic [ref=f9e39]:
+          - link " @phonespotsj" [ref=f9e40] [cursor=pointer]:
+            - /url: https://www.instagram.com/phonespotsj
+            - generic [ref=f9e41]: 
+            - text: "@phonespotsj"
+          - link "Consultar por WhatsApp" [ref=f9e251] [cursor=pointer]:
+            - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Vengo%20de%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta.
+            - generic [aria-hidden] [ref=f9e252]: 
+            - generic [ref=f9e253]: WhatsApp
+      - generic [ref=f9e42]:
+        - heading "Contacto" [level=4] [ref=f9e43]
+        - list [ref=f9e45]:
+          - listitem [ref=f9e46]:
+            - generic [ref=f9e47]: 
+            - generic [ref=f9e48]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f9e49]:
+            - generic [ref=f9e50]: 
+            - link "+54 9 3447 416011-0000" [ref=f9e51] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f9e52]:
+            - generic [ref=f9e53]: 
+            - link "boujonnacho@gmail.com" [ref=f9e54] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f9e55]:
+            - generic [ref=f9e56]: 
+            - generic [ref=f9e57]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f9e58]:
+        - heading "Información" [level=4] [ref=f9e59]
+        - list [ref=f9e61]:
+          - listitem [ref=f9e62]:
+            - link "Inicio" [ref=f9e63] [cursor=pointer]:
+              - /url: index.html#inicio
+          - listitem [ref=f9e64]:
+            - link "Catálogo de Productos" [ref=f9e65] [cursor=pointer]:
+              - /url: catalogo.html
+          - listitem [ref=f9e66]:
+            - link "Términos y Condiciones" [ref=f9e67] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f9e68]:
+            - link "Políticas de Envío" [ref=f9e69] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f9e70]:
+            - link "Garantías" [ref=f9e71] [cursor=pointer]:
+              - /url: garantias.html
+    - generic [ref=f9e72]:
+      - paragraph [ref=f9e73]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f9e74]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f9e76]:
+    - heading " Mis Favoritos" [level=3] [ref=f9e77]:
+      - generic [ref=f9e78]: 
+      - text: Mis Favoritos
+    - button "" [ref=f9e79] [cursor=pointer]
+  - generic [ref=f9e82]:
+    - generic [ref=f9e83]:
+      - heading "Tu Carrito" [level=3] [ref=f9e84]
+      - generic [ref=f9e85] [cursor=pointer]: 
+    - generic [ref=f9e254]:
+      - generic [ref=f9e255]: 
+      - paragraph [ref=f9e256]: Tu carrito está vacío.
+      - button "Seguir comprando" [ref=f9e257] [cursor=pointer]
+    - generic [ref=f9e89]:
+      - generic [ref=f9e90]:
+        - generic [ref=f9e91]: "Total:"
+        - generic [ref=f9e92]: $0
+      - button " Finalizar Compra" [ref=f9e93] [cursor=pointer]:
+        - generic [ref=f9e94]: 
+        - text: Finalizar Compra
+      - link "Ver carrito completo" [ref=f9e95] [cursor=pointer]:
+        - /url: carrito.html
+  - generic [ref=f9e96]:
+    - generic [ref=f9e97]:
+      - generic [ref=f9e98]: 
+      - generic [ref=f9e99]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f9e100]
+        - paragraph [ref=f9e101]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f9e102]:
+      - link "Ver Políticas" [ref=f9e103] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f9e104] [cursor=pointer]

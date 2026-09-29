@@ -1,0 +1,717 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - heading [level=1] [ref=f4e4]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f4e5] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f4e6]
+        - generic [ref=f4e7]: PhoneSpot.
+    - generic [ref=f4e8] [cursor=pointer]: 
+    - navigation [ref=f4e10]:
+      - list [ref=f4e11]:
+        - listitem [ref=f4e12]:
+          - link "Inicio" [ref=f4e13] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f4e14]:
+          - link "Productos " [ref=f4e15] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f4e16]: 
+          - list [ref=f4e17]:
+            - listitem [ref=f4e18]:
+              - link "Ver todos los productos" [ref=f4e19] [cursor=pointer]:
+                - /url: catalogo.html?cat=all
+            - listitem [ref=f4e20]:
+              - link "Celulares" [ref=f4e21] [cursor=pointer]:
+                - /url: catalogo.html?cat=celulares
+            - listitem [ref=f4e22]:
+              - link "Notebooks" [ref=f4e23] [cursor=pointer]:
+                - /url: catalogo.html?cat=notebooks
+            - listitem [ref=f4e24]:
+              - link "Tablets" [ref=f4e25] [cursor=pointer]:
+                - /url: catalogo.html?cat=tablets
+            - listitem [ref=f4e26]:
+              - link "Accesorios" [ref=f4e27] [cursor=pointer]:
+                - /url: catalogo.html?cat=accesorios
+        - listitem [ref=f4e28]:
+          - link "Ofertas del Día" [ref=f4e29] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - text: 
+        - listitem [ref=f4e30]:
+          - link " Ingresar" [ref=f4e31] [cursor=pointer]:
+            - /url: login.html
+            - generic [ref=f4e32]: 
+            - text: Ingresar
+    - generic [ref=f4e33]:
+      - textbox "Buscar producto..." [ref=f4e34]
+      - generic [ref=f4e35]: 
+    - generic [ref=f4e36]:
+      - text: 
+      - link "" [ref=f4e37] [cursor=pointer]:
+        - /url: "#"
+      - link "" [ref=f4e570] [cursor=pointer]:
+        - /url: carrito.html
+  - main [ref=f4e41]:
+    - generic [ref=f4e44]:
+      - heading "Catálogo" [level=2] [ref=f4e45]
+      - paragraph [ref=f4e46]: Encuentra la mejor tecnología a precios imbatibles.
+    - generic [ref=f4e47]:
+      - button "Filtrar productos" [ref=f4e48] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f4e49]: 
+        - text: Filtrar productos
+      - text:        
+      - generic [ref=f4e50]:
+        - generic [ref=f4e51]:
+          - paragraph [ref=f4e52]: Mostrando 19 productos
+          - generic [ref=f4e53]:
+            - generic [ref=f4e54]: "Ordenar:"
+            - combobox [ref=f4e55] [cursor=pointer]:
+              - option "Destacados" [selected]
+              - 'option "Precio: Menor a Mayor"'
+              - 'option "Precio: Mayor a Menor"'
+        - generic [ref=f4e56]:
+          - generic [ref=f4e129] [cursor=pointer]:
+            - button "" [ref=f4e130]
+            - link [ref=f4e132]:
+              - /url: producto.html?id=124
+              - img "iPhone 17 Pro Max" [ref=f4e133]
+            - paragraph [ref=f4e134]: Apple
+            - generic [ref=f4e135]: "Americano | Batería: 100%"
+            - heading [level=4] [ref=f4e136]:
+              - link "iPhone 17 Pro Max" [ref=f4e137]:
+                - /url: producto.html?id=124
+            - paragraph [ref=f4e139]: $2.135.200
+            - generic [ref=f4e140]:
+              - combobox [ref=f4e141]:
+                - 'option "Color: Naranja" [selected]'
+              - combobox [ref=f4e142]:
+                - 'option "Cap: 512GB" [selected]'
+              - combobox [ref=f4e143]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e144]: "Stock: 9"
+            - button " Agregar al Carrito" [ref=f4e145]:
+              - generic [ref=f4e545]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e147]:
+              - generic [ref=f4e148]: 
+              - text: Comparar equipo
+          - generic [ref=f4e149] [cursor=pointer]:
+            - button "" [ref=f4e150]
+            - link [ref=f4e152]:
+              - /url: producto.html?id=121
+              - img "iPhone 17 Pro" [ref=f4e153]
+            - paragraph [ref=f4e154]: Apple
+            - generic [ref=f4e155]: "Americano | Batería: 100%"
+            - heading [level=4] [ref=f4e156]:
+              - link "iPhone 17 Pro" [ref=f4e157]:
+                - /url: producto.html?id=121
+            - paragraph [ref=f4e159]: $1.648.500
+            - generic [ref=f4e160]:
+              - combobox [ref=f4e161]:
+                - 'option "Color: Azul" [selected]'
+                - 'option "Color: Naranja"'
+              - combobox [ref=f4e162]:
+                - 'option "Cap: 256GB" [selected]'
+              - combobox [ref=f4e163]:
+                - 'option "Bat: 100%" [selected]'
+              - combobox [ref=f4e164]:
+                - 'option "Cond: Americano" [selected]'
+              - paragraph [ref=f4e165]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e166]:
+              - generic [ref=f4e167]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e168]:
+              - generic [ref=f4e169]: 
+              - text: Comparar equipo
+          - generic [ref=f4e170] [cursor=pointer]:
+            - button "" [ref=f4e171]
+            - link [ref=f4e173]:
+              - /url: producto.html?id=120
+              - img "iPhone 17" [ref=f4e174]
+            - paragraph [ref=f4e175]: Apple
+            - generic [ref=f4e176]: "Americano | Batería: 100%"
+            - heading [level=4] [ref=f4e177]:
+              - link "iPhone 17" [ref=f4e178]:
+                - /url: producto.html?id=120
+            - paragraph [ref=f4e180]: $1.193.200
+            - generic [ref=f4e181]:
+              - combobox [ref=f4e182]:
+                - 'option "Color: Negro" [selected]'
+              - combobox [ref=f4e183]:
+                - 'option "Cap: 256GB" [selected]'
+              - combobox [ref=f4e184]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e185]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e186]:
+              - generic [ref=f4e187]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e188]:
+              - generic [ref=f4e189]: 
+              - text: Comparar equipo
+          - generic [ref=f4e190] [cursor=pointer]:
+            - button "" [ref=f4e191]
+            - link [ref=f4e193]:
+              - /url: producto.html?id=115
+              - img "iPhone 16 Pro Max" [ref=f4e194]
+            - paragraph [ref=f4e195]: Apple
+            - generic [ref=f4e196]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e197]:
+              - link "iPhone 16 Pro Max" [ref=f4e198]:
+                - /url: producto.html?id=115
+            - paragraph [ref=f4e200]: $1.836.900
+            - generic [ref=f4e201]:
+              - combobox [ref=f4e202]:
+                - 'option "Color: Titanio Natural" [selected]'
+                - 'option "Color: Titanio Blanco"'
+                - 'option "Color: Titanio del Desierto"'
+                - 'option "Color: Titanio Negro"'
+              - combobox [ref=f4e203]:
+                - 'option "Cap: 512GB" [selected]'
+                - 'option "Cap: 256GB"'
+              - combobox [ref=f4e204]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - combobox [ref=f4e205]:
+                - 'option "Cond: Garantía Apple" [selected]'
+              - paragraph [ref=f4e206]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e207]:
+              - generic [ref=f4e208]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e209]:
+              - generic [ref=f4e210]: 
+              - text: Comparar equipo
+          - generic [ref=f4e211] [cursor=pointer]:
+            - button "" [ref=f4e212]
+            - link [ref=f4e214]:
+              - /url: producto.html?id=112
+              - img "iPhone 16 Pro" [ref=f4e215]
+            - paragraph [ref=f4e216]: Apple
+            - generic [ref=f4e217]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e218]:
+              - link "iPhone 16 Pro" [ref=f4e219]:
+                - /url: producto.html?id=112
+            - paragraph [ref=f4e221]: $1.287.400
+            - generic [ref=f4e222]:
+              - combobox [ref=f4e223]:
+                - 'option "Color: Titanio del Desierto" [selected]'
+                - 'option "Color: Titanio Blanco"'
+                - 'option "Color: Titanio Negro"'
+                - 'option "Color: Titanio Natural"'
+              - combobox [ref=f4e224]:
+                - 'option "Cap: 256GB" [selected]'
+                - 'option "Cap: 128GB"'
+              - combobox [ref=f4e225]:
+                - 'option "Bat: 100%" [selected]'
+              - combobox [ref=f4e226]:
+                - 'option "Cond: Americano" [selected]'
+                - 'option "Cond: AS IS"'
+              - paragraph [ref=f4e227]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e228]:
+              - generic [ref=f4e229]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e230]:
+              - generic [ref=f4e231]: 
+              - text: Comparar equipo
+          - generic [ref=f4e232] [cursor=pointer]:
+            - button "" [ref=f4e233]
+            - link [ref=f4e235]:
+              - /url: producto.html?id=108
+              - img "iPhone 16" [ref=f4e236]
+            - paragraph [ref=f4e237]: Apple
+            - generic [ref=f4e238]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e239]:
+              - link "iPhone 16" [ref=f4e240]:
+                - /url: producto.html?id=108
+            - paragraph [ref=f4e242]: $1.020.500
+            - generic [ref=f4e243]:
+              - combobox [ref=f4e244]:
+                - 'option "Color: Rosa" [selected]'
+                - 'option "Color: Azul"'
+                - 'option "Color: Negro"'
+                - 'option "Color: Blanco"'
+              - combobox [ref=f4e245]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e246]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e247]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e248]:
+              - generic [ref=f4e249]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e250]:
+              - generic [ref=f4e251]: 
+              - text: Comparar equipo
+          - generic [ref=f4e252] [cursor=pointer]:
+            - button "" [ref=f4e253]
+            - link [ref=f4e255]:
+              - /url: producto.html?id=103
+              - img "iPhone 15 Pro Max" [ref=f4e256]
+            - paragraph [ref=f4e257]: Apple
+            - generic [ref=f4e258]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e259]:
+              - link "iPhone 15 Pro Max" [ref=f4e260]:
+                - /url: producto.html?id=103
+            - paragraph [ref=f4e262]: $1.177.500
+            - generic [ref=f4e263]:
+              - combobox [ref=f4e264]:
+                - 'option "Color: Titanio Natural" [selected]'
+                - 'option "Color: Titanio Negro"'
+                - 'option "Color: Titanio Blanco"'
+                - 'option "Color: Titanio Azul"'
+              - combobox [ref=f4e265]:
+                - 'option "Cap: 1TB" [selected]'
+                - 'option "Cap: 256GB"'
+              - combobox [ref=f4e266]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e267]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e268]:
+              - generic [ref=f4e269]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e270]:
+              - generic [ref=f4e271]: 
+              - text: Comparar equipo
+          - generic [ref=f4e272] [cursor=pointer]:
+            - button "" [ref=f4e273]
+            - link [ref=f4e275]:
+              - /url: producto.html?id=95
+              - img "iPhone 15 Pro" [ref=f4e276]
+            - paragraph [ref=f4e277]: Apple
+            - generic [ref=f4e278]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e279]:
+              - link "iPhone 15 Pro" [ref=f4e280]:
+                - /url: producto.html?id=95
+            - paragraph [ref=f4e282]: $879.200
+            - generic [ref=f4e283]:
+              - combobox [ref=f4e284]:
+                - 'option "Color: Titanio Natural" [selected]'
+                - 'option "Color: Titanio Negro"'
+                - 'option "Color: Titanio Azul"'
+                - 'option "Color: Titanio Blanco"'
+              - combobox [ref=f4e285]:
+                - 'option "Cap: 128GB" [selected]'
+                - 'option "Cap: 256GB"'
+                - 'option "Cap: 512GB"'
+              - combobox [ref=f4e286]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - combobox [ref=f4e287]:
+                - 'option "Cond: Americano" [selected]'
+              - paragraph [ref=f4e288]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e289]:
+              - generic [ref=f4e290]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e291]:
+              - generic [ref=f4e292]: 
+              - text: Comparar equipo
+          - generic [ref=f4e293] [cursor=pointer]:
+            - button "" [ref=f4e294]
+            - link [ref=f4e296]:
+              - /url: producto.html?id=89
+              - img "iPhone 15" [ref=f4e297]
+            - paragraph [ref=f4e298]: Apple
+            - generic [ref=f4e299]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e300]:
+              - link "iPhone 15" [ref=f4e301]:
+                - /url: producto.html?id=89
+            - paragraph [ref=f4e303]: $706.500
+            - generic [ref=f4e304]:
+              - combobox [ref=f4e305]:
+                - 'option "Color: Negro" [selected]'
+                - 'option "Color: Verde"'
+                - 'option "Color: Amarillo"'
+                - 'option "Color: Rosa"'
+                - 'option "Color: Azul"'
+              - combobox [ref=f4e306]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e307]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - combobox [ref=f4e308]:
+                - 'option "Cond: Americano" [selected]'
+              - paragraph [ref=f4e309]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e310]:
+              - generic [ref=f4e311]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e312]:
+              - generic [ref=f4e313]: 
+              - text: Comparar equipo
+          - generic [ref=f4e314] [cursor=pointer]:
+            - button "" [ref=f4e315]
+            - link [ref=f4e317]:
+              - /url: producto.html?id=83
+              - img "iPhone 14 Pro Max" [ref=f4e318]
+            - paragraph [ref=f4e319]: Apple
+            - generic [ref=f4e320]: "Americano | Batería: 100%"
+            - heading [level=4] [ref=f4e321]:
+              - link "iPhone 14 Pro Max" [ref=f4e322]:
+                - /url: producto.html?id=83
+            - paragraph [ref=f4e324]: $832.100
+            - generic [ref=f4e325]:
+              - combobox [ref=f4e326]:
+                - 'option "Color: Oro" [selected]'
+                - 'option "Color: Plata"'
+                - 'option "Color: Morado"'
+              - combobox [ref=f4e327]:
+                - 'option "Cap: 128GB" [selected]'
+                - 'option "Cap: 256GB"'
+              - combobox [ref=f4e328]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e329]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e330]:
+              - generic [ref=f4e331]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e332]:
+              - generic [ref=f4e333]: 
+              - text: Comparar equipo
+          - generic [ref=f4e334] [cursor=pointer]:
+            - button "" [ref=f4e335]
+            - link [ref=f4e337]:
+              - /url: producto.html?id=73
+              - img "iPhone 14 Pro" [ref=f4e338]
+            - paragraph [ref=f4e339]: Apple
+            - generic [ref=f4e340]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e341]:
+              - link "iPhone 14 Pro" [ref=f4e342]:
+                - /url: producto.html?id=73
+            - paragraph [ref=f4e344]: $706.500
+            - generic [ref=f4e345]:
+              - combobox [ref=f4e346]:
+                - 'option "Color: Blanco" [selected]'
+                - 'option "Color: Negro"'
+                - 'option "Color: Plata"'
+                - 'option "Color: Morado"'
+                - 'option "Color: Oro"'
+              - combobox [ref=f4e347]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e348]:
+                - 'option "Bat: 100%" [selected]'
+              - combobox [ref=f4e349]:
+                - 'option "Cond: ASLY" [selected]'
+              - paragraph [ref=f4e350]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e351]:
+              - generic [ref=f4e352]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e353]:
+              - generic [ref=f4e354]: 
+              - text: Comparar equipo
+          - generic [ref=f4e355] [cursor=pointer]:
+            - button "" [ref=f4e356]
+            - link [ref=f4e358]:
+              - /url: producto.html?id=69
+              - img "iPhone 14" [ref=f4e359]
+            - paragraph [ref=f4e360]: Apple
+            - generic [ref=f4e361]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e362]:
+              - link "iPhone 14" [ref=f4e363]:
+                - /url: producto.html?id=69
+            - paragraph [ref=f4e365]: $533.800
+            - generic [ref=f4e366]:
+              - combobox [ref=f4e367]:
+                - 'option "Color: Morado" [selected]'
+                - 'option "Color: Azul"'
+                - 'option "Color: Blanco"'
+                - 'option "Color: Negro"'
+                - 'option "Color: Rojo"'
+              - combobox [ref=f4e368]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e369]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - paragraph [ref=f4e370]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e371]:
+              - generic [ref=f4e372]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e373]:
+              - generic [ref=f4e374]: 
+              - text: Comparar equipo
+          - generic [ref=f4e375] [cursor=pointer]:
+            - button "" [ref=f4e376]
+            - link [ref=f4e378]:
+              - /url: producto.html?id=61
+              - img "iPhone 13 Pro Max" [ref=f4e379]
+            - paragraph [ref=f4e380]: Apple
+            - generic [ref=f4e381]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e382]:
+              - link "iPhone 13 Pro Max" [ref=f4e383]:
+                - /url: producto.html?id=61
+            - paragraph [ref=f4e385]: $769.300
+            - generic [ref=f4e386]:
+              - combobox [ref=f4e387]:
+                - 'option "Color: Blanco" [selected]'
+                - 'option "Color: Oro"'
+                - 'option "Color: Negro"'
+                - 'option "Color: Azul"'
+                - 'option "Color: Plata"'
+                - 'option "Color: Verde"'
+                - 'option "Color: Rosa"'
+              - combobox [ref=f4e388]:
+                - 'option "Cap: 256GB" [selected]'
+              - combobox [ref=f4e389]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e390]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e391]:
+              - generic [ref=f4e392]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e393]:
+              - generic [ref=f4e394]: 
+              - text: Comparar equipo
+          - generic [ref=f4e395] [cursor=pointer]:
+            - button "" [ref=f4e396]
+            - link [ref=f4e398]:
+              - /url: producto.html?id=53
+              - img "iPhone 13 Pro" [ref=f4e399]
+            - paragraph [ref=f4e400]: Apple
+            - generic [ref=f4e401]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e402]:
+              - link "iPhone 13 Pro" [ref=f4e403]:
+                - /url: producto.html?id=53
+            - paragraph [ref=f4e405]: $675.100
+            - generic [ref=f4e406]:
+              - combobox [ref=f4e407]:
+                - 'option "Color: Negro" [selected]'
+                - 'option "Color: Oro"'
+                - 'option "Color: Plata"'
+                - 'option "Color: Verde"'
+                - 'option "Color: Azul"'
+              - combobox [ref=f4e408]:
+                - 'option "Cap: 256GB" [selected]'
+                - 'option "Cap: 128GB"'
+              - combobox [ref=f4e409]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e410]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e411]:
+              - generic [ref=f4e412]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e413]:
+              - generic [ref=f4e414]: 
+              - text: Comparar equipo
+          - generic [ref=f4e415] [cursor=pointer]:
+            - button "" [ref=f4e416]
+            - link [ref=f4e418]:
+              - /url: producto.html?id=52
+              - img "iPhone 13 mini" [ref=f4e419]
+            - paragraph [ref=f4e420]: Apple
+            - generic [ref=f4e421]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e422]:
+              - link "iPhone 13 mini" [ref=f4e423]:
+                - /url: producto.html?id=52
+            - paragraph [ref=f4e425]: $392.500
+            - generic [ref=f4e426]:
+              - combobox [ref=f4e427]:
+                - 'option "Color: Rosa" [selected]'
+                - 'option "Color: Azul"'
+                - 'option "Color: Blanco"'
+              - combobox [ref=f4e428]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e429]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - paragraph [ref=f4e430]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e431]:
+              - generic [ref=f4e432]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e433]:
+              - generic [ref=f4e434]: 
+              - text: Comparar equipo
+          - generic [ref=f4e435] [cursor=pointer]:
+            - button "" [ref=f4e436]
+            - link [ref=f4e438]:
+              - /url: producto.html?id=48
+              - img "iPhone 13" [ref=f4e439]
+            - paragraph [ref=f4e440]: Apple
+            - generic [ref=f4e441]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e442]:
+              - link "iPhone 13" [ref=f4e443]:
+                - /url: producto.html?id=48
+            - paragraph [ref=f4e445]: $486.700
+            - generic [ref=f4e446]:
+              - combobox [ref=f4e447]:
+                - 'option "Color: Negro" [selected]'
+                - 'option "Color: Azul"'
+                - 'option "Color: Blanco"'
+                - 'option "Color: Rosa"'
+              - combobox [ref=f4e448]:
+                - 'option "Cap: 128GB" [selected]'
+                - 'option "Cap: 256GB"'
+              - combobox [ref=f4e449]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - paragraph [ref=f4e450]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e451]:
+              - generic [ref=f4e452]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e453]:
+              - generic [ref=f4e454]: 
+              - text: Comparar equipo
+          - generic [ref=f4e455] [cursor=pointer]:
+            - button "" [ref=f4e456]
+            - link [ref=f4e458]:
+              - /url: producto.html?id=44
+              - img "iPhone 12 Pro Max" [ref=f4e459]
+            - paragraph [ref=f4e460]: Apple
+            - generic [ref=f4e461]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e462]:
+              - link "iPhone 12 Pro Max" [ref=f4e463]:
+                - /url: producto.html?id=44
+            - paragraph [ref=f4e465]: $533.800
+            - generic [ref=f4e466]:
+              - combobox [ref=f4e467]:
+                - 'option "Color: Negro" [selected]'
+                - 'option "Color: Azul"'
+                - 'option "Color: Oro"'
+                - 'option "Color: Blanco"'
+              - combobox [ref=f4e468]:
+                - 'option "Cap: 128GB" [selected]'
+              - combobox [ref=f4e469]:
+                - 'option "Bat: 100%" [selected]'
+              - paragraph [ref=f4e470]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e471]:
+              - generic [ref=f4e472]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e473]:
+              - generic [ref=f4e474]: 
+              - text: Comparar equipo
+          - generic [ref=f4e475] [cursor=pointer]:
+            - button "" [ref=f4e476]
+            - link [ref=f4e478]:
+              - /url: producto.html?id=41
+              - img "iPhone 12 Pro" [ref=f4e479]
+            - paragraph [ref=f4e480]: Apple
+            - generic [ref=f4e481]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e482]:
+              - link "iPhone 12 Pro" [ref=f4e483]:
+                - /url: producto.html?id=41
+            - paragraph [ref=f4e485]: $471.000
+            - generic [ref=f4e486]:
+              - combobox [ref=f4e487]:
+                - 'option "Color: Azul" [selected]'
+                - 'option "Color: Negro"'
+                - 'option "Color: Oro"'
+                - 'option "Color: Plata"'
+              - combobox [ref=f4e488]:
+                - 'option "Cap: 128GB" [selected]'
+                - 'option "Cap: 256GB"'
+              - combobox [ref=f4e489]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - paragraph [ref=f4e490]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e491]:
+              - generic [ref=f4e492]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e493]:
+              - generic [ref=f4e494]: 
+              - text: Comparar equipo
+          - generic [ref=f4e495] [cursor=pointer]:
+            - button "" [ref=f4e496]
+            - link [ref=f4e498]:
+              - /url: producto.html?id=33
+              - img "iPhone 12" [ref=f4e499]
+            - paragraph [ref=f4e500]: Apple
+            - generic [ref=f4e501]: "Americano | Batería: 100%/80%"
+            - heading [level=4] [ref=f4e502]:
+              - link "iPhone 12" [ref=f4e503]:
+                - /url: producto.html?id=33
+            - paragraph [ref=f4e505]: $392.500
+            - generic [ref=f4e506]:
+              - combobox [ref=f4e507]:
+                - 'option "Color: Verde" [selected]'
+                - 'option "Color: Morado"'
+                - 'option "Color: Negro"'
+                - 'option "Color: Blanco"'
+                - 'option "Color: Azul"'
+              - combobox [ref=f4e508]:
+                - 'option "Cap: 128GB" [selected]'
+                - 'option "Cap: 64GB"'
+              - combobox [ref=f4e509]:
+                - 'option "Bat: 100%" [selected]'
+                - 'option "Bat: 80%"'
+              - paragraph [ref=f4e510]: "Stock: 10"
+            - button " Agregar al Carrito" [ref=f4e511]:
+              - generic [ref=f4e512]: 
+              - text: Agregar al Carrito
+            - button " Comparar equipo" [ref=f4e513]:
+              - generic [ref=f4e514]: 
+              - text: Comparar equipo
+  - contentinfo [ref=f4e58]:
+    - generic [ref=f4e59]:
+      - generic [ref=f4e60]:
+        - heading "PhoneSpot." [level=2] [ref=f4e61]
+        - paragraph [ref=f4e62]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - generic [ref=f4e63]:
+          - link " @phonespotsj" [ref=f4e64] [cursor=pointer]:
+            - /url: https://www.instagram.com/phonespotsj
+            - generic [ref=f4e65]: 
+            - text: "@phonespotsj"
+          - link "Consultar por WhatsApp" [ref=f4e515] [cursor=pointer]:
+            - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Vengo%20de%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta.
+            - generic [aria-hidden] [ref=f4e516]: 
+            - generic [ref=f4e517]: WhatsApp
+      - generic [ref=f4e66]:
+        - heading "Contacto" [level=4] [ref=f4e67]
+        - list [ref=f4e69]:
+          - listitem [ref=f4e70]:
+            - generic [ref=f4e71]: 
+            - generic [ref=f4e72]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f4e73]:
+            - generic [ref=f4e74]: 
+            - link "+54 9 3447 416011" [ref=f4e75] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f4e76]:
+            - generic [ref=f4e77]: 
+            - link "boujonnacho@gmail.com" [ref=f4e78] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f4e79]:
+            - generic [ref=f4e80]: 
+            - generic [ref=f4e81]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f4e82]:
+        - heading "Información" [level=4] [ref=f4e83]
+        - list [ref=f4e85]:
+          - listitem [ref=f4e86]:
+            - link "Inicio" [ref=f4e87] [cursor=pointer]:
+              - /url: index.html
+          - listitem [ref=f4e88]:
+            - link "Catálogo de Productos" [ref=f4e89] [cursor=pointer]:
+              - /url: catalogo.html?cat=all
+          - listitem [ref=f4e90]:
+            - link "Términos y Condiciones" [ref=f4e91] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e92]:
+            - link "Políticas de Envío" [ref=f4e93] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e94]:
+            - link "Garantías" [ref=f4e95] [cursor=pointer]:
+              - /url: garantias.html
+    - generic [ref=f4e96]:
+      - paragraph [ref=f4e97]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f4e98]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f4e100]:
+    - heading " Mis Favoritos" [level=3] [ref=f4e101]:
+      - generic [ref=f4e102]: 
+      - text: Mis Favoritos
+    - button "" [ref=f4e103] [cursor=pointer]
+  - generic [ref=f4e106]:
+    - generic [ref=f4e107]:
+      - heading "Tu Carrito" [level=3] [ref=f4e108]
+      - generic [ref=f4e109] [cursor=pointer]: 
+    - text: 
+    - generic [ref=f4e571]:
+      - generic [ref=f4e572]: 
+      - paragraph [ref=f4e573]: Tu carrito está vacío.
+      - button "Seguir comprando" [ref=f4e574] [cursor=pointer]
+    - generic [ref=f4e113]:
+      - generic [ref=f4e114]:
+        - generic [ref=f4e115]: "Total:"
+        - generic [ref=f4e116]: $0
+      - button " Finalizar Compra" [ref=f4e117] [cursor=pointer]:
+        - generic [ref=f4e118]: 
+        - text: Finalizar Compra
+      - link "Ver carrito completo" [ref=f4e119] [cursor=pointer]:
+        - /url: carrito.html
+  - generic [ref=f4e120]:
+    - generic [ref=f4e121]:
+      - generic [ref=f4e122]: 
+      - generic [ref=f4e123]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f4e124]
+        - paragraph [ref=f4e125]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f4e126]:
+      - link "Ver Políticas" [ref=f4e127] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f4e128] [cursor=pointer]

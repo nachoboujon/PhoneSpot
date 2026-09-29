@@ -3,6 +3,20 @@ window.phoneSpotSettings = window.phoneSpotSettings || {};
 // ==================== CONFIGURACIÓN DE API ====================
 // Cambia 'http://localhost:3000' por la URL de tu servidor en producción (ej. 'https://tu-backend.onrender.com')
 window.API_URL = '';
+window.updateSocialDock = (rawPhone) => {
+    if (!document.body || window.location.pathname.endsWith('/admin.html')) return;
+    const phone = String(rawPhone || window.phoneSpotSettings?.whatsapp_number || '5493447416011').replace(/\D/g, '') || '5493447416011';
+    let dock = document.getElementById('social-dock');
+    if (!dock) {
+        dock = document.createElement('div');
+        dock.id = 'social-dock';
+        dock.className = 'social-dock';
+        dock.setAttribute('aria-label', 'Redes de PhoneSpot');
+        dock.innerHTML = '<a class="social-dock__link social-dock__instagram" href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de PhoneSpot" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><a class="social-dock__link social-dock__whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>';
+        document.body.appendChild(dock);
+    }
+    dock.querySelector('.social-dock__whatsapp').href = `https://wa.me/${phone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
+};
 // ==============================================================
 
 // Analítica mínima y respetuosa de privacidad. No envía texto de búsqueda ni datos personales.
@@ -363,6 +377,7 @@ async function renderSideCart() {
     const sideContainer = document.getElementById('side-cart-items');
     const sideTotal = document.getElementById('side-cart-total');
     if (!sideContainer || !sideTotal) return;
+    const sideFooter = document.querySelector('#side-cart .side-cart-footer');
 
     sideContainer.innerHTML = '';
     let total = 0;
@@ -381,8 +396,9 @@ async function renderSideCart() {
     const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
+        if (sideFooter) sideFooter.hidden = true;
         sideContainer.innerHTML = `
-            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#aaa; text-align:center;">
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-muted); text-align:center;">
                 <i class="fa-solid fa-cart-arrow-down" style="font-size:3rem; margin-bottom:1rem;"></i>
                 <p>Tu carrito está vacío.</p>
                 <button class="btn" style="margin-top:1rem;" onclick="document.getElementById('close-cart-btn').click()">Seguir comprando</button>
@@ -398,6 +414,7 @@ async function renderSideCart() {
         return;
     }
 
+    if (sideFooter) sideFooter.hidden = false;
     cart.forEach(item => {
         const itemIsEligible = window.isWholesaleEligible(item);
         let finalPrice = item.price;
@@ -504,10 +521,12 @@ async function renderCart() { await window.dolarPromise;
     const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="text-align:center; color: var(--text-muted);">Tu carrito está vacío.</p>';
+        cartItemsContainer.innerHTML = '<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>Explorá el catálogo y agregá los equipos que necesitás.</p><a class="btn" href="catalogo.html">Ver productos</a></div>';
         cartTotalElement.innerText = '$0';
+        document.querySelector('.cart-summary')?.setAttribute('hidden', '');
         return;
     }
+    document.querySelector('.cart-summary')?.removeAttribute('hidden');
 
     cartItemsContainer.insertAdjacentHTML('beforeend', cartReservationNotice());
 
@@ -560,7 +579,7 @@ async function renderCart() { await window.dolarPromise;
                 <strong style="font-size: 1.2rem; color: var(--text-color);">${window.formatPrice(finalPrice * item.quantity)}</strong>
                 ${isWholesale && itemIsEligible ? `<span style="color:#2e7d32; font-size: 0.8rem;">( -${wholesaleDiscount} USD aplicado )</span>` : ''}
             </div>
-            <button onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" aria-label="Quitar ${escapeText(item.name)} del carrito" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')" style="background:none; color: var(--text-muted); padding:0; width:auto; border:none; cursor:pointer;"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
         `;
         cartItemsContainer.appendChild(itemDiv);
     });
@@ -655,6 +674,7 @@ async function renderCheckout() { await window.dolarPromise;
     
     const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
     let shippingName = 'Envío';
+    const shippingToArrange = selectedShipping?.value === 'coordinar';
     
     if (selectedShipping) {
         shippingCost = parseFloat(selectedShipping.dataset.cost) || 0;
@@ -672,7 +692,7 @@ async function renderCheckout() { await window.dolarPromise;
         checkoutItems.innerHTML += `
             <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed #ccc; font-size: 0.9rem; color: var(--text-color);">
                 <span>${shippingName}</span>
-                <span style="${shippingCost === 0 ? 'color:#555555; font-weight:bold;' : ''}">${shippingCost === 0 ? 'Gratis' : window.formatArs(shippingCost)}</span>
+                <span style="${shippingCost === 0 ? 'color:#555555; font-weight:bold;' : ''}">${shippingToArrange ? 'A confirmar' : shippingCost === 0 ? 'Gratis' : window.formatArs(shippingCost)}</span>
             </div>
         `;
     }
@@ -734,6 +754,8 @@ async function renderCheckout() { await window.dolarPromise;
     
     const finalProductsArs = Math.round(finalDisplayTotal * window.dolarValue);
     const finalTotalArs = finalProductsArs + finalShipping;
+    const checkoutTotalLabel = document.getElementById('checkout-total-label');
+    if (checkoutTotalLabel) checkoutTotalLabel.textContent = shippingToArrange ? 'Subtotal (envío a confirmar)' : 'Total';
     checkoutTotal.innerText = window.formatArs(finalTotalArs);
 
 }
@@ -946,7 +968,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         sideCart.innerHTML = `
             <div class="side-cart-header">
                 <h3>Tu Carrito</h3>
-                <i class="fa-solid fa-xmark close-cart-btn" id="close-cart-btn"></i>
+                <button type="button" class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
             </div>
             <div id="free-shipping-container" style="padding: 1rem 1.5rem; background: #fdfdfd; border-bottom: 1px solid var(--border-color);">
                 <p id="free-shipping-text" style="margin: 0 0 0.5rem; font-size: 0.85rem; font-weight: bold; color: var(--text-color); text-align: center;"></p>
@@ -959,10 +981,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             <div class="side-cart-footer">
                 <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem; margin-bottom:1rem;">
-                    <span>Total:</span>
+                    <span>Subtotal:</span>
                     <span id="side-cart-total">$0</span>
                 </div>
-                <button onclick="window.goToCheckout(event)" class="btn btn-block" style="text-align:center; width:100%;"><i class="fa-solid fa-lock" style="margin-right:8px;"></i> Finalizar Compra</button>
+                <button onclick="window.goToCheckout(event)" class="btn btn-block" style="text-align:center; width:100%;">Continuar con el pedido</button>
                 <a href="carrito.html" style="display:block; text-align:center; margin-top:1rem; font-size:0.9rem; color: var(--text-muted); text-decoration:underline;">Ver carrito completo</a>
             </div>
         `;
@@ -1016,6 +1038,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     syncMobileHeaderFixed();
 
     if (mobileBtn && nav) {
+        const setMobileMenuOpen = (open) => {
+            nav.classList.toggle('active', open);
+            mobileBtn.setAttribute('aria-expanded', String(open));
+            mobileBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+            const icon = mobileBtn.querySelector('i');
+            if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+        };
         mobileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (headerEl) {
@@ -1023,32 +1052,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 nav.style.top = `${headerHeight}px`;
                 nav.style.height = `calc(100dvh - ${headerHeight}px)`;
             }
-            nav.classList.toggle('active');
-            const icon = mobileBtn.querySelector('i');
-            if (icon) {
-                if (nav.classList.contains('active')) {
-                    icon.className = 'fa-solid fa-xmark';
-                } else {
-                    icon.className = 'fa-solid fa-bars';
-                }
-            }
+            setMobileMenuOpen(!nav.classList.contains('active'));
         });
 
         // Cerrar menú al hacer clic en cualquier enlace
         nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('active');
-                const icon = mobileBtn.querySelector('i');
-                if (icon) icon.className = 'fa-solid fa-bars';
+                setMobileMenuOpen(false);
             });
         });
 
         // Cerrar menú al hacer clic fuera
         document.addEventListener('click', (e) => {
             if (nav.classList.contains('active') && !nav.contains(e.target) && !mobileBtn.contains(e.target)) {
-                nav.classList.remove('active');
-                const icon = mobileBtn.querySelector('i');
-                if (icon) icon.className = 'fa-solid fa-bars';
+                setMobileMenuOpen(false);
+            }
+        });
+        mobileBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nav.classList.contains('active')) {
+                setMobileMenuOpen(false);
+                mobileBtn.focus();
             }
         });
     }
@@ -1284,7 +1307,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            filtered.forEach(prod => {
+            const cardMarkup = [];
+            filtered.forEach((prod, index) => {
                 const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                 const hasOffer = prod.old_price && Number(prod.old_price) > Number(prod.price);
                 const discount = hasOffer ? Math.round((1 - (Number(prod.price)/Number(prod.old_price))) * 100) : 0;
@@ -1340,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
-                            <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
+                            <img src="${image}" alt="${prod.name}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
                         ${(() => {
@@ -1355,11 +1379,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     c += ' | Batería: ' + batts.join('/');
                                 }
                             }
-                            return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
+                            return `<span class="card-condition">${c}</span>`;
                         })()}
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
-                        <div style="margin-bottom: 1.5rem;">
+                        <div class="card-price-wrap" style="margin-bottom: 1.5rem;">
                             ${(typeof hasOffer !== 'undefined' && hasOffer) || prod.is_offer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price || prod.price*1.2))}</p>` : ''}
                             <p class="price card-price" style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
@@ -1371,8 +1395,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </button>
                     </div>
                 `;
-                fullCatalogContainer.insertAdjacentHTML('beforeend', cardHTML);
-                if (hasVariants) window.updateCardVariant(fullCatalogContainer.lastElementChild.querySelector('.var-select'));
+                cardMarkup.push(cardHTML);
+            });
+            fullCatalogContainer.innerHTML = cardMarkup.join('');
+            fullCatalogContainer.querySelectorAll('.product-card').forEach(card => {
+                const selector = card.querySelector('.var-select');
+                if (selector) window.updateCardVariant(selector);
             });
         };
 
@@ -2411,6 +2439,73 @@ const checkoutForm = document.getElementById('checkout-form');
         });
     }
 
+        // ==================== BÚSQUEDA INTELIGENTE ====================
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        let cachedProductsForSearch = null;
+
+        if (searchInput && searchResults) {
+            const showSearchResults = () => {
+                const query = searchInput.value.toLowerCase().trim();
+                if (!query || !cachedProductsForSearch) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+
+                // Buscar por nombre, marca o categoría
+                const matches = cachedProductsForSearch.filter(p =>
+                    (p.name && p.name.toLowerCase().includes(query)) ||
+                    (p.brand && p.brand.toLowerCase().includes(query)) ||
+                    (p.category && p.category.toLowerCase().includes(query))
+                ).slice(0, 5); // Mostrar solo los 5 mejores resultados
+
+                if (matches.length > 0) {
+                    searchResults.innerHTML = matches.map(m => `
+                        <a href="producto.html?id=${encodeURIComponent(m.id)}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
+                            <img src="${escapeText(m.image_url || 'uploads/PhoneSpot-trans.png')}" alt="" loading="lazy" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
+                            <div style="flex:1;">
+                                <div style="font-size:0.9rem; font-weight:bold;">${escapeText(m.name)}</div>
+                                <div style="font-size:0.8rem; color: var(--text-muted);">$${escapeText(m.price)} | ${escapeText(m.brand)}</div>
+                            </div>
+                        </a>
+                    `).join('');
+                } else {
+                    searchResults.innerHTML = '<div style="padding:0.8rem; font-size:0.9rem; color: var(--text-muted); text-align:center;">No encontramos productos con ese nombre.</div>';
+                }
+                searchResults.style.display = 'flex';
+            };
+
+            // Cargar una sola vez y mostrar también la consulta escrita durante la descarga.
+            let searchLoad = null;
+            searchInput.addEventListener('focus', () => {
+                if (cachedProductsForSearch || searchLoad) return;
+                searchLoad = fetch(window.API_URL + '/api/products')
+                    .then(res => {
+                        if (!res.ok) throw new Error('No se pudo cargar el catálogo');
+                        return res.json();
+                    })
+                    .then(products => {
+                        cachedProductsForSearch = Array.isArray(products) ? products : [];
+                        showSearchResults();
+                    })
+                    .catch(() => {
+                        if (searchInput.value.trim()) {
+                            searchResults.textContent = 'No pudimos cargar la búsqueda. Intentá de nuevo.';
+                            searchResults.style.display = 'flex';
+                        }
+                    })
+                    .finally(() => { searchLoad = null; });
+            });
+            searchInput.addEventListener('input', showSearchResults);
+
+            // Ocultar resultados si se hace click fuera de la barra
+            document.addEventListener('click', (e) => {
+                if(!e.target.closest('.search-bar')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+
     // Admin Panel - Crear Producto
     const adminForm = document.getElementById('admin-product-form');
     if (adminForm) {
@@ -2550,9 +2645,10 @@ const checkoutForm = document.getElementById('checkout-form');
                     }
 
                     
+                    const productMarkup = [];
                     prods.forEach(p => {
                         window[`adminProduct_${p.id}`] = p; // save product data globally for easy access
-                        productListContainer.innerHTML += `
+                        productMarkup.push(`
                             <div class="slide-item" style="display:flex; flex-direction:column; gap:1rem;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
                                     <div style="flex:2;">
@@ -2589,8 +2685,9 @@ const checkoutForm = document.getElementById('checkout-form');
                                     </div>
                                 </div>
                             </div>
-                        `;
+                        `);
                     });
+                    productListContainer.innerHTML = productMarkup.join('');
 
                 } catch(e) { productListContainer.innerHTML = 'Error cargando productos'; }
             };
@@ -2651,9 +2748,11 @@ const checkoutForm = document.getElementById('checkout-form');
                         <label style="font-size:0.8rem;">Foto <input type="file" id="variant-image-${id}-${index}" accept="image/*" style="max-width:150px;"></label>
                         <button onclick="uploadVariantImage(${id}, ${index})" class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;">Subir</button>
                         <div style="display:flex; align-items:center; gap:0.5rem;">
-                            <label style="font-size:0.8rem; margin:0;">Stock:</label>
-                            <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" style="width:60px; padding:0.2rem; font-size:0.8rem;">
-                            <button onclick="updateVariantStock(${id}, ${index})" style="background:#333; color:white; border:none; border-radius:4px; padding:0.2rem 0.5rem; font-size:0.8rem; cursor:pointer;">Guardar</button>
+                            <label for="edit-vprice-${id}-${index}" style="font-size:0.8rem; margin:0;">Precio USD:</label>
+                            <input type="number" id="edit-vprice-${id}-${index}" value="${v.price ?? ''}" min="0.01" step="0.01" placeholder="Precio base" style="width:100px; padding:0.35rem; font-size:0.8rem;" title="Dejá vacío para usar el precio base">
+                            <label for="edit-vstock-${id}-${index}" style="font-size:0.8rem; margin:0;">Stock:</label>
+                            <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" min="0" step="1" style="width:65px; padding:0.35rem; font-size:0.8rem;">
+                            <button type="button" onclick="updateVariantDetails(${id}, ${index})" style="background:#333; color:white; border:none; border-radius:4px; padding:0.45rem 0.7rem; font-size:0.8rem; cursor:pointer;">Guardar precio y stock</button>
                             <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer; margin-left:0.5rem;"><i class="fa-solid fa-times"></i></button>
                         </div>
                     </div>
@@ -2680,11 +2779,17 @@ const checkoutForm = document.getElementById('checkout-form');
                 await saveVariantsToDB(id, variants);
             };
 
-            window.updateVariantStock = async (id, index) => {
-                let variants = window[`adminProductVariants_${id}`] || [];
-                const newStock = document.getElementById(`edit-vstock-${id}-${index}`).value;
+            window.updateVariantDetails = async (id, index) => {
+                const variants = (window[`adminProductVariants_${id}`] || []).map(variant => ({ ...variant }));
                 if (!variants[index]) return;
-                variants[index].stock = parseInt(newStock) || 0;
+                const rawPrice = document.getElementById(`edit-vprice-${id}-${index}`).value.trim();
+                const rawStock = document.getElementById(`edit-vstock-${id}-${index}`).value.trim();
+                const price = rawPrice === '' ? null : Number(rawPrice);
+                const stock = Number(rawStock);
+                if (rawPrice !== '' && (!Number.isFinite(price) || price <= 0)) return showToast('Ingresá un precio USD mayor a cero o dejalo vacío para usar el precio base.', 'fa-triangle-exclamation');
+                if (rawStock === '' || !Number.isInteger(stock) || stock < 0) return showToast('Ingresá un stock válido.', 'fa-triangle-exclamation');
+                variants[index].price = price;
+                variants[index].stock = stock;
                 await saveVariantsToDB(id, variants);
             };
 
@@ -2709,7 +2814,8 @@ const checkoutForm = document.getElementById('checkout-form');
                         showToast('Variantes actualizadas', 'fa-check');
                         window.loadAdminProducts(); // re-fetch products
                     } else {
-                        showToast('Error en el servidor', 'fa-times');
+                        const result = await res.json().catch(() => ({}));
+                        showToast(result.error || 'No se pudieron guardar las variantes.', 'fa-times');
                     }
                 } catch(e) { showToast('Error al actualizar', 'fa-times'); }
             };
@@ -2925,60 +3031,6 @@ const checkoutForm = document.getElementById('checkout-form');
                     analyticsSummary.textContent = `${data.page_views} visitas · ${data.add_to_cart} agregados al carrito · ${data.checkout_started} inicios de compra.`;
                 })
                 .catch(() => { analyticsSummary.textContent = 'Las métricas se mostrarán cuando haya actividad nueva.'; });
-        }
-
-        // ==================== BÚSQUEDA INTELIGENTE ====================
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-        let cachedProductsForSearch = null;
-
-        if (searchInput && searchResults) {
-            // Solo descargar los productos cuando hagan click/focus en la barra para no gastar internet
-            searchInput.addEventListener('focus', async () => {
-                if (!cachedProductsForSearch) {
-                    try {
-                        const res = await fetch(window.API_URL + '/api/products');
-                        cachedProductsForSearch = await res.json();
-                    } catch(e) {}
-                }
-            });
-
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase().trim();
-                if (!query || !cachedProductsForSearch) {
-                    searchResults.style.display = 'none';
-                    return;
-                }
-
-                // Buscar por nombre, marca o categoría
-                const matches = cachedProductsForSearch.filter(p => 
-                    (p.name && p.name.toLowerCase().includes(query)) || 
-                    (p.brand && p.brand.toLowerCase().includes(query)) ||
-                    (p.category && p.category.toLowerCase().includes(query))
-                ).slice(0, 5); // Mostrar solo los 5 mejores resultados
-
-                if (matches.length > 0) {
-                    searchResults.innerHTML = matches.map(m => `
-                        <a href="producto.html?id=${m.id}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
-                            <img src="${m.image_url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=50&q=80'}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
-                            <div style="flex:1;">
-                                <div style="font-size:0.9rem; font-weight:bold;">${m.name}</div>
-                                <div style="font-size:0.8rem; color: var(--text-muted);">$${m.price} | ${m.brand}</div>
-                            </div>
-                        </a>
-                    `).join('');
-                } else {
-                    searchResults.innerHTML = '<div style="padding:0.8rem; font-size:0.9rem; color: var(--text-muted); text-align:center;">No encontramos está producto 😢</div>';
-                }
-                searchResults.style.display = 'flex';
-            });
-
-            // Ocultar resultados si se hace click fuera de la barra
-            document.addEventListener('click', (e) => {
-                if(!e.target.closest('.search-bar')) {
-                    searchResults.style.display = 'none';
-                }
-            });
         }
 
         const logoutBtn = document.getElementById('btn-logout');
@@ -3356,21 +3408,7 @@ async function applyFrontendSettings() {
             businessContact.href = `https://wa.me/${data.whatsapp_number}?text=${encodeURIComponent('Hola PhoneSpot, quiero consultar por celulares para mi negocio')}`;
         }
         
-        // Inyectar Boton WA Dynamico
-        if (!document.getElementById('wa-float-btn')) {
-            const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
-            const waBtn = document.createElement('a');
-            waBtn.id = 'wa-float-btn';
-            waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
-            waBtn.className = 'whatsapp-float fade-up visible';
-            waBtn.target = '_blank';
-            waBtn.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>';
-            waBtn.setAttribute('aria-label', 'Consultar por WhatsApp');
-            (document.querySelector('footer .social-icons') || document.querySelector('footer') || document.body).appendChild(waBtn);
-        } else {
-            const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
-            document.getElementById('wa-float-btn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
-        }
+        window.updateSocialDock(data.whatsapp_number);
 
         // Actualizar textos en checkout si existen
         const costCorreoEl = document.getElementById('cost-correo');
@@ -3786,7 +3824,6 @@ window.initMotionDesign = () => {
 
     const selector = [
         'main > section:not(.hero-carousel)',
-        '.product-card',
         '.account-card',
         '.account-orders-section',
         '.checkout-card',
@@ -3864,21 +3901,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     
-
-// Fallback WhatsApp Button (En caso de que falle la carga de settings o tarde mucho)
-setTimeout(() => {
-    if (!document.getElementById('wa-float-btn')) {
-        const waPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
-        const waBtn = document.createElement('a');
-        waBtn.id = 'wa-float-btn';
-        waBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
-        waBtn.className = 'whatsapp-float fade-up visible';
-        waBtn.target = '_blank';
-        waBtn.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>';
-            waBtn.setAttribute('aria-label', 'Consultar por WhatsApp');
-        (document.querySelector('footer .social-icons') || document.querySelector('footer') || document.body).appendChild(waBtn);
-    }
-}, 1000);
 
 // ==================== DYNAMIC SHIPPING QUOTES ====================
 if (window.location.pathname.includes('checkout.html')) {
@@ -4147,7 +4169,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.instagram-follow-cta').forEach(link => link.remove());
+    window.updateSocialDock();
 
     const navList = document.querySelector('header nav ul');
     if (navList && !navList.querySelector('.header-instagram-link')) {

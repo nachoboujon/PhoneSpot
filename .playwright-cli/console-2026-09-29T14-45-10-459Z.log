@@ -1,0 +1,18 @@
+[  251344ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  251344ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0
+[  300651ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  300651ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0
+[  360643ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  360643ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0
+[  431360ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  431360ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0
+[  480643ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  480643ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0
+[  540642ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/cart/f85b07e4-36bb-48a8-bee1-1c372f0dfd95:0
+[  540642ms] [ERROR] Error: No se pudo cargar el carrito
+    at refreshCart (http://localhost:3000/script.js?v=20260929-catalog-fixes:224:29) @ :0

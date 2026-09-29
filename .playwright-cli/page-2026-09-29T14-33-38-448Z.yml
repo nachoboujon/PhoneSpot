@@ -1,0 +1,148 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - heading [level=1] [ref=f4e4]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f4e5] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f4e6]
+        - generic [ref=f4e7]: PhoneSpot.
+    - generic [ref=f4e8] [cursor=pointer]: 
+    - navigation [ref=f4e10]:
+      - list [ref=f4e11]:
+        - listitem [ref=f4e12]:
+          - link "Inicio" [ref=f4e13] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f4e14]:
+          - link "Productos " [ref=f4e15] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f4e16]: 
+          - list [ref=f4e17]:
+            - listitem [ref=f4e18]:
+              - link "Ver todos los productos" [ref=f4e19] [cursor=pointer]:
+                - /url: catalogo.html?cat=all
+            - listitem [ref=f4e20]:
+              - link "Celulares" [ref=f4e21] [cursor=pointer]:
+                - /url: catalogo.html?cat=celulares
+            - listitem [ref=f4e22]:
+              - link "Notebooks" [ref=f4e23] [cursor=pointer]:
+                - /url: catalogo.html?cat=notebooks
+            - listitem [ref=f4e24]:
+              - link "Tablets" [ref=f4e25] [cursor=pointer]:
+                - /url: catalogo.html?cat=tablets
+            - listitem [ref=f4e26]:
+              - link "Accesorios" [ref=f4e27] [cursor=pointer]:
+                - /url: catalogo.html?cat=accesorios
+        - listitem [ref=f4e28]:
+          - link "Ofertas del Día" [ref=f4e29] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - text: 
+        - listitem [ref=f4e30]:
+          - link " Ingresar" [ref=f4e31] [cursor=pointer]:
+            - /url: login.html
+            - generic [ref=f4e32]: 
+            - text: Ingresar
+    - generic [ref=f4e33]:
+      - textbox "Buscar producto..." [ref=f4e34]
+      - generic [ref=f4e35]: 
+    - generic [ref=f4e36]:
+      - text: 
+      - link "" [ref=f4e37] [cursor=pointer]:
+        - /url: "#"
+      - link "" [ref=f4e39] [cursor=pointer]:
+        - /url: carrito.html
+  - main [ref=f4e41]:
+    - generic [ref=f4e44]:
+      - heading "Catálogo" [level=2] [ref=f4e45]
+      - paragraph [ref=f4e46]: Encuentra la mejor tecnología a precios imbatibles.
+    - generic [ref=f4e47]:
+      - button "Filtrar productos" [ref=f4e48] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f4e49]: 
+        - text: Filtrar productos
+      - text:        
+      - generic [ref=f4e50]:
+        - generic [ref=f4e51]:
+          - paragraph [ref=f4e52]: Mostrando todos los resultados
+          - generic [ref=f4e53]:
+            - generic [ref=f4e54]: "Ordenar:"
+            - combobox [ref=f4e55] [cursor=pointer]:
+              - option "Destacados" [selected]
+              - 'option "Precio: Menor a Mayor"'
+              - 'option "Precio: Mayor a Menor"'
+        - paragraph [ref=f4e57]: Cargando catálogo premium...
+  - contentinfo [ref=f4e58]:
+    - generic [ref=f4e59]:
+      - generic [ref=f4e60]:
+        - heading "PhoneSpot." [level=2] [ref=f4e61]
+        - paragraph [ref=f4e62]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - link " @phonespotsj" [ref=f4e64] [cursor=pointer]:
+          - /url: https://www.instagram.com/phonespotsj
+          - generic [ref=f4e65]: 
+          - text: "@phonespotsj"
+      - generic [ref=f4e66]:
+        - heading "Contacto" [level=4] [ref=f4e67]
+        - list [ref=f4e69]:
+          - listitem [ref=f4e70]:
+            - generic [ref=f4e71]: 
+            - generic [ref=f4e72]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f4e73]:
+            - generic [ref=f4e74]: 
+            - link "+54 9 3447 416011" [ref=f4e75] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f4e76]:
+            - generic [ref=f4e77]: 
+            - link "boujonnacho@gmail.com" [ref=f4e78] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f4e79]:
+            - generic [ref=f4e80]: 
+            - generic [ref=f4e81]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f4e82]:
+        - heading "Información" [level=4] [ref=f4e83]
+        - list [ref=f4e85]:
+          - listitem [ref=f4e86]:
+            - link "Inicio" [ref=f4e87] [cursor=pointer]:
+              - /url: index.html
+          - listitem [ref=f4e88]:
+            - link "Catálogo de Productos" [ref=f4e89] [cursor=pointer]:
+              - /url: catalogo.html?cat=all
+          - listitem [ref=f4e90]:
+            - link "Términos y Condiciones" [ref=f4e91] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e92]:
+            - link "Políticas de Envío" [ref=f4e93] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e94]:
+            - link "Garantías" [ref=f4e95] [cursor=pointer]:
+              - /url: garantias.html
+    - generic [ref=f4e96]:
+      - paragraph [ref=f4e97]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f4e98]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f4e100]:
+    - heading " Mis Favoritos" [level=3] [ref=f4e101]:
+      - generic [ref=f4e102]: 
+      - text: Mis Favoritos
+    - button "" [ref=f4e103] [cursor=pointer]
+  - generic [ref=f4e106]:
+    - generic [ref=f4e107]:
+      - heading "Tu Carrito" [level=3] [ref=f4e108]
+      - generic [ref=f4e109] [cursor=pointer]: 
+    - generic [ref=f4e110]:
+      - paragraph
+    - generic [ref=f4e113]:
+      - generic [ref=f4e114]:
+        - generic [ref=f4e115]: "Total:"
+        - generic [ref=f4e116]: $0
+      - button " Finalizar Compra" [ref=f4e117] [cursor=pointer]:
+        - generic [ref=f4e118]: 
+        - text: Finalizar Compra
+      - link "Ver carrito completo" [ref=f4e119] [cursor=pointer]:
+        - /url: carrito.html
+  - generic [ref=f4e120]:
+    - generic [ref=f4e121]:
+      - generic [ref=f4e122]: 
+      - generic [ref=f4e123]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f4e124]
+        - paragraph [ref=f4e125]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f4e126]:
+      - link "Ver Políticas" [ref=f4e127] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f4e128] [cursor=pointer]

@@ -1,0 +1,313 @@
+- generic [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - heading [level=1] [ref=f3e4]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f3e5] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f3e6]
+        - generic [ref=f3e7]: PhoneSpot.
+    - generic [ref=f3e8] [cursor=pointer]: 
+    - navigation [ref=f3e10]:
+      - list [ref=f3e11]:
+        - listitem [ref=f3e12]:
+          - link "Inicio" [ref=f3e13] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f3e14]:
+          - link "Productos " [ref=f3e15] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f3e16]: 
+          - list [ref=f3e17]:
+            - listitem [ref=f3e18]:
+              - link "Ver todos los productos" [ref=f3e19] [cursor=pointer]:
+                - /url: catalogo.html?cat=all
+            - listitem [ref=f3e20]:
+              - link "Celulares" [ref=f3e21] [cursor=pointer]:
+                - /url: catalogo.html?cat=celulares
+            - listitem [ref=f3e22]:
+              - link "Notebooks" [ref=f3e23] [cursor=pointer]:
+                - /url: catalogo.html?cat=notebooks
+            - listitem [ref=f3e24]:
+              - link "Tablets" [ref=f3e25] [cursor=pointer]:
+                - /url: catalogo.html?cat=tablets
+            - listitem [ref=f3e26]:
+              - link "Accesorios" [ref=f3e27] [cursor=pointer]:
+                - /url: catalogo.html?cat=accesorios
+        - listitem [ref=f3e28]:
+          - link "Ofertas del Día" [ref=f3e29] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - text: 
+        - listitem [ref=f3e30]:
+          - link " Ingresar" [ref=f3e31] [cursor=pointer]:
+            - /url: login.html
+            - generic [ref=f3e32]: 
+            - text: Ingresar
+    - generic [ref=f3e33]:
+      - textbox "Buscar producto..." [ref=f3e34]
+      - generic [ref=f3e35]: 
+    - generic [ref=f3e36]:
+      - text: 
+      - link "" [ref=f3e37] [cursor=pointer]:
+        - /url: "#"
+      - link " (1)" [ref=f3e307] [cursor=pointer]:
+        - /url: carrito.html
+        - generic [ref=f3e40]: 
+        - text: (1)
+  - main [ref=f3e41]:
+    - generic [ref=f3e117]:
+      - generic [ref=f3e118]:
+        - img "iPhone 14 Pro" [ref=f3e120]
+        - generic [ref=f3e121]:
+          - button "Ver foto 1 de Morado" [ref=f3e269] [cursor=pointer]:
+            - generic [ref=f3e270]: Morado
+          - button "Ver foto 2 de Morado" [ref=f3e271] [cursor=pointer]:
+            - generic [ref=f3e272]: Morado
+          - button "Ver foto 3 de Morado" [ref=f3e273] [cursor=pointer]:
+            - generic [ref=f3e274]: Morado
+          - button "Ver foto 4 de Blanco" [ref=f3e275] [cursor=pointer]:
+            - generic [ref=f3e276]: Blanco
+          - button "Ver foto 5 de Negro" [ref=f3e277] [cursor=pointer]:
+            - generic [ref=f3e278]: Negro
+          - button "Ver foto 6 de Plata" [ref=f3e279] [cursor=pointer]:
+            - generic [ref=f3e280]: Plata
+          - button "Ver foto 7 de Oro" [ref=f3e281] [cursor=pointer]:
+            - generic [ref=f3e282]: Oro
+          - button "Ver foto 8 de Plata" [ref=f3e283] [cursor=pointer]:
+            - generic [ref=f3e284]: Plata
+          - button "Ver foto 9 de Negro" [ref=f3e285] [cursor=pointer]:
+            - generic [ref=f3e286]: Negro
+          - button "Ver foto 10 de Oro" [ref=f3e287] [cursor=pointer]:
+            - generic [ref=f3e288]: Oro
+          - button "Ver foto 11 de Negro" [ref=f3e289] [cursor=pointer]:
+            - generic [ref=f3e290]: Negro
+          - button "Ver foto 12 de Negro" [ref=f3e291] [cursor=pointer]:
+            - generic [ref=f3e292]: Negro
+          - button "Ver foto 13 de Plata" [ref=f3e293] [cursor=pointer]:
+            - generic [ref=f3e294]: Plata
+          - button "Ver foto 14 de Oro" [ref=f3e295] [cursor=pointer]:
+            - generic [ref=f3e296]: Oro
+          - button "Ver foto 15 de Negro" [ref=f3e297] [cursor=pointer]:
+            - generic [ref=f3e298]: Negro
+          - button "Ver foto 16 de Plata" [ref=f3e299] [cursor=pointer]:
+            - generic [ref=f3e300]: Plata
+      - generic [ref=f3e154]:
+        - generic [ref=f3e155]:
+          - generic [ref=f3e156]: Apple
+          - generic [ref=f3e157]: celulares
+        - heading "iPhone 14 Pro" [level=2] [ref=f3e158]
+        - generic [ref=f3e160]:
+          - generic [ref=f3e161]: 
+          - text: "Americano | Batería: 100%/80%"
+        - generic [ref=f3e162]:
+          - generic [ref=f3e163]:
+            - heading "Color - Morado" [level=4] [ref=f3e301]
+            - generic [ref=f3e165]:
+              - button "Color Blanco" [ref=f3e166] [cursor=pointer]:
+                - generic [ref=f3e167]: Blanco
+              - button "Color Negro" [ref=f3e168] [cursor=pointer]:
+                - generic [ref=f3e169]: Negro
+              - button "Color Plata" [ref=f3e170] [cursor=pointer]:
+                - generic [ref=f3e171]: Plata
+              - button "Color Morado" [pressed] [ref=f3e172] [cursor=pointer]:
+                - generic [ref=f3e173]: Morado
+              - button "Color Oro" [ref=f3e174] [cursor=pointer]:
+                - generic [ref=f3e175]: Oro
+          - generic [ref=f3e176]:
+            - heading "Almacenamiento" [level=4] [ref=f3e177]
+            - generic [ref=f3e178]:
+              - button "128GB" [ref=f3e179] [cursor=pointer]
+              - button "256GB" [ref=f3e180] [cursor=pointer]
+          - generic [ref=f3e181]:
+            - heading "Condición de Batería" [level=4] [ref=f3e182]
+            - generic [ref=f3e183]:
+              - button "100%" [ref=f3e184] [cursor=pointer]
+              - button "80%" [disabled] [ref=f3e185] [cursor=pointer]
+          - generic [ref=f3e186]:
+            - heading "Condición / tipo" [level=4] [ref=f3e187]
+            - generic [ref=f3e188]:
+              - button "ASLY" [disabled] [ref=f3e189] [cursor=pointer]
+              - button "eSIM" [ref=f3e190] [cursor=pointer]
+          - paragraph [ref=f3e191]: "Stock disponible: 10 unidades"
+        - generic [ref=f3e192]:
+          - heading " Conocer tiempos y costos de envío" [level=4] [ref=f3e193]:
+            - generic [ref=f3e194]: 
+            - text: Conocer tiempos y costos de envío
+          - generic [ref=f3e195]:
+            - 'textbox "Tu CP (Ej: 3283)" [ref=f3e196]'
+            - button "Calcular" [ref=f3e197] [cursor=pointer]
+        - paragraph [ref=f3e199]: $737.900 / Final ARS
+        - generic [ref=f3e200]:
+          - button " Agregado" [active]:
+            - generic: 
+            - text: Agregado
+          - button " Comparar equipo" [ref=f3e203] [cursor=pointer]:
+            - generic [ref=f3e204]: 
+            - text: Comparar equipo
+        - generic [ref=f3e205]:
+          - heading "Descripción del producto" [level=4] [ref=f3e206]
+          - paragraph [ref=f3e207]: iPhone 14 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.
+        - generic [ref=f3e208]:
+          - heading "Reseñas" [level=4] [ref=f3e209]
+          - paragraph [ref=f3e210]: Todavía no hay reseñas para este producto.
+          - generic [ref=f3e211]:
+            - generic [ref=f3e212]:
+              - text: Tu calificación
+              - combobox "Tu calificación" [ref=f3e213]:
+                - option "5 estrellas" [selected]
+                - option "4 estrellas"
+                - option "3 estrellas"
+                - option "2 estrellas"
+                - option "1 estrella"
+            - textbox "Comparte tu experiencia con este producto" [ref=f3e214]
+            - button "Publicar reseña" [ref=f3e215] [cursor=pointer]
+        - generic [ref=f3e216]:
+          - generic [ref=f3e217]:
+            - generic [ref=f3e218]: 
+            - generic [ref=f3e220]:
+              - strong [ref=f3e221]: Envío inmediato
+              - text: a todo el país
+          - generic [ref=f3e222]:
+            - generic [ref=f3e223]: 
+            - strong [ref=f3e226]: Atención personalizada
+    - generic [ref=f3e227]:
+      - heading "También te podría interesar" [level=3] [ref=f3e228]
+      - generic [ref=f3e229]:
+        - generic [ref=f3e230] [cursor=pointer]:
+          - link [ref=f3e231]:
+            - /url: producto.html?id=115
+            - img "iPhone 16 Pro Max" [ref=f3e232]
+          - heading [level=4] [ref=f3e233]:
+            - link "iPhone 16 Pro Max" [ref=f3e234]:
+              - /url: producto.html?id=115
+          - generic [ref=f3e235]: (4.8)
+          - paragraph [ref=f3e237]: $1.271.700
+        - generic [ref=f3e238] [cursor=pointer]:
+          - link [ref=f3e239]:
+            - /url: producto.html?id=120
+            - img "iPhone 17" [ref=f3e240]
+          - heading [level=4] [ref=f3e241]:
+            - link "iPhone 17" [ref=f3e242]:
+              - /url: producto.html?id=120
+          - generic [ref=f3e243]: (4.8)
+          - paragraph [ref=f3e245]: $1.193.200
+        - generic [ref=f3e246] [cursor=pointer]:
+          - link [ref=f3e247]:
+            - /url: producto.html?id=44
+            - img "iPhone 12 Pro Max" [ref=f3e248]
+          - heading [level=4] [ref=f3e249]:
+            - link "iPhone 12 Pro Max" [ref=f3e250]:
+              - /url: producto.html?id=44
+          - generic [ref=f3e251]: (4.8)
+          - paragraph [ref=f3e253]: $518.100
+        - generic [ref=f3e254] [cursor=pointer]:
+          - link [ref=f3e255]:
+            - /url: producto.html?id=89
+            - img "iPhone 15" [ref=f3e256]
+          - heading [level=4] [ref=f3e257]:
+            - link "iPhone 15" [ref=f3e258]:
+              - /url: producto.html?id=89
+          - generic [ref=f3e259]: (4.8)
+          - paragraph [ref=f3e261]: $690.800
+  - contentinfo [ref=f3e45]:
+    - generic [ref=f3e46]:
+      - generic [ref=f3e47]:
+        - heading "PhoneSpot." [level=2] [ref=f3e48]
+        - paragraph [ref=f3e49]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - generic [ref=f3e50]:
+          - link " @phonespotsj" [ref=f3e51] [cursor=pointer]:
+            - /url: https://www.instagram.com/phonespotsj
+            - generic [ref=f3e52]: 
+            - text: "@phonespotsj"
+          - link "Consultar por WhatsApp" [ref=f3e262] [cursor=pointer]:
+            - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Vengo%20de%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta.
+            - generic [aria-hidden] [ref=f3e263]: 
+            - generic [ref=f3e264]: WhatsApp
+      - generic [ref=f3e53]:
+        - heading "Contacto" [level=4] [ref=f3e54]
+        - list [ref=f3e56]:
+          - listitem [ref=f3e57]:
+            - generic [ref=f3e58]: 
+            - generic [ref=f3e59]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f3e60]:
+            - generic [ref=f3e61]: 
+            - link "+54 9 3447 416011-0000" [ref=f3e62] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f3e63]:
+            - generic [ref=f3e64]: 
+            - link "boujonnacho@gmail.com" [ref=f3e65] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f3e66]:
+            - generic [ref=f3e67]: 
+            - generic [ref=f3e68]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f3e69]:
+        - heading "Información" [level=4] [ref=f3e70]
+        - list [ref=f3e72]:
+          - listitem [ref=f3e73]:
+            - link "Inicio" [ref=f3e74] [cursor=pointer]:
+              - /url: index.html#inicio
+          - listitem [ref=f3e75]:
+            - link "Catálogo de Productos" [ref=f3e76] [cursor=pointer]:
+              - /url: catalogo.html
+          - listitem [ref=f3e77]:
+            - link "Términos y Condiciones" [ref=f3e78] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f3e79]:
+            - link "Políticas de Envío" [ref=f3e80] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f3e81]:
+            - link "Garantías" [ref=f3e82] [cursor=pointer]:
+              - /url: garantias.html
+    - generic [ref=f3e83]:
+      - paragraph [ref=f3e84]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f3e85]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f3e87]:
+    - heading " Mis Favoritos" [level=3] [ref=f3e88]:
+      - generic [ref=f3e89]: 
+      - text: Mis Favoritos
+    - button "" [ref=f3e90] [cursor=pointer]
+  - generic [ref=f3e93]:
+    - generic [ref=f3e94]:
+      - heading "Tu Carrito" [level=3] [ref=f3e95]
+      - generic [ref=f3e96] [cursor=pointer]: 
+    - paragraph [ref=f3e308]:
+      - text: Te faltan
+      - strong [ref=f3e309]: $762.100
+      - text: para Envío Gratis
+    - generic [ref=f3e99]:
+      - generic [ref=f3e311]:
+        - generic [ref=f3e312]: 
+        - text: Agrega 2 equipos más (Celulares, Tablets o Notebooks) para activar Precio Mayorista (-5 USD c/u)
+      - article [ref=f3e313]:
+        - img "iPhone 14 Pro" [ref=f3e315]
+        - generic [ref=f3e316]:
+          - heading "iPhone 14 Pro" [level=4] [ref=f3e317]
+          - paragraph [ref=f3e318]: "Morado - 128GB - Bat: 100% - Cond: eSIM"
+          - paragraph [ref=f3e319]: $737.900
+        - generic [ref=f3e320]:
+          - group "Cantidad de iPhone 14 Pro" [ref=f3e321]:
+            - button "Quitar una unidad" [ref=f3e322] [cursor=pointer]:
+              - generic [ref=f3e323]: 
+            - generic "1 unidades" [ref=f3e324]: "1"
+            - button "Agregar una unidad" [ref=f3e325] [cursor=pointer]:
+              - generic [ref=f3e326]: +
+          - button "Quitar iPhone 14 Pro del carrito" [ref=f3e327] [cursor=pointer]:
+            - generic [ref=f3e328]: 
+            - generic [ref=f3e329]: Quitar
+    - generic [ref=f3e100]:
+      - generic [ref=f3e101]:
+        - generic [ref=f3e102]: "Total:"
+        - generic [ref=f3e103]: $737.900
+      - button " Finalizar Compra" [ref=f3e104] [cursor=pointer]:
+        - generic [ref=f3e105]: 
+        - text: Finalizar Compra
+      - link "Ver carrito completo" [ref=f3e106] [cursor=pointer]:
+        - /url: carrito.html
+  - generic [ref=f3e107]:
+    - generic [ref=f3e108]:
+      - generic [ref=f3e109]: 
+      - generic [ref=f3e110]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f3e111]
+        - paragraph [ref=f3e112]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f3e113]:
+      - link "Ver Políticas" [ref=f3e114] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f3e115] [cursor=pointer]

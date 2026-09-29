@@ -1,0 +1,510 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e2]: Venta Mayorista y Mínorista 📦
+  - banner [ref=f3e5]:
+    - heading [level=1] [ref=f3e7]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f3e8] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f3e9]
+        - generic [ref=f3e10]: PhoneSpot.
+    - button "Cerrar menú" [expanded] [active] [ref=f3e474] [cursor=pointer]:
+      - generic [aria-hidden] [ref=f3e12]: 
+    - navigation [ref=f3e13]:
+      - list [ref=f3e14]:
+        - listitem [ref=f3e15]:
+          - link "Inicio" [ref=f3e16] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f3e17]:
+          - link "Productos " [ref=f3e18] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f3e19]: 
+          - list [ref=f3e20]:
+            - listitem [ref=f3e21]:
+              - link "Ver todos los productos" [ref=f3e22] [cursor=pointer]:
+                - /url: catalogo.html?cat=all
+            - listitem [ref=f3e23]:
+              - link "Celulares" [ref=f3e24] [cursor=pointer]:
+                - /url: catalogo.html?cat=celulares
+            - listitem [ref=f3e25]:
+              - link "Notebooks" [ref=f3e26] [cursor=pointer]:
+                - /url: catalogo.html?cat=notebooks
+            - listitem [ref=f3e27]:
+              - link "Tablets" [ref=f3e28] [cursor=pointer]:
+                - /url: catalogo.html?cat=tablets
+            - listitem [ref=f3e29]:
+              - link "Accesorios" [ref=f3e30] [cursor=pointer]:
+                - /url: catalogo.html?cat=accesorios
+        - listitem [ref=f3e31]:
+          - link "Ofertas del Día" [ref=f3e32] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - text: 
+        - listitem [ref=f3e33]:
+          - link " Ingresar" [ref=f3e34] [cursor=pointer]:
+            - /url: login.html
+            - generic [ref=f3e35]: 
+            - text: Ingresar
+    - generic [ref=f3e36]:
+      - searchbox "Buscar productos" [ref=f3e37]
+      - generic [ref=f3e38]: 
+    - generic [ref=f3e39]:
+      - text: 
+      - link "" [ref=f3e40] [cursor=pointer]:
+        - /url: "#"
+      - link "" [ref=f3e42] [cursor=pointer]:
+        - /url: carrito.html
+  - main [ref=f3e44]:
+    - region [ref=f3e45]:
+      - generic [ref=f3e46]:
+        - generic [ref=f3e47]:
+          - heading "Tecnología para tu negocio." [level=2] [ref=f3e48]
+          - paragraph [ref=f3e49]: Encontrá el equipo que necesitás, compará sus variantes y comprá con atención directa cuando tengas una consulta.
+          - generic [ref=f3e50]:
+            - link "Ver celulares" [ref=f3e51] [cursor=pointer]:
+              - /url: catalogo.html?cat=celulares
+              - text: Ver celulares
+              - generic [aria-hidden] [ref=f3e52]: 
+            - link "Consultar por WhatsApp" [ref=f3e53] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011?text=Hola%20PhoneSpot%2C%20quiero%20consultar%20por%20celulares%20para%20mi%20negocio
+              - generic [aria-hidden] [ref=f3e54]: 
+              - text: Consultar por WhatsApp
+        - navigation "Explorar productos por categoría" [ref=f3e55]:
+          - heading "Explorá el catálogo" [level=3] [ref=f3e56]
+          - link "Celulares" [ref=f3e57] [cursor=pointer]:
+            - /url: catalogo.html?cat=celulares
+            - generic [aria-hidden] [ref=f3e59]: 
+          - link "Notebooks" [ref=f3e60] [cursor=pointer]:
+            - /url: catalogo.html?cat=notebooks
+            - generic [aria-hidden] [ref=f3e62]: 
+          - link "Accesorios" [ref=f3e63] [cursor=pointer]:
+            - /url: catalogo.html?cat=accesorios
+            - generic [aria-hidden] [ref=f3e65]: 
+    - region "Colecciones destacadas" [ref=f3e66]:
+      - text: PHONESPOT / SELECCIÓN
+      - generic [ref=f3e67]:
+        - generic [ref=f3e298]:
+          - generic:
+            - heading "Tecnología que se siente premium" [level=2]
+            - paragraph: Smartphones seleccionados. Diseño, potencia y confianza.
+            - link "Explorar colección":
+              - /url: catalogo.html?cat=apple
+              - text: Explorar colección
+              - generic [aria-hidden]: 
+        - generic [ref=f3e304]:
+          - generic:
+            - heading "Tu próximo equipo empieza acá" [level=2]
+            - paragraph: Notebooks para crear, estudiar y trabajar sin límites.
+            - link "Explorar colección":
+              - /url: catalogo.html?cat=notebooks
+              - text: Explorar colección
+              - generic [aria-hidden]: 
+        - generic [ref=f3e475]:
+          - heading "Los detalles también importan" [level=2] [ref=f3e476]
+          - paragraph [ref=f3e477]: Accesorios esenciales, elegidos para acompañarte todos los días.
+          - link "Explorar colección" [ref=f3e478] [cursor=pointer]:
+            - /url: catalogo.html?cat=accesorios
+            - text: Explorar colección
+            - generic [aria-hidden] [ref=f3e479]: 
+      - button "" [ref=f3e306] [cursor=pointer]
+      - button "" [ref=f3e308] [cursor=pointer]
+    - generic [ref=f3e73]:
+      - generic [ref=f3e74]:
+        - generic [ref=f3e75]: 
+        - heading "Opciones de envío" [level=3] [ref=f3e76]
+        - paragraph [ref=f3e77]: Consultá la disponibilidad y el costo para tu destino al hacer el pedido.
+      - generic [ref=f3e78]:
+        - generic [ref=f3e79]: 
+        - heading "Compra acompañada" [level=3] [ref=f3e80]
+        - paragraph [ref=f3e81]: Confirmamos el pago y envío por WhatsApp.
+      - generic [ref=f3e82]:
+        - generic [ref=f3e83]: 
+        - heading "Atención por WhatsApp" [level=3] [ref=f3e84]
+        - paragraph [ref=f3e85]: Consultanos antes o después de hacer tu pedido.
+    - generic [ref=f3e86]:
+      - heading "Preguntas frecuentes" [level=2] [ref=f3e87]
+      - generic [ref=f3e88]:
+        - group [ref=f3e89]:
+          - generic "¿Cómo se confirma mi compra?" [ref=f3e90] [cursor=pointer]
+        - group [ref=f3e91]:
+          - generic "¿Puedo seguir mi pedido?" [ref=f3e92] [cursor=pointer]
+        - group [ref=f3e93]:
+          - generic "¿Qué garantía tiene mi producto?" [ref=f3e94] [cursor=pointer]
+          - text: 
+    - region [ref=f3e95]:
+      - generic [ref=f3e96]:
+        - generic [ref=f3e97]:
+          - generic [ref=f3e98]: 
+          - text: Recomendaciones reales
+        - heading "Encontrá la tecnología ideal para vos" [level=2] [ref=f3e99]
+        - paragraph [ref=f3e100]: "Contanos primero qué estás buscando: celulares, notebooks, tablets o accesorios. Después te mostramos las opciones disponibles que mejor se adaptan a vos."
+        - button "Encontrar lo que busco " [ref=f3e101] [cursor=pointer]:
+          - text: Encontrar lo que busco
+          - generic [ref=f3e102]: 
+        - paragraph [ref=f3e103]:
+          - generic [ref=f3e104]: 
+          - text: Te lleva menos de un minuto
+    - generic [ref=f3e106]:
+      - link [ref=f3e107] [cursor=pointer]:
+        - /url: catalogo.html?cat=apple
+        - generic [ref=f3e109]:
+          - heading "Mundo Apple" [level=3] [ref=f3e110]
+          - text: Ver Equipos
+      - link [ref=f3e111] [cursor=pointer]:
+        - /url: catalogo.html?cat=samsung
+        - generic [ref=f3e113]:
+          - heading "Ecosistema Samsung" [level=3] [ref=f3e114]
+          - text: Descubrir
+      - link [ref=f3e115] [cursor=pointer]:
+        - /url: catalogo.html?cat=accesorios
+        - generic [ref=f3e117]:
+          - heading "Accesorios Premium" [level=3] [ref=f3e118]
+          - text: Ver Fundas y Cargadores
+    - generic [ref=f3e119]:
+      - generic [ref=f3e120]:
+        - text: Descuentos Exclusivos
+        - heading "Ofertas Relámpago" [level=3] [ref=f3e121]
+        - paragraph [ref=f3e122]: Equipos premium con precios imbatibles por tiempo limitado.
+        - generic [ref=f3e310]:
+          - generic [ref=f3e311]:
+            - generic [ref=f3e312]: "02"
+            - text: Días
+          - generic [ref=f3e313]: ":"
+          - generic [ref=f3e314]:
+            - generic [ref=f3e315]: "23"
+            - text: Horas
+          - generic [ref=f3e316]: ":"
+          - generic [ref=f3e317]:
+            - generic [ref=f3e318]: "59"
+            - text: Min
+          - generic [ref=f3e319]: ":"
+          - generic [ref=f3e320]:
+            - generic [ref=f3e321]: "48"
+            - text: Seg
+      - paragraph [ref=f3e322]: Hoy no hay ofertas relámpago. ¡íVuelve mañana!
+    - region [ref=f3e148]:
+      - generic [ref=f3e150]:
+        - generic [ref=f3e151]:
+          - generic [ref=f3e152]: 
+          - text: Todo conectado
+        - heading "Armá tu ecosistema" [level=2] [ref=f3e153]
+        - paragraph [ref=f3e154]: "Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más."
+        - link "Ver accesorios " [ref=f3e155] [cursor=pointer]:
+          - /url: catalogo.html?cat=accesorios
+          - text: Ver accesorios
+          - generic [ref=f3e156]: 
+    - generic [ref=f3e157]:
+      - generic [ref=f3e158]:
+        - generic [ref=f3e159]:
+          - heading "Nuevos Ingresos" [level=3] [ref=f3e160]
+          - paragraph [ref=f3e161]: La última tecnología recién llegada a PhoneSpot.
+        - link "Ver todo el catálogo " [ref=f3e162] [cursor=pointer]:
+          - /url: catalogo.html?cat=all
+          - text: Ver todo el catálogo
+          - generic [ref=f3e163]: 
+      - generic [ref=f3e164]:
+        - generic [ref=f3e323] [cursor=pointer]:
+          - link [ref=f3e324]:
+            - /url: producto.html?id=124
+            - img "iPhone 17 Pro Max" [ref=f3e325]
+          - paragraph [ref=f3e326]: Apple
+          - generic [ref=f3e327]: "Americano | Batería: 100%"
+          - heading [level=4] [ref=f3e328]:
+            - link "iPhone 17 Pro Max" [ref=f3e329]:
+              - /url: producto.html?id=124
+          - paragraph [ref=f3e331]: $2.128.400
+          - generic [ref=f3e332]:
+            - combobox [ref=f3e333]:
+              - 'option "Color: Naranja" [selected]'
+            - combobox [ref=f3e334]:
+              - 'option "Cap: 512GB" [selected]'
+            - combobox [ref=f3e335]:
+              - 'option "Bat: 100%" [selected]'
+            - paragraph [ref=f3e336]: "Stock: 9"
+          - button " Agregar al Carrito" [ref=f3e337]:
+            - generic [ref=f3e338]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e339]:
+            - generic [ref=f3e340]: 
+            - text: Comparar equipo
+        - generic [ref=f3e341] [cursor=pointer]:
+          - link [ref=f3e342]:
+            - /url: producto.html?id=121
+            - img "iPhone 17 Pro" [ref=f3e343]
+          - paragraph [ref=f3e344]: Apple
+          - generic [ref=f3e345]: "Americano | Batería: 100%"
+          - heading [level=4] [ref=f3e346]:
+            - link "iPhone 17 Pro" [ref=f3e347]:
+              - /url: producto.html?id=121
+          - paragraph [ref=f3e349]: $1.643.250
+          - generic [ref=f3e350]:
+            - combobox [ref=f3e351]:
+              - 'option "Color: Azul" [selected]'
+              - 'option "Color: Naranja"'
+            - combobox [ref=f3e352]:
+              - 'option "Cap: 256GB" [selected]'
+            - combobox [ref=f3e353]:
+              - 'option "Bat: 100%" [selected]'
+            - combobox [ref=f3e354]:
+              - 'option "Cond: Americano" [selected]'
+            - paragraph [ref=f3e355]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e356]:
+            - generic [ref=f3e357]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e358]:
+            - generic [ref=f3e359]: 
+            - text: Comparar equipo
+        - generic [ref=f3e360] [cursor=pointer]:
+          - link [ref=f3e361]:
+            - /url: producto.html?id=120
+            - img "iPhone 17" [ref=f3e362]
+          - paragraph [ref=f3e363]: Apple
+          - generic [ref=f3e364]: "Americano | Batería: 100%"
+          - heading [level=4] [ref=f3e365]:
+            - link "iPhone 17" [ref=f3e366]:
+              - /url: producto.html?id=120
+          - paragraph [ref=f3e368]: $1.189.400
+          - generic [ref=f3e369]:
+            - combobox [ref=f3e370]:
+              - 'option "Color: Negro" [selected]'
+            - combobox [ref=f3e371]:
+              - 'option "Cap: 256GB" [selected]'
+            - combobox [ref=f3e372]:
+              - 'option "Bat: 100%" [selected]'
+            - paragraph [ref=f3e373]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e374]:
+            - generic [ref=f3e375]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e376]:
+            - generic [ref=f3e377]: 
+            - text: Comparar equipo
+        - generic [ref=f3e378] [cursor=pointer]:
+          - link [ref=f3e379]:
+            - /url: producto.html?id=115
+            - img "iPhone 16 Pro Max" [ref=f3e380]
+          - paragraph [ref=f3e381]: Apple
+          - generic [ref=f3e382]: "Americano | Batería: 100%/80%"
+          - heading [level=4] [ref=f3e383]:
+            - link "iPhone 16 Pro Max" [ref=f3e384]:
+              - /url: producto.html?id=115
+          - paragraph [ref=f3e386]: $1.831.050
+          - generic [ref=f3e387]:
+            - combobox [ref=f3e388]:
+              - 'option "Color: Titanio Natural" [selected]'
+              - 'option "Color: Titanio Blanco"'
+              - 'option "Color: Titanio del Desierto"'
+              - 'option "Color: Titanio Negro"'
+            - combobox [ref=f3e389]:
+              - 'option "Cap: 512GB" [selected]'
+              - 'option "Cap: 256GB"'
+            - combobox [ref=f3e390]:
+              - 'option "Bat: 100%" [selected]'
+              - 'option "Bat: 80%"'
+            - combobox [ref=f3e391]:
+              - 'option "Cond: Garantía Apple" [selected]'
+            - paragraph [ref=f3e392]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e393]:
+            - generic [ref=f3e394]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e395]:
+            - generic [ref=f3e396]: 
+            - text: Comparar equipo
+        - generic [ref=f3e397] [cursor=pointer]:
+          - link [ref=f3e398]:
+            - /url: producto.html?id=41
+            - img "iPhone 12 Pro" [ref=f3e399]
+          - paragraph [ref=f3e400]: Apple
+          - generic [ref=f3e401]: "Americano | Batería: 100%/80%"
+          - heading [level=4] [ref=f3e402]:
+            - link "iPhone 12 Pro" [ref=f3e403]:
+              - /url: producto.html?id=41
+          - paragraph [ref=f3e405]: $469.500
+          - generic [ref=f3e406]:
+            - combobox [ref=f3e407]:
+              - 'option "Color: Azul" [selected]'
+              - 'option "Color: Negro"'
+              - 'option "Color: Oro"'
+              - 'option "Color: Plata"'
+            - combobox [ref=f3e408]:
+              - 'option "Cap: 128GB" [selected]'
+              - 'option "Cap: 256GB"'
+            - combobox [ref=f3e409]:
+              - 'option "Bat: 100%" [selected]'
+              - 'option "Bat: 80%"'
+            - paragraph [ref=f3e410]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e411]:
+            - generic [ref=f3e412]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e413]:
+            - generic [ref=f3e414]: 
+            - text: Comparar equipo
+        - generic [ref=f3e415] [cursor=pointer]:
+          - link [ref=f3e416]:
+            - /url: producto.html?id=48
+            - img "iPhone 13" [ref=f3e417]
+          - paragraph [ref=f3e418]: Apple
+          - generic [ref=f3e419]: "Americano | Batería: 100%/80%"
+          - heading [level=4] [ref=f3e420]:
+            - link "iPhone 13" [ref=f3e421]:
+              - /url: producto.html?id=48
+          - paragraph [ref=f3e423]: $485.150
+          - generic [ref=f3e424]:
+            - combobox [ref=f3e425]:
+              - 'option "Color: Negro" [selected]'
+              - 'option "Color: Azul"'
+              - 'option "Color: Blanco"'
+              - 'option "Color: Rosa"'
+            - combobox [ref=f3e426]:
+              - 'option "Cap: 128GB" [selected]'
+              - 'option "Cap: 256GB"'
+            - combobox [ref=f3e427]:
+              - 'option "Bat: 100%" [selected]'
+              - 'option "Bat: 80%"'
+            - paragraph [ref=f3e428]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e429]:
+            - generic [ref=f3e430]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e431]:
+            - generic [ref=f3e432]: 
+            - text: Comparar equipo
+        - generic [ref=f3e433] [cursor=pointer]:
+          - link [ref=f3e434]:
+            - /url: producto.html?id=112
+            - img "iPhone 16 Pro" [ref=f3e435]
+          - paragraph [ref=f3e436]: Apple
+          - generic [ref=f3e437]: "Americano | Batería: 100%/80%"
+          - heading [level=4] [ref=f3e438]:
+            - link "iPhone 16 Pro" [ref=f3e439]:
+              - /url: producto.html?id=112
+          - paragraph [ref=f3e441]: $1.283.300
+          - generic [ref=f3e442]:
+            - combobox [ref=f3e443]:
+              - 'option "Color: Titanio del Desierto" [selected]'
+              - 'option "Color: Titanio Blanco"'
+              - 'option "Color: Titanio Negro"'
+              - 'option "Color: Titanio Natural"'
+            - combobox [ref=f3e444]:
+              - 'option "Cap: 256GB" [selected]'
+              - 'option "Cap: 128GB"'
+            - combobox [ref=f3e445]:
+              - 'option "Bat: 100%" [selected]'
+            - combobox [ref=f3e446]:
+              - 'option "Cond: Americano" [selected]'
+              - 'option "Cond: AS IS"'
+            - paragraph [ref=f3e447]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e448]:
+            - generic [ref=f3e449]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e450]:
+            - generic [ref=f3e451]: 
+            - text: Comparar equipo
+        - generic [ref=f3e452] [cursor=pointer]:
+          - link [ref=f3e453]:
+            - /url: producto.html?id=108
+            - img "iPhone 16" [ref=f3e454]
+          - paragraph [ref=f3e455]: Apple
+          - generic [ref=f3e456]: "Americano | Batería: 100%/80%"
+          - heading [level=4] [ref=f3e457]:
+            - link "iPhone 16" [ref=f3e458]:
+              - /url: producto.html?id=108
+          - paragraph [ref=f3e460]: $1.017.250
+          - generic [ref=f3e461]:
+            - combobox [ref=f3e462]:
+              - 'option "Color: Rosa" [selected]'
+              - 'option "Color: Azul"'
+              - 'option "Color: Negro"'
+              - 'option "Color: Blanco"'
+            - combobox [ref=f3e463]:
+              - 'option "Cap: 128GB" [selected]'
+            - combobox [ref=f3e464]:
+              - 'option "Bat: 100%" [selected]'
+            - paragraph [ref=f3e465]: "Stock: 10"
+          - button " Agregar al Carrito" [ref=f3e466]:
+            - generic [ref=f3e467]: 
+            - text: Agregar al Carrito
+          - button " Comparar equipo" [ref=f3e468]:
+            - generic [ref=f3e469]: 
+            - text: Comparar equipo
+    - generic [ref=f3e214]:
+      - generic [ref=f3e215]: 
+      - heading "¡No te pierdas ninguna oferta!" [level=2] [ref=f3e216]
+      - paragraph [ref=f3e217]: Suscribite a nuestro newsletter y recibí descuentos exclusivos antes que nadie.
+      - generic [ref=f3e218]:
+        - textbox "Tu correo electrónico" [ref=f3e219]
+        - button "Suscribirme" [ref=f3e220] [cursor=pointer]
+  - contentinfo [ref=f3e221]:
+    - generic [ref=f3e222]:
+      - generic [ref=f3e223]:
+        - heading "PhoneSpot." [level=2] [ref=f3e224]
+        - paragraph [ref=f3e225]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - link " @phonespotsj" [ref=f3e227] [cursor=pointer]:
+          - /url: https://www.instagram.com/phonespotsj
+          - generic [ref=f3e228]: 
+          - text: "@phonespotsj"
+      - generic [ref=f3e229]:
+        - heading "Contacto" [level=4] [ref=f3e230]
+        - list [ref=f3e232]:
+          - listitem [ref=f3e233]:
+            - generic [ref=f3e234]: 
+            - generic [ref=f3e235]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f3e236]:
+            - generic [ref=f3e237]: 
+            - link "+54 9 3447 416011" [ref=f3e238] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f3e239]:
+            - generic [ref=f3e240]: 
+            - link "boujonnacho@gmail.com" [ref=f3e241] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f3e242]:
+            - generic [ref=f3e243]: 
+            - generic [ref=f3e244]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f3e245]:
+        - heading "Información" [level=4] [ref=f3e246]
+        - list [ref=f3e248]:
+          - listitem [ref=f3e249]:
+            - link "Inicio" [ref=f3e250] [cursor=pointer]:
+              - /url: "#inicio"
+          - listitem [ref=f3e251]:
+            - link "Catálogo de Productos" [ref=f3e252] [cursor=pointer]:
+              - /url: "#catalogo"
+          - listitem [ref=f3e253]:
+            - link "Términos y Condiciones" [ref=f3e254] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f3e255]:
+            - link "Políticas de Envío" [ref=f3e256] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f3e257]:
+            - link "Consultas de Garantías" [ref=f3e258] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Quisiera%20consultar%20sobre%20la%20garant%C3%ADa%20y%20cobertura%20de%20un%20producto.
+    - generic [ref=f3e259]:
+      - paragraph [ref=f3e260]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f3e261]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f3e263]:
+    - heading " Mis Favoritos" [level=3] [ref=f3e264]:
+      - generic [ref=f3e265]: 
+      - text: Mis Favoritos
+    - button "" [ref=f3e266] [cursor=pointer]
+  - generic [ref=f3e269]:
+    - generic [ref=f3e270]:
+      - heading "Tu Carrito" [level=3] [ref=f3e271]
+      - button "Cerrar carrito" [ref=f3e272] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f3e273]: 
+    - generic [ref=f3e470]:
+      - generic [ref=f3e471]: 
+      - paragraph [ref=f3e472]: Tu carrito está vacío.
+      - button "Seguir comprando" [ref=f3e473] [cursor=pointer]
+  - generic [ref=f3e283]:
+    - generic [ref=f3e284]:
+      - generic [ref=f3e285]: 
+      - generic [ref=f3e286]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f3e287]
+        - paragraph [ref=f3e288]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f3e289]:
+      - link "Ver Políticas" [ref=f3e290] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f3e291] [cursor=pointer]
+  - generic "Redes de PhoneSpot" [ref=f3e292]:
+    - link "Instagram de PhoneSpot" [ref=f3e293] [cursor=pointer]:
+      - /url: https://www.instagram.com/phonespotsj/
+      - generic [aria-hidden] [ref=f3e294]: 
+    - link "Consultar por WhatsApp" [ref=f3e295] [cursor=pointer]:
+      - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Vengo%20de%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta.
+      - generic [aria-hidden] [ref=f3e296]: 

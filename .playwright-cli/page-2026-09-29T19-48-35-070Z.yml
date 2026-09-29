@@ -1,0 +1,249 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]: Venta mayorista y minorista
+  - banner [ref=f4e5]:
+    - heading [level=1] [ref=f4e7]:
+      - link "PhoneSpot Logo PhoneSpot." [ref=f4e8] [cursor=pointer]:
+        - /url: index.html
+        - img "PhoneSpot Logo" [ref=f4e9]
+        - generic [ref=f4e10]: PhoneSpot.
+    - button "Abrir menú" [ref=f4e11] [cursor=pointer]:
+      - generic [aria-hidden] [ref=f4e12]: 
+    - navigation [ref=f4e13]:
+      - list [ref=f4e14]:
+        - listitem [ref=f4e15]:
+          - link "Inicio" [ref=f4e16] [cursor=pointer]:
+            - /url: index.html
+        - listitem [ref=f4e17]:
+          - link "Productos " [ref=f4e18] [cursor=pointer]:
+            - /url: catalogo.html?cat=all
+            - text: Productos
+            - generic [ref=f4e19]: 
+          - list [ref=f4e20]:
+            - listitem [ref=f4e21]:
+              - link "Ver todos los productos" [ref=f4e22] [cursor=pointer]:
+                - /url: catalogo.html?cat=all
+            - listitem [ref=f4e23]:
+              - link "Celulares" [ref=f4e24] [cursor=pointer]:
+                - /url: catalogo.html?cat=celulares
+            - listitem [ref=f4e25]:
+              - link "Notebooks" [ref=f4e26] [cursor=pointer]:
+                - /url: catalogo.html?cat=notebooks
+            - listitem [ref=f4e27]:
+              - link "Tablets" [ref=f4e28] [cursor=pointer]:
+                - /url: catalogo.html?cat=tablets
+            - listitem [ref=f4e29]:
+              - link "Accesorios" [ref=f4e30] [cursor=pointer]:
+                - /url: catalogo.html?cat=accesorios
+        - listitem [ref=f4e31]:
+          - link "Ofertas del Día" [ref=f4e32] [cursor=pointer]:
+            - /url: index.html#ofertas
+        - text: 
+        - listitem [ref=f4e33]:
+          - link " Ingresar" [ref=f4e34] [cursor=pointer]:
+            - /url: login.html
+            - generic [ref=f4e35]: 
+            - text: Ingresar
+    - generic [ref=f4e36]:
+      - searchbox "Buscar productos" [ref=f4e37]
+      - generic [ref=f4e38]: 
+    - generic [ref=f4e39]:
+      - text: 
+      - link "" [ref=f4e40] [cursor=pointer]:
+        - /url: "#"
+      - link "" [ref=f4e42] [cursor=pointer]:
+        - /url: carrito.html
+  - main [ref=f4e44]:
+    - region [ref=f4e45]:
+      - generic [ref=f4e46]:
+        - generic [ref=f4e47]:
+          - heading "Tecnología para tu negocio." [level=2] [ref=f4e48]
+          - paragraph [ref=f4e49]: Encontrá el equipo que necesitás, compará sus variantes y comprá con atención directa cuando tengas una consulta.
+          - generic [ref=f4e50]:
+            - link "Ver celulares" [ref=f4e51] [cursor=pointer]:
+              - /url: catalogo.html?cat=celulares
+              - text: Ver celulares
+              - generic [aria-hidden] [ref=f4e52]: 
+            - link "Consultar por WhatsApp" [ref=f4e53] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011?text=Hola%20PhoneSpot%2C%20quiero%20consultar%20por%20celulares%20para%20mi%20negocio
+              - generic [aria-hidden] [ref=f4e54]: 
+              - text: Consultar por WhatsApp
+        - navigation "Explorar productos por categoría" [ref=f4e55]:
+          - heading "Explorá el catálogo" [level=3] [ref=f4e56]
+          - link "Celulares" [ref=f4e57] [cursor=pointer]:
+            - /url: catalogo.html?cat=celulares
+            - generic [aria-hidden] [ref=f4e59]: 
+          - link "Notebooks" [ref=f4e60] [cursor=pointer]:
+            - /url: catalogo.html?cat=notebooks
+            - generic [aria-hidden] [ref=f4e62]: 
+          - link "Accesorios" [ref=f4e63] [cursor=pointer]:
+            - /url: catalogo.html?cat=accesorios
+            - generic [aria-hidden] [ref=f4e65]: 
+    - region "Colecciones destacadas" [ref=f4e66]:
+      - text: PHONESPOT / SELECCIÓN
+      - button "" [ref=f4e68] [cursor=pointer]
+      - button "" [ref=f4e70] [cursor=pointer]
+    - generic [ref=f4e73]:
+      - generic [ref=f4e74]:
+        - generic [ref=f4e75]: 
+        - heading "Opciones de envío" [level=3] [ref=f4e76]
+        - paragraph [ref=f4e77]: Consultá la disponibilidad y el costo para tu destino al hacer el pedido.
+      - generic [ref=f4e78]:
+        - generic [ref=f4e79]: 
+        - heading "Compra acompañada" [level=3] [ref=f4e80]
+        - paragraph [ref=f4e81]: Confirmamos el pago y envío por WhatsApp.
+      - generic [ref=f4e82]:
+        - generic [ref=f4e83]: 
+        - heading "Atención por WhatsApp" [level=3] [ref=f4e84]
+        - paragraph [ref=f4e85]: Consultanos antes o después de hacer tu pedido.
+    - generic [ref=f4e86]:
+      - heading "Preguntas frecuentes" [level=2] [ref=f4e87]
+      - generic [ref=f4e88]:
+        - group [ref=f4e89]:
+          - generic "¿Cómo se confirma mi compra?" [ref=f4e90] [cursor=pointer]
+        - group [ref=f4e91]:
+          - generic "¿Puedo seguir mi pedido?" [ref=f4e92] [cursor=pointer]
+        - group [ref=f4e93]:
+          - generic "¿Qué garantía tiene mi producto?" [ref=f4e94] [cursor=pointer]
+          - text: 
+    - region [ref=f4e95]:
+      - generic [ref=f4e96]:
+        - generic [ref=f4e97]:
+          - generic [ref=f4e98]: 
+          - text: Recomendaciones reales
+        - heading "Encontrá la tecnología ideal para vos" [level=2] [ref=f4e99]
+        - paragraph [ref=f4e100]: "Contanos primero qué estás buscando: celulares, notebooks, tablets o accesorios. Después te mostramos las opciones disponibles que mejor se adaptan a vos."
+        - button "Encontrar lo que busco " [ref=f4e101] [cursor=pointer]:
+          - text: Encontrar lo que busco
+          - generic [ref=f4e102]: 
+        - paragraph [ref=f4e103]:
+          - generic [ref=f4e104]: 
+          - text: Te lleva menos de un minuto
+    - generic [ref=f4e106]:
+      - link [ref=f4e107] [cursor=pointer]:
+        - /url: catalogo.html?cat=apple
+        - generic [ref=f4e109]:
+          - heading "Mundo Apple" [level=3] [ref=f4e110]
+          - text: Ver Equipos
+      - link [ref=f4e111] [cursor=pointer]:
+        - /url: catalogo.html?cat=samsung
+        - generic [ref=f4e113]:
+          - heading "Ecosistema Samsung" [level=3] [ref=f4e114]
+          - text: Descubrir
+      - link [ref=f4e115] [cursor=pointer]:
+        - /url: catalogo.html?cat=accesorios
+        - generic [ref=f4e117]:
+          - heading "Accesorios Premium" [level=3] [ref=f4e118]
+          - text: Ver Fundas y Cargadores
+    - generic [ref=f4e120]:
+      - text: Descuentos Exclusivos
+      - heading "Ofertas Relámpago" [level=3] [ref=f4e121]
+      - paragraph [ref=f4e122]: Equipos premium con precios imbatibles por tiempo limitado.
+    - region [ref=f4e148]:
+      - generic [ref=f4e150]:
+        - generic [ref=f4e151]:
+          - generic [ref=f4e152]: 
+          - text: Todo conectado
+        - heading "Armá tu ecosistema" [level=2] [ref=f4e153]
+        - paragraph [ref=f4e154]: "Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más."
+        - link "Ver accesorios " [ref=f4e155] [cursor=pointer]:
+          - /url: catalogo.html?cat=accesorios
+          - text: Ver accesorios
+          - generic [ref=f4e156]: 
+    - generic [ref=f4e158]:
+      - generic [ref=f4e159]:
+        - heading "Nuevos Ingresos" [level=3] [ref=f4e160]
+        - paragraph [ref=f4e161]: La última tecnología recién llegada a PhoneSpot.
+      - link "Ver todo el catálogo " [ref=f4e162] [cursor=pointer]:
+        - /url: catalogo.html?cat=all
+        - text: Ver todo el catálogo
+        - generic [ref=f4e163]: 
+    - generic [ref=f4e214]:
+      - generic [ref=f4e215]: 
+      - heading "¡No te pierdas ninguna oferta!" [level=2] [ref=f4e216]
+      - paragraph [ref=f4e217]: Suscribite a nuestro newsletter y recibí descuentos exclusivos antes que nadie.
+      - generic [ref=f4e218]:
+        - textbox "Tu correo electrónico" [ref=f4e219]
+        - button "Suscribirme" [ref=f4e220] [cursor=pointer]
+  - contentinfo [ref=f4e221]:
+    - generic [ref=f4e222]:
+      - generic [ref=f4e223]:
+        - heading "PhoneSpot." [level=2] [ref=f4e224]
+        - paragraph [ref=f4e225]: Tu tienda de confianza para tecnología móvil. Ofrecemos los mejores equipos con garantía y soporte especializado.
+        - link " @phonespotsj" [ref=f4e227] [cursor=pointer]:
+          - /url: https://www.instagram.com/phonespotsj
+          - generic [ref=f4e228]: 
+          - text: "@phonespotsj"
+      - generic [ref=f4e229]:
+        - heading "Contacto" [level=4] [ref=f4e230]
+        - list [ref=f4e232]:
+          - listitem [ref=f4e233]:
+            - generic [ref=f4e234]: 
+            - generic [ref=f4e235]: Entre Ríos, Argentina(San José, Colón, Villa Elisa, C. del Uruguay)
+          - listitem [ref=f4e236]:
+            - generic [ref=f4e237]: 
+            - link "+54 9 3447 416011" [ref=f4e238] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011
+          - listitem [ref=f4e239]:
+            - generic [ref=f4e240]: 
+            - link "boujonnacho@gmail.com" [ref=f4e241] [cursor=pointer]:
+              - /url: mailto:boujonnacho@gmail.com
+          - listitem [ref=f4e242]:
+            - generic [ref=f4e243]: 
+            - generic [ref=f4e244]: "Lunes a Sábados: 09:00 a 20:00"
+      - generic [ref=f4e245]:
+        - heading "Información" [level=4] [ref=f4e246]
+        - list [ref=f4e248]:
+          - listitem [ref=f4e249]:
+            - link "Inicio" [ref=f4e250] [cursor=pointer]:
+              - /url: "#inicio"
+          - listitem [ref=f4e251]:
+            - link "Catálogo de Productos" [ref=f4e252] [cursor=pointer]:
+              - /url: "#catalogo"
+          - listitem [ref=f4e253]:
+            - link "Términos y Condiciones" [ref=f4e254] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e255]:
+            - link "Políticas de Envío" [ref=f4e256] [cursor=pointer]:
+              - /url: terminos.html
+          - listitem [ref=f4e257]:
+            - link "Consultas de Garantías" [ref=f4e258] [cursor=pointer]:
+              - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Quisiera%20consultar%20sobre%20la%20garant%C3%ADa%20y%20cobertura%20de%20un%20producto.
+    - generic [ref=f4e259]:
+      - paragraph [ref=f4e260]: © 2026 PhoneSpot. Todos los derechos reservados.
+      - paragraph [ref=f4e261]: Los logos y marcas comerciales pertenecen a sus respectivos dueños.
+  - generic [ref=f4e263]:
+    - heading " Mis Favoritos" [level=3] [ref=f4e264]:
+      - generic [ref=f4e265]: 
+      - text: Mis Favoritos
+    - button "" [ref=f4e266] [cursor=pointer]
+  - generic [ref=f4e269]:
+    - generic [ref=f4e270]:
+      - heading "Tu Carrito" [level=3] [ref=f4e271]
+      - button "Cerrar carrito" [ref=f4e272] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f4e273]: 
+    - generic [ref=f4e274]:
+      - paragraph
+    - generic [ref=f4e277]:
+      - generic [ref=f4e278]:
+        - generic [ref=f4e279]: "Subtotal:"
+        - generic [ref=f4e280]: $0
+      - button "Continuar con el pedido" [ref=f4e281] [cursor=pointer]
+      - link "Ver carrito completo" [ref=f4e282] [cursor=pointer]:
+        - /url: carrito.html
+  - generic [ref=f4e283]:
+    - generic [ref=f4e284]:
+      - generic [ref=f4e285]: 
+      - generic [ref=f4e286]:
+        - heading "Usamos Cookies 🍪" [level=4] [ref=f4e287]
+        - paragraph [ref=f4e288]: Utilizamos cookies propias y de terceros para mejorar tu experiencia de compra y mostrarte ofertas relevantes. Al continuar navegando, aceptas nuestra política de privacidad.
+    - generic [ref=f4e289]:
+      - link "Ver Políticas" [ref=f4e290] [cursor=pointer]:
+        - /url: terminos.html
+      - button "Entendido" [ref=f4e291] [cursor=pointer]
+  - generic "Redes de PhoneSpot" [ref=f4e292]:
+    - link "Instagram de PhoneSpot" [ref=f4e293] [cursor=pointer]:
+      - /url: https://www.instagram.com/phonespotsj/
+      - generic [aria-hidden] [ref=f4e294]: 
+    - link "Consultar por WhatsApp" [ref=f4e295] [cursor=pointer]:
+      - /url: https://wa.me/5493447416011?text=%C2%A1Hola%20PhoneSpot!%20Vengo%20de%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta.
+      - generic [aria-hidden] [ref=f4e296]: 

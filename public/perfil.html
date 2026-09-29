@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi cuenta | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260929-stock-gallery-perf">
+    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
 </head>
 <body>
     <header>
         <div class="logo"><h1><a href="index.html"><img class="brand-mark" src="uploads/PhoneSpot-trans.png" alt="PhoneSpot"> <span>PhoneSpot.</span></a></h1></div>
-        <div class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir menú" role="button" tabindex="0"><i class="fa-solid fa-bars"></i></div>
+        <button class="menu-toggle" id="mobile-menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
         <nav><ul><li><a href="index.html">Inicio</a></li><li><a href="catalogo.html?cat=all">Catálogo</a></li><li class="mobile-account-link"><a href="perfil.html"><i class="fa-solid fa-user"></i> Mi cuenta</a></li></ul></nav>
         <div class="header-icons"><a href="perfil.html" title="Mi Cuenta" id="user-icon-link"><i class="fa-solid fa-user"></i></a><a href="carrito.html" class="cart-icon" title="Carrito"><i class="fa-solid fa-cart-shopping"></i><span id="cart-count-badge"></span></a></div>
     </header>
@@ -24,7 +24,7 @@
         <section class="account-orders-section"><div class="account-section-heading"><div><span>Historial</span><h2>Mis pedidos</h2><p>Seguí el estado de tus compras y revisá cada detalle.</p></div><i class="fa-solid fa-box-open"></i></div><div id="my-orders-container" class="account-orders" aria-live="polite"><div class="account-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando historial…</div></div></section>
     </main>
     <footer class="account-footer"><p>¿Necesitás ayuda? <a href="https://wa.me/5493447416011" target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a> o seguinos en <a href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p></footer>
-    <script src="script.js?v=20260929-stock-gallery-perf"></script>
+    <script src="script.js?v=20260929-admin-social-catalog"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
