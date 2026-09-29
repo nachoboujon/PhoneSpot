@@ -463,7 +463,7 @@ app.get('/api/cart/:cartId', async (req, res) => {
             const product = row.products;
             const variant = parseVariants(product.variants).find((entry) => variantNameFor(entry) === row.variant_name);
             return {
-                id: String(product.id), name: product.name, img: product.image_url,
+                id: String(product.id), name: product.name, img: variant?.image_url || product.image_url,
                 category: product.category, variant_name: row.variant_name || null,
                 price: Number(variant?.price) > 0 ? Number(variant.price) : Number(product.price),
                 quantity: row.quantity, expires_at: row.expires_at
