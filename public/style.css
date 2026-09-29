@@ -2737,69 +2737,62 @@ body > .whatsapp-float {
     font-weight: 700;
 }
 
-/* Portada comercial: el recorrido de compra guía la composición. */
+/* Portada comercial: categorías reales y contacto directo. */
 .business-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
-    align-items: center;
-    gap: clamp(2.5rem, 6vw, 6rem);
-    max-width: 1320px;
-    min-height: 490px;
-    margin: 0 auto 2.5rem;
-    padding: clamp(2.5rem, 5vw, 5rem);
-    background: #13181d;
-    color: #fff;
+    width: 100%;
+    margin: 0 0 2.5rem;
+    background: #f3f2ed;
+    color: #171b1f;
+    border-block: 1px solid #e9e7e0;
 }
+.business-hero__inner { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); max-width: 1280px; min-height: 450px; margin: 0 auto; padding: clamp(3.25rem, 6vw, 5.25rem) clamp(1.5rem, 4vw, 3.5rem); }
 .business-hero__copy h2 {
-    max-width: 15ch;
-    margin: 0 0 1.35rem;
-    font-size: clamp(2.7rem, 4.5vw, 4.4rem);
+    max-width: 13ch;
+    margin: 0 0 1.5rem;
+    font-size: clamp(2.9rem, 4.8vw, 4.4rem);
     font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -.035em;
+    line-height: 1.04;
+    letter-spacing: -.03em;
     text-wrap: balance;
 }
 .business-hero__copy p {
-    max-width: 52ch;
+    max-width: 58ch;
     margin: 0;
-    color: #d3dbe0;
-    font-size: clamp(1rem, 1.25vw, 1.12rem);
-    line-height: 1.65;
+    color: #505760;
+    font-size: 1.08rem;
+    line-height: 1.6;
 }
-.business-hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 2rem; }
+.business-hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .business-hero__primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: .75rem;
-    min-height: 48px;
-    padding: .7rem 1.25rem;
-    border-radius: 8px;
-    background: #fff;
-    color: #111820;
-    font-weight: 800;
+    min-height: 50px;
+    padding: .75rem 1.3rem;
+    border-radius: 6px;
+    background: #171b1f;
+    color: #fff;
+    font-weight: 700;
     text-decoration: none;
 }
-.business-hero__primary:hover { background: #e3e8ec; color: #111820; }
-.business-hero__contact { color: #fff; font-weight: 700; text-underline-offset: .25em; }
-.business-hero__contact:hover { color: #d3dbe0; }
-.business-hero__primary:focus-visible, .business-hero__contact:focus-visible { outline: 3px solid #8fc7ff; outline-offset: 4px; }
-.business-hero__guide { padding-left: clamp(1.75rem, 4vw, 4rem); border-left: 1px solid #56606a; }
-.business-hero__guide h3 { margin: 0 0 1.25rem; color: #fff; font-size: 1.2rem; letter-spacing: -.015em; }
-.business-hero__guide ol { list-style: none; padding: 0; margin: 0; }
-.business-hero__guide li { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: .75rem; padding: 1.05rem 0; border-top: 1px solid #39424b; }
-.business-hero__guide li span { color: #a8b7c3; font-size: .8rem; font-weight: 800; font-variant-numeric: tabular-nums; }
-.business-hero__guide strong { display: block; font-size: 1rem; }
-.business-hero__guide p { margin: .2rem 0 0; color: #bdc9d1; font-size: .88rem; line-height: 1.45; }
+.business-hero__primary:hover { background: #383f45; color: #fff; }
+.business-hero__contact { display: inline-flex; align-items: center; gap: .5rem; min-height: 50px; padding: .65rem 1rem; color: #171b1f; font-weight: 700; text-decoration: none; }
+.business-hero__contact i { font-size: 1.2rem; }
+.business-hero__contact:hover { text-decoration: underline; text-underline-offset: .3em; }
+.business-hero__primary:focus-visible, .business-hero__contact:focus-visible, .business-hero__categories a:focus-visible { outline: 3px solid #375879; outline-offset: 4px; }
+.business-hero__categories { border-top: 2px solid #171b1f; }
+.business-hero__categories h3 { margin: 0; padding: 1.1rem 0 1.35rem; font-size: 1rem; font-weight: 700; }
+.business-hero__categories a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; border-top: 1px solid #c8cbc7; color: #171b1f; font-size: clamp(1.4rem, 2vw, 1.8rem); font-weight: 700; text-decoration: none; }
+.business-hero__categories a:hover { color: #4c5962; }
+.business-hero__categories a i { font-size: .85rem; transition: transform .2s ease; }
+.business-hero__categories a:hover i { transform: translateX(3px); }
 @media (max-width: 768px) {
-    .business-hero { grid-template-columns: 1fr; min-height: 0; gap: 2.5rem; margin-bottom: 1.5rem; padding: 2.5rem 1.25rem; }
-    .business-hero__copy h2 { max-width: 16ch; font-size: clamp(2.35rem, 9vw, 3.5rem); }
-    .business-hero__guide { padding: 1.4rem 0 0; border-left: 0; border-top: 1px solid #56606a; }
-    .business-hero__guide ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-    .business-hero__guide li { display: block; padding: .75rem 0 0; }
-    .business-hero__guide li span { display: block; margin-bottom: .4rem; }
+    .business-hero { margin-bottom: 1.5rem; }
+    .business-hero__inner { grid-template-columns: 1fr; min-height: 0; gap: 2.5rem; padding: 3rem 1.25rem; }
+    .business-hero__copy h2 { max-width: 13ch; font-size: clamp(2.6rem, 9vw, 3.6rem); }
+    .business-hero__categories a { min-height: 62px; }
 }
-@media (max-width: 520px) { .business-hero__guide ol { grid-template-columns: 1fr; gap: 0; } }
 .photo-color-note { max-width: 48ch; margin: .8rem 0 0; color: #505761; font-size: .8rem; line-height: 1.45; }
 .photo-color-note[hidden] { display: none; }
 .cart-reservation-notice { display: flex; gap: .7rem; align-items: flex-start; margin-bottom: 1rem; padding: .9rem 1rem; border: 1px solid #d4dee6; border-radius: 10px; background: #f1f6fa; color: #263b4a; }
