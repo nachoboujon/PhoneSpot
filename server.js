@@ -9,6 +9,7 @@ const { OAuth2Client } = require('google-auth-library');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const iphonePhotoFingerprints = require('./data/iphone-photo-fingerprints.json');
 require('dotenv').config();
 
 const app = express();
@@ -66,7 +67,7 @@ app.use((req, res, next) => {
     // Google Identity Services necesita comunicarse con su ventana emergente.
     // `same-origin` la aisla y deja el popup de gsi/transform en blanco.
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https://accounts.google.com;");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://apis.google.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https://accounts.google.com;");
     if (isProduction) res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
     next();
 });
@@ -170,6 +171,17 @@ const variantNameFor = (variant) => [
     variant.batt ? `Bat: ${variant.batt}` : null,
     variant.condition ? `Cond: ${variant.condition}` : null
 ].filter(Boolean).join(' - ');
+
+const publicProduct = (product) => {
+    product.variants = parseVariants(product.variants).map((variant) => {
+        const url = variant.image_url || '';
+        const filename = path.basename(url.split('?')[0]);
+        return url.includes('/iphone-americano-2026-09-28/') && iphonePhotoFingerprints[filename]
+            ? { ...variant, photo_key: iphonePhotoFingerprints[filename] }
+            : variant;
+    });
+    return product;
+};
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
 app.get('/producto.html', async (req, res, next) => {
@@ -839,8 +851,7 @@ app.get('/api/products', async (req, res) => {
         if (expiryError) throw expiryError;
         const { data, error } = await supabase.from('products').select('*').is('archived_at', null).order('created_at', { ascending: false });
         if (error) throw error;
-        data.forEach((product) => { product.variants = parseVariants(product.variants); });
-        res.json(data);
+        res.json(data.map(publicProduct));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -855,8 +866,7 @@ app.get('/api/products/:id', async (req, res) => {
         if (error) throw error;
         if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
         
-        data.variants = parseVariants(data.variants);
-        res.json(data);
+        res.json(publicProduct(data));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -49,8 +49,11 @@ window.productGalleryImages = (product) => [...new Set([
 window.galleryForColor = (product, color) => {
     const variants = Array.isArray(product.variants) ? product.variants : [];
     const seen = new Set();
-    const photos = variants.filter(v => v.image_url && !seen.has(v.image_url) && seen.add(v.image_url));
-    photos.sort((a, b) => Number(b.color === color) - Number(a.color === color));
+    const ordered = [...variants].sort((a, b) => Number(b.color === color) - Number(a.color === color));
+    const photos = ordered.filter(v => {
+        const key = v.photo_key || v.image_url;
+        return v.image_url && !seen.has(key) && seen.add(key);
+    });
     return photos.length ? photos.map(v => ({url: window.getFullImageUrl(v.image_url), color: v.color}))
         : window.productGalleryImages(product).map(url => ({url, color: ''}));
 };
@@ -68,7 +71,7 @@ window.renderProductGallery = (product, color) => {
         const img = document.createElement('img');
         img.src = photo.url;
         img.alt = '';
-        img.loading = 'eager';
+        img.loading = index < 4 ? 'eager' : 'lazy';
         button.append(img);
         if (photo.color) {
             const label = document.createElement('span');
@@ -195,6 +198,14 @@ function showToast(message, icon = 'fa-circle-check') {
 
 // La reserva vive en el servidor; localStorage conserva sólo el identificador secreto.
 let cart = [];
+let cartExpiryTimer;
+const cartReservationNotice = () => {
+    const times = cart.map(item => Date.parse(item.expires_at)).filter(Number.isFinite);
+    if (!times.length) return '';
+    const firstExpiry = new Date(Math.min(...times));
+    const label = firstExpiry.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+    return `<div class="cart-reservation-notice" role="note"><i class="fa-regular fa-clock" aria-hidden="true"></i><p><strong>Reserva por 24 horas.</strong> Si no finalizás la compra, los productos se quitarán automáticamente del carrito. La primera reserva vence el <time datetime="${firstExpiry.toISOString()}">${label}</time></p></div>`;
+};
 let cartId = localStorage.getItem('phoneSpotCartId');
 let legacyCart = [];
 try { legacyCart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch (_) { /* Carrito antiguo inválido. */ }
@@ -223,6 +234,11 @@ async function refreshCart() {
     const response = await fetch(`${window.API_URL}/api/cart/${cartId}`);
     if (!response.ok) throw new Error('No se pudo cargar el carrito');
     cart = await response.json();
+    clearTimeout(cartExpiryTimer);
+    const nextExpiry = Math.min(...cart.map(item => Date.parse(item.expires_at)).filter(Number.isFinite));
+    if (Number.isFinite(nextExpiry)) {
+        cartExpiryTimer = setTimeout(() => refreshCart().catch(console.error), Math.max(1000, nextExpiry - Date.now() + 250));
+    }
     saveCart();
     renderCart();
     renderCheckout();
@@ -302,6 +318,9 @@ async function setCartQuantity(id, variantName, quantity) {
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'No pudimos actualizar el carrito.');
     await refreshCart();
+    if (typeof window.refreshVisibleStock === 'function') {
+        await window.refreshVisibleStock(id).catch(error => console.error('No se pudo actualizar el stock visible:', error));
+    }
     return result;
 }
 
@@ -432,7 +451,7 @@ async function renderSideCart() {
     }
 
     // Insert banner at the TOP of the items list
-    sideContainer.innerHTML = bannerHtml + sideContainer.innerHTML;
+    sideContainer.innerHTML = cartReservationNotice() + bannerHtml + sideContainer.innerHTML;
 
     
     sideTotal.innerText = `${window.formatPrice(total)}`;
@@ -489,6 +508,8 @@ async function renderCart() { await window.dolarPromise;
         cartTotalElement.innerText = '$0';
         return;
     }
+
+    cartItemsContainer.insertAdjacentHTML('beforeend', cartReservationNotice());
 
     
     // Wholesale banner injection
@@ -740,8 +761,7 @@ async function loadProductsFromDB() {
     if (offersContainer) drawSkeletons(offersContainer, 4);
     
     try {
-        await window.dolarPromise;
-        const response = await fetch(window.API_URL + '/api/products');
+        const [, response] = await Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products')]);
         let products = await response.json();
 
         if (!response.ok) throw new Error(products.error || 'Error al cargar productos');
@@ -1155,6 +1175,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         const initialCat = urlParams.get('cat') || 'all';
 
         let allCatalogProducts = [];
+        window.refreshVisibleStock = async (productId) => {
+            const response = await fetch(`${window.API_URL}/api/products/${productId}`, { cache: 'no-store' });
+            if (!response.ok) return;
+            const product = await response.json();
+            const index = allCatalogProducts.findIndex(entry => String(entry.id) === String(productId));
+            if (index >= 0) allCatalogProducts[index] = product;
+            document.querySelectorAll(`.product-card[data-id="${productId}"]`).forEach(card => {
+                card.dataset.stockInfo = escape(JSON.stringify({stock: product.stock, variants: product.variants || []}));
+                const selector = card.querySelector('.var-select');
+                if (selector) window.updateCardVariant(selector);
+                else {
+                    const button = card.querySelector('.add-to-cart-btn');
+                    if (button) button.disabled = product.stock <= 0;
+                }
+            });
+        };
         let selectedConditions = []; let selectedColors = [];
         let selectedBrands = initialCat !== 'all' && ['apple','samsung','motorola','xiaomi'].includes(initialCat) ? [initialCat] : [];
         let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios'].includes(initialCat) ? [initialCat] : [];
@@ -1340,7 +1376,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         };
 
-        window.dolarPromise.then(() => fetch(window.API_URL + '/api/products')).then(res => res.json())
+        Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products')]).then(([, res]) => res.json())
             .then(products => {
                 allCatalogProducts = products;
 
@@ -1456,7 +1492,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.title = `${prod.name} | PhoneSpot`;
                 window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
-                const galleryImages = window.productGalleryImages(prod);
+                const galleryPhotos = window.galleryForColor(prod, prod.variants?.[0]?.color || '');
                 const isOutOfStock = prod.stock <= 0;
                 const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : '';
 
@@ -1481,6 +1517,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <div style="display:flex; flex-wrap:wrap; gap:12px;" id="color-opts">
                                     ${uniqueColors.map((c,i) => `<button type="button" class="var-btn color-photo-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}" style="border-color:${i===0?'#0071e3':'#e5e5ea'}"><img src="${window.getFullImageUrl(prod.variants.find(v => v.color === c && v.image_url)?.image_url || prod.image_url)}" alt="" loading="lazy"><span>${c}</span></button>`).join('')}
                                 </div>
+                                <p id="photo-color-note" class="photo-color-note" hidden></p>
                             </div>
                             ` : ''}
 
@@ -1560,7 +1597,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; max-height:520px; object-fit:contain; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
                                 </div>
                                 <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; min-width:0; width:100%; padding:4px;">
-                                    ${(galleryImages.length ? galleryImages : [image]).map((url, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1}" data-image="${url}" style="flex:none; width:76px; height:76px; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid ${i===0?'#0071e3':'#ddd'};"><img src="${url}" alt="Foto ${i + 1} de ${prod.name}" style="width:100%; height:100%; object-fit:contain; padding:0; box-sizing:border-box; background:transparent; border-radius:6px;"></button>`).join('')}
+                                    ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}" style="border-color:${i===0?'#0071e3':'#ddd'}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
                                 </div>
                             </div>
                             
@@ -1703,6 +1740,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                             if (key === 'color') {
                                 const label = document.getElementById('selected-color-name');
                                 if (label) label.textContent = selected || '';
+                                const note = document.getElementById('photo-color-note');
+                                if (note) {
+                                    const selectedKeys = new Set(prodArg.variants.filter(v => v.color === selected && v.photo_key).map(v => v.photo_key));
+                                    const sharedColors = [...new Set(prodArg.variants.filter(v => v.color !== selected && selectedKeys.has(v.photo_key)).map(v => v.color))];
+                                    note.hidden = sharedColors.length === 0;
+                                    note.textContent = sharedColors.length ? `El proveedor comparte alguna foto de ${selected} con ${sharedColors.join(', ')}. Si necesitás confirmar el tono, consultanos antes de comprar.` : '';
+                                }
                                 window.renderProductGallery(prodArg, selected);
                             }
                         }
@@ -2194,6 +2238,11 @@ const checkoutForm = document.getElementById('checkout-form');
             if(window.slideInterval) clearInterval(window.slideInterval);
 
             const initCarousel = () => {
+                const activeSlide = slides[currentSlide];
+                if (activeSlide?.dataset.image && !activeSlide.dataset.imageLoaded) {
+                    activeSlide.style.backgroundImage = `linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.58)), url("${activeSlide.dataset.image}")`;
+                    activeSlide.dataset.imageLoaded = 'true';
+                }
                 slides.forEach((slide, index) => {
                     const distance = index - currentSlide;
                     if (isSpotlightCarousel) {
@@ -3302,7 +3351,7 @@ async function applyFrontendSettings() {
         
         // Guardar costos globalmente para uso en checkout
         window.phoneSpotSettings = data;
-        const businessContact = document.querySelector('.phone-showcase__contact');
+        const businessContact = document.querySelector('.business-hero__contact');
         if (businessContact && data.whatsapp_number) {
             businessContact.href = `https://wa.me/${data.whatsapp_number}?text=${encodeURIComponent('Hola PhoneSpot, quiero consultar por celulares para mi negocio')}`;
         }
@@ -3348,7 +3397,7 @@ async function applyFrontendSettings() {
             costAndreaniSucursalEl.dataset.cost = cost;
         }
 
-        // Marquee
+        // Mensajes breves de la tienda.
         const topBannerDiv = document.querySelector('.top-banner');
         if (topBannerDiv) {
             let banners = data.top_banner;
@@ -3356,16 +3405,17 @@ async function applyFrontendSettings() {
                 banners = typeof banners === 'string' && banners.trim() !== '' ? [banners] : [];
             }
             // Filter out empty strings
-            banners = banners.filter(b => b.trim() !== '');
+            banners = banners.filter(b => typeof b === 'string' && b.trim() !== '');
             
             if (banners.length > 0) {
-                topBannerDiv.style.display = 'block';
+                topBannerDiv.style.display = '';
                 const container = document.querySelector('.top-banner .scrolling-text');
                 if (container) {
-                    // Create enough repetitions for infinite scroll
-                    const contentHtml = banners.map(b => `<span>${b}</span>`).join('');
-                    // Repetimos 4 veces para asegurar que llene toda la pantalla y no se corte
-                    container.innerHTML = contentHtml + contentHtml + contentHtml + contentHtml;
+                    container.replaceChildren(...banners.slice(0, 2).map(message => {
+                        const span = document.createElement('span');
+                        span.textContent = message;
+                        return span;
+                    }));
                 }
             } else {
                 topBannerDiv.style.display = 'none';
@@ -3414,19 +3464,19 @@ async function applyFrontendSettings() {
                         title: "Tecnología que se siente premium",
                         subtitle: "Smartphones seleccionados. Diseño, potencia y confianza.",
                         link: "catalogo.html?cat=apple",
-                        image: "uploads/hero-graphite-phone-v1.png"
+                        image: "uploads/hero-graphite-phone-v2.jpg"
                     },
                     {
                         title: "Tu próximo equipo empieza acá",
                         subtitle: "Notebooks para crear, estudiar y trabajar sin límites.",
                         link: "catalogo.html?cat=notebooks",
-                        image: "uploads/hero-graphite-laptop-v1.png"
+                        image: "uploads/hero-graphite-laptop-v2.jpg"
                     },
                     {
                         title: "Los detalles también importan",
                         subtitle: "Accesorios esenciales, elegidos para acompañarte todos los días.",
                         link: "catalogo.html?cat=accesorios",
-                        image: "uploads/hero-graphite-accessories-v1.png"
+                        image: "uploads/hero-graphite-accessories-v2.jpg"
                     }
                 ];
             }
@@ -3437,44 +3487,15 @@ async function applyFrontendSettings() {
                 if (carouselContainer) {
                     carouselContainer.innerHTML = '';
                     data.carousel.forEach((slide, index) => {
-                        // Generamos la estáuctura de un slide
-                        carouselContainer.innerHTML += `
-                            <div class="carousel-slide ${index === 0 ? 'active' : ''}" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('${slide.image}') center/cover no-repeat; display: flex; align-items: center; justify-content: center; height: 100vh; position: absolute; top:0; left:0; right:0; bottom:0; overflow: hidden; perspective: 1000px;" onmousemove="
-                                const rect = this.getBoundingClientRect();
-                                const x = (event.clientX - rect.left) / rect.width - 0.5;
-                                const y = (event.clientY - rect.top) / rect.height - 0.5;
-                                const content = this.querySelector('.hero-content');
-                                const bg = this.querySelector('.parallax-bg');
-                                const phone1 = this.querySelector('.p-phone-1');
-                                const phone2 = this.querySelector('.p-phone-2');
-                                
-                                if(content) content.style.transform = 'translateZ(50px) rotateX(' + (-y * 10) + 'deg) rotateY(' + (x * 10) + 'deg)';
-                                if(bg) bg.style.transform = 'scale(1.1) translate(' + (-x * 30) + 'px, ' + (-y * 30) + 'px)';
-                                if(phone1) phone1.style.transform = 'translate(' + (x * 80) + 'px, ' + (y * 80) + 'px) rotate(-15deg)';
-                                if(phone2) phone2.style.transform = 'translate(' + (-x * 60) + 'px, ' + (-y * 60) + 'px) rotate(20deg)';
-                            " onmouseleave="
-                                const content = this.querySelector('.hero-content');
-                                const bg = this.querySelector('.parallax-bg');
-                                const phone1 = this.querySelector('.p-phone-1');
-                                const phone2 = this.querySelector('.p-phone-2');
-                                
-                                if(content) content.style.transform = 'translateZ(0) rotateX(0) rotateY(0)';
-                                if(bg) bg.style.transform = 'scale(1) translate(0, 0)';
-                                if(phone1) phone1.style.transform = 'translate(0, 0) rotate(-15deg)';
-                                if(phone2) phone2.style.transform = 'translate(0, 0) rotate(20deg)';
-                            ">
-                                
-                                <div class="parallax-bg" style="position:absolute; top:0; left:0; right:0; bottom:0; background: inherit; z-index:0; transition: transform 0.2s ease-out; pointer-events:none;"></div>
-
-                                <div class="hero-content" style="position: relative; z-index: 20; text-align: center; transform-style: preserve-3d; transition: transform 0.2s ease-out; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 90%; max-width: 600px;">
-                                    <h2 class="carousel-title" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); font-size: 4rem; margin-bottom: 1rem; font-weight: 800; color: white; transform: translateZ(30px);">${slide.title}</h2>
-                                    <p class="carousel-subtitle" style="font-size: 1.4rem; margin-bottom: 3rem; color: #f0f0f0; transform: translateZ(20px);">${slide.subtitle}</p>
-                                    <a href="${slide.link || 'catalogo.html'}" class="btn" style="background:linear-gradient(45deg, #555555, #333333); color:white; border:none; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: bold; border-radius: 50px; box-shadow: 0 10px 25px rgba(85, 85, 85, 0.5); transition: 0.3s; transform: translateZ(40px); display: inline-block;" onmouseover="this.style.transform='translateZ(50px) scale(1.05)'; this.style.boxShadow='0 15px 35px rgba(85, 85, 85, 0.7)';" onmouseout="this.style.transform='translateZ(40px) scale(1)'; this.style.boxShadow='0 10px 25px rgba(85, 85, 85, 0.5)';">
-                                        Explorar Colección <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
-                                    </a>
+                        carouselContainer.insertAdjacentHTML('beforeend', `
+                            <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-image="${slide.image}">
+                                <div class="hero-content">
+                                    <h2 class="carousel-title">${slide.title}</h2>
+                                    <p class="carousel-subtitle">${slide.subtitle}</p>
+                                    <a href="${slide.link || 'catalogo.html'}" class="btn">Explorar colección <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                                 </div>
                             </div>
-                        `;
+                        `);
                     });
 
                     // Inicializar el nuevo carrusel
