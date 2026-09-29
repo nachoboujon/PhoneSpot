@@ -63,6 +63,7 @@ window.renderProductGallery = (product, color) => {
         button.type = 'button';
         button.className = 'gallery-thumb';
         button.dataset.image = photo.url;
+        button.dataset.color = photo.color || '';
         button.setAttribute('aria-label', `Ver foto ${index + 1} de ${photo.color || product.name}`);
         const img = document.createElement('img');
         img.src = photo.url;
@@ -87,7 +88,14 @@ window.setProductImage = (url) => {
 };
 document.addEventListener('click', event => {
     const thumbnail = event.target.closest('.gallery-thumb');
-    if (thumbnail) window.setProductImage(thumbnail.dataset.image);
+    if (thumbnail) {
+        const color = thumbnail.dataset.color;
+        const url = thumbnail.dataset.image;
+        const option = [...document.querySelectorAll('.var-btn[data-type="color"]')]
+            .find(button => button.dataset.val === color);
+        if (option && !option.classList.contains('active')) option.click();
+        window.setProductImage(url);
+    }
 });
 // ======================================================
 
