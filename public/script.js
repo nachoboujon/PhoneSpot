@@ -1504,19 +1504,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : '<p style="color:var(--text-muted);">Todavía no hay reseñas para este producto.</p>';
 
                 singleProductContainer.innerHTML = `
+                    <style>@media(max-width:768px){.product-details{grid-template-columns:minmax(0,1fr)!important}.product-details>.product-info{min-width:0}}</style>
                     <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
                         <div class="product-details" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
-                            <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem;">
+                            <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem; min-width:0; max-width:100%; overflow:hidden;">
                                 <div style="position: relative; overflow: hidden; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; padding: 2rem;">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                    <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
+                                    <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; max-height:520px; object-fit:contain; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
                                 </div>
-                                <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; padding:4px;">
+                                <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; min-width:0; width:100%; padding:4px;">
                                     ${(galleryImages.length ? galleryImages : [image]).map((url, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1}" data-image="${url}" style="flex:none; width:76px; height:76px; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid ${i===0?'#0071e3':'#ddd'};"><img src="${url}" alt="Foto ${i + 1} de ${prod.name}" style="width:100%;height:100%;object-fit:contain;"></button>`).join('')}
                                 </div>
                             </div>
                             
-                            <div class="product-info" style="display:flex; flex-direction:column; justify-content:flex-start;">
+                            <div class="product-info" style="display:flex; flex-direction:column; justify-content:flex-start; min-width:0;">
                                 <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 0.8rem;">
                                     <span style="background: #e3e3e3; color: #333; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">${prod.brand}</span>
                                     <span style="color: var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">${prod.category}</span>
@@ -1542,7 +1543,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <div style="background: #fff; padding: 1.2rem; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 1.5rem; display:flex; flex-direction:column; gap:0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
                                     <h4 style="font-size: 0.95rem; margin:0; color:#1d1d1f; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i> Conocer tiempos y costos de envío</h4>
                                     <div style="display: flex; gap: 0.5rem;">
-                                        <input type="text" id="calc-zip" placeholder="Tu CP (Ej: 3283)" style="flex: 1; padding: 0.7rem; border: 1px solid #ccc; border-radius: 8px; font-size:0.9rem; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#0071e3'" onblur="this.style.borderColor='#ccc'">
+                                        <input type="text" id="calc-zip" placeholder="Tu CP (Ej: 3283)" style="flex: 1; min-width:0; padding: 0.7rem; border: 1px solid #ccc; border-radius: 8px; font-size:0.9rem; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#0071e3'" onblur="this.style.borderColor='#ccc'">
                                         <button id="calc-btn" style="padding: 0.7rem 1.2rem; background:#f5f5f7; color:#1d1d1f; border:none; border-radius:8px; font-weight:bold; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#e8e8ed'" onmouseout="this.style.background='#f5f5f7'">Calcular</button>
                                     </div>
                                     <p id="zip-msg" style="margin: 0; font-size: 0.85rem; color: #555; display: none; line-height:1.4;"></p>

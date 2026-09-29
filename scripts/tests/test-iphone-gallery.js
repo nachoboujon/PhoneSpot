@@ -25,6 +25,7 @@ const product = {
         await new Promise(resolve => setTimeout(resolve, 1500));
         browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
+        await page.setViewport({ width: 1280, height: 900 });
         await page.setRequestInterception(true);
         page.on('request', request => {
             if (request.url().endsWith('/api/products/999')) {
@@ -39,6 +40,17 @@ const product = {
         }));
         assert.equal(initial.name, 'iPhone 14 Pro');
         assert.equal(initial.photos, 16);
+        const layout = await page.evaluate(() => ({
+            bodyWidth: document.body.scrollWidth,
+            galleryWidth: document.querySelector('.product-gallery').getBoundingClientRect().width,
+            infoLeft: document.querySelector('.product-info').getBoundingClientRect().left
+        }));
+        assert.ok(layout.bodyWidth <= 1280, `Horizontal overflow: ${layout.bodyWidth}px`);
+        assert.ok(layout.galleryWidth < 700);
+        assert.ok(layout.infoLeft < 1280);
+        await page.setViewport({ width: 390, height: 844 });
+        const mobileWidth = await page.evaluate(() => document.body.scrollWidth);
+        assert.ok(mobileWidth <= 390, `Mobile horizontal overflow: ${mobileWidth}px`);
         await page.click('.var-btn[data-type="color"][data-val="Morado"]');
         await page.click('.var-btn[data-type="capacity"][data-val="256GB"]');
         const selection = await page.evaluate(() => ({
