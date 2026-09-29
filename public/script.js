@@ -33,6 +33,28 @@ window.getFullImageUrl = (url) => {
     if (url.startsWith('http')) return url;
     return window.API_URL + url;
 };
+window.variantNameFor = (variant) => [
+    variant.color, variant.capacity, variant.ram,
+    variant.batt ? `Bat: ${variant.batt}` : '',
+    variant.condition ? `Cond: ${variant.condition}` : ''
+].filter(Boolean).join(' - ');
+window.productGalleryImages = (product) => [...new Set([
+    product.image_url,
+    ...(Array.isArray(product.images) ? product.images : []),
+    ...(Array.isArray(product.variants) ? product.variants.map(variant => variant.image_url) : [])
+].filter(Boolean))].map(window.getFullImageUrl);
+window.setProductImage = (url) => {
+    const main = document.getElementById('main-product-img');
+    if (!main || !url) return;
+    main.src = window.getFullImageUrl(url);
+    document.querySelectorAll('.gallery-thumb').forEach(button => {
+        button.style.borderColor = button.dataset.image === main.src ? '#0071e3' : '#ddd';
+    });
+};
+document.addEventListener('click', event => {
+    const thumbnail = event.target.closest('.gallery-thumb');
+    if (thumbnail) window.setProductImage(thumbnail.dataset.image);
+});
 // ======================================================
 
 // ==================== DOLAR BLUE ====================
@@ -714,6 +736,7 @@ async function loadProductsFromDB() {
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
                     const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                    const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     if (uniqueColors.length > 0) {
@@ -734,6 +757,11 @@ async function loadProductsFromDB() {
                     if (uniqueBatts.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueConditions.length > 1) {
+                        variantsHTML += `<select class="var-select" data-type="condition" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueConditions.forEach(c => variantsHTML += `<option value="${c}">Cond: ${c}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -1000,27 +1028,32 @@ document.addEventListener('DOMContentLoaded', async () => {
             const activeRam = card.querySelector('.var-btn.active[data-type="ram"]');
 
             const activeBatt = card.querySelector('.var-btn.active[data-type="batt"]');
+            const activeCondition = card.querySelector('.var-btn.active[data-type="condition"]');
             
             const selColorBtn = card.querySelector('.variant-color-btn.selected');
             const selCapBtn = card.querySelector('.variant-cap-btn.selected');
             const selRamBtn = card.querySelector('.variant-ram-btn.selected');
             // Assuming no legacy selected batt buttons for old logic
             
-            let color = '', cap = '', ram = '', batt = '';
+            let color = '', cap = '', ram = '', batt = '', condition = '';
 
-            if (activeColor || activeCap || activeRam || activeBatt) {
+            if (activeColor || activeCap || activeRam || activeBatt || activeCondition) {
                 color = activeColor ? activeColor.dataset.val : '';
                 cap = activeCap ? activeCap.dataset.val : '';
                 ram = activeRam ? activeRam.dataset.val : '';
                 batt = activeBatt ? activeBatt.dataset.val : '';
+                condition = activeCondition ? activeCondition.dataset.val : '';
             } else if (selColorBtn || selCapBtn || selRamBtn) {
                 color = selColorBtn ? selColorBtn.dataset.color : '';
                 cap = selCapBtn ? selCapBtn.dataset.cap : '';
                 ram = selRamBtn ? selRamBtn.dataset.ram : '';
             }
             
-            if (color || cap || ram || batt) {
-                selectedVariant = [color, cap, ram, batt ? 'Bat: '+batt : ''].filter(Boolean).join(' - ');
+            if (color || cap || ram || batt || condition) {
+                selectedVariant = window.variantNameFor({ color, capacity: cap, ram, batt, condition });
+            }
+            if (card.classList.contains('product-details') && card.dataset.selectedVariant) {
+                selectedVariant = card.dataset.selectedVariant;
             }
             if (selectedVariant) {
                 name = `${name} (${selectedVariant})`; 
@@ -1037,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const info = JSON.parse(unescape(card.dataset.stockInfo));
                     if (selectedVariant && info.variants && info.variants.length > 0) {
                         const v = info.variants.find(vx => {
-                            const vName = [vx.color, vx.capacity, vx.ram, vx.batt ? 'Bat: '+vx.batt : ''].filter(Boolean).join(' - ');
+                            const vName = window.variantNameFor(vx);
                             return vName === selectedVariant;
                         });
                         if (v) {
@@ -1186,6 +1219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
                     const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                    const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     if (uniqueColors.length > 0) {
@@ -1206,6 +1240,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (uniqueBatts.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
+                        variantsHTML += `</select>`;
+                    }
+                    if (uniqueConditions.length > 1) {
+                        variantsHTML += `<select class="var-select" data-type="condition" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
+                        uniqueConditions.forEach(c => variantsHTML += `<option value="${c}">Cond: ${c}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -1370,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.title = `${prod.name} | PhoneSpot`;
                 window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
+                const galleryImages = window.productGalleryImages(prod);
                 const isOutOfStock = prod.stock <= 0;
                 const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : '';
 
@@ -1380,6 +1420,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
                     const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
                     const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
+                    const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
                     
                     variantsHTML = `
                         <style>
@@ -1419,6 +1460,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Condición de Batería</h4>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="batt-opts">
                                     ${uniqueBatts.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${c}" style="padding:15px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; font-weight:700; font-size:1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                            ${uniqueConditions.length > 1 ? `
+                            <div style="margin-bottom:2rem;">
+                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f;">Condición / tipo</h4>
+                                <div style="display:flex; flex-wrap:wrap; gap:10px;" id="condition-opts">
+                                    ${uniqueConditions.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" style="padding:12px 15px; background:#fff; border:2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; cursor:pointer;">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1462,8 +1511,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                                     <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
                                 </div>
-                                <div class="gallery-thumbnails" style="display: flex; gap: 10px; justify-content: center;">
-                                    <img src="${image}" class="gallery-thumb active" style="width:70px; height:70px; object-fit:contain; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid #000;" onclick="document.getElementById('main-product-img').src=this.src;">
+                                <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; padding:4px;">
+                                    ${(galleryImages.length ? galleryImages : [image]).map((url, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1}" data-image="${url}" style="flex:none; width:76px; height:76px; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid ${i===0?'#0071e3':'#ddd'};"><img src="${url}" alt="Foto ${i + 1} de ${prod.name}" style="width:100%;height:100%;object-fit:contain;"></button>`).join('')}
                                 </div>
                             </div>
                             
@@ -1586,129 +1635,44 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // AHORA SÍ CONECTAMOS LOS EVENTOS, DESPUÉS DE INNER HTML
                 if (hasVariants) {
                     window.checkVariantStock = (prodArg) => {
-                        let colorBtn = document.querySelector('.var-btn.active[data-type="color"]');
-                        let capBtn = document.querySelector('.var-btn.active[data-type="capacity"]');
-                        let ramBtn = document.querySelector('.var-btn.active[data-type="ram"]');
-                        let battBtn = document.querySelector('.var-btn.active[data-type="batt"]');
-                        
-                        let selectedColor = colorBtn ? colorBtn.getAttribute('data-val') : null;
-                        let selectedCap = capBtn ? capBtn.getAttribute('data-val') : null;
-                        let selectedRam = ramBtn ? ramBtn.getAttribute('data-val') : null;
-                        let selectedBatt = battBtn ? battBtn.getAttribute('data-val') : null;
-
-                        let variants = [];
-                        if (prodArg.variants && Array.isArray(prodArg.variants)) variants = prodArg.variants;
-
-                        // 1. Filtrar Capacidades basadas en el Color seleccionado
-                        if (selectedColor) {
-                            const validCaps = variants.filter(v => v.color === selectedColor).map(v => v.capacity);
-                            document.querySelectorAll('.var-btn[data-type="capacity"]').forEach(btn => {
-                                const val = btn.getAttribute('data-val');
-                                if (!validCaps.includes(val)) {
-                                    btn.style.opacity = '0.3';
-                                    btn.style.pointerEvents = 'none';
-                                    btn.style.textDecoration = 'line-through';
-                                    if (selectedCap === val) selectedCap = null;
-                                } else {
-                                    btn.style.opacity = '1';
-                                    btn.style.pointerEvents = 'auto';
-                                    btn.style.textDecoration = 'none';
-                                }
+                        const dimensions = ['color', 'capacity', 'ram', 'batt', 'condition'];
+                        let matches = prodArg.variants || [];
+                        for (const key of dimensions) {
+                            const buttons = [...document.querySelectorAll(`.var-btn[data-type="${key}"]`)];
+                            if (!buttons.length) continue;
+                            const options = [...new Set(matches.map(v => v[key]).filter(Boolean))];
+                            const active = buttons.find(button => button.classList.contains('active'));
+                            const selected = options.includes(active?.dataset.val) ? active.dataset.val : options[0];
+                            buttons.forEach(button => {
+                                const available = options.includes(button.dataset.val);
+                                button.disabled = !available;
+                                button.style.opacity = available ? '1' : '0.35';
+                                button.classList.toggle('active', button.dataset.val === selected);
+                                button.style.borderColor = button.dataset.val === selected ? '#0071e3' : '#e5e5ea';
                             });
-                        }
-                        
-                        // Auto-seleccionar capacidad si quedó vacía
-                        if (!selectedCap) {
-                            const firstValid = Array.from(document.querySelectorAll('.var-btn[data-type="capacity"]')).find(b => b.style.pointerEvents !== 'none');
-                            if (firstValid) {
-                                document.querySelectorAll('.var-btn[data-type="capacity"]').forEach(el => {
-                                    el.classList.remove('active');
-                                    el.style.borderColor = '#e5e5ea';
-                                    el.style.background = '#fff';
-                                });
-                                firstValid.classList.add('active');
-                                firstValid.style.borderColor = '#0071e3';
-                                firstValid.style.background = '#fff';
-                                selectedCap = firstValid.getAttribute('data-val');
+                            matches = matches.filter(variant => variant[key] === selected);
+                            if (key === 'color') {
+                                const label = document.getElementById('selected-color-name');
+                                if (label) label.textContent = selected || '';
                             }
                         }
-
-                        // 2. Filtrar RAM basada en Color y Capacidad seleccionados
-                        if (selectedColor && selectedCap) {
-                            const validRams = variants.filter(v => v.color === selectedColor && v.capacity === selectedCap).map(v => v.ram);
-                            document.querySelectorAll('.var-btn[data-type="ram"]').forEach(btn => {
-                                const val = btn.getAttribute('data-val');
-                                if (!validRams.includes(val)) {
-                                    btn.style.opacity = '0.3';
-                                    btn.style.pointerEvents = 'none';
-                                    btn.style.textDecoration = 'line-through';
-                                    if (selectedRam === val) selectedRam = null;
-                                } else {
-                                    btn.style.opacity = '1';
-                                    btn.style.pointerEvents = 'auto';
-                                    btn.style.textDecoration = 'none';
-                                }
-                            });
+                        const variant = matches[0];
+                        const container = document.querySelector('.product-details');
+                        if (container) container.dataset.selectedVariant = variant ? window.variantNameFor(variant) : '';
+                        const stock = Number(variant?.stock || 0);
+                        const button = document.querySelector('.product-details .add-to-cart-btn');
+                        if (button) {
+                            button.disabled = stock <= 0;
+                            button.innerHTML = stock > 0 ? '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito' : '<i class="fa-solid fa-box-open"></i> Sin stock';
+                            button.style.background = stock > 0 ? '#0071e3' : '#ccc';
                         }
-
-                        // Auto-seleccionar RAM si quedó vacía
-                        if (!selectedRam) {
-                            const firstValid = Array.from(document.querySelectorAll('.var-btn[data-type="ram"]')).find(b => b.style.pointerEvents !== 'none');
-                            if (firstValid) {
-                                document.querySelectorAll('.var-btn[data-type="ram"]').forEach(el => {
-                                    el.classList.remove('active');
-                                    el.style.borderColor = '#e5e5ea';
-                                    el.style.background = '#fff';
-                                });
-                                firstValid.classList.add('active');
-                                firstValid.style.borderColor = '#0071e3';
-                                firstValid.style.background = '#fff';
-                                selectedRam = firstValid.getAttribute('data-val');
-                            }
-                        }
-
-                        // 3. Buscar el stock real de la combinación ganadora
-                        let stockToUse = prodArg.stock;
-                        let priceToUse = prodArg.price; // Start with base price
-                        if (variants.length > 0) {
-                            const v = variants.find(x => 
-                                (!selectedColor || x.color === selectedColor) && 
-                                (!selectedCap || x.capacity === selectedCap) &&
-                                (!selectedRam || x.ram === selectedRam) &&
-                                (!selectedBatt || x.batt === selectedBatt)
-                            );
-                            if (v) {
-                                stockToUse = parseInt(v.stock);
-                                if (v.price && !isNaN(parseFloat(v.price))) priceToUse = parseFloat(v.price);
-                            } else {
-                                stockToUse = 0;
-                            }
-                        }
-
-                        // 4. Actualizar Botones y Textos
-                        const btn = document.querySelector('.add-to-cart-btn');
                         const stockLabel = document.getElementById('variant-stock-msg');
-                        
-                        if (stockToUse <= 0) {
-                            if(btn) {
-                                btn.innerHTML = '<i class="fa-solid fa-box-open"></i> Sin Stock de este color/modelo';
-                                btn.disabled = true;
-                                btn.style.background = '#ccc';
-                                btn.style.cursor = 'not-allowed';
-                            }
-                            if (stockLabel) stockLabel.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-times-circle"></i> Agotado en esta combinación</span>';
-                        } else {
-                            if(btn) {
-                                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito';
-                                btn.disabled = false;
-                                btn.style.background = '#0071e3'; 
-                                btn.style.cursor = 'pointer';
-                            }
-                            if (stockLabel) stockLabel.innerHTML = `<span style="color:#2ecc71;"><i class="fa-solid fa-check-circle"></i> Stock disponible: ${stockToUse} unidades</span>`;
-                            const container = document.querySelector('.product-details');
-                            if (container) container.dataset.price = priceToUse;
+                        if (stockLabel) stockLabel.textContent = stock > 0 ? `Stock disponible: ${stock} unidades` : 'Agotado en esta combinación';
+                        if (variant && container) {
+                            container.dataset.price = variant.price || prodArg.price;
                             const priceEl = document.getElementById('dynamic-price');
-                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(priceToUse))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span>`;
+                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span style="font-size:0.9rem; color:#888; font-weight:normal;">/ Final ARS</span>`;
+                            if (variant.image_url) window.setProductImage(variant.image_url);
                         }
                     };
 
@@ -2364,6 +2328,8 @@ const checkoutForm = document.getElementById('checkout-form');
                     <input type="text" class="var-cap" placeholder="Almacen. (Opcional)" style="flex:1; min-width:120px;">
                     <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
                     <input type="text" class="var-batt" placeholder="Batería (Opc. Ej: 100%)" style="flex:1; min-width:110px;">
+                    <input type="text" class="var-condition" placeholder="Condición / tipo (Opc.)" style="flex:1; min-width:130px;">
+                    <input type="file" class="var-image" accept="image/*" title="Foto de esta variante" style="max-width:160px;">
                     <input type="number" class="var-price" placeholder="Precio" min="0" style="width:110px;" title="Deja vacío para precio base">
                     <input type="number" class="var-stock" placeholder="Stock" required min="0" style="width:80px;">
                     <button type="button" class="btn-danger btn-remove-var" style="padding:0 0.8rem;"><i class="fa-solid fa-xmark"></i></button>
@@ -2397,6 +2363,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const ram = row.querySelector('.var-ram').value.trim();
                 const battEl = row.querySelector('.var-batt');
                 const batt = battEl ? battEl.value.trim() : '';
+                const variantCondition = row.querySelector('.var-condition')?.value.trim() || '';
                 const priceEl = row.querySelector('.var-price');
                 const price = priceEl && priceEl.value && Number(priceEl.value) > 0 ? parseFloat(priceEl.value) : null;
                 const stock = parseInt(row.querySelector('.var-stock').value) || 0;
@@ -2406,6 +2373,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         capacity: capacity || '',
                         ram,
                         batt,
+                        condition: variantCondition,
                         price,
                         stock
                     });
@@ -2433,6 +2401,9 @@ const checkoutForm = document.getElementById('checkout-form');
             if (fileInput.files[0]) {
                 formData.append('image', fileInput.files[0]);
             }
+            for (const file of document.getElementById('prod-images')?.files || []) {
+                formData.append('images', file);
+            }
 
             showToast('Subiendo a la tienda...', 'fa-spinner fa-spin');
             try {
@@ -2446,13 +2417,24 @@ const checkoutForm = document.getElementById('checkout-form');
                 });
                 const data = await res.json();
                 if (res.ok) {
+                    const rows = [...document.querySelectorAll('.variant-row')];
+                    for (const [index, row] of rows.entries()) {
+                        const file = row.querySelector('.var-image')?.files?.[0];
+                        if (!file) continue;
+                        const imageBody = new FormData();
+                        imageBody.append('image', file);
+                        const imageResponse = await fetch(`${window.API_URL}/api/products/${data.productId}/variants/${index}/image`, {
+                            method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: imageBody
+                        });
+                        if (!imageResponse.ok) throw new Error('El producto se creó, pero una foto de variante no se pudo subir.');
+                    }
                     showToast('¡Producto subido y visible en la tienda!', 'fa-check');
                     adminForm.reset();
                     if(typeof loadAdminProducts === 'function') loadAdminProducts();
                 } else {
                     showToast(data.error || 'Error al subir', 'fa-triangle-exclamation');
                 }
-            } catch (err) { showToast('Error de conexión', 'fa-triangle-exclamation'); }
+            } catch (err) { showToast(err.message || 'Error de conexión', 'fa-triangle-exclamation'); }
         });
 
         // ==================== LISTAR Y GESTIONAR PRODUCTOS EN ADMIN ====================
@@ -2488,6 +2470,8 @@ const checkoutForm = document.getElementById('checkout-form');
                                         
                                         <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Info</button>
                                         <button onclick="toggleVariantsEdit(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:var(--text-color);">Variantes/Colores</button>
+                                        <label style="font-size:0.8rem;">Más fotos <input type="file" id="more-images-${p.id}" accept="image/*" multiple style="max-width:150px;"></label>
+                                        <button onclick="uploadProductImages(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem;">Subir fotos</button>
                                         <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </div>
@@ -2499,6 +2483,7 @@ const checkoutForm = document.getElementById('checkout-form');
                                         <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (Opcional)" style="padding:0.2rem; width:120px;">
                                         <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
                                         <input type="text" id="new-batt-${p.id}" placeholder="Batería (Opc)" style="padding:0.2rem; width:90px;">
+                                        <input type="text" id="new-condition-${p.id}" placeholder="Condición (Opc)" style="padding:0.2rem; width:130px;">
                                         <input type="number" id="new-vprice-${p.id}" placeholder="Precio USD (Opc)" style="padding:0.2rem; width:110px;">
                                         <input type="number" id="new-vstock-${p.id}" placeholder="Stock" style="padding:0.2rem; width:70px;">
                                         <button onclick="addVariantToProduct(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#2ecc71; color:#fff;">+ Agregar Variante</button>
@@ -2560,10 +2545,12 @@ const checkoutForm = document.getElementById('checkout-form');
                 window[`adminProductVariants_${id}`] = variants; // keep track of parsed variants
 
                 list.innerHTML = variants.map((v, index) => {
-                    const variantDesc = [v.color, v.capacity, v.ram, v.batt ? 'Bat: ' + v.batt : ''].filter(Boolean).join(' - ') || 'Variante';
+                    const variantDesc = window.variantNameFor(v) || 'Variante';
                     return `
                     <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px; flex-wrap:wrap; gap:0.5rem;">
                         <span style="font-size:0.85rem;">${variantDesc} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
+                        <label style="font-size:0.8rem;">Foto <input type="file" id="variant-image-${id}-${index}" accept="image/*" style="max-width:150px;"></label>
+                        <button onclick="uploadVariantImage(${id}, ${index})" class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;">Subir</button>
                         <div style="display:flex; align-items:center; gap:0.5rem;">
                             <label style="font-size:0.8rem; margin:0;">Stock:</label>
                             <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" style="width:60px; padding:0.2rem; font-size:0.8rem;">
@@ -2581,6 +2568,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const ram = document.getElementById(`new-ram-${id}`).value.trim();
                 const battEl = document.getElementById(`new-batt-${id}`);
                 const batt = battEl ? battEl.value.trim() : '';
+                const condition = document.getElementById(`new-condition-${id}`)?.value.trim() || '';
                 const stock = parseInt(document.getElementById(`new-vstock-${id}`).value) || 0;
                 const rawPrice = document.getElementById(`new-vprice-${id}`).value;
                 const price = rawPrice && Number(rawPrice) > 0 ? parseFloat(rawPrice) : null;
@@ -2588,7 +2576,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 if (!color && !cap) return showToast('Ingresa al menos un Color o Capacidad', 'fa-exclamation');
 
                 let variants = window[`adminProductVariants_${id}`] || [];
-                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, stock, price });
+                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, condition, stock, price });
                 
                 await saveVariantsToDB(id, variants);
             };
@@ -2625,6 +2613,36 @@ const checkoutForm = document.getElementById('checkout-form');
                         showToast('Error en el servidor', 'fa-times');
                     }
                 } catch(e) { showToast('Error al actualizar', 'fa-times'); }
+            };
+
+            window.uploadProductImages = async (id) => {
+                const files = document.getElementById(`more-images-${id}`)?.files;
+                if (!files?.length) return showToast('Selecciona fotos', 'fa-image');
+                const body = new FormData();
+                for (const file of files) body.append('images', file);
+                try {
+                    const response = await fetch(`${window.API_URL}/api/products/${id}/images`, {
+                        method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('phoneSpotToken')}` }, body
+                    });
+                    if (!response.ok) throw new Error((await response.json()).error || 'No se pudieron subir las fotos');
+                    showToast('Fotos agregadas', 'fa-check');
+                    window.loadAdminProducts();
+                } catch (error) { showToast(error.message, 'fa-triangle-exclamation'); }
+            };
+
+            window.uploadVariantImage = async (id, index) => {
+                const file = document.getElementById(`variant-image-${id}-${index}`)?.files?.[0];
+                if (!file) return showToast('Selecciona una foto', 'fa-image');
+                const body = new FormData();
+                body.append('image', file);
+                try {
+                    const response = await fetch(`${window.API_URL}/api/products/${id}/variants/${index}/image`, {
+                        method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('phoneSpotToken')}` }, body
+                    });
+                    if (!response.ok) throw new Error((await response.json()).error || 'No se pudo subir la foto');
+                    showToast('Foto de variante actualizada', 'fa-check');
+                    window.loadAdminProducts();
+                } catch (error) { showToast(error.message, 'fa-triangle-exclamation'); }
             };
 
             window.deleteProduct = async (id) => {
@@ -4108,111 +4126,34 @@ window.addEventListener('DOMContentLoaded', () => {
 window.updateCardVariant = function(el) {
     const card = el.closest('.product-card');
     if (!card) return;
-    
     try {
         const info = JSON.parse(unescape(card.dataset.stockInfo || '{}'));
-        if (!info.variants || info.variants.length === 0) return;
-
-        const colorSel = card.querySelector('.var-select[data-type="color"]');
-        const capSel = card.querySelector('.var-select[data-type="capacity"]');
-        const ramSel = card.querySelector('.var-select[data-type="ram"]');
-        const battSel = card.querySelector('.var-select[data-type="batt"]');
-
-        let currentColor = colorSel ? colorSel.value : '';
-        let currentCap = capSel ? capSel.value : '';
-        let currentRam = ramSel ? ramSel.value : '';
-        let currentBatt = battSel ? battSel.value : '';
-
-        const typeTriggered = el && el.tagName === 'SELECT' ? el.dataset.type : null;
-
-        if (typeTriggered === 'color' || !typeTriggered) {
-            if (capSel) {
-                const availableCaps = [...new Set(info.variants.filter(v => !currentColor || v.color === currentColor).map(v => v.capacity))].filter(Boolean);
-                if (availableCaps.length > 0) {
-                    if (!availableCaps.includes(currentCap)) currentCap = availableCaps[0];
-                    capSel.innerHTML = availableCaps.map(c => `<option value="${c}">Cap: ${c}</option>`).join('');
-                    capSel.value = currentCap;
-                }
-            }
+        if (!Array.isArray(info.variants) || !info.variants.length) return;
+        const dimensions = ['color', 'capacity', 'ram', 'batt', 'condition'];
+        let matches = info.variants;
+        for (const key of dimensions) {
+            const select = card.querySelector(`.var-select[data-type="${key}"]`);
+            if (!select) continue;
+            const options = [...new Set(matches.map(v => v[key]).filter(Boolean))];
+            const selected = options.includes(select.value) ? select.value : options[0];
+            const label = { color: 'Color', capacity: 'Cap', ram: 'RAM', batt: 'Bat', condition: 'Cond' }[key];
+            select.innerHTML = options.map(value => `<option value="${value}">${label}: ${value}</option>`).join('');
+            select.value = selected;
+            matches = matches.filter(v => v[key] === selected);
         }
-
-        if (typeTriggered === 'color' || typeTriggered === 'capacity' || !typeTriggered) {
-            if (ramSel) {
-                const availableRams = [...new Set(info.variants.filter(v => (!currentColor || v.color === currentColor) && (!currentCap || v.capacity === currentCap)).map(v => v.ram))].filter(Boolean);
-                if (availableRams.length > 0) {
-                    if (!availableRams.includes(currentRam)) currentRam = availableRams[0];
-                    ramSel.innerHTML = availableRams.map(r => `<option value="${r}">RAM: ${r}</option>`).join('');
-                    ramSel.value = currentRam;
-                }
-            }
-        }
-        
-        if (typeTriggered === 'color' || typeTriggered === 'capacity' || typeTriggered === 'ram' || !typeTriggered) {
-            if (battSel) {
-                const availableBatts = [...new Set(info.variants.filter(v => (!currentColor || v.color === currentColor) && (!currentCap || v.capacity === currentCap) && (!currentRam || v.ram === currentRam)).map(v => v.batt))].filter(Boolean);
-                if (availableBatts.length > 0) {
-                    if (!availableBatts.includes(currentBatt)) currentBatt = availableBatts[0];
-                    battSel.innerHTML = availableBatts.map(b => `<option value="${b}">Bat: ${b}</option>`).join('');
-                    battSel.value = currentBatt;
-                }
-            }
-        }
-
-        const finalColor = colorSel ? colorSel.value : '';
-        const finalCap = capSel ? capSel.value : '';
-        const finalRam = ramSel ? ramSel.value : '';
-        const finalBatt = battSel ? battSel.value : '';
-
-        const selectedVariant = [finalColor, finalCap, finalRam, finalBatt ? 'Bat: '+finalBatt : ''].filter(Boolean).join(' - ');
-        card.dataset.selectedVariant = selectedVariant;
-
-        const v = info.variants.find(vx => {
-            const vName = [vx.color, vx.capacity, vx.ram, vx.batt ? 'Bat: '+vx.batt : ''].filter(Boolean).join(' - ');
-            return vName === selectedVariant;
-        });
-
-        const stockMsg = card.querySelector('.card-variant-stock');
+        const variant = matches[0];
+        if (!variant) return;
+        card.dataset.selectedVariant = window.variantNameFor(variant);
         const priceEl = card.querySelector('.card-price');
-        const btn = card.querySelector('.add-to-cart-btn');
-        const mainBadge = card.querySelector('.card-main-badge');
-
-        const basePrice = parseFloat(card.dataset.price);
-
-        if (v) {
-            if (priceEl) {
-                const finalPrice = v.price ? parseFloat(v.price) : basePrice;
-                priceEl.innerHTML = window.formatPrice(finalPrice);
-            }
-            if (v.stock > 0) {
-                if (stockMsg) stockMsg.innerHTML = '<span style="color:#2ecc71"><i class="fa-solid fa-check"></i> Stock: ' + v.stock + '</span>';
-                if (btn) {
-                    btn.disabled = false;
-                    btn.style.background = btn.style.background.includes('555') ? '#555555' : '';
-                    if(btn.style.cursor === 'not-allowed') btn.style.cursor = 'pointer';
-                    btn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> Agregar al Carrito';
-                }
-                if(mainBadge && mainBadge.innerText === 'AGOTADO') mainBadge.style.display = 'none';
-            } else {
-                if (stockMsg) stockMsg.innerHTML = '<span style="color:#ff4757"><i class="fa-solid fa-times"></i> Sin stock</span>';
-                if (btn) {
-                    btn.disabled = true;
-                    btn.style.background = '#ccc';
-                    btn.style.cursor = 'not-allowed';
-                    btn.innerHTML = 'Sin Stock';
-                }
-                if(mainBadge && mainBadge.innerText === 'AGOTADO') mainBadge.style.display = 'block';
-            }
-        } else {
-            if (stockMsg) stockMsg.innerHTML = '<span style="color:#ff4757"><i class="fa-solid fa-times"></i> Agotado</span>';
-            if (btn) {
-                btn.disabled = true;
-                btn.style.background = '#ccc';
-                btn.style.cursor = 'not-allowed';
-                btn.innerHTML = 'Sin Stock';
-            }
-        }
-    } catch(e) {
-        console.error(e);
+        if (priceEl) priceEl.innerHTML = window.formatPrice(Number(variant.price || card.dataset.price));
+        const image = card.querySelector('.product-img');
+        if (image && variant.image_url) image.src = window.getFullImageUrl(variant.image_url);
+        const stockMsg = card.querySelector('.card-variant-stock');
+        const button = card.querySelector('.add-to-cart-btn');
+        if (stockMsg) stockMsg.textContent = variant.stock > 0 ? `Stock: ${variant.stock}` : 'Sin stock';
+        if (button) button.disabled = variant.stock <= 0;
+    } catch (error) {
+        console.error('Error al seleccionar variante', error);
     }
 };
 

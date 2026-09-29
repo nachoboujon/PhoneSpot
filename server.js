@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 require('dotenv').config();
 
 const app = express();
@@ -154,6 +155,8 @@ const normalizeVariants = (variants) => {
             capacity: v.capacity ? String(v.capacity).trim() : '',
             ram: v.ram ? String(v.ram).trim() : '',
             batt: v.batt ? String(v.batt).trim() : '',
+            condition: v.condition ? String(v.condition).trim() : '',
+            image_url: v.image_url ? String(v.image_url).trim() : '',
             price: validPrice,
             stock: Number.isInteger(Number(v.stock)) && Number(v.stock) >= 0 ? Number(v.stock) : 0
         };
@@ -164,7 +167,8 @@ const variantNameFor = (variant) => [
     variant.color,
     variant.capacity,
     variant.ram,
-    variant.batt ? `Bat: ${variant.batt}` : null
+    variant.batt ? `Bat: ${variant.batt}` : null,
+    variant.condition ? `Cond: ${variant.condition}` : null
 ].filter(Boolean).join(' - ');
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
@@ -231,7 +235,7 @@ try {
 const storage = multer.memoryStorage();
 const upload = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024, files: 1 },
+    limits: { fileSize: 5 * 1024 * 1024, files: 13 },
     fileFilter: (_req, file, callback) => {
         if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.mimetype)) {
             return callback(new Error('Solo se permiten imágenes.'));
@@ -249,6 +253,18 @@ const hasValidImageSignature = (file) => {
     return (file.mimetype === 'image/png' && isPng)
         || (file.mimetype === 'image/jpeg' && isJpeg)
         || (file.mimetype === 'image/webp' && isWebp);
+};
+
+const storeProductImage = async (file) => {
+    if (!hasValidImageSignature(file)) throw new Error('La imagen no tiene un formato válido.');
+    const extension = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[file.mimetype];
+    const fileName = `prod_${Date.now()}_${crypto.randomUUID()}.${extension}`;
+    const { error } = await supabase.storage.from('uploads').upload(fileName, file.buffer, {
+        contentType: file.mimetype,
+        upsert: false
+    });
+    if (error) throw error;
+    return supabase.storage.from('uploads').getPublicUrl(fileName).data.publicUrl;
 };
 
 // Configuración Supabase
@@ -897,7 +913,7 @@ app.post('/api/stock-alerts', async (req, res) => {
     }
 });
 
-app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/products', authenticate, isAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'images', maxCount: 12 }]), async (req, res) => {
     try {
         const { name, description, price, brand, stock, is_offer, category, variants } = req.body;
         const parsedPrice = Number(price);
@@ -906,24 +922,11 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
             return res.status(400).json({ error: 'Verifica nombre, marca, precio y stock.' });
         }
         
-        let image_url = '';
-        if (req.file) {
-            if (!hasValidImageSignature(req.file)) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
-            const ext = req.file.originalname.split('.').pop();
-            const fileName = `prod_${Date.now()}.${ext}`;
-            
-            const { error: uploadError } = await supabase.storage
-                .from('uploads')
-                .upload(fileName, req.file.buffer, {
-                    contentType: req.file.mimetype,
-                    upsert: true
-                });
-                
-            if (uploadError) throw uploadError;
-            
-            const { data: publicUrlData } = supabase.storage.from('uploads').getPublicUrl(fileName);
-            image_url = publicUrlData.publicUrl;
-        }
+        const files = [...(req.files?.image || []), ...(req.files?.images || [])];
+        if (files.some(file => !hasValidImageSignature(file))) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
+        const images = [];
+        for (const file of files) images.push(await storeProductImage(file));
+        const image_url = images[0] || '';
         
         const parsedVariants = normalizeVariants(variants);
 
@@ -938,12 +941,49 @@ app.post('/api/products', authenticate, isAdmin, upload.single('image'), async (
                 stock: parsedStock,
                 variants: parsedVariants,
                 is_offer: is_offer === 'true', 
-                image_url 
+                image_url,
+                images
             }])
             .select();
             
         if (error) throw error;
         res.status(201).json({ message: 'Producto creado', productId: data[0].id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/products/:id/images', authenticate, isAdmin, upload.array('images', 12), async (req, res) => {
+    try {
+        if (!req.files?.length) return res.status(400).json({ error: 'Selecciona al menos una foto.' });
+        if (req.files.some(file => !hasValidImageSignature(file))) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
+        const { data: product, error: readError } = await supabase.from('products').select('id,image_url,images').eq('id', req.params.id).is('archived_at', null).single();
+        if (readError || !product) return res.status(404).json({ error: 'Producto no encontrado.' });
+        const uploaded = [];
+        for (const file of req.files) uploaded.push(await storeProductImage(file));
+        const images = [...new Set([...(Array.isArray(product.images) ? product.images : []), ...uploaded])];
+        const { error } = await supabase.from('products').update({ images, image_url: product.image_url || images[0] }).eq('id', product.id);
+        if (error) throw error;
+        res.json({ images });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.post('/api/products/:id/variants/:index/image', authenticate, isAdmin, upload.single('image'), async (req, res) => {
+    try {
+        if (!hasValidImageSignature(req.file)) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
+        const { data: product, error: readError } = await supabase.from('products').select('id,image_url,images,variants').eq('id', req.params.id).is('archived_at', null).single();
+        if (readError || !product) return res.status(404).json({ error: 'Producto no encontrado.' });
+        const variants = parseVariants(product.variants);
+        const index = Number(req.params.index);
+        if (!Number.isInteger(index) || index < 0 || index >= variants.length) return res.status(400).json({ error: 'Variante inválida.' });
+        const url = await storeProductImage(req.file);
+        variants[index] = { ...variants[index], image_url: url };
+        const images = [...new Set([...(Array.isArray(product.images) ? product.images : []), url])];
+        const { error } = await supabase.from('products').update({ variants, images, image_url: product.image_url || url }).eq('id', product.id);
+        if (error) throw error;
+        res.json({ image_url: url });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
