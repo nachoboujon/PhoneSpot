@@ -1467,7 +1467,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div style="margin-bottom:2rem;">
                                 <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f;">Condición / tipo</h4>
                                 <div style="display:flex; flex-wrap:wrap; gap:10px;" id="condition-opts">
-                                    ${uniqueConditions.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" style="padding:12px 15px; background:#fff; border:2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; cursor:pointer;">${c}</button>`).join('')}
+                                    ${uniqueConditions.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" style="padding:12px 15px; background:#fff; color:#1d1d1f; font-weight:600; border:2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; cursor:pointer;">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1513,7 +1513,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; max-height:520px; object-fit:contain; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
                                 </div>
                                 <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; min-width:0; width:100%; padding:4px;">
-                                    ${(galleryImages.length ? galleryImages : [image]).map((url, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1}" data-image="${url}" style="flex:none; width:76px; height:76px; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid ${i===0?'#0071e3':'#ddd'};"><img src="${url}" alt="Foto ${i + 1} de ${prod.name}" style="width:100%;height:100%;object-fit:contain;"></button>`).join('')}
+                                    ${(galleryImages.length ? galleryImages : [image]).map((url, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1}" data-image="${url}" style="flex:none; width:76px; height:76px; border-radius:10px; cursor:pointer; padding:5px; background:#f5f5f7; border:2px solid ${i===0?'#0071e3':'#ddd'};"><img src="${url}" alt="Foto ${i + 1} de ${prod.name}" style="width:100%; height:100%; object-fit:contain; padding:0; box-sizing:border-box; background:transparent; border-radius:6px;"></button>`).join('')}
                                 </div>
                             </div>
                             

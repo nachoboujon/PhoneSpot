@@ -40,6 +40,9 @@ const product = {
         }));
         assert.equal(initial.name, 'iPhone 14 Pro');
         assert.equal(initial.photos, 16);
+        await page.waitForFunction(() => document.querySelector('.gallery-thumb img')?.naturalWidth > 0, { timeout: 10000 });
+        const conditionTextColor = await page.$eval('.var-btn[data-type="condition"]', el => getComputedStyle(el).color);
+        assert.equal(conditionTextColor, 'rgb(29, 29, 31)');
         const layout = await page.evaluate(() => ({
             bodyWidth: document.body.scrollWidth,
             galleryWidth: document.querySelector('.product-gallery').getBoundingClientRect().width,
