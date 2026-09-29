@@ -1,8 +1,7 @@
-// Imports the cards extracted by extract-iphone-list.py into Supabase.
-// Usage: node scripts/maintenance/import-iphone-list.js [--apply]
+// Parses the cards extracted by extract-iphone-list.py into a reviewable preview.
+// Usage: node scripts/maintenance/import-iphone-list.js --dump
 const fs = require('fs');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
 
 require('dotenv').config({ quiet: true });
 
@@ -59,46 +58,7 @@ console.log('Preview:', cards.slice(0, 4).map(({ name, wholesale_usd, price }) =
 if (process.argv.includes('--dump')) {
     fs.writeFileSync(path.join(root, 'artifacts/iphone-import-preview.json'), JSON.stringify(cards, null, 2) + '\n');
 }
-if (!process.argv.includes('--apply')) process.exit(0);
-
-if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY) throw new Error('Supabase credentials are missing');
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-
-async function run() {
-    const { data: existing, error: readError } = await supabase.from('products').select('id,name').ilike('name', 'iPhone%');
-    if (readError) throw readError;
-    const existingByName = new Map((existing || []).map((row) => [row.name, row.id]));
-    let created = 0;
-    let updated = 0;
-    for (const [index, card] of cards.entries()) {
-        const fileName = `iphone-americano-2026-09-28/${card.image}`;
-        const { error: uploadError } = await supabase.storage.from('uploads').upload(fileName, fs.readFileSync(path.join(imageDir, card.image)), {
-            contentType: 'image/jpeg',
-            upsert: true,
-        });
-        if (uploadError) throw new Error(`Image ${card.image}: ${uploadError.message}`);
-        const { data: image } = supabase.storage.from('uploads').getPublicUrl(fileName);
-        const product = {
-            name: card.name,
-            description: card.description,
-            price: card.price,
-            image_url: image.publicUrl,
-            brand: 'Apple',
-            category: 'celulares',
-            stock: 10,
-            variants: [{ color: card.color, capacity: card.capacity, batt: card.battery, stock: 10, price: card.price }],
-            is_offer: false,
-        };
-        const id = existingByName.get(card.name);
-        const query = id
-            ? supabase.from('products').update(product).eq('id', id)
-            : supabase.from('products').insert(product);
-        const { error } = await query;
-        if (error) throw new Error(`Product ${card.name}: ${error.message}`);
-        if (id) updated += 1; else created += 1;
-        if ((index + 1) % 25 === 0 || index + 1 === cards.length) console.log(`Imported ${index + 1}/${cards.length}`);
-    }
-    console.log(`Done: ${created} created, ${updated} updated`);
+if (process.argv.includes('--apply')) {
+    throw new Error('La importación por ficha está deshabilitada. El catálogo actual está agrupado por modelo.');
 }
-
-run().catch((error) => { console.error(error); process.exitCode = 1; });
+process.exit(0);
