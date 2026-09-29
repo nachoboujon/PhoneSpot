@@ -100,7 +100,7 @@ window.setProductImage = (url) => {
     if (!main || !url) return;
     main.src = window.getFullImageUrl(url);
     document.querySelectorAll('.gallery-thumb').forEach(button => {
-        button.style.borderColor = button.dataset.image === main.src ? '#0071e3' : '#ddd';
+        button.classList.toggle('active', button.dataset.image === main.src);
     });
 };
 document.addEventListener('click', event => {
@@ -1522,7 +1522,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const galleryPhotos = window.galleryForColor(prod, prod.variants?.[0]?.color || '');
                 const isOutOfStock = prod.stock <= 0;
-                const oldPrice = prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : '';
 
                 let variantsHTML = '';
                 let hasVariants = prod.variants && prod.variants.length > 0;
@@ -1534,57 +1533,53 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
                     
                     variantsHTML = `
-                        <style>
-                            .var-btn:hover { border-color: #999 !important; }
-                            .var-btn.active { border-color: #0071e3 !important; }
-                        </style>
-                        <div style="margin-bottom:2rem; border-top: 1px solid #eee; padding-top: 2rem;" id="variant-selector">
+                        <div id="variant-selector" class="product-options">
                             ${uniqueColors.length > 0 ? `
-                            <div style="margin-bottom:2rem;">
-                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Color - <span id="selected-color-name" style="color: #666; font-weight: 500;">${uniqueColors[0]}</span></h4>
-                                <div style="display:flex; flex-wrap:wrap; gap:12px;" id="color-opts">
-                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn color-photo-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}" style="border-color:${i===0?'#0071e3':'#e5e5ea'}"><img src="${window.getFullImageUrl(prod.variants.find(v => v.color === c && v.image_url)?.image_url || prod.image_url)}" alt="" loading="lazy"><span>${c}</span></button>`).join('')}
+                            <div class="product-option-group">
+                                <h3>Color <span id="selected-color-name">${uniqueColors[0]}</span></h3>
+                                <div class="product-option-list" id="color-opts">
+                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn color-photo-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}"><img src="${window.getFullImageUrl(prod.variants.find(v => v.color === c && v.image_url)?.image_url || prod.image_url)}" alt="" loading="lazy"><span>${c}</span></button>`).join('')}
                                 </div>
                                 <p id="photo-color-note" class="photo-color-note" hidden></p>
                             </div>
                             ` : ''}
 
                             ${uniqueCaps.length > 0 ? `
-                            <div style="margin-bottom:2rem;">
-                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Almacenamiento</h4>
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="cap-opts">
-                                    ${uniqueCaps.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${c}" style="padding:22px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:18px; font-weight:700; font-size:1.1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
+                            <div class="product-option-group">
+                                <h3>Almacenamiento</h3>
+                                <div class="product-option-list" id="cap-opts">
+                                    ${uniqueCaps.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
 
                             ${uniqueRams.length > 0 ? `
-                            <div style="margin-bottom:2rem;">
-                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Memoria RAM</h4>
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="ram-opts">
-                                    ${uniqueRams.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${c}" style="padding:22px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:18px; font-weight:700; font-size:1.1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
+                            <div class="product-option-group">
+                                <h3>Memoria RAM</h3>
+                                <div class="product-option-list" id="ram-opts">
+                                    ${uniqueRams.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
 
                             ${uniqueBatts.length > 0 ? `
-                            <div style="margin-bottom:2rem;">
-                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f; letter-spacing: -0.2px;">Condición de Batería</h4>
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;" id="batt-opts">
-                                    ${uniqueBatts.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${c}" style="padding:15px 10px; background:#fff; border: 2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; font-weight:700; font-size:1rem; color:#1d1d1f; cursor:pointer; transition:all 0.2s ease; text-align:center;">${c}</button>`).join('')}
+                            <div class="product-option-group">
+                                <h3>Condición de batería</h3>
+                                <div class="product-option-list" id="batt-opts">
+                                    ${uniqueBatts.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
                             ${uniqueConditions.length > 1 ? `
-                            <div style="margin-bottom:2rem;">
-                                <h4 style="font-size:1.1rem; margin-bottom:1rem; font-weight:700; color:#1d1d1f;">Condición / tipo</h4>
-                                <div style="display:flex; flex-wrap:wrap; gap:10px;" id="condition-opts">
-                                    ${uniqueConditions.map((c,i) => `<button class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" style="padding:12px 15px; background:#fff; color:#1d1d1f; font-weight:600; border:2px solid ${i===0?'#0071e3':'#e5e5ea'}; border-radius:12px; cursor:pointer;">${c}</button>`).join('')}
+                            <div class="product-option-group">
+                                <h3>Condición y tipo</h3>
+                                <div class="product-option-list" id="condition-opts">
+                                    ${uniqueConditions.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
                             
-                            <p id="variant-stock-msg" style="font-size:0.95rem; margin-top:0.5rem; font-weight:bold;"></p>
+                            <p id="variant-stock-msg" class="product-stock-status" aria-live="polite"></p>
                         </div>
                     `;
                 }
@@ -1616,60 +1611,52 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : '<p style="color:var(--text-muted);">Todavía no hay reseñas para este producto.</p>';
 
                 singleProductContainer.innerHTML = `
-                    <style>@media(max-width:768px){.product-details{grid-template-columns:minmax(0,1fr)!important}.product-details>.product-info{min-width:0}}</style>
-                    <div style="width: 100%; background: #fbfbfd; padding: 3rem 0;">
+                    <div class="product-detail-surface">
                         <div class="product-details" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
-                            <div class="product-gallery" style="display:flex; flex-direction:column; gap:1rem; min-width:0; max-width:100%; overflow:hidden;">
-                                <div style="position: relative; overflow: hidden; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+                            <div class="product-gallery">
+                                <div class="product-gallery-main">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                    <img id="main-product-img" src="${image}" alt="${prod.name}" style="width:90%; max-height:520px; object-fit:contain; display:block; transition: transform 0.4s ease; cursor: zoom-in; mix-blend-mode: multiply;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onmousemove="const rect=this.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width;const y=(event.clientY-rect.top)/rect.height;this.style.transformOrigin=(x*100) + '%' + ' ' + (y*100) + '%';">
+                                    <img id="main-product-img" src="${image}" alt="${prod.name}">
                                 </div>
-                                <div class="gallery-thumbnails" style="display:flex; gap:10px; overflow-x:auto; min-width:0; width:100%; padding:4px;">
-                                    ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}" style="border-color:${i===0?'#0071e3':'#ddd'}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
+                                <div class="gallery-thumbnails">
+                                    ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb ${i===0?'active':''}" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
                                 </div>
                             </div>
                             
-                            <div class="product-info" style="display:flex; flex-direction:column; justify-content:flex-start; min-width:0;">
-                                <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 0.8rem;">
-                                    <span style="background: #e3e3e3; color: #333; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">${prod.brand}</span>
-                                    <span style="color: var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">${prod.category}</span>
+                            <div class="product-info">
+                                <div class="product-meta">
+                                    <span>${prod.brand}</span>
+                                    <span>${prod.category}</span>
                                 </div>
                                 
-                                <h2 style="font-size:2.4rem; font-weight:800; line-height:1.1; margin-bottom:1rem; color: #1d1d1f; letter-spacing:-0.5px;">${prod.name}</h2>
+                                <h2>${prod.name}</h2>
                                 
-                                <div class="product-condition-tag" style="margin-bottom: 1.5rem; font-size: 0.9rem; display: flex; align-items: center;">
-                                    <span style="background: ${prodCondition.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${prodCondition.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${prodCondition.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; padding: 4px 12px; border-radius: 20px; font-weight: 600; display: inline-block;">
-                                        <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}"></i> ${prodCondition}
-                                    </span>
+                                <p class="product-condition-tag">
+                                    <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
+                                </p>
+
+                                <div class="product-price-panel">
+                                    <span class="product-price-label">Precio del equipo</span>
+                                    <p class="price" id="dynamic-price">${window.formatPrice(Number(prod.price))} <span>ARS</span></p>
                                 </div>
-                                
-                                
-                                
-                                <div style="margin-bottom:1.5rem;">
-                                    ${!hasVariants ? `<p style="font-size:0.95rem; font-weight:bold; color: ${prod.stock > 0 ? '#2ecc71' : '#ff4757'};"><i class="fa-solid ${prod.stock > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock'}</p>` : ''}
-                                </div>
+
+                                ${!hasVariants ? `<p class="product-stock-status">${prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock'}</p>` : ''}
 
                                 ${variantsHTML}
 
-                                <!-- Calculador de Envíos Moderno -->
-                                <div style="background: #fff; padding: 1.2rem; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 1.5rem; display:flex; flex-direction:column; gap:0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
-                                    <h4 style="font-size: 0.95rem; margin:0; color:#1d1d1f; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i> Conocer tiempos y costos de envío</h4>
-                                    <div style="display: flex; gap: 0.5rem;">
-                                        <input type="text" id="calc-zip" placeholder="Tu CP (Ej: 3283)" style="flex: 1; min-width:0; padding: 0.7rem; border: 1px solid #ccc; border-radius: 8px; font-size:0.9rem; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#0071e3'" onblur="this.style.borderColor='#ccc'">
-                                        <button id="calc-btn" style="padding: 0.7rem 1.2rem; background:#f5f5f7; color:#1d1d1f; border:none; border-radius:8px; font-weight:bold; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#e8e8ed'" onmouseout="this.style.background='#f5f5f7'">Calcular</button>
-                                    </div>
-                                    <p id="zip-msg" style="margin: 0; font-size: 0.85rem; color: #555; display: none; line-height:1.4;"></p>
-                                </div>
-                                
-                                
-                                <div style="background:#f9f9f9; padding: 1.2rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #eee;">
-                                    ${prod.is_offer ? `<p class="old-price" style="text-decoration:line-through; color: var(--text-muted); margin-bottom:0;">${window.formatPrice(prod.price * 1.2)}</p>` : ''}
-                                    <p class="price" id="dynamic-price" style="font-size:2.2rem; font-weight:bold; color: #1d1d1f; margin-bottom:0; letter-spacing:-1px;">${window.formatPrice(Number(prod.price))} <span style="font-size:0.9rem; color:#888; font-weight:normal; letter-spacing:0;">/ Final ARS</span></p>
-                                </div>
-                                <div style="display:flex; gap:1rem; align-items:center; margin-bottom: 2rem;">
-                                    <button class="btn add-to-cart-btn" style="flex:1; padding:1.2rem; font-size:1.1rem; font-weight:600; border-radius:12px; ${isOutOfStock ? 'background:#ccc; cursor:not-allowed;' : ''}" ${isOutOfStock ? 'disabled' : ''}>
-                                        <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}"></i> ${isOutOfStock ? 'Sin Stock' : 'Añadir al carrito'}
+                                <div class="product-purchase-actions">
+                                    <button type="button" class="btn add-to-cart-btn" ${isOutOfStock ? 'disabled' : ''}>
+                                        <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}" aria-hidden="true"></i> ${isOutOfStock ? 'Sin stock' : 'Agregar al carrito'}
                                     </button>
+                                </div>
+
+                                <div class="product-shipping-calculator">
+                                    <label for="calc-zip"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i> Consultar envío</label>
+                                    <div class="product-shipping-form">
+                                        <input type="text" id="calc-zip" inputmode="numeric" pattern="[0-9]{4,5}" placeholder="Tu código postal">
+                                        <button type="button" id="calc-btn">Calcular</button>
+                                    </div>
+                                    <p id="zip-msg" role="status" hidden></p>
                                 </div>
 
                                 ${isOutOfStock ? `
@@ -1761,8 +1748,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 button.disabled = !available;
                                 button.style.opacity = available ? '1' : '0.35';
                                 button.classList.toggle('active', button.dataset.val === selected);
-                                if (key === 'color') button.setAttribute('aria-pressed', button.dataset.val === selected);
-                                button.style.borderColor = button.dataset.val === selected ? '#0071e3' : '#e5e5ea';
+                                button.setAttribute('aria-pressed', String(button.dataset.val === selected));
                             });
                             matches = matches.filter(variant => variant[key] === selected);
                             if (key === 'color') {
@@ -1785,15 +1771,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const button = document.querySelector('.product-details .add-to-cart-btn');
                         if (button) {
                             button.disabled = stock <= 0;
-                            button.innerHTML = stock > 0 ? '<i class="fa-solid fa-cart-plus"></i> Añadir al carrito' : '<i class="fa-solid fa-box-open"></i> Sin stock';
-                            button.style.background = stock > 0 ? '#0071e3' : '#ccc';
+                            button.innerHTML = stock > 0 ? '<i class="fa-solid fa-cart-plus" aria-hidden="true"></i> Agregar al carrito' : '<i class="fa-solid fa-box-open" aria-hidden="true"></i> Sin stock';
                         }
                         const stockLabel = document.getElementById('variant-stock-msg');
                         if (stockLabel) stockLabel.textContent = stock > 0 ? `Stock disponible: ${stock} unidades` : 'Agotado en esta combinación';
                         if (variant && container) {
                             container.dataset.price = variant.price || prodArg.price;
                             const priceEl = document.getElementById('dynamic-price');
-                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span style="font-size:0.9rem; color:#888; font-weight:normal;">/ Final ARS</span>`;
+                            if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span>ARS</span>`;
                             if (variant.image_url) window.setProductImage(variant.image_url);
                         }
                     };
@@ -1807,13 +1792,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             
                             document.querySelectorAll(`.var-btn[data-type="${type}"]`).forEach(el => {
                                 el.classList.remove('active');
-                                el.style.borderColor = '#e5e5ea';
-                                if (type !== 'color') el.style.background = '#fff';
                             });
                             
                             targetBtn.classList.add('active');
-                            targetBtn.style.borderColor = '#0071e3';
-                            if (type !== 'color') targetBtn.style.background = '#fff';
                             
                             window.checkVariantStock(prod);
                         });
@@ -1830,12 +1811,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     calcBtn.addEventListener('click', async () => {
                         const zip = calcZip.value.trim();
                         if (!/^\d{4,5}$/.test(zip)) {
-                            zipMsg.style.display = 'block';
+                            zipMsg.hidden = false;
                             zipMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Ingresa un código postal válido.';
                             return;
                         }
                         
-                        zipMsg.style.display = 'block';
+                        zipMsg.hidden = false;
                         zipMsg.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Calculando...';
                         try {
                             const response = await fetch(window.API_URL + '/api/shipping/quote', {
