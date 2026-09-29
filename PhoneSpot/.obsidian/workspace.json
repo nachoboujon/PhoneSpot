@@ -76,7 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "adee9567fdafa5fc",
@@ -181,8 +181,10 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "5968e1bf4a6da066",
+  "active": "bc437b6e45eaaa47",
   "lastOpenFiles": [
+    "Sin título.canvas",
+    "Sin nombre",
     "05 Operación/Seguridad.md",
     "03 Dominios/Autenticación.md",
     "02 Arquitectura/Arquitectura del sistema.md",
@@ -210,7 +212,6 @@
     "00 Inicio.md",
     "Proyecto PhoneSpot.md",
     "Bienvenido.md",
-    "Sin título.canvas",
     "2026-09-08.md",
     "cree un enlace.md"
   ]
