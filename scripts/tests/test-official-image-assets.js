@@ -23,6 +23,12 @@ for (const image of manifest.images) {
     }
     assert.deepEqual(dimensions, {width: image.width, height: image.height});
     assert.ok(dimensions.width >= 1080 && dimensions.height >= 1080);
+    assert.ok(image.contentBounds && Math.max(dimensions.width * image.contentBounds.width, dimensions.height * image.contentBounds.height) >= 1080,
+        `${image.model} / ${image.color}: the device itself needs useful HD detail`);
+    assert.equal(image.thumbnail.width, 640);
+    assert.equal(image.thumbnail.height, 640);
+    assert.equal(fs.statSync(path.join(root, image.thumbnail.file)).size, image.thumbnail.bytes);
+    assert.ok(image.thumbnail.bytes < image.bytes, 'Catalog image must weigh less than the detail image');
 }
 for (const product of source) {
     const before = structuredClone(product);

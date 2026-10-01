@@ -50,6 +50,7 @@ window.getFullImageUrl = (url) => {
     if (url.startsWith('http')) return url;
     return window.API_URL + url;
 };
+window.cardImageUrl = url => url?.includes('/uploads/official-products/') ? url.replace('-hd-v3.jpg', '-card-v3.jpg') : url;
 window.variantNameFor = (variant) => [
     variant.color, variant.capacity, variant.ram,
     variant.batt ? `Bat: ${variant.batt}` : '',
@@ -903,7 +904,7 @@ async function loadProductsFromDB() {
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
-                            <img src="${image}" alt="${prod.name}" class="product-img" style="max-width:100%;">
+                            <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
                         ${(() => {
@@ -1407,7 +1408,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
-                            <img src="${image}" alt="${prod.name}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
+                            <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
                         ${(() => {
@@ -2709,18 +2710,18 @@ const checkoutForm = document.getElementById('checkout-form');
                                         <p style="margin:0; font-size:0.8rem; color: var(--text-muted);">Cat: ${p.category} | Marca: ${p.brand}</p>
                                         <textarea id="desc-${p.id}" rows="2" style="width:100%; margin-top:0.5rem; font-size:0.8rem; padding:0.3rem;" placeholder="Descripción">${p.description || ''}</textarea>
                                     </div>
-                                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-                                        <label style="font-size:0.8rem;">Precio (USD):</label>
+                                    <div class="admin-product-actions" style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                                        <label for="price-${p.id}" style="font-size:0.8rem;">Precio (USD):</label>
                                         <input type="number" id="price-${p.id}" value="${p.price}" style="width:80px; padding:0.2rem;">
                                         
-                                        <label style="font-size:0.8rem;">Stock:</label>
+                                        <label for="stock-${p.id}" style="font-size:0.8rem;">Stock:</label>
                                         <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;" ${(p.variants && p.variants.length > 0) ? 'disabled title="El stock se edita desde Variantes/Colores" style="background:#eee; width:70px; padding:0.2rem;"' : ''}>
                                         
                                         <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Info</button>
                                         <button onclick="toggleVariantsEdit(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:var(--text-color);">Variantes/Colores</button>
                                         <label style="font-size:0.8rem;">Más fotos <input type="file" id="more-images-${p.id}" accept="image/*" multiple style="max-width:150px;"></label>
                                         <button onclick="uploadProductImages(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem;">Subir fotos</button>
-                                        <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash"></i></button>
+                                        <button onclick="deleteProduct(${p.id})" class="btn-danger" aria-label="Eliminar producto" title="Eliminar producto" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                                 <div class="admin-offer-controls">
@@ -3625,7 +3626,8 @@ applyFrontendSettings();
 // ==================== FAVORITOS (LISTA DE DESEOS) ====================
 window.toggleFavorite = (id, event) => {
     if(event) { event.preventDefault(); event.stopPropagation(); }
-    let favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
+    id = String(id);
+    let favs = window.readFavoriteIds();
     if(favs.includes(id)) {
         favs = favs.filter(f => f !== id.toString());
         showToast('Producto eliminado de favoritos', 'fa-heart-crack');
@@ -3635,32 +3637,11 @@ window.toggleFavorite = (id, event) => {
     }
     localStorage.setItem('phoneSpotFavs', JSON.stringify(favs));
     
-    document.querySelectorAll(`.fav-btn[data-id="${id}"]`).forEach(btn => {
-        if(favs.includes(id.toString())) btn.classList.add('active');
-        else btn.classList.remove('active');
-    });
+    window.syncFavoritesUI();
+    if (document.getElementById('fav-sidebar')?.style.right === '0px') window.loadSidebarFavorites();
 
     if(document.getElementById('favorites-container')) window.loadFavoritesUI();
 };
-
-document.addEventListener('mouseover', e => {
-    const card = e.target.closest('.product-card');
-    if (card && !card.querySelector('.fav-btn')) {
-        const id = card.getAttribute('data-id');
-        if(!id) return;
-        const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
-        const isActive = favs.includes(id.toString()) ? 'active' : '';
-        
-        const btn = document.createElement('button');
-        btn.className = `fav-btn ${isActive}`;
-        btn.setAttribute('data-id', id);
-        btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-        btn.onclick = (ev) => window.toggleFavorite(id, ev);
-        
-        card.style.position = 'relative';
-        card.appendChild(btn);
-    }
-});
 
 // Cargar UI en Perfil
 window.loadFavoritesUI = async () => {
@@ -4305,7 +4286,7 @@ window.updateCardVariant = function(el) {
         if (priceEl) priceEl.innerHTML = window.formatPrice(Number(variant.price || card.dataset.price));
         const image = card.querySelector('.product-img');
         const photo = window.galleryForColor({image_url: image?.src, variants: info.variants}, variant.color)[0];
-        if (image && photo) image.src = photo.url;
+        if (image && photo) image.src = window.cardImageUrl(photo.url);
         const stockMsg = card.querySelector('.card-variant-stock');
         const button = card.querySelector('.add-to-cart-btn');
         if (stockMsg) stockMsg.textContent = variant.stock > 0 ? `Stock: ${variant.stock}` : 'Sin stock';

@@ -3,659 +3,1608 @@
     {
       "model": "iPhone 16",
       "color": "Rosa",
-      "file": "/uploads/official-products/iphone-16-rosa.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pink-202509?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 173018
+      "file": "/uploads/official-products/iphone-16-rosa-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pink-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 230845,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-rosa-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pink-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 32572
+      },
+      "contentBounds": {
+        "left": 0.16875,
+        "top": 0.17125,
+        "width": 0.65875,
+        "height": 0.80375
+      }
     },
     {
       "model": "iPhone 16",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-16-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-ultramarine-202509?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 181448
+      "file": "/uploads/official-products/iphone-16-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-ultramarine-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 237296,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-ultramarine-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 33380
+      },
+      "contentBounds": {
+        "left": 0.17,
+        "top": 0.17125,
+        "width": 0.6575,
+        "height": 0.80375
+      }
     },
     {
       "model": "iPhone 17",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-17-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-black-select-202509?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 45971
+      "file": "/uploads/official-products/iphone-17-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-finish-select-black-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 134261,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-17-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-finish-select-black-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26812
+      },
+      "contentBounds": {
+        "left": 0.28375,
+        "top": 0.15375,
+        "width": 0.4325,
+        "height": 0.76
+      }
     },
     {
       "model": "iPhone 16",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-16-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-black-select-202409?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 114854
+      "file": "/uploads/official-products/iphone-16-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-black-select-202409?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 156504,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-black-select-202409?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 24099
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.1525,
+        "width": 0.62375,
+        "height": 0.765
+      }
     },
     {
       "model": "iPhone 16",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-16-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-white-select-202409?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 113061
+      "file": "/uploads/official-products/iphone-16-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-white-select-202409?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 146212,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-white-select-202409?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26285
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.1525,
+        "width": 0.62375,
+        "height": 0.765
+      }
     },
     {
       "model": "iPhone 15",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-15-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-black-select-202309?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 129979
+      "file": "/uploads/official-products/iphone-15-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-black-select-202309?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 176226,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-black-select-202309?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27903
+      },
+      "contentBounds": {
+        "left": 0.21125,
+        "top": 0.155,
+        "width": 0.57875,
+        "height": 0.75875
+      }
     },
     {
       "model": "iPhone 15",
       "color": "Verde",
-      "file": "/uploads/official-products/iphone-15-verde.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-green-select-202309?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 137081
+      "file": "/uploads/official-products/iphone-15-verde-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-green-select-202309?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 172018,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-verde-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-green-select-202309?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29221
+      },
+      "contentBounds": {
+        "left": 0.21125,
+        "top": 0.155,
+        "width": 0.57875,
+        "height": 0.75875
+      }
     },
     {
       "model": "iPhone 15",
       "color": "Amarillo",
-      "file": "/uploads/official-products/iphone-15-amarillo.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-yellow-select-202309?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 142065
+      "file": "/uploads/official-products/iphone-15-amarillo-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-yellow-select-202309?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 172641,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-amarillo-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-yellow-select-202309?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29708
+      },
+      "contentBounds": {
+        "left": 0.21125,
+        "top": 0.155,
+        "width": 0.57875,
+        "height": 0.75875
+      }
     },
     {
       "model": "iPhone 15",
       "color": "Rosa",
-      "file": "/uploads/official-products/iphone-15-rosa.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pink-select-202309?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 138496
+      "file": "/uploads/official-products/iphone-15-rosa-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pink-select-202309?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 173046,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-rosa-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pink-select-202309?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29308
+      },
+      "contentBounds": {
+        "left": 0.21125,
+        "top": 0.155,
+        "width": 0.57875,
+        "height": 0.75875
+      }
     },
     {
       "model": "iPhone 15",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-15-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-select-202309?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 137439
+      "file": "/uploads/official-products/iphone-15-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-select-202309?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 172182,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-select-202309?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29296
+      },
+      "contentBounds": {
+        "left": 0.21125,
+        "top": 0.155,
+        "width": 0.57875,
+        "height": 0.75875
+      }
     },
     {
       "model": "iPhone 14",
       "color": "Morado",
-      "file": "/uploads/official-products/iphone-14-morado.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-purple-select-202209?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 109390
+      "file": "/uploads/official-products/iphone-14-morado-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-purple-select-202209?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 122219,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-morado-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-purple-select-202209?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26623
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.155,
+        "width": 0.5725,
+        "height": 0.76125
+      }
     },
     {
       "model": "iPhone 14",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-14-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 113555
+      "file": "/uploads/official-products/iphone-14-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 125175,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27246
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.155,
+        "width": 0.5725,
+        "height": 0.76125
+      }
     },
     {
       "model": "iPhone 14",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-14-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-starlight-select-202209?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 109105
+      "file": "/uploads/official-products/iphone-14-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-starlight-select-202209?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 121036,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-starlight-select-202209?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26215
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.155,
+        "width": 0.5725,
+        "height": 0.76125
+      }
     },
     {
       "model": "iPhone 14",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-14-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-midnight-select-202209?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 102182
+      "file": "/uploads/official-products/iphone-14-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-midnight-select-202209?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 113877,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-midnight-select-202209?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 25076
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.155,
+        "width": 0.5725,
+        "height": 0.76125
+      }
     },
     {
       "model": "iPhone 14",
       "color": "Rojo",
-      "file": "/uploads/official-products/iphone-14-rojo.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-red-select-202209?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 129092
+      "file": "/uploads/official-products/iphone-14-rojo-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-red-select-202209?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 132259,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-rojo-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-red-select-202209?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29548
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.155,
+        "width": 0.5725,
+        "height": 0.76125
+      }
     },
     {
       "model": "iPhone 13 mini",
       "color": "Rosa",
-      "file": "/uploads/official-products/iphone-13-mini-rosa.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-pink-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 69608
+      "file": "/uploads/official-products/iphone-13-mini-rosa-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-pink-2022?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 106276,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-mini-rosa-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-pink-2022?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 22649
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.19875,
+        "width": 0.5675,
+        "height": 0.77
+      }
     },
     {
       "model": "iPhone 13 mini",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-13-mini-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-blue-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 75575
+      "file": "/uploads/official-products/iphone-13-mini-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-blue-2022?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 119503,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-mini-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-blue-2022?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 24065
+      },
+      "contentBounds": {
+        "left": 0.2125,
+        "top": 0.19875,
+        "width": 0.56875,
+        "height": 0.77
+      }
     },
     {
       "model": "iPhone 13 mini",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-13-mini-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-starlight-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 68493
+      "file": "/uploads/official-products/iphone-13-mini-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-starlight-2022?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 107461,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-mini-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-mini-starlight-2022?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 22128
+      },
+      "contentBounds": {
+        "left": 0.21375,
+        "top": 0.19875,
+        "width": 0.5675,
+        "height": 0.77
+      }
     },
     {
       "model": "iPhone 13",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-13-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-midnight-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 69968
+      "file": "/uploads/official-products/iphone-13-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-midnight-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 113160,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-midnight-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 21821
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.86
+      }
     },
     {
       "model": "iPhone 13",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-13-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-blue-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 80053
+      "file": "/uploads/official-products/iphone-13-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-blue-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 135248,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-blue-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26240
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.86
+      }
     },
     {
       "model": "iPhone 13",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-13-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-starlight-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 72228
+      "file": "/uploads/official-products/iphone-13-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-starlight-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 120568,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-starlight-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 23606
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.1075,
+        "width": 0.63,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12 Pro Max",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-12-pro-max-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-max-graphite-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 93057
+      "file": "/uploads/official-products/iphone-12-pro-max-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-graphite-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 130151,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-max-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-graphite-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28363
+      },
+      "contentBounds": {
+        "left": 0.155,
+        "top": 0.02625,
+        "width": 0.69125,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 13",
       "color": "Rosa",
-      "file": "/uploads/official-products/iphone-13-rosa.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pink-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 73287
+      "file": "/uploads/official-products/iphone-13-rosa-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pink-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 118354,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-rosa-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pink-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 24121
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.86
+      }
     },
     {
       "model": "iPhone 12 Pro Max",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-12-pro-max-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-max-gold-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 99640
+      "file": "/uploads/official-products/iphone-12-pro-max-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-gold-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 132359,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-max-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-gold-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28128
+      },
+      "contentBounds": {
+        "left": 0.155,
+        "top": 0.02625,
+        "width": 0.69125,
+        "height": 0.94375
+      }
     },
     {
       "model": "iPhone 12 Pro",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-12-pro-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-graphite-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 87266
+      "file": "/uploads/official-products/iphone-12-pro-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-graphite-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 121638,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-graphite-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 25847
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.1075,
+        "width": 0.63,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12",
       "color": "Verde",
-      "file": "/uploads/official-products/iphone-12-verde.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-green-select-2020?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 88315
+      "file": "/uploads/official-products/iphone-12-verde-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-green-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 120808,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-verde-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-green-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 25339
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.85875
+      }
     },
     {
       "model": "iPhone 12 Pro",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-12-pro-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-gold-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 93184
+      "file": "/uploads/official-products/iphone-12-pro-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-gold-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 119139,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-gold-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 24732
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.1075,
+        "width": 0.63,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12 Pro Max",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-12-pro-max-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-max-silver-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 91153
+      "file": "/uploads/official-products/iphone-12-pro-max-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-silver-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 126932,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-max-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-silver-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27603
+      },
+      "contentBounds": {
+        "left": 0.155,
+        "top": 0.02625,
+        "width": 0.69125,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 12 Pro",
       "color": "Plata",
-      "file": "/uploads/official-products/iphone-12-pro-plata.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-silver-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 85936
+      "file": "/uploads/official-products/iphone-12-pro-plata-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-silver-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 118753,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-plata-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-silver-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 25263
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.1075,
+        "width": 0.63125,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-12-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-black-select-2020?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 79350
+      "file": "/uploads/official-products/iphone-12-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-black-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 115409,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-black-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 22830
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.8575
+      }
     },
     {
       "model": "iPhone 12",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-12-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-white-select-2020?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 83483
+      "file": "/uploads/official-products/iphone-12-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-white-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 111260,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-white-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 23671
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.85875
+      }
     },
     {
       "model": "iPhone 12",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-12-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 93234
+      "file": "/uploads/official-products/iphone-12-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-blue-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 122320,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-blue-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 25720
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.8575
+      }
     },
     {
       "model": "iPhone 17 Pro Max",
       "color": "Naranja",
-      "file": "/uploads/official-products/iphone-17-pro-max-naranja.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-max-cosmicorange-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 49921
+      "file": "/uploads/official-products/iphone-17-pro-max-naranja-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-max-finish-select-cosmicorange-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 211276,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-17-pro-max-naranja-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-max-finish-select-cosmicorange-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 36944
+      },
+      "contentBounds": {
+        "left": 0.17625,
+        "top": 0.0825,
+        "width": 0.6475,
+        "height": 0.83125
+      }
     },
     {
       "model": "iPhone 17 Pro",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-17-pro-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-deepblue-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 47115
+      "file": "/uploads/official-products/iphone-17-pro-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-finish-select-deepblue-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 171826,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-17-pro-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-finish-select-deepblue-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 30879
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15125,
+        "width": 0.61625,
+        "height": 0.7625
+      }
     },
     {
       "model": "iPhone 16 Pro",
       "color": "Titanio del Desierto",
-      "file": "/uploads/official-products/iphone-16-pro-titanio-del-desierto.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-deserttitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 120565
+      "file": "/uploads/official-products/iphone-16-pro-titanio-del-desierto-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-deserttitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 141218,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-titanio-del-desierto-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-deserttitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29216
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15,
+        "width": 0.615,
+        "height": 0.76375
+      }
     },
     {
       "model": "iPhone 17 Pro",
       "color": "Naranja",
-      "file": "/uploads/official-products/iphone-17-pro-naranja.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-cosmicorange-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 50374
+      "file": "/uploads/official-products/iphone-17-pro-naranja-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-finish-select-cosmicorange-202509?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 194819,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-17-pro-naranja-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-pro-finish-select-cosmicorange-202509?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 35852
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15125,
+        "width": 0.61625,
+        "height": 0.7625
+      }
     },
     {
       "model": "iPhone 16 Pro Max",
       "color": "Titanio Natural",
-      "file": "/uploads/official-products/iphone-16-pro-max-titanio-natural.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-naturaltitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 117844
+      "file": "/uploads/official-products/iphone-16-pro-max-titanio-natural-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-naturaltitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 143201,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-max-titanio-natural-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-naturaltitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 30284
+      },
+      "contentBounds": {
+        "left": 0.17,
+        "top": 0.0825,
+        "width": 0.66125,
+        "height": 0.83125
+      }
     },
     {
       "model": "iPhone 16 Pro Max",
       "color": "Titanio Blanco",
-      "file": "/uploads/official-products/iphone-16-pro-max-titanio-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-whitetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 111822
+      "file": "/uploads/official-products/iphone-16-pro-max-titanio-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-whitetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 130341,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-max-titanio-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-whitetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29369
+      },
+      "contentBounds": {
+        "left": 0.17,
+        "top": 0.0825,
+        "width": 0.66125,
+        "height": 0.83125
+      }
     },
     {
       "model": "iPhone 15 Pro",
       "color": "Titanio Natural",
-      "file": "/uploads/official-products/iphone-15-pro-titanio-natural.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-naturaltitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 211762
+      "file": "/uploads/official-products/iphone-15-pro-titanio-natural-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-naturaltitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 313372,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-titanio-natural-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-naturaltitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 39614
+      },
+      "contentBounds": {
+        "left": 0.19,
+        "top": 0.15,
+        "width": 0.62,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 15 Pro Max",
       "color": "Titanio Natural",
-      "file": "/uploads/official-products/iphone-15-pro-max-titanio-natural.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 243382
+      "file": "/uploads/official-products/iphone-15-pro-max-titanio-natural-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 367442,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-max-titanio-natural-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 45277
+      },
+      "contentBounds": {
+        "left": 0.165,
+        "top": 0.08125,
+        "width": 0.67,
+        "height": 0.83375
+      }
     },
     {
       "model": "iPhone 15 Pro",
       "color": "Titanio Negro",
-      "file": "/uploads/official-products/iphone-15-pro-titanio-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-blacktitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 186154
+      "file": "/uploads/official-products/iphone-15-pro-titanio-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-blacktitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 279413,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-titanio-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-blacktitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 35104
+      },
+      "contentBounds": {
+        "left": 0.19,
+        "top": 0.15,
+        "width": 0.62,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 16 Pro",
       "color": "Titanio Blanco",
-      "file": "/uploads/official-products/iphone-16-pro-titanio-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-whitetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 105037
+      "file": "/uploads/official-products/iphone-16-pro-titanio-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-whitetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 125254,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-titanio-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-whitetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27450
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15,
+        "width": 0.615,
+        "height": 0.76375
+      }
     },
     {
       "model": "iPhone 16 Pro Max",
       "color": "Titanio del Desierto",
-      "file": "/uploads/official-products/iphone-16-pro-max-titanio-del-desierto.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-deserttitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 127828
+      "file": "/uploads/official-products/iphone-16-pro-max-titanio-del-desierto-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-deserttitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 145671,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-max-titanio-del-desierto-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-deserttitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 31530
+      },
+      "contentBounds": {
+        "left": 0.17,
+        "top": 0.0825,
+        "width": 0.66125,
+        "height": 0.83125
+      }
     },
     {
       "model": "iPhone 15 Pro",
       "color": "Titanio Azul",
-      "file": "/uploads/official-products/iphone-15-pro-titanio-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-bluetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 206478
+      "file": "/uploads/official-products/iphone-15-pro-titanio-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-bluetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 301403,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-titanio-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-bluetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 38402
+      },
+      "contentBounds": {
+        "left": 0.19,
+        "top": 0.15,
+        "width": 0.62,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 16 Pro Max",
       "color": "Titanio Negro",
-      "file": "/uploads/official-products/iphone-16-pro-max-titanio-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-blacktitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 114220
+      "file": "/uploads/official-products/iphone-16-pro-max-titanio-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-blacktitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 141043,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-max-titanio-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-max-blacktitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28741
+      },
+      "contentBounds": {
+        "left": 0.17,
+        "top": 0.0825,
+        "width": 0.66125,
+        "height": 0.83125
+      }
     },
     {
       "model": "iPhone 15 Pro Max",
       "color": "Titanio Negro",
-      "file": "/uploads/official-products/iphone-15-pro-max-titanio-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-blacktitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 212608
+      "file": "/uploads/official-products/iphone-15-pro-max-titanio-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-blacktitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 326895,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-max-titanio-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-blacktitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 39421
+      },
+      "contentBounds": {
+        "left": 0.165,
+        "top": 0.08125,
+        "width": 0.67,
+        "height": 0.83375
+      }
     },
     {
       "model": "iPhone 16 Pro",
       "color": "Titanio Negro",
-      "file": "/uploads/official-products/iphone-16-pro-titanio-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-blacktitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 106650
+      "file": "/uploads/official-products/iphone-16-pro-titanio-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-blacktitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 130978,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-titanio-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-blacktitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26739
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15,
+        "width": 0.615,
+        "height": 0.76375
+      }
     },
     {
       "model": "iPhone 15 Pro",
       "color": "Titanio Blanco",
-      "file": "/uploads/official-products/iphone-15-pro-titanio-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-whitetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 214674
+      "file": "/uploads/official-products/iphone-15-pro-titanio-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-whitetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 328100,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-titanio-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-whitetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 41289
+      },
+      "contentBounds": {
+        "left": 0.19,
+        "top": 0.15,
+        "width": 0.62,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 16 Pro",
       "color": "Titanio Natural",
-      "file": "/uploads/official-products/iphone-16-pro-titanio-natural.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-naturaltitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 112374
+      "file": "/uploads/official-products/iphone-16-pro-titanio-natural-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-naturaltitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 138797,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-16-pro-titanio-natural-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-naturaltitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28125
+      },
+      "contentBounds": {
+        "left": 0.1925,
+        "top": 0.15,
+        "width": 0.615,
+        "height": 0.76375
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-13-pro-max-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 78335
+      "file": "/uploads/official-products/iphone-13-pro-max-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-silver-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 134763,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-silver-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28602
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 14 Pro Max",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-14-pro-max-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-gold-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 128003
+      "file": "/uploads/official-products/iphone-14-pro-max-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-gold-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 141772,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-max-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-gold-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 31017
+      },
+      "contentBounds": {
+        "left": 0.16625,
+        "top": 0.08125,
+        "width": 0.6675,
+        "height": 0.83625
+      }
     },
     {
       "model": "iPhone 15 Pro Max",
       "color": "Titanio Blanco",
-      "file": "/uploads/official-products/iphone-15-pro-max-titanio-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-whitetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 246563
+      "file": "/uploads/official-products/iphone-15-pro-max-titanio-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-whitetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 382995,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-max-titanio-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-whitetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 47574
+      },
+      "contentBounds": {
+        "left": 0.165,
+        "top": 0.08125,
+        "width": 0.67,
+        "height": 0.83375
+      }
     },
     {
       "model": "iPhone 14 Pro",
       "color": "Blanco",
-      "file": "/uploads/official-products/iphone-14-pro-blanco.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 109997
+      "file": "/uploads/official-products/iphone-14-pro-blanco-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 125275,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-blanco-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27924
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.15,
+        "width": 0.62125,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 15 Pro Max",
       "color": "Titanio Azul",
-      "file": "/uploads/official-products/iphone-15-pro-max-titanio-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-bluetitanium-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 236119
+      "file": "/uploads/official-products/iphone-15-pro-max-titanio-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-bluetitanium-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 353914,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-15-pro-max-titanio-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-bluetitanium-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 43377
+      },
+      "contentBounds": {
+        "left": 0.165,
+        "top": 0.08125,
+        "width": 0.67,
+        "height": 0.83375
+      }
     },
     {
       "model": "iPhone 13 Pro",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-13-pro-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-graphite-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 78290
+      "file": "/uploads/official-products/iphone-13-pro-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-graphite-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 134055,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-graphite-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26504
+      },
+      "contentBounds": {
+        "left": 0.16375,
+        "top": 0.1075,
+        "width": 0.67375,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 14 Pro",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-14-pro-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-spaceblack-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 105862
+      "file": "/uploads/official-products/iphone-14-pro-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-spaceblack-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 121756,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-spaceblack-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26951
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.15,
+        "width": 0.62125,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 14 Pro",
       "color": "Plata",
-      "file": "/uploads/official-products/iphone-14-pro-plata.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 109997
+      "file": "/uploads/official-products/iphone-14-pro-plata-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 125275,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-plata-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-silver-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27924
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.15,
+        "width": 0.62125,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-13-pro-max-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-gold-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 85708
+      "file": "/uploads/official-products/iphone-13-pro-max-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-gold-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 142924,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-gold-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29833
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 14 Pro Max",
       "color": "Plata",
-      "file": "/uploads/official-products/iphone-14-pro-max-plata.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 114867
+      "file": "/uploads/official-products/iphone-14-pro-max-plata-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-silver-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 133230,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-max-plata-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-silver-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29417
+      },
+      "contentBounds": {
+        "left": 0.16625,
+        "top": 0.08125,
+        "width": 0.6675,
+        "height": 0.83625
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Negro",
-      "file": "/uploads/official-products/iphone-13-pro-max-negro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-graphite-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 80766
+      "file": "/uploads/official-products/iphone-13-pro-max-negro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-graphite-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 146077,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-negro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-graphite-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28827
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.94375
+      }
     },
     {
       "model": "iPhone 14 Pro Max",
       "color": "Morado",
-      "file": "/uploads/official-products/iphone-14-pro-max-morado.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-deeppurple-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 119457
+      "file": "/uploads/official-products/iphone-14-pro-max-morado-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-deeppurple-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 137576,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-max-morado-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-deeppurple-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29712
+      },
+      "contentBounds": {
+        "left": 0.16625,
+        "top": 0.08125,
+        "width": 0.6675,
+        "height": 0.83625
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-13-pro-max-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 85672
+      "file": "/uploads/official-products/iphone-13-pro-max-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-blue-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 143692,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-blue-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 30743
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Plata",
-      "file": "/uploads/official-products/iphone-13-pro-max-plata.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 78335
+      "file": "/uploads/official-products/iphone-13-pro-max-plata-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-silver-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 134763,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-plata-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-silver-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28602
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 13 Pro",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-13-pro-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-gold-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 84283
+      "file": "/uploads/official-products/iphone-13-pro-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-gold-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 133067,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-gold-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27701
+      },
+      "contentBounds": {
+        "left": 0.16375,
+        "top": 0.1075,
+        "width": 0.67375,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 14 Pro",
       "color": "Morado",
-      "file": "/uploads/official-products/iphone-14-pro-morado.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-deeppurple-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 113293
+      "file": "/uploads/official-products/iphone-14-pro-morado-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-deeppurple-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 127024,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-morado-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-deeppurple-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28331
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.15,
+        "width": 0.62125,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 13 Pro Max",
       "color": "Verde",
-      "file": "/uploads/official-products/iphone-13-pro-max-verde.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-green-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 79092
+      "file": "/uploads/official-products/iphone-13-pro-max-verde-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-green-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 139576,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-max-verde-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-max-green-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29030
+      },
+      "contentBounds": {
+        "left": 0.1325,
+        "top": 0.02625,
+        "width": 0.7275,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 13 Pro",
       "color": "Plata",
-      "file": "/uploads/official-products/iphone-13-pro-plata.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-silver-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 76866
+      "file": "/uploads/official-products/iphone-13-pro-plata-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-silver-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 126064,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-plata-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-silver-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26496
+      },
+      "contentBounds": {
+        "left": 0.16375,
+        "top": 0.1075,
+        "width": 0.67375,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 14 Pro",
       "color": "Oro",
-      "file": "/uploads/official-products/iphone-14-pro-oro.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-gold-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 122421
+      "file": "/uploads/official-products/iphone-14-pro-oro-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-gold-select?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 132544,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-14-pro-oro-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-gold-select?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29437
+      },
+      "contentBounds": {
+        "left": 0.18875,
+        "top": 0.15,
+        "width": 0.62125,
+        "height": 0.76625
+      }
     },
     {
       "model": "iPhone 13 Pro",
       "color": "Verde",
-      "file": "/uploads/official-products/iphone-13-pro-verde.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-green-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 77394
+      "file": "/uploads/official-products/iphone-13-pro-verde-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-green-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 130826,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-verde-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-green-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 26862
+      },
+      "contentBounds": {
+        "left": 0.16375,
+        "top": 0.1075,
+        "width": 0.67375,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 13 Pro",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-13-pro-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-blue-select?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 83428
+      "file": "/uploads/official-products/iphone-13-pro-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-blue-2023?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 134782,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-13-pro-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-13-pro-blue-2023?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 28443
+      },
+      "contentBounds": {
+        "left": 0.16375,
+        "top": 0.1075,
+        "width": 0.67375,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12 Pro Max",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-12-pro-max-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-max-blue-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 102593
+      "file": "/uploads/official-products/iphone-12-pro-max-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 136726,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-max-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-max-blue-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 29690
+      },
+      "contentBounds": {
+        "left": 0.155,
+        "top": 0.02625,
+        "width": 0.69125,
+        "height": 0.9425
+      }
     },
     {
       "model": "iPhone 12 Pro",
       "color": "Azul",
-      "file": "/uploads/official-products/iphone-12-pro-azul.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-blue-hero?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 94690
+      "file": "/uploads/official-products/iphone-12-pro-azul-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-blue-2020?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 126391,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-pro-azul-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-pro-blue-2020?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27017
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.1075,
+        "width": 0.63,
+        "height": 0.86125
+      }
     },
     {
       "model": "iPhone 12",
       "color": "Morado",
-      "file": "/uploads/official-products/iphone-12-morado.jpg",
-      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-purple-select-2021?wid=1200&hei=1200&fmt=jpeg&qlt=90",
-      "width": 1200,
-      "height": 1200,
-      "bytes": 87263
+      "file": "/uploads/official-products/iphone-12-morado-hd-v3.jpg",
+      "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-purple-2021?wid=1600&hei=1600&fmt=jpeg&qlt=88",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 119502,
+      "thumbnail": {
+        "file": "/uploads/official-products/iphone-12-morado-card-v3.jpg",
+        "source": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-12-purple-2021?wid=640&hei=640&fmt=jpeg&qlt=85",
+        "width": 640,
+        "height": 640,
+        "bytes": 27212
+      },
+      "contentBounds": {
+        "left": 0.185,
+        "top": 0.10875,
+        "width": 0.63,
+        "height": 0.86
+      }
     }
   ],
   "unresolved": [

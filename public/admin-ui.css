@@ -1,0 +1,44 @@
+.admin-page { --text-muted: #59646f; background: #f4f5f7; color: #202428; }
+.admin-page .admin-sidebar { width: 240px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; padding: 2rem 1rem; background: #202428; border: 0; }
+.admin-page .admin-sidebar h2 { color: #fff; padding: 0 1rem; letter-spacing: -.03em; }
+.admin-page .admin-nav a { min-height: 44px; padding: .85rem 1rem; font-weight: 500; color: #d0d5db; }
+.admin-page .admin-nav a:hover { background: #30373f; color: #fff; }
+.admin-page .admin-nav a.active { background: #fff; color: #202428; font-weight: 700; }
+.admin-page .admin-nav a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.admin-page .admin-main { min-width: 0; max-width: 1500px; margin: 0 auto; padding: clamp(1.25rem, 3vw, 3rem); }
+.admin-page .admin-header { margin-bottom: 2rem; gap: 1rem; }
+.admin-page .admin-header h3 { font-size: clamp(1.75rem, 2.5vw, 2.4rem); letter-spacing: -.025em; }
+.admin-page .admin-card { padding: 2rem; border: 1px solid #e0e4e8; box-shadow: none; border-radius: 12px; }
+.admin-page .admin-card h4 { font-size: 1.25rem; color: #202428; padding-bottom: 1rem; }
+.admin-page .admin-card h4 i { color: #59646f; margin-right: .5rem; }
+.admin-page input:not([type="checkbox"]):not([type="radio"]), .admin-page select, .admin-page textarea { min-height: 44px; border: 1px solid #cbd2d9; border-radius: 6px; padding: .6rem .75rem !important; background: #fff; color: #202428; font: inherit; font-size: .9rem !important; }
+.admin-page input[type="file"] { max-width: 100%; min-width: 0; }
+.admin-page input::placeholder, .admin-page textarea::placeholder { color: #65717c; opacity: 1; }
+.admin-page input:focus-visible, .admin-page select:focus-visible, .admin-page textarea:focus-visible { outline: 2px solid #202428; outline-offset: 2px; }
+.admin-page label { font-size: .9rem; font-weight: 500; color: #39444e; }
+.admin-page button, .admin-page .btn { min-height: 44px; padding: .65rem 1rem !important; border-radius: 6px; font-size: .85rem !important; text-transform: none; letter-spacing: normal; box-shadow: none; }
+.admin-page button:hover, .admin-page .btn:hover { transform: none; box-shadow: none; }
+.admin-page .btn-danger { background: #a3293a; }
+.admin-page .btn-danger:hover { background: #832130; color: #fff; }
+.admin-page button:focus-visible { outline: 2px solid #202428; outline-offset: 3px; }
+.admin-page #admin-product-list .slide-item { align-items: stretch; padding: 1.25rem; background: #fff; border-radius: 10px; border-color: #dce1e6; }
+.admin-page #admin-product-list h5 { font-size: 1.05rem; line-height: 1.4; }
+.admin-page #admin-product-list textarea { margin-top: .75rem !important; }
+.admin-page .admin-list-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin: 1rem 0; }
+.admin-page .admin-list-tools input { flex: 1; min-width: 180px; }
+.admin-page .admin-list-tools span { color: #59646f; font-size: .85rem; }
+@media (max-width: 768px) {
+    .admin-page .admin-layout { flex-direction: column; }
+    .admin-page .admin-sidebar { position: static; width: 100%; height: auto; padding: 1rem; }
+    .admin-page .admin-sidebar h2 { margin-bottom: 1rem; padding: 0; }
+    .admin-page .admin-nav { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: .5rem; padding: .25rem; }
+    .admin-page .admin-nav li { min-width: max-content; flex: 0 0 auto; margin: 0 !important; }
+    .admin-page .admin-nav a { white-space: nowrap; font-size: .85rem; }
+    .admin-page .admin-main { padding: 1rem; width: 100%; }
+    .admin-page .admin-card { padding: 1rem; overflow-x: auto; }
+    .admin-page .admin-header { align-items: flex-start; }
+    .admin-page .admin-product-actions { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+    .admin-page .admin-product-actions input[type="number"] { width: 100% !important; }
+    .admin-page .admin-product-actions label:has(input[type="file"]) { grid-column: 1 / -1; }
+    .admin-page .admin-product-actions input[type="file"] { width: 100%; max-width: 100% !important; margin-top: .5rem; }
+}

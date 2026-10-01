@@ -1,0 +1,2405 @@
+﻿[
+    {
+        "id":  193,
+        "name":  "Tecno Spark Go 3",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark Go 3 nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  160,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-13.webp",
+        "brand":  "Tecno",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:49.947787+00:00",
+        "variants":  [
+                         {
+                             "ram":  "8GB",
+                             "batt":  "",
+                             "color":  "Gris",
+                             "price":  160,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-13.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-13.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-13.webp"
+                   ]
+    },
+    {
+        "id":  192,
+        "name":  "Tecno Spark Go 1S",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark Go 1S nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  100,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-10.webp",
+        "brand":  "Tecno",
+        "stock":  30,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:49.701633+00:00",
+        "variants":  [
+                         {
+                             "ram":  "6GB",
+                             "batt":  "",
+                             "color":  "Blanco",
+                             "price":  100,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-10.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-10.webp"
+                         },
+                         {
+                             "ram":  "6GB",
+                             "batt":  "",
+                             "color":  "Verde",
+                             "price":  100,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-11.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-11.webp"
+                         },
+                         {
+                             "ram":  "6GB",
+                             "batt":  "",
+                             "color":  "Negro",
+                             "price":  100,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-12.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-12.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-10.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-11.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-12.webp"
+                   ]
+    },
+    {
+        "id":  191,
+        "name":  "Tecno Spark Go 1",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark Go 1 nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  100,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-09.webp",
+        "brand":  "Tecno",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:49.433101+00:00",
+        "variants":  [
+                         {
+                             "ram":  "6GB",
+                             "batt":  "",
+                             "color":  "Negro",
+                             "price":  100,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-09.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-09.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-09.webp"
+                   ]
+    },
+    {
+        "id":  190,
+        "name":  "Tecno Spark 50",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark 50 nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  210,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-06.webp",
+        "brand":  "Tecno",
+        "stock":  30,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:49.180461+00:00",
+        "variants":  [
+                         {
+                             "ram":  "12GB",
+                             "batt":  "",
+                             "color":  "Gris",
+                             "price":  210,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-06.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-06.webp"
+                         },
+                         {
+                             "ram":  "12GB",
+                             "batt":  "",
+                             "color":  "Negro",
+                             "price":  210,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-07.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-07.webp"
+                         },
+                         {
+                             "ram":  "12GB",
+                             "batt":  "",
+                             "color":  "Lavanda",
+                             "price":  210,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-08.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-08.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-06.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-07.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-08.webp"
+                   ]
+    },
+    {
+        "id":  189,
+        "name":  "Tecno Spark 40",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark 40 nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  170,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-03.webp",
+        "brand":  "Tecno",
+        "stock":  30,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:48.912661+00:00",
+        "variants":  [
+                         {
+                             "ram":  "8GB",
+                             "batt":  "",
+                             "color":  "Gris",
+                             "price":  170,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-03.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-03.webp"
+                         },
+                         {
+                             "ram":  "8GB",
+                             "batt":  "",
+                             "color":  "Negro",
+                             "price":  170,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-04.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-04.webp"
+                         },
+                         {
+                             "ram":  "8GB",
+                             "batt":  "",
+                             "color":  "Blanco",
+                             "price":  170,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-05.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-05.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-03.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-04.webp",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-05.webp"
+                   ]
+    },
+    {
+        "id":  188,
+        "name":  "Tecno Spark 30",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark 30 nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  170,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-02.webp",
+        "brand":  "Tecno",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:48.646919+00:00",
+        "variants":  [
+                         {
+                             "ram":  "16GB",
+                             "batt":  "",
+                             "color":  "Negro",
+                             "price":  170,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-02.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-02.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-02.webp"
+                   ]
+    },
+    {
+        "id":  187,
+        "name":  "Tecno Spark 20 Pro",
+        "description":  "[Condición: Nuevo sellado] Tecno Spark 20 Pro nuevo y sellado. Elegí el color, la capacidad y la memoria RAM según las variantes disponibles. Fotos de cada color tomadas del catálogo mayorista o del material oficial de TECNO.",
+        "price":  160,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-01.webp",
+        "brand":  "Tecno",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-10-01T15:07:48.295093+00:00",
+        "variants":  [
+                         {
+                             "ram":  "16GB",
+                             "batt":  "",
+                             "color":  "Frosty Ivory",
+                             "price":  160,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Nuevo sellado",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-01.webp",
+                             "photo_key":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-01.webp"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/tecno-mayorista-2026-09-28/tecno-01.webp"
+                   ]
+    },
+    {
+        "id":  124,
+        "name":  "iPhone 17 Pro Max",
+        "description":  "[Condición: Americano] iPhone 17 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  1360,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-13.jpg",
+        "brand":  "Apple",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:37.045807+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Naranja",
+                             "price":  1360,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-13.jpg",
+                             "photo_key":  "sha256:73c7abe5259caa348176917a943b8edd4902ec85cb9436d06a03053a02c5c7a9"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-13.jpg"
+                   ]
+    },
+    {
+        "id":  121,
+        "name":  "iPhone 17 Pro",
+        "description":  "[Condición: Americano] iPhone 17 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  1050,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-10.jpg",
+        "brand":  "Apple",
+        "stock":  30,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:34.525994+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  1050,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-10.jpg",
+                             "photo_key":  "sha256:a3d364f18abfb5e0f0a8e04929b8e87f5a8e1d7b3be9617bc2ac1ab48dd4cefc"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Naranja",
+                             "price":  1050,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-11.jpg",
+                             "photo_key":  "sha256:043ea4f62acc94f44d0464540d2f4cc249726db9a66af182b6c3387039323ef7"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Naranja",
+                             "price":  1050,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-12.jpg",
+                             "photo_key":  "sha256:76b0d6d6c214475141e1bec1ae64eb7e9414705112f7ccfbeec57bbcb6ccfa3c"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-10.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-11.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-12.jpg"
+                   ]
+    },
+    {
+        "id":  120,
+        "name":  "iPhone 17",
+        "description":  "[Condición: Americano] iPhone 17 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  760,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-09.jpg",
+        "brand":  "Apple",
+        "stock":  10,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:33.664147+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  760,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-09.jpg",
+                             "photo_key":  "sha256:ed40d64cd6727b45c6c20f34c81815dd882a5c30aac7cceef072af12b2601600"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-09.jpg"
+                   ]
+    },
+    {
+        "id":  115,
+        "name":  "iPhone 16 Pro Max",
+        "description":  "[Condición: Americano] iPhone 16 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  810,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-04.jpg",
+        "brand":  "Apple",
+        "stock":  150,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:29.067833+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  1170,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Garantía Apple",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-04.jpg",
+                             "photo_key":  "sha256:13d52cff6a442573b3750369640ee98dcb2cd1601f66970a599b4f399a4867b9"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  890,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-05.jpg",
+                             "photo_key":  "sha256:b5450ca0a02e457d39d5d49316738c348164fc7359c4daaa301a7e6242881bb2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Blanco",
+                             "price":  890,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-06.jpg",
+                             "photo_key":  "sha256:f1fb6fb3d763f0105b0637b25e7d7926cce208862ef9aaa21356ce3ab2524e25"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio del Desierto",
+                             "price":  890,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-07.jpg",
+                             "photo_key":  "sha256:4568b320d417dfcf94b4286ce66dcb4ce9a5b830660ac729298ba60e20162a44"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Negro",
+                             "price":  930,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "AS IS · Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-08.jpg",
+                             "photo_key":  "sha256:49d65e89bcabf51b0273a2b34c31f989de0836d9642e9a9ddaff1ce9546b5f7c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio del Desierto",
+                             "price":  840,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-14.jpg",
+                             "photo_key":  "sha256:f4c405422b138d05b9976fc915ee5e1e7c1614e71759c168992a615d0475288f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  850,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-15.jpg",
+                             "photo_key":  "sha256:5ad7fdc1b85121ab0062e2838bf937c1a1fc99d2a7ebf02469ef555cf6b067db"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  920,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-16.jpg",
+                             "photo_key":  "sha256:db60854fd35210629b0e150e7d7f2dffdc30f2c46d8115f3872b7a21df8ec9f4"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  920,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-17.jpg",
+                             "photo_key":  "sha256:25f5a37b0bd36f8d4cc20a3749db6ff81c8a0a075c36910aece49fe61cf99f1b"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio del Desierto",
+                             "price":  930,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-18.jpg",
+                             "photo_key":  "sha256:d8b5b7b3946a69c621817c16ff0579bbec890501b676899f1576c651a8af53ba"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Blanco",
+                             "price":  830,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-19.jpg",
+                             "photo_key":  "sha256:ccba7ee5c9e88b8b11b48983902195467715e62a82c47a5e2feb19c8294ef46c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  830,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-20.jpg",
+                             "photo_key":  "sha256:0fb6e59fe06962eb0a58786ca3944884f181f4997e3b78cbf0e53a105c56fa35"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  810,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Grado A",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p09-01.jpg",
+                             "photo_key":  "sha256:773296f91124a98ff69eb1e32ce9b7732907674b2a5f84d6b7749192dd4df475"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Blanco",
+                             "price":  810,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Grado A",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-19.jpg",
+                             "photo_key":  "sha256:ccba7ee5c9e88b8b11b48983902195467715e62a82c47a5e2feb19c8294ef46c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio del Desierto",
+                             "price":  810,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Grado A",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p09-03.jpg",
+                             "photo_key":  "sha256:bc111182b5b325619e1635fecd3a5a3ae3225fd6d9530bb0d52e2b5d220fa9cd"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-04.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-05.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-06.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-07.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-08.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-14.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-15.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-17.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-19.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-20.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p09-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p09-03.jpg"
+                   ]
+    },
+    {
+        "id":  112,
+        "name":  "iPhone 16 Pro",
+        "description":  "[Condición: Americano] iPhone 16 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  730,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-01.jpg",
+        "brand":  "Apple",
+        "stock":  70,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:26.91926+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio del Desierto",
+                             "price":  820,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-01.jpg",
+                             "photo_key":  "sha256:21e5e047b82ab09f502f31219067308076b4ee23f21aac8a536c8edb6b049023"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio del Desierto",
+                             "price":  760,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-02.jpg",
+                             "photo_key":  "sha256:a2d645b1b0c8f65ed975e71a21d2486917d0215c678c6b5177aba183fdf76261"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio del Desierto",
+                             "price":  820,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "AS IS",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-03.jpg",
+                             "photo_key":  "sha256:0ad1dd7f4808f3552aefcb12ebfa717eca46efbab415a90fad44edf13746182d"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Blanco",
+                             "price":  730,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-10.jpg",
+                             "photo_key":  "sha256:f495aede20b62f986f030e59845d6a1a2fe5c3830934912dbbec7a0c8f4a970f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  730,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-11.jpg",
+                             "photo_key":  "sha256:ea8e3fdf8033b22b981a5a0bc2f864ce16ae33642bca66fbca0853df77d1e6ce"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio del Desierto",
+                             "price":  730,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-02.jpg",
+                             "photo_key":  "sha256:a2d645b1b0c8f65ed975e71a21d2486917d0215c678c6b5177aba183fdf76261"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  730,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Sin activar",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-13.jpg",
+                             "photo_key":  "sha256:9036b28f98f2ea4bcb85975e37c1c663e66eeaa3145cbe09a58d7147b02b5639"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p05-03.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-10.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-11.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-13.jpg"
+                   ]
+    },
+    {
+        "id":  108,
+        "name":  "iPhone 16",
+        "description":  "[Condición: Americano] iPhone 16 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  600,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-17.jpg",
+        "brand":  "Apple",
+        "stock":  60,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:24.343875+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Rosa",
+                             "price":  650,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-17.jpg",
+                             "photo_key":  "sha256:86fe1aa7fc7268fde3d39ed056de9ea57f9851686da6e1ae08d1f64c344c38ff"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  610,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-18.jpg",
+                             "photo_key":  "sha256:a44673cdfc667acfe6168000ba85ec1170a3be6a7df6a20683884949b286e423"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  650,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-19.jpg",
+                             "photo_key":  "sha256:554dfdbc09a9b5ff7d6fcfe6b7092896bc02c3998985f46dc9b57035681556c5"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  610,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-20.jpg",
+                             "photo_key":  "sha256:54a7c6d0e13a4f43a21d1c153d2c5647aa97bef5307315170b5e3ce4978e7ebe"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  610,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-19.jpg",
+                             "photo_key":  "sha256:554dfdbc09a9b5ff7d6fcfe6b7092896bc02c3998985f46dc9b57035681556c5"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Blanco",
+                             "price":  600,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-09.jpg",
+                             "photo_key":  "sha256:bec9c75b2bd18aa5a0d389d6669258155433fed49a672f5efa978de89d59358a"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-17.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-19.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-20.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-09.jpg"
+                   ]
+    },
+    {
+        "id":  103,
+        "name":  "iPhone 15 Pro Max",
+        "description":  "[Condición: Americano] iPhone 15 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  650,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-12.jpg",
+        "brand":  "Apple",
+        "stock":  80,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:19.843813+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  750,
+                             "stock":  10,
+                             "capacity":  "1TB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-12.jpg",
+                             "photo_key":  "sha256:4c86af596a2131186a53b67289cd4629fe3ab3971d9b9f9fdcecb1b066bd97af"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  670,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-13.jpg",
+                             "photo_key":  "sha256:c4fef451a877a09a2eba529109ee832cc0040387ba7bf8e1a1c643da74e72add"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Negro",
+                             "price":  670,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-14.jpg",
+                             "photo_key":  "sha256:a06e0deb1cb2aa378b20888cff08a240721a86af07e996e70223dc18c70958b2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Blanco",
+                             "price":  660,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-15.jpg",
+                             "photo_key":  "sha256:bfa104e58c7677db48a61778190995118528082c9fe05489b5046a642f90bf39"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Azul",
+                             "price":  670,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-16.jpg",
+                             "photo_key":  "sha256:18fc20e3e2a8153e18086a62171a4ef5a9a368e56952101fff27a09eb78a54b3"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  650,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-16.jpg",
+                             "photo_key":  "sha256:18fc20e3e2a8153e18086a62171a4ef5a9a368e56952101fff27a09eb78a54b3"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  660,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-05.jpg",
+                             "photo_key":  "sha256:7cdbb91aa0f1b782cec796125b05cb2588ffc323815a70ea970118462edfce0b"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Azul",
+                             "price":  660,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-16.jpg",
+                             "photo_key":  "sha256:18fc20e3e2a8153e18086a62171a4ef5a9a368e56952101fff27a09eb78a54b3"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-12.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-13.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-14.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-15.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p08-05.jpg"
+                   ]
+    },
+    {
+        "id":  95,
+        "name":  "iPhone 15 Pro",
+        "description":  "[Condición: Americano] iPhone 15 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  550,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-04.jpg",
+        "brand":  "Apple",
+        "stock":  140,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:11.910246+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-04.jpg",
+                             "photo_key":  "sha256:c4fef451a877a09a2eba529109ee832cc0040387ba7bf8e1a1c643da74e72add"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Negro",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-05.jpg",
+                             "photo_key":  "sha256:2d198e925a0f72368a1a3fdcf8e6ab3660b328437baaf1d1e542802f67cf35b2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Azul",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-06.jpg",
+                             "photo_key":  "sha256:17ef31ae490f49d07ef4299ac216e21746ad4b7699053daaab12e0fba834c04f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Blanco",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-07.jpg",
+                             "photo_key":  "sha256:c3f7d2e27bd7a1131b89e214813e58f62d9d0870586f8de14b72264baed52572"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Azul",
+                             "price":  600,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-06.jpg",
+                             "photo_key":  "sha256:17ef31ae490f49d07ef4299ac216e21746ad4b7699053daaab12e0fba834c04f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Negro",
+                             "price":  600,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-05.jpg",
+                             "photo_key":  "sha256:2d198e925a0f72368a1a3fdcf8e6ab3660b328437baaf1d1e542802f67cf35b2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Natural",
+                             "price":  600,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-04.jpg",
+                             "photo_key":  "sha256:c4fef451a877a09a2eba529109ee832cc0040387ba7bf8e1a1c643da74e72add"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Titanio Azul",
+                             "price":  580,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Con chip",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-11.jpg",
+                             "photo_key":  "sha256:44ef3e9580fe702432fffb120519f0314edfd65342c070967b839f8c000f55db"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  550,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-18.jpg",
+                             "photo_key":  "sha256:021848c3857d47d8c6bd4b413eef37db07ac1d147c5ae1bb063fcadd62ab7fd8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  610,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-19.jpg",
+                             "photo_key":  "sha256:ee169feb51ef3ee7891b934f5af00a0fd59d64d926f35e44f22e660bd129db8f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Blanco",
+                             "price":  550,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-07.jpg",
+                             "photo_key":  "sha256:c3f7d2e27bd7a1131b89e214813e58f62d9d0870586f8de14b72264baed52572"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Azul",
+                             "price":  550,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-06.jpg",
+                             "photo_key":  "sha256:17ef31ae490f49d07ef4299ac216e21746ad4b7699053daaab12e0fba834c04f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Natural",
+                             "price":  550,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-04.jpg",
+                             "photo_key":  "sha256:c4fef451a877a09a2eba529109ee832cc0040387ba7bf8e1a1c643da74e72add"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Titanio Negro",
+                             "price":  590,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-05.jpg",
+                             "photo_key":  "sha256:2d198e925a0f72368a1a3fdcf8e6ab3660b328437baaf1d1e542802f67cf35b2"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-04.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-05.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-06.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-07.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-11.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-19.jpg"
+                   ]
+    },
+    {
+        "id":  89,
+        "name":  "iPhone 15",
+        "description":  "[Condición: Americano] iPhone 15 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  440,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-18.jpg",
+        "brand":  "Apple",
+        "stock":  90,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:07.909721+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-18.jpg",
+                             "photo_key":  "sha256:ba6bbd60de75649edba16970e69ae0963b048be738336e804d9fdb314b671f78"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Verde",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-19.jpg",
+                             "photo_key":  "sha256:11903ff5294a94987a23c305a03a468b5e30e4578830896181419e67f1e7db85"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Amarillo",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-20.jpg",
+                             "photo_key":  "sha256:09e6cfbf95d960175a8acb4f8e00fe4c9a409932a12be1554c4df3aad4ecca02"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Rosa",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-01.jpg",
+                             "photo_key":  "sha256:93a7f3f0dc0e96a1ccdf016cbeaf80ef2b68ceeb740be79275f6faa3a7510aa8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-02.jpg",
+                             "photo_key":  "sha256:b6dc282a15c631ffdae6833bcea9223d2e91f6fc2354ca96a69044c694d1939f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Rosa",
+                             "price":  470,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Garantía Apple",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-01.jpg",
+                             "photo_key":  "sha256:93a7f3f0dc0e96a1ccdf016cbeaf80ef2b68ceeb740be79275f6faa3a7510aa8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  440,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-15.jpg",
+                             "photo_key":  "sha256:a04572dd6957ec11fa976bc85f41020d7ae5c622a3e10c02e144922a4ce99a6d"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Rosa",
+                             "price":  440,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-01.jpg",
+                             "photo_key":  "sha256:93a7f3f0dc0e96a1ccdf016cbeaf80ef2b68ceeb740be79275f6faa3a7510aa8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  440,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-02.jpg",
+                             "photo_key":  "sha256:b6dc282a15c631ffdae6833bcea9223d2e91f6fc2354ca96a69044c694d1939f"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-19.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-20.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p04-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-15.jpg"
+                   ]
+    },
+    {
+        "id":  83,
+        "name":  "iPhone 14 Pro Max",
+        "description":  "[Condición: Americano] iPhone 14 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  530,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-12.jpg",
+        "brand":  "Apple",
+        "stock":  60,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:59:02.546529+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  530,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-12.jpg",
+                             "photo_key":  "sha256:56173c7de9c9491d980a7a37e04d868bd4fad12d887fd57b428cc7bdf5c58ccd"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  530,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-13.jpg",
+                             "photo_key":  "sha256:823c73e4d7620afb52e971f773194117fd5695d19bda2c07fd526e13df7a2228"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  530,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-14.jpg",
+                             "photo_key":  "sha256:a38830613175bd151c59a90768f9bb645916053cdc47ec0cce8a294d7a07f7f8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-12.jpg",
+                             "photo_key":  "sha256:56173c7de9c9491d980a7a37e04d868bd4fad12d887fd57b428cc7bdf5c58ccd"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-16.jpg",
+                             "photo_key":  "sha256:8e17adec8083aa0b9511491977a199f9cee98de81cf07248472f9c6848bf2929"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  560,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-17.jpg",
+                             "photo_key":  "sha256:0fdb97df1c0f9861bae3204ee39b0361fb9c7aac9534faa047ce036ef9f70f22"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-12.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-13.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-14.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-17.jpg"
+                   ]
+    },
+    {
+        "id":  73,
+        "name":  "iPhone 14 Pro",
+        "description":  "[Condición: Americano] iPhone 14 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  450,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-02.jpg",
+        "brand":  "Apple",
+        "stock":  160,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:54.132818+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "ASLY",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-02.jpg",
+                             "photo_key":  "sha256:5265f6014bcb4f071e9fb82072a7b6eeca14547e8b11a423838bb298f9c07a63"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "ASLY",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-03.jpg",
+                             "photo_key":  "sha256:f3fb1a5f94182d3f12a8145f8a7408473c47d86179d99f5abd9c4dcb6cca2d2a"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  510,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-04.jpg",
+                             "photo_key":  "sha256:367e620ffec67683e0f604c727aa7f6fb52e5bf4fd7b70bf75f294bef800c3c5"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  470,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-05.jpg",
+                             "photo_key":  "sha256:6fd70d1796462b5cde0e8818e69616c6f159ceac104a4f71439756da2edc7040"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  470,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-06.jpg",
+                             "photo_key":  "sha256:74aafaabcb52d4add1f70a0d62a5ce7efaa9ea06730b84b08aaa88d7e2892b35"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  470,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-07.jpg",
+                             "photo_key":  "sha256:8d748761f3492500b653d12fc401275f4033ebcc23cd9fef7db6060de4091cf6"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  470,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-08.jpg",
+                             "photo_key":  "sha256:09efc9640aff0d055c0a1d2baab4977ee9ffa9cd3e6338176a3f91d601cea4c2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  510,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-05.jpg",
+                             "photo_key":  "sha256:6fd70d1796462b5cde0e8818e69616c6f159ceac104a4f71439756da2edc7040"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  510,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-06.jpg",
+                             "photo_key":  "sha256:74aafaabcb52d4add1f70a0d62a5ce7efaa9ea06730b84b08aaa88d7e2892b35"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  510,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-08.jpg",
+                             "photo_key":  "sha256:09efc9640aff0d055c0a1d2baab4977ee9ffa9cd3e6338176a3f91d601cea4c2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  460,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-08.jpg",
+                             "photo_key":  "sha256:09efc9640aff0d055c0a1d2baab4977ee9ffa9cd3e6338176a3f91d601cea4c2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Plata",
+                             "price":  460,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-07.jpg",
+                             "photo_key":  "sha256:8d748761f3492500b653d12fc401275f4033ebcc23cd9fef7db6060de4091cf6"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Oro",
+                             "price":  460,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-06.jpg",
+                             "photo_key":  "sha256:74aafaabcb52d4add1f70a0d62a5ce7efaa9ea06730b84b08aaa88d7e2892b35"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-12.jpg",
+                             "photo_key":  "sha256:e7d0198d5a2397ed59d9c234ad26daeb0d2d055c9cbff84771df878654e54e1a"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Plata",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-07.jpg",
+                             "photo_key":  "sha256:8d748761f3492500b653d12fc401275f4033ebcc23cd9fef7db6060de4091cf6"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Morado",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "eSIM",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-05.jpg",
+                             "photo_key":  "sha256:6fd70d1796462b5cde0e8818e69616c6f159ceac104a4f71439756da2edc7040"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-03.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-04.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-05.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-06.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-07.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-08.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-12.jpg"
+                   ]
+    },
+    {
+        "id":  69,
+        "name":  "iPhone 14",
+        "description":  "[Condición: Americano] iPhone 14 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  330,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-18.jpg",
+        "brand":  "Apple",
+        "stock":  80,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:50.861194+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-18.jpg",
+                             "photo_key":  "sha256:d170e5a5d8061ec9a9018f32edea6d912cfd660ba1b63d47fb31192d115d5529"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-19.jpg",
+                             "photo_key":  "sha256:1f91c35965d79090156e69f63a82e33c5246bb07f29442304fd57f1f287b2197"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-20.jpg",
+                             "photo_key":  "sha256:05d567646b2a97ca17a0425f2ae7820043d70786fb9371204820c8808b528530"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-01.jpg",
+                             "photo_key":  "sha256:8b5e1643970c382f94b0da3195d06d4b8f0c074280b2a1163c74e1c937b835d0"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Rojo",
+                             "price":  330,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-05.jpg",
+                             "photo_key":  "sha256:0c764b338b30b046a92b7686f3a57e33cc19becb9308f66eca358dc638995b03"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Morado",
+                             "price":  330,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-18.jpg",
+                             "photo_key":  "sha256:d170e5a5d8061ec9a9018f32edea6d912cfd660ba1b63d47fb31192d115d5529"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Blanco",
+                             "price":  350,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-07.jpg",
+                             "photo_key":  "sha256:23e871c974b0648ff3b7d2f6812c9a16a78ddcc7ed65abfad473f66c356c7615"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  330,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-01.jpg",
+                             "photo_key":  "sha256:8b5e1643970c382f94b0da3195d06d4b8f0c074280b2a1163c74e1c937b835d0"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-19.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-20.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p03-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-05.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-07.jpg"
+                   ]
+    },
+    {
+        "id":  61,
+        "name":  "iPhone 13 Pro Max",
+        "description":  "[Condición: Americano] iPhone 13 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  440,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-10.jpg",
+        "brand":  "Apple",
+        "stock":  120,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:44.558745+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-10.jpg",
+                             "photo_key":  "sha256:487c57965f7168bd11e07eadbd810a8c8c9bddb78b6439ac435ec3d8538962df"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-11.jpg",
+                             "photo_key":  "sha256:c381131be00394cf303d7c1f1e28d7d415b43901a25216cc7b47b16b07999288"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-12.jpg",
+                             "photo_key":  "sha256:e367c46d58fb69159901148a38ff113e23636003b0405c9f8dcbc42518512e21"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-13.jpg",
+                             "photo_key":  "sha256:bb366702b15c27b287bffd8bf075bdc74b668c4d45468c3dba8ce85f15f015a8"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-14.jpg",
+                             "photo_key":  "sha256:2d7cf5279340c23762143a96f4d2a29aa457122679a7129d545680c3df1e91b4"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-15.jpg",
+                             "photo_key":  "sha256:b85e9236e0f5ab8c4ed41757f31a4f22e0456e797cf1582e46300ec6094feffc"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-16.jpg",
+                             "photo_key":  "sha256:95e1b9bb9be162098515c68eb6d744b01210977f4d3b9c9cbbc090454e764ed7"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  450,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-17.jpg",
+                             "photo_key":  "sha256:30c5db5b8a85687be8a0d81cff9eb82654838a5c464652d450d5588f73c44b9a"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Plata",
+                             "price":  440,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-10.jpg",
+                             "photo_key":  "sha256:487c57965f7168bd11e07eadbd810a8c8c9bddb78b6439ac435ec3d8538962df"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Verde",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-02.jpg",
+                             "photo_key":  "sha256:ad2494f57eb1c03af716bdcf0cd36a08f6b70d917d775374a20d2b33fa41dd5d"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Oro",
+                             "price":  500,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-03.jpg",
+                             "photo_key":  "sha256:1c36e612249667d4b0e3bfd35c0ab31908067874df65c8f40e61f92a9b019f2a"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Rosa",
+                             "price":  490,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-04.jpg",
+                             "photo_key":  "sha256:2b241ebcaa60cdd80a59f28b515afbe93f6309408b45fa7d6119b3cc1e4048d9"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-10.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-11.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-12.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-13.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-14.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-15.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-17.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-03.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p07-04.jpg"
+                   ]
+    },
+    {
+        "id":  53,
+        "name":  "iPhone 13 Pro",
+        "description":  "[Condición: Americano] iPhone 13 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  400,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-01.jpg",
+        "brand":  "Apple",
+        "stock":  100,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:38.11918+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  430,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-01.jpg",
+                             "photo_key":  "sha256:3eac7606068da689f43c0060aca0079f0f284edea4bd8d515320c60af83f9dd9"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  410,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-02.jpg",
+                             "photo_key":  "sha256:30c5db5b8a85687be8a0d81cff9eb82654838a5c464652d450d5588f73c44b9a"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  410,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-03.jpg",
+                             "photo_key":  "sha256:84371498cf231b8dbda0cc344b3bfa668674333fa77724bf231180b2cc72f503"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  410,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-04.jpg",
+                             "photo_key":  "sha256:64cd37bec070491dad9385b3f87dfb21bdd898fa4ac301a8f0fa835a7001fafa"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Verde",
+                             "price":  410,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-05.jpg",
+                             "photo_key":  "sha256:ad2494f57eb1c03af716bdcf0cd36a08f6b70d917d775374a20d2b33fa41dd5d"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  410,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-06.jpg",
+                             "photo_key":  "sha256:ec76796f9d3f7b25cc2ba063539db460b527c29876f94dfe269a932894016b9e"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Verde",
+                             "price":  430,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-07.jpg",
+                             "photo_key":  "sha256:0702cb45a32a40060ac79312e96e300f11d100a68a1dd7d249fffeb468ff28b4"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Plata",
+                             "price":  440,
+                             "stock":  10,
+                             "capacity":  "512GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-09.jpg",
+                             "photo_key":  "sha256:e7ae741b078a4043f641724cef6ed3b43dbf1a4167ac7b7e3c2ef18e11fa39c5"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  400,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-04.jpg",
+                             "photo_key":  "sha256:64cd37bec070491dad9385b3f87dfb21bdd898fa4ac301a8f0fa835a7001fafa"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  420,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-20.jpg",
+                             "photo_key":  "sha256:1f2031e479eeed02fa051779e64f311d81b91100f8a430fbf80ca8317a9a588a"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-03.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-04.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-05.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-06.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-07.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p02-09.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-20.jpg"
+                   ]
+    },
+    {
+        "id":  52,
+        "name":  "iPhone 13 mini",
+        "description":  "[Condición: Americano] iPhone 13 mini americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  220,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-20.jpg",
+        "brand":  "Apple",
+        "stock":  40,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:37.540872+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Rosa",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-20.jpg",
+                             "photo_key":  "sha256:3eab7bc8acfa0c0b7b0d382ad1759077a29bcb30eacaaee42f5d1ff6c24a9966"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Rosa",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-16.jpg",
+                             "photo_key":  "sha256:30d0c257e4f5834835f70886b06c890c0ce86affe3ee4264724d9065d0c7f3fa"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-17.jpg",
+                             "photo_key":  "sha256:fb1865a9481bbc61a99af3c698d9a79f2ae8129918c4db7f7678d6d5fe905ede"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Blanco",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-18.jpg",
+                             "photo_key":  "sha256:b2b48334ba3a18e7617731510e50c53ba17e3082b2ba0508fae34ac23a6b56f3"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-20.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-17.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-18.jpg"
+                   ]
+    },
+    {
+        "id":  48,
+        "name":  "iPhone 13",
+        "description":  "[Condición: Americano] iPhone 13 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  310,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-16.jpg",
+        "brand":  "Apple",
+        "stock":  90,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:34.382852+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-16.jpg",
+                             "photo_key":  "sha256:8a6cf62c8737109b065c3481523a4f893d70b2770d201be4b32fef1690f43aa6"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-17.jpg",
+                             "photo_key":  "sha256:6183351d01dc38a7b171005602aac5d651e749104aff7fb140198df146887d8f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-18.jpg",
+                             "photo_key":  "sha256:571a197c6136df176c2cf4f7b1dae56bd04afb4bac58a5543b06b7db06cd5605"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Rosa",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-19.jpg",
+                             "photo_key":  "sha256:7b6e1a70819b195b8ee157d5cfe27a3b7222afc982858ef8d94f7e3564292651"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-16.jpg",
+                             "photo_key":  "sha256:8a6cf62c8737109b065c3481523a4f893d70b2770d201be4b32fef1690f43aa6"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Blanco",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-18.jpg",
+                             "photo_key":  "sha256:571a197c6136df176c2cf4f7b1dae56bd04afb4bac58a5543b06b7db06cd5605"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Rosa",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-19.jpg",
+                             "photo_key":  "sha256:7b6e1a70819b195b8ee157d5cfe27a3b7222afc982858ef8d94f7e3564292651"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  310,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-17.jpg",
+                             "photo_key":  "sha256:6183351d01dc38a7b171005602aac5d651e749104aff7fb140198df146887d8f"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  380,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-15.jpg",
+                             "photo_key":  "sha256:a83624e95c51f7e193fc26c4d2649a6eaf27882fa8a71526c063936e9e523dab"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-16.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-17.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-18.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-19.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-15.jpg"
+                   ]
+    },
+    {
+        "id":  44,
+        "name":  "iPhone 12 Pro Max",
+        "description":  "[Condición: Americano] iPhone 12 Pro Max americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  330,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-12.jpg",
+        "brand":  "Apple",
+        "stock":  50,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:30.351005+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-12.jpg",
+                             "photo_key":  "sha256:5a7f95c7f515717081c4d101fb56ad093f1d4ca2c88e4cc43803031dac73a557"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-13.jpg",
+                             "photo_key":  "sha256:ccc061fbf6e962274f271a01c236678ca49a540143933ae98d31e4a5d7ea66c3"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-14.jpg",
+                             "photo_key":  "sha256:d37e3402124b2146effdd0652939cb909999825c628803dd34cd6d3b53dc3867"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  340,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-15.jpg",
+                             "photo_key":  "sha256:210ec439cf8b6e75237afdf817de7b89f3eb80ea8e782fc7c09b3803fbf6d1f9"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  330,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-10.jpg",
+                             "photo_key":  "sha256:99f529af34e4ed1a5acff8ff03bfcbab64a241768d4bfa2484ea7f1d824852ba"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-12.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-13.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-14.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-15.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-10.jpg"
+                   ]
+    },
+    {
+        "id":  41,
+        "name":  "iPhone 12 Pro",
+        "description":  "[Condición: Americano] iPhone 12 Pro americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  300,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-09.jpg",
+        "brand":  "Apple",
+        "stock":  70,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:28.003304+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  300,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-09.jpg",
+                             "photo_key":  "sha256:ab9bb1cb871a682bc56a8322068705ec925089769f88b0f596f8a764fd2ecb3c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  300,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-10.jpg",
+                             "photo_key":  "sha256:5d3f1025dc96f705df8fb80a38ef4f85dd38a67cb5a4dbfdffe0011149ce309c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Oro",
+                             "price":  300,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-11.jpg",
+                             "photo_key":  "sha256:9319371d95522ba2b1be2e90250eb2e3a2091c7c48f40e9a7d9de455047ee1fa"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  300,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-09.jpg",
+                             "photo_key":  "sha256:ab9bb1cb871a682bc56a8322068705ec925089769f88b0f596f8a764fd2ecb3c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Oro",
+                             "price":  300,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-11.jpg",
+                             "photo_key":  "sha256:9319371d95522ba2b1be2e90250eb2e3a2091c7c48f40e9a7d9de455047ee1fa"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Azul",
+                             "price":  320,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-09.jpg",
+                             "photo_key":  "sha256:ab9bb1cb871a682bc56a8322068705ec925089769f88b0f596f8a764fd2ecb3c"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Plata",
+                             "price":  320,
+                             "stock":  10,
+                             "capacity":  "256GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-09.jpg",
+                             "photo_key":  "sha256:0278e2cc5a2fb984e644744db1f66e8b94f14d789c103c41e907a49ee32ddbbf"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-09.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-10.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-11.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p06-09.jpg"
+                   ]
+    },
+    {
+        "id":  33,
+        "name":  "iPhone 12",
+        "description":  "[Condición: Americano] iPhone 12 americano. Elegí color, almacenamiento, condición de batería y tipo en las variantes. Las fotos corresponden a los equipos de la lista del proveedor.",
+        "price":  220,
+        "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-01.jpg",
+        "brand":  "Apple",
+        "stock":  130,
+        "is_offer":  false,
+        "created_at":  "2026-09-29T11:58:22.492657+00:00",
+        "variants":  [
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Verde",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-01.jpg",
+                             "photo_key":  "sha256:bf6a7bff81203abe1a5177de2f275bda74b3ae1c9403f6f7a6ad276ede92d1d0"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-02.jpg",
+                             "photo_key":  "sha256:893e7a1ab84be084b063b32533efb9cc0702e41e56dddc5bb78a6d73342ac747"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-03.jpg",
+                             "photo_key":  "sha256:6837e8ce7e8e2727f7a15e6a7d46d5bd91b50d92ce9f1f3e86120450940d9775"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-04.jpg",
+                             "photo_key":  "sha256:195ada029bb0c13221a50caeb5ecdbd5cee357d7a359b898615b91d317f37ad1"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Azul",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-05.jpg",
+                             "photo_key":  "sha256:20c4086e617c07390bd1e5e9d9113dcc775d217539efe1ea5b823d745e2fedc2"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Blanco",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-04.jpg",
+                             "photo_key":  "sha256:195ada029bb0c13221a50caeb5ecdbd5cee357d7a359b898615b91d317f37ad1"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Negro",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-03.jpg",
+                             "photo_key":  "sha256:6837e8ce7e8e2727f7a15e6a7d46d5bd91b50d92ce9f1f3e86120450940d9775"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "100%",
+                             "color":  "Morado",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-02.jpg",
+                             "photo_key":  "sha256:893e7a1ab84be084b063b32533efb9cc0702e41e56dddc5bb78a6d73342ac747"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Negro",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-03.jpg",
+                             "photo_key":  "sha256:6837e8ce7e8e2727f7a15e6a7d46d5bd91b50d92ce9f1f3e86120450940d9775"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Blanco",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-04.jpg",
+                             "photo_key":  "sha256:195ada029bb0c13221a50caeb5ecdbd5cee357d7a359b898615b91d317f37ad1"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Verde",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-01.jpg",
+                             "photo_key":  "sha256:bf6a7bff81203abe1a5177de2f275bda74b3ae1c9403f6f7a6ad276ede92d1d0"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Morado",
+                             "price":  250,
+                             "stock":  10,
+                             "capacity":  "128GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-02.jpg",
+                             "photo_key":  "sha256:893e7a1ab84be084b063b32533efb9cc0702e41e56dddc5bb78a6d73342ac747"
+                         },
+                         {
+                             "ram":  "",
+                             "batt":  "80%",
+                             "color":  "Verde",
+                             "price":  220,
+                             "stock":  10,
+                             "capacity":  "64GB",
+                             "condition":  "Americano",
+                             "image_url":  "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-01.jpg",
+                             "photo_key":  "sha256:bf6a7bff81203abe1a5177de2f275bda74b3ae1c9403f6f7a6ad276ede92d1d0"
+                         }
+                     ],
+        "category":  "celulares",
+        "archived_at":  null,
+        "images":  [
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-01.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-02.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-03.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-04.jpg",
+                       "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/iphone-p01-05.jpg"
+                   ]
+    }
+]

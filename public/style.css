@@ -1527,6 +1527,16 @@ footer {
 }
 .fav-btn:hover { transform: scale(1.1); color: #ff4757; }
 .fav-btn.active { color: #ff4757; }
+.product-card .fav-btn { width: 44px !important; height: 44px !important; padding: 0 !important; color: #59646f !important; border: 1px solid #cbd2d9 !important; background: #fff !important; box-shadow: none !important; }
+.product-card .fav-btn.active { color: #a3293a !important; background: #fbeef0 !important; border-color: #a3293a !important; }
+.fav-btn:hover { transform: none; }
+.fav-btn:focus-visible { outline: 2px solid #202428; outline-offset: 3px; }
+.favorite-marker { display: block; color: #a3293a; font-size: .8rem; font-weight: 600; margin: -.5rem 0 .75rem; }
+.favorite-marker[hidden] { display: none; }
+.product-page .favorite-detail-button { position: static; width: auto; min-height: 44px; height: auto; padding: .75rem 1rem; gap: .6rem; border-radius: 8px; border: 1px solid #cbd2d9; background: #fff; color: #202428; font: inherit; font-size: .9rem; text-transform: none; letter-spacing: normal; }
+.product-page .favorite-detail-button.active { color: #a3293a; border-color: #a3293a; background: #fbeef0; }
+.official-image-frame { position: relative; overflow: hidden; background: #fff !important; }
+.official-image-frame img.image-framed { position: absolute !important; width: var(--image-width) !important; height: var(--image-height) !important; left: var(--image-left); top: var(--image-top); max-width: none !important; padding: 0 !important; object-fit: fill !important; transform: none !important; }
 .dark-mode .fav-btn { background: rgba(0, 0, 0, 0.5); }
 
 /* Gallery Thumbnails */

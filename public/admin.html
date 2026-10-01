@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin | PhoneSpot</title>
     <link rel="stylesheet" href="admin-offers.css?v=f19f865950d4">
-    <link rel="stylesheet" href="style.css?v=664178160001">
+    <link rel="stylesheet" href="style.css?v=94fc569441c8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #f4f5f7; }
@@ -31,8 +31,8 @@
         .slide-item { border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; background: #fafafa;}
         .slide-info h5 { margin-bottom: 0.2rem; }
         .slide-info p { font-size: 0.8rem; color: var(--text-muted); }
-        .btn-danger { background: #ff4757; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; }
-        .btn-danger:hover { background: #ff6b81; }
+        .btn-danger { background: #a3293a; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; }
+        .btn-danger:hover { background: #832130; }
         
         /* Ocultar secciones dinamicamente */
         .admin-section { display: none; }
@@ -60,8 +60,9 @@
 
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
+    <link rel="stylesheet" href="admin-ui.css?v=60e16d17af6e">
 </head>
-<body>
+<body class="admin-page">
     <div id="admin-session-check" role="status">Comprobando sesión del administrador…</div>
     
     <div class="admin-layout">
@@ -75,7 +76,7 @@
                 <li><a href="#" onclick="switchTab('tab-stats', event)"><i class="fa-solid fa-chart-line"></i> Estadísticas</a></li>
                 <li><a href="#" onclick="switchTab('tab-design', event)"><i class="fa-solid fa-wand-magic-sparkles"></i> Diseño y Banners</a></li>
                 <li style="margin-top: 2rem;"><a href="index.html"><i class="fa-solid fa-store"></i> Ver Tienda</a></li>
-                <li><a href="#" id="btn-logout" style="color: #ff4757;"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+                <li><a href="#" id="btn-logout" style="color: #ffb3bd;"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
             </ul>
         </aside>
 
@@ -85,7 +86,7 @@
             <div style="display:flex; align-items:center; gap: 1rem;">
                 <h3>Panel de Control</h3>
                 </div>
-                <div><span style="background:#e3fce0; color:#555555; padding: 0.5rem 1rem; border-radius: 20px; font-weight:bold; font-size:0.9rem;">Conectado a la Base de Datos</span></div>
+                <div><span style="color:#59646f; font-size:.9rem;">Administración de la tienda</span></div>
             </div>
 
             <!-- TAB: PRODUCTOS -->
@@ -174,6 +175,10 @@
                     <h4><i class="fa-solid fa-list"></i> Productos Actuales</h4>
                     <p style="color: var(--text-muted); margin-bottom: 1rem; font-size:0.9rem;">Gestiona el catálogo actual. Aquí puedes borrar productos o actualizar su stock rápidamente.</p>
                     <p style="color:#555; font-size:.9rem; line-height:1.5; margin-bottom:1rem;">Podés poner en oferta o quitar la oferta de cualquier producto publicado. Si querés cambiar el precio, usá Guardar Info o los precios de Variantes/Colores.</p>
+                    <div class="admin-list-tools">
+                        <input type="search" id="admin-product-search" aria-label="Buscar productos publicados" placeholder="Buscar un producto publicado…">
+                        <span id="admin-product-count" role="status" aria-live="polite"></span>
+                    </div>
                     <div id="admin-product-list">
                         <!-- Se llena con JS -->
                         <p>Cargando productos...</p>
@@ -403,8 +408,11 @@
         }
     </script>
     <script src="admin-offers.js?v=9fbe58032c62"></script>
+    <script src="admin-ui.js?v=1bd4992ac4b9"></script>
+    <script src="favorites-ui.js?v=9ea0335c5263"></script>
+    <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
-    <script src="script.js?v=00f404b26059"></script>
+    <script src="script.js?v=de6d7077c02f"></script>
 
     <!-- FAVORITES SIDEBAR -->
     <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>
