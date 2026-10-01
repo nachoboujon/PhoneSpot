@@ -111,6 +111,8 @@ window.setProductImage = (url) => {
     const main = document.getElementById('main-product-img');
     if (!main || !url) return;
     main.src = window.getFullImageUrl(url);
+    const caption = document.getElementById('product-image-caption');
+    if (caption) caption.hidden = !main.src.includes('/uploads/official-products/');
     document.querySelectorAll('.gallery-thumb').forEach(button => {
         button.classList.toggle('active', button.dataset.image === main.src);
     });
@@ -851,7 +853,8 @@ async function loadProductsFromDB() {
             if (!prod.is_offer && catalogCount >= 8) return;
 
             const priceFormatted = `${window.formatPrice(parseFloat(prod.price))}`;
-            const oldPrice = parseFloat(prod.price) * 1.2; 
+            const hasOffer = Boolean(prod.is_offer && Number(prod.old_price) > Number(prod.price));
+            const discount = hasOffer ? Math.round((1 - Number(prod.price) / Number(prod.old_price)) * 100) : 0;
             const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';
 
             
@@ -920,7 +923,7 @@ async function loadProductsFromDB() {
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
-                            ${(typeof hasOffer !== 'undefined' && hasOffer) || prod.is_offer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price || prod.price*1.2))}</p>` : ''}
+                            ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
                             <p class="price card-price" style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
                         
@@ -1350,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const cardMarkup = [];
             filtered.forEach((prod, index) => {
                 const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
-                const hasOffer = prod.old_price && Number(prod.old_price) > Number(prod.price);
+                const hasOffer = Boolean(prod.is_offer && Number(prod.old_price) > Number(prod.price));
                 const discount = hasOffer ? Math.round((1 - (Number(prod.price)/Number(prod.old_price))) * 100) : 0;
                 
                 // Build Fav Icon
@@ -1424,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div class="card-price-wrap" style="margin-bottom: 1.5rem;">
-                            ${(typeof hasOffer !== 'undefined' && hasOffer) || prod.is_offer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price || prod.price*1.2))}</p>` : ''}
+                            ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
                             <p class="price card-price" style="color: var(--text-color); font-weight: 900; font-size: 1.4rem; margin: 0;">${window.formatPrice(Number(prod.price))}</p>
                         </div>
                         
@@ -1655,8 +1658,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-gallery">
                                 <div class="product-gallery-main">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                    <img id="main-product-img" src="${image}" alt="${prod.name}">
+                                    <img id="main-product-img" src="${image}" alt="${prod.name}" fetchpriority="high" decoding="async">
                                 </div>
+                                <p id="product-image-caption" class="photo-color-note" ${image.includes('/uploads/official-products/') ? '' : 'hidden'}>Imagen oficial de referencia. El estado del equipo se indica en su descripción.</p>
                                 <div class="gallery-thumbnails" ${galleryPhotos.length < 2 ? 'hidden' : ''}>
                                     ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb ${i===0?'active':''}" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
                                 </div>
@@ -2685,7 +2689,7 @@ const checkoutForm = document.getElementById('checkout-form');
         if (productListContainer) {
             window.loadAdminProducts = async () => {
                 try {
-                    const res = await fetch(window.API_URL + '/api/products');
+                    const res = await fetch(window.API_URL + '/api/products?images=original');
                     const prods = await res.json();
                     productListContainer.innerHTML = '';
                     if(prods.length === 0) {
@@ -2718,6 +2722,11 @@ const checkoutForm = document.getElementById('checkout-form');
                                         <button onclick="uploadProductImages(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem;">Subir fotos</button>
                                         <button onclick="deleteProduct(${p.id})" class="btn-danger" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash"></i></button>
                                     </div>
+                                </div>
+                                <div class="admin-offer-controls">
+                                    <span class="admin-offer-state">${p.is_offer ? 'Publicado en Ofertas del Día' : 'No está en oferta'}</span>
+                                    <button type="button" class="admin-offer-button" aria-pressed="${Boolean(p.is_offer)}" onclick="toggleProductOffer(this, ${p.id})">${p.is_offer ? 'Quitar oferta' : 'Poner en oferta'}</button>
+                                    <span class="admin-offer-status" role="status" aria-live="polite"></span>
                                 </div>
                                 <div id="variants-edit-${p.id}" style="display:none; padding:1rem; background:var(--bg-color); border-radius:8px; border:1px dashed var(--border-color);">
                                     <h6 style="margin-bottom:0.5rem;">Variantes (Colores/Capacidad)</h6>

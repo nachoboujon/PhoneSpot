@@ -1,0 +1,163 @@
+[
+  {
+    "model": "Tecno Spark 20 Pro",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-20-pro/",
+    "photos": []
+  },
+  {
+    "model": "Tecno Spark 30",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-30/",
+    "photos": [
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark30_kl6/kl6/800%2A800/KL6%20bai.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark30_kl6/kl6/800%2A800/KL6%20he.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  },
+  {
+    "model": "Tecno Spark 40",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-40/",
+    "photos": [
+      {
+        "color": "Ink Black",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark-40/5_5N-black.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Titanium Grey",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark-40/5_5N-grey.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Veil White",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark-40/5_5N-white.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Mirage Blue",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark-40/5_5N-blue.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Sunlight Orange",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark-40/5_5N-orange.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  },
+  {
+    "model": "Tecno Spark 50",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-50/",
+    "photos": [
+      {
+        "color": "Halo Blue",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/halo-blue.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Neo Titanium",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/Titanium-Grey.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Ink Black",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/ink-black.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Aurora Purple",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/aurora-puple.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Bloom Pink",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/bloom-pink.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Dynamic Orange",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/spark50_kn4_kn4n/800%2A800/orange.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  },
+  {
+    "model": "Tecno Spark Go 1",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-go-1/",
+    "photos": [
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo1%26pop9/banner%26800%2A800/800/Spark%20%E9%BB%91.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo1%26pop9/banner%26800%2A800/800/Spark%20%E7%99%BD.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  },
+  {
+    "model": "Tecno Spark Go 1S",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-go-1s/",
+    "photos": [
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo1%26pop9/banner%26800%2A800/800/Spark%20%E9%BB%91.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo1%26pop9/banner%26800%2A800/800/Spark%20%E7%99%BD.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  },
+  {
+    "model": "Tecno Spark Go 3",
+    "page": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/spark-go-3/",
+    "photos": [
+      {
+        "color": "Ink Black",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo3-pop20/800%2A800/KN3-%E9%BB%91%E8%89%B2.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Titanium Grey",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo3-pop20/800%2A800/KN3-%E9%92%9B%E8%89%B2.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Aurora Purple",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo3-pop20/800%2A800/KN3-%E6%B7%A1%E7%B4%AB%E8%89%B2.png",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "color": "Galaxy Blue",
+        "source": "https://d13pvy8xd75yde.cloudfront.net/global/sparkgo3-pop20/800%2A800/KN3-%E6%B7%B1%E8%93%9D%E8%89%B2.png",
+        "width": 800,
+        "height": 800
+      }
+    ]
+  }
+]

@@ -138,6 +138,15 @@
         ],
         "createdAt": "2026-10-01T15:11:37.662Z",
         "reason": "Agent verified catalog filters and cart opening/closing at 1440 and 390px without horizontal overflow. Root horizontal clipping contains closed fixed sidebars and does not clip the controls."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "scripts/maintenance/audit-tecno-official-images.js"
+        ],
+        "createdAt": "2026-10-01T18:17:07.966Z",
+        "reason": "Agent: HTML tag matching regex in a read-only manufacturer asset audit; no rendered img elements"
       }
     ]
   }

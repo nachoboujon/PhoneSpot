@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin | PhoneSpot</title>
+    <link rel="stylesheet" href="admin-offers.css?v=f19f865950d4">
     <link rel="stylesheet" href="style.css?v=664178160001">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -172,6 +173,7 @@
                 <div class="admin-card" style="margin-top: 2rem;">
                     <h4><i class="fa-solid fa-list"></i> Productos Actuales</h4>
                     <p style="color: var(--text-muted); margin-bottom: 1rem; font-size:0.9rem;">Gestiona el catálogo actual. Aquí puedes borrar productos o actualizar su stock rápidamente.</p>
+                    <p style="color:#555; font-size:.9rem; line-height:1.5; margin-bottom:1rem;">Podés poner en oferta o quitar la oferta de cualquier producto publicado. Si querés cambiar el precio, usá Guardar Info o los precios de Variantes/Colores.</p>
                     <div id="admin-product-list">
                         <!-- Se llena con JS -->
                         <p>Cargando productos...</p>
@@ -400,8 +402,9 @@
             triggerEvent.currentTarget.classList.add('active');
         }
     </script>
+    <script src="admin-offers.js?v=9fbe58032c62"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
-    <script src="script.js?v=8a96f30c8c6c"></script>
+    <script src="script.js?v=00f404b26059"></script>
 
     <!-- FAVORITES SIDEBAR -->
     <div id="fav-sidebar-overlay" onclick="toggleFavSidebar()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1050; opacity: 0; visibility: hidden; transition: 0.3s;"></div>

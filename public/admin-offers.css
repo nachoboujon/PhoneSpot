@@ -1,0 +1,9 @@
+.admin-offer-controls { display: flex; flex-wrap: wrap; align-items: center; align-self: stretch; gap: .75rem 1rem; padding-top: 1rem; border-top: 1px solid #dedfe1; }
+.admin-offer-controls .admin-offer-state { font-size: .9rem; color: #333; }
+.admin-offer-controls .admin-offer-button { min-height: 44px; padding: .65rem 1rem; border: 1px solid #202428; border-radius: 8px; background: #202428; color: #fff; font: inherit; font-size: .9rem; text-transform: none; letter-spacing: normal; transition: background-color .18s ease; }
+.admin-offer-controls .admin-offer-button:hover { background: #39424a; color: #fff; transform: none; box-shadow: none; }
+.admin-offer-controls .admin-offer-button:focus-visible { outline: 2px solid #202428; outline-offset: 3px; }
+.admin-offer-controls .admin-offer-button:disabled { opacity: .65; cursor: progress; }
+.admin-offer-controls .admin-offer-status { flex-basis: 100%; color: #333; font-size: .9rem; line-height: 1.5; }
+.admin-offer-controls .admin-offer-status:empty { display: none; }
+@media (prefers-reduced-motion: reduce) { .admin-offer-controls .admin-offer-button { transition: none; } }

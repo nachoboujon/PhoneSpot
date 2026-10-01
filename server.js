@@ -189,8 +189,8 @@ const variantNameFor = (variant) => [
     variant.condition ? `Cond: ${variant.condition}` : null
 ].filter(Boolean).join(' - ');
 
-const publicProduct = (product) => {
-    return normalizeProductImages({...product, variants: parseVariants(product.variants)});
+const publicProduct = (product, options) => {
+    return normalizeProductImages({...product, variants: parseVariants(product.variants)}, options);
 };
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
@@ -872,7 +872,7 @@ app.get('/api/products', async (req, res) => {
         if (expiryError) throw expiryError;
         const { data, error } = await supabase.from('products').select('*').is('archived_at', null).order('created_at', { ascending: false });
         if (error) throw error;
-        res.json(data.map(publicProduct));
+        res.json(data.map(product => publicProduct(product, {official: req.query.images !== 'original'})));
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -1580,9 +1580,14 @@ app.delete('/api/products/:id', authenticate, isAdmin, async (req, res) => {
 app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        const { stock, price, variants, description } = req.body;
+        if (!/^\d+$/.test(id) || !Number.isSafeInteger(Number(id)) || Number(id) <= 0) return res.status(400).json({ error: 'ID de producto inválido' });
+        const { stock, price, variants, description, is_offer } = req.body;
         
         const updateData = {};
+        if (is_offer !== undefined) {
+            if (typeof is_offer !== 'boolean') return res.status(400).json({ error: 'El estado de oferta debe ser verdadero o falso.' });
+            updateData.is_offer = is_offer;
+        }
         if (description !== undefined) updateData.description = description;
         if (stock !== undefined) {
             const parsedStock = Number(stock);
@@ -1602,10 +1607,11 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         }
         if (Object.keys(updateData).length === 0) return res.status(400).json({ error: 'No hay datos para actualizar' });
         
-        const { data: updatedProducts, error } = await supabase.from('products').update(updateData).eq('id', id).select('id, name, stock');
+        const { data: updatedProducts, error } = await supabase.from('products').update(updateData).eq('id', id).is('archived_at', null).select('id, name, stock, is_offer');
         if (error) throw error;
-        void notifyStockAlerts(updatedProducts?.[0]);
-        res.json({ message: 'Producto actualizado' });
+        if (!updatedProducts?.length) return res.status(404).json({ error: 'Producto no encontrado.' });
+        if (stock !== undefined || variants !== undefined) void notifyStockAlerts(updatedProducts[0]);
+        res.json({ message: 'Producto actualizado', is_offer: updatedProducts[0].is_offer });
     } catch (error) {
         console.error('Error PUT product:', error);
         res.status(500).json({ error: error.message });
