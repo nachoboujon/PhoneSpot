@@ -1,0 +1,23 @@
+{
+  "source": "TECNO MAYORISTA.pdf, lista del 28/09/2026",
+  "condition": "Nuevo sellado",
+  "markupUsd": 30,
+  "roundToUsd": 10,
+  "stockPerVariant": 10,
+  "notes": "Las fotos de Spark 20 Pro, Spark 40 y Spark 50 se sustituyeron por imágenes oficiales de TECNO para mostrar fielmente cada color; las demás provienen del PDF.",
+  "entries": [
+    { "model": "Tecno Spark 20 Pro", "color": "Frosty Ivory", "capacity": "256GB", "ram": "16GB", "wholesaleUsd": 130, "image": "tecno-01.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 30", "color": "Negro", "capacity": "256GB", "ram": "16GB", "wholesaleUsd": 138, "image": "tecno-02.webp", "imageSource": "PDF proveedor" },
+    { "model": "Tecno Spark 40", "color": "Gris", "capacity": "256GB", "ram": "8GB", "wholesaleUsd": 139, "image": "tecno-03.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 40", "color": "Negro", "capacity": "256GB", "ram": "8GB", "wholesaleUsd": 139, "image": "tecno-04.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 40", "color": "Blanco", "capacity": "256GB", "ram": "8GB", "wholesaleUsd": 139, "image": "tecno-05.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 50", "color": "Gris", "capacity": "256GB", "ram": "12GB", "wholesaleUsd": 179, "image": "tecno-06.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 50", "color": "Negro", "capacity": "256GB", "ram": "12GB", "wholesaleUsd": 179, "image": "tecno-07.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark 50", "color": "Lavanda", "capacity": "256GB", "ram": "12GB", "wholesaleUsd": 179, "image": "tecno-08.webp", "imageSource": "TECNO oficial" },
+    { "model": "Tecno Spark Go 1", "color": "Negro", "capacity": "64GB", "ram": "6GB", "wholesaleUsd": 70, "image": "tecno-09.webp", "imageSource": "PDF proveedor" },
+    { "model": "Tecno Spark Go 1S", "color": "Blanco", "capacity": "64GB", "ram": "6GB", "wholesaleUsd": 71, "image": "tecno-10.webp", "imageSource": "PDF proveedor" },
+    { "model": "Tecno Spark Go 1S", "color": "Verde", "capacity": "64GB", "ram": "6GB", "wholesaleUsd": 71, "image": "tecno-11.webp", "imageSource": "PDF proveedor" },
+    { "model": "Tecno Spark Go 1S", "color": "Negro", "capacity": "64GB", "ram": "6GB", "wholesaleUsd": 71, "image": "tecno-12.webp", "imageSource": "PDF proveedor" },
+    { "model": "Tecno Spark Go 3", "color": "Gris", "capacity": "128GB", "ram": "8GB", "wholesaleUsd": 128, "image": "tecno-13.webp", "imageSource": "PDF proveedor" }
+  ]
+}
