@@ -1,0 +1,298 @@
+{
+  "assets": [
+    {
+      "model": "Motorola Edge 60 Pro",
+      "color": "Verde",
+      "officialColor": "Pantone Shadow",
+      "page": "https://www.motorola.com.ar/motorola-edge-60-pro/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/174127/1000x1000_1--25-.png?v=639216447954330000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/174127/1000x1000_1--25-.png?v=639216447954330000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174128/edge-60-pro--shadow.png?v=639227612553970000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174129/2025_Explorer_Basic-Pack_Shadow_PDP-Hero.png.png?v=639216447954500000"
+      ]
+    },
+    {
+      "model": "Motorola G06",
+      "color": "Azul",
+      "officialColor": "Azul Marinho",
+      "page": "https://www.motorola.com.br/smartphone-motorola-moto-g06-64gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/182948/traseira-frente-smartphone-moto-g06-azul-marinho.png?v=639264519514970000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/182948/traseira-frente-smartphone-moto-g06-azul-marinho.png?v=639264519514970000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/182949/mosaico-smartphone-moto-g06-azul-marinho.png?v=639264519514970000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/182950/tela-smartphone-moto-g06-azul-marinho.png?v=639264519514970000"
+      ]
+    },
+    {
+      "model": "Motorola E15",
+      "color": "Azul",
+      "officialColor": "Misty Blue",
+      "page": "https://www.motorola.com.ar/moto-e15/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/174667/2024_Lamu-Lite-GO misty blue -azul-.png?v=639231965112030000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/174667/2024_Lamu-Lite-GO misty blue -azul-.png?v=639231965112030000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174668/E15-10w-AZUL.png.png?v=639231965112030000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174669/2024_Lamu-Lite-GO_BasicPack_Citadel_PDP.png.png?v=639231965112030000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 60",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "page": "https://www.motorola.com.br/smartphone-motorola-edge-60-5g/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/176291/motorola-edge-60-512gb-hero-verde.png?v=638978479022800000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/176291/motorola-edge-60-512gb-hero-verde.png?v=638978479022800000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/176292/Performance.png?v=638978479022970000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/176293/Bateria.png?v=638978479022970000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 60 Pro",
+      "color": "Violeta",
+      "officialColor": "Violeta",
+      "page": "https://www.motorola.com.br/smartphone-motorola-edge-60-pro-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/173798/frente-traseira-smartphone-motorola-edge-60-pro-violeta.png.png?v=638830334258830000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173798/frente-traseira-smartphone-motorola-edge-60-pro-violeta.png.png?v=638830334258830000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173799/1000_EXPLORER-02.png.png?v=638830334258830000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173800/1000_EXPLORER-09.png.png?v=638830334258830000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 70",
+      "color": "Gris",
+      "officialColor": "Gadget Gray",
+      "page": "https://www.motorola.com.br/smartphone-motorola-edge-70-5g-512gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/181192/1000X1000PX_01.png?v=639173097595230000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181192/1000X1000PX_01.png?v=639173097595230000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181194/1000X1000PX_02.png?v=639181029158470000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181195/1000X1000PX_03.png?v=639181029158470000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 70",
+      "color": "Verde",
+      "officialColor": "Lily Pad",
+      "page": "https://www.motorola.com.br/smartphone-motorola-edge-70-5g-512gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/181182/1000X1000PX_01.png?v=639173090848330000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181182/1000X1000PX_01.png?v=639173090848330000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181184/1000X1000PX_02.png?v=639181029157530000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/181185/1000X1000PX_03.png?v=639181029157700000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 70 Fusion",
+      "color": "Azul",
+      "officialColor": "Pantone Silhouette",
+      "page": "https://www.motorola.com.ar/motorola-edge-70-fusion-12gb/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/174295/1000x1000_1--9-.png?v=639222457911330000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/174295/1000x1000_1--9-.png?v=639222457911330000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174296/edge70-FUSION-Silhouette.png?v=639222411512500000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174297/2025_AVENGER_BASICPACK_SILHOUETTE_PDP-HERO.png?v=639222411512570000"
+      ]
+    },
+    {
+      "model": "Motorola Edge 70 Fusion",
+      "color": "Celeste",
+      "officialColor": "Pantone Country Air",
+      "page": "https://www.motorola.com.ar/motorola-edge-70-fusion-12gb/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/174302/1000x1000_1--10-.png?v=639222457912300000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/174302/1000x1000_1--10-.png?v=639222457912300000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174303/edge70-FUSION-Country-air.png?v=639222411513430000",
+        "https://armoto.vteximg.com.br/arquivos/ids/174304/2025_AVENGER_BASICPACK_COUNTRY-AIR_PDP-HERO.png?v=639222411513570000"
+      ]
+    },
+    {
+      "model": "Motorola G15",
+      "color": "Gris",
+      "officialColor": "Grafite",
+      "page": "https://www.motorola.com.br/smartphone-moto-g15-256-gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/171286/frente-smartphone-moto-g15-grafite-vegan-leather.png?v=638797438263200000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171286/frente-smartphone-moto-g15-grafite-vegan-leather.png?v=638797438263200000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171287/ksp-smartphone-moto-g15-verde-vegan-leather.png?v=638797438263200000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171288/G15-256.png.png?v=638797438263370000"
+      ]
+    },
+    {
+      "model": "Motorola G15",
+      "color": "Azul",
+      "officialColor": "Azul Escuro",
+      "page": "https://www.motorola.com.br/smartphone-moto-g15-128-gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/171278/frente-smartphone-moto-g15-azul-escuro-vegan-leather.png?v=638798044241430000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171278/frente-smartphone-moto-g15-azul-escuro-vegan-leather.png?v=638798044241430000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171279/ksp-smartphone-moto-g15-azul-claro-vegan-leather.png?v=638798044241600000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171280/G15-128.png.png?v=638798044241600000"
+      ]
+    },
+    {
+      "model": "Motorola G35 5G",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "page": "https://www.motorola.com.br/smartphone-moto-g35-5g-128gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/171436/frente-smartphone-moto-g35-verde-vegan-leather.png?v=638798025684300000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171436/frente-smartphone-moto-g35-verde-vegan-leather.png?v=638798025684300000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171437/Verde_2.png?v=638798025684300000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171438/G35-128.png.png?v=638798025684300000"
+      ]
+    },
+    {
+      "model": "Motorola G35 5G",
+      "color": "Negro",
+      "officialColor": "Grafite",
+      "page": "https://www.motorola.com.br/smartphone-moto-g35-5g-128gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/171427/frente-smartphone-moto-g35-grafite.png?v=638798024743630000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171427/frente-smartphone-moto-g35-grafite.png?v=638798024743630000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171428/Grafite_2.png?v=638798024743630000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/171429/G35-128.png.png?v=638798024743630000"
+      ]
+    },
+    {
+      "model": "Motorola G47",
+      "color": "Gris",
+      "officialColor": "grafite",
+      "page": "https://www.motorola.com.br/smartphone-motorola-moto-g47-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/179811/MOTOG47_1000X1000PX_01.png?v=639131101360230000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179811/MOTOG47_1000X1000PX_01.png?v=639131101360230000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179812/MOTOG47_1000X1000PX_02.png?v=639131101360400000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179813/MOTOG47_1000X1000PX_03.png?v=639131101360400000"
+      ]
+    },
+    {
+      "model": "Motorola G47",
+      "color": "Azul",
+      "officialColor": "Azul Nautico",
+      "page": "https://www.motorola.com.br/smartphone-motorola-moto-g47-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/179829/MOTOG47_1000X1000PX_01.png?v=639131101362100000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179829/MOTOG47_1000X1000PX_01.png?v=639131101362100000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179830/MOTOG47_1000X1000PX_02.png?v=639131101362100000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/179831/MOTOG47_1000X1000PX_03.png?v=639131101362100000"
+      ]
+    },
+    {
+      "model": "Motorola G56 5G",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "page": "https://www.motorola.com.br/smartphone-moto-g56-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/173913/frente-atras-smartphone-moto-g56-verde.png.png?v=638834531008470000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173913/frente-atras-smartphone-moto-g56-verde.png.png?v=638834531008470000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173914/tela-smartphone-moto-g56-verde.png.png?v=638834531008630000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/173915/conteudo-da-caixa-smartphone-moto-g56-verde.png.png?v=638834531008800000"
+      ]
+    },
+    {
+      "model": "Motorola G67",
+      "color": "Gris",
+      "officialColor": "Pantone Arctic Seal",
+      "page": "https://www.motorola.com.ar/moto-g67/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/173960/1000x1000_1--17-.png?v=639227631519530000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/173960/1000x1000_1--17-.png?v=639227631519530000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173961/g67-33w-arctic-seal.png?v=639216436501470000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173962/2026_Naples_Basic-Pack_Arctic-Seal_PDP-Hero.png?v=639216436502400000"
+      ]
+    },
+    {
+      "model": "Motorola G67",
+      "color": "Verde",
+      "officialColor": "Pantone Nile",
+      "page": "https://www.motorola.com.ar/moto-g67/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/173967/1000x1000_1--18-.png?v=639227631519830000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/173967/1000x1000_1--18-.png?v=639227631519830000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173968/g67-33w-nile.png?v=639216436503200000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173969/2026_Naples_Basic-Pack_Nile_PDP-Hero.png?v=639216436503200000"
+      ]
+    },
+    {
+      "model": "Motorola G86 5G",
+      "color": "Azul",
+      "officialColor": "Pantone Spellbound",
+      "page": "https://www.motorola.com.ar/moto-g86-5g/p",
+      "source": "https://armoto.vteximg.com.br/arquivos/ids/173939/1000x1000_1--14-.png?v=639227630216570000",
+      "sources": [
+        "https://armoto.vteximg.com.br/arquivos/ids/173939/1000x1000_1--14-.png?v=639227630216570000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173940/g86-spellbound.png?v=639216431428470000",
+        "https://armoto.vteximg.com.br/arquivos/ids/173941/2025_NICE_BASICKPACK_SPELLBOUND_PDP-HERO.png?v=639216431428470000"
+      ]
+    },
+    {
+      "model": "Motorola G86 5G",
+      "color": "Rojo",
+      "officialColor": "Vermelho",
+      "page": "https://www.motorola.com.br/smartphone-moto-g86-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/174418/frente-atras-smartphone-moto-g86-vermelho.png?v=638870871966070000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174418/frente-atras-smartphone-moto-g86-vermelho.png?v=638870871966070000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174419/militar-smartphone-moto-g86-vermelho.png?v=638870871966230000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174420/mosaico-smartphone-moto-g86.png?v=638870871966230000"
+      ]
+    },
+    {
+      "model": "Motorola G86 5G",
+      "color": "Verde",
+      "officialColor": "Verde Escuro",
+      "page": "https://www.motorola.com.br/smartphone-motorola-moto-g86-5g-512gb-24-gb-ram/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/177342/HERO-VERDE.png?v=639034878041570000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/177342/HERO-VERDE.png?v=639034878041570000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/177343/militar-smartphone-moto-g86-verde-escuro.png?v=639034878041730000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/177344/mosaico-smartphone-moto-g86-verde-escuro.png?v=639034878041730000"
+      ]
+    },
+    {
+      "model": "Motorola G86 5G",
+      "color": "Gris",
+      "officialColor": "Grafite",
+      "page": "https://www.motorola.com.br/smartphone-moto-g86-5g-256gb/p",
+      "source": "https://brmotorolanew.vteximg.com.br/arquivos/ids/174409/frente-atras-smartphone-moto-g86-grafite.png?v=638870871964670000",
+      "sources": [
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174409/frente-atras-smartphone-moto-g86-grafite.png?v=638870871964670000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174410/militar-smartphone-moto-g86-grafite.png?v=638870871964970000",
+        "https://brmotorolanew.vteximg.com.br/arquivos/ids/174411/mosaico-smartphone-moto-g86.png?v=638870871965130000"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "model": "Motorola G06 Power",
+      "color": "Khaki",
+      "officialColors": []
+    },
+    {
+      "model": "Motorola G56 5G",
+      "color": "Azul",
+      "officialColors": [
+        "Pantone Gray Mist",
+        "Pantone Dill",
+        "Pantone Black Oyster",
+        "moto g56 - Grafite",
+        "moto g56 - Cinza",
+        "moto g56 - Verde",
+        "Transparente"
+      ]
+    },
+    {
+      "model": "Motorola G57 5G",
+      "color": "Verde",
+      "officialColors": []
+    },
+    {
+      "model": "Motorola G86 Power 5G",
+      "color": "Rojo",
+      "officialColors": []
+    }
+  ]
+}

@@ -76,7 +76,8 @@ async function main() {
             await page.click('.var-btn[data-type="capacity"][data-val="256GB"]');
             await page.waitForFunction(() => document.querySelector('.product-details').dataset.selectedVariant.includes('256GB'));
             assert.equal(await page.$eval('#main-product-img', el => el.src), before);
-            assert.equal(await page.$eval('.gallery-thumbnails', el => el.hidden), true);
+            assert.equal(await page.$eval('.gallery-thumbnails', el => el.hidden), false);
+            assert.equal(await page.$$eval('.gallery-thumbnails button', buttons => buttons.length), 2, 'Keep both photos of the selected color, deduplicated across capacities');
             assert.match(await page.$eval('#dynamic-price', el => el.textContent), /172\.150/);
             await page.screenshot({path: path.join(output, `product-${width}.png`)});
             rate = 1665;

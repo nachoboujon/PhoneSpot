@@ -74,8 +74,11 @@ window.galleryForColor = (product, color) => {
     const photos = new Map();
     for (const variant of variants) {
         const key = normalizeColor(variant.color);
-        if (!key || !variant.image_url || (color && key !== normalizeColor(color)) || photos.has(key)) continue;
-        photos.set(key, {url: window.getFullImageUrl(variant.image_url), color: variant.color});
+        if (!key || !variant.image_url || (color && key !== normalizeColor(color))) continue;
+        for (const image of [variant.image_url, ...(Array.isArray(variant.images) ? variant.images : [])]) {
+            const url = window.getFullImageUrl(image);
+            if (url && !photos.has(url)) photos.set(url, {url, color: variant.color});
+        }
     }
     if (photos.size) return [...photos.values()];
     if (color && variants.length) {
@@ -1290,19 +1293,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 // Conditions Filter
                 if (selectedConditions.length > 0) {
-                    const desc = (p.description || '').toLowerCase();
-                    const name = (p.name || '').toLowerCase();
-                    const combined = name + " " + desc;
-                    
-                    let isSwap = combined.includes('swap') || combined.includes('americano') || combined.includes('usado') || combined.includes('seminuevo');
-                    let isReac = combined.includes('reacondicionado') || combined.includes('refurbished');
-                    let isNuevo = !isSwap && !isReac;
-
-                    let matchesCond = false;
-                    if (selectedConditions.includes('nuevo') && isNuevo) matchesCond = true;
-                    if (selectedConditions.includes('swap_americano') && isSwap) matchesCond = true;
-                    if (selectedConditions.includes('reacondicionado') && isReac) matchesCond = true;
-                    
+                    const fallback = (p.name + ' ' + (p.description || '')).toLowerCase();
+                    const conditions = Array.isArray(p.variants) && p.variants.length
+                        ? p.variants.map(v => String(v.condition || fallback).toLowerCase()) : [fallback];
+                    const matchesCond = conditions.some(condition => {
+                        const category = /reacondicionado|refurbished|\bcpo\b/.test(condition) ? 'reacondicionado'
+                            : /swap|americano|usado|seminuevo/.test(condition) ? 'swap_americano' : 'nuevo';
+                        return selectedConditions.includes(category);
+                    });
                     if (!matchesCond) return false;
                 }
 
@@ -1310,7 +1308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (selectedColors.length > 0) {
                     const desc = (p.description || '').toLowerCase();
                     const name = (p.name || '').toLowerCase();
-                    const combined = name + " " + desc;
+                    const combined = name + " " + desc + " " + (Array.isArray(p.variants) ? p.variants.map(v => v.color || '').join(' ').toLowerCase() : '');
                     
                     // Simple color matching based on text
                     let matchesColor = selectedColors.some(color => {
@@ -1459,6 +1457,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 } else {
                     availableBrands = [...new Set(products.map(p => (p.brand||'').trim()).filter(b => b))].sort();
                 }
+                availableBrands = [...new Set([...availableBrands, ...products.map(p => (p.brand || '').trim()).filter(Boolean)])].sort();
                 
                 if (brandFiltersContainer) {
                     brandFiltersContainer.innerHTML = '';

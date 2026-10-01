@@ -147,6 +147,15 @@
         ],
         "createdAt": "2026-10-01T18:17:07.966Z",
         "reason": "Agent: HTML tag matching regex in a read-only manufacturer asset audit; no rendered img elements"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "scripts/maintenance/download-mi-specs.js"
+        ],
+        "createdAt": "2026-10-01T22:27:04.250Z",
+        "reason": "Agent: the detected img text is a regular expression for extracting real manufacturer image URLs, not rendered HTML."
       }
     ]
   }

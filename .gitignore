@@ -4,4 +4,15 @@ node_modules/
 .playwright-cli/
 output/playwright/
 artifacts/audit/
+artifacts/wholesale-2026-10-01/*
+!artifacts/wholesale-2026-10-01/source-cards.json
+!artifacts/wholesale-2026-10-01/phones.json
+!artifacts/wholesale-2026-10-01/*-assets.json
+!artifacts/wholesale-2026-10-01/image-manifest.json
+!artifacts/wholesale-2026-10-01/pending-phones.json
+!artifacts/wholesale-2026-10-01/import-result.json
+!artifacts/wholesale-2026-10-01/before-import.json
+!artifacts/wholesale-2026-10-01/verification.json
+!artifacts/wholesale-2026-10-01/README.md
+!artifacts/wholesale-2026-10-01/PENDIENTES.md
 .tmp/

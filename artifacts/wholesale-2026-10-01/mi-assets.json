@@ -1,0 +1,976 @@
+{
+  "assets": [
+    {
+      "model": "POCO C71",
+      "color": "Azul",
+      "officialColor": "Blue",
+      "rgb": "#a0bcd2",
+      "page": "https://www.mi.com/uk/product/poco-c71/buy/",
+      "source": "https://i05.appmifile.com/205_item_uk/17/06/2025/3c286fdb6dbe06d86ba1ef4fb85f8e04.png",
+      "sources": [
+        "https://i05.appmifile.com/205_item_uk/17/06/2025/3c286fdb6dbe06d86ba1ef4fb85f8e04.png",
+        "https://i05.appmifile.com/739_item_uk/03/07/2025/b78f2606ff269597e8fe9165eca89291.jpg",
+        "https://i05.appmifile.com/775_item_uk/17/06/2025/5c1ed540635ffdd533c9c1ecdcd87b7b.png"
+      ]
+    },
+    {
+      "model": "POCO C71",
+      "color": "Negro",
+      "officialColor": "Black",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/uk/product/poco-c71/buy/",
+      "source": "https://i05.appmifile.com/910_item_uk/17/06/2025/fc12c6dc62b3b0a29e2af530394198e1.png",
+      "sources": [
+        "https://i05.appmifile.com/910_item_uk/17/06/2025/fc12c6dc62b3b0a29e2af530394198e1.png",
+        "https://i05.appmifile.com/947_item_uk/03/07/2025/66656f117ea278640483fe8ad7f14c10.jpg",
+        "https://i05.appmifile.com/138_item_uk/17/06/2025/78de6eccb898e47d1f3f0664f86c8ce2.png"
+      ]
+    },
+    {
+      "model": "POCO C71",
+      "color": "Oro",
+      "officialColor": "Gold",
+      "rgb": "#F7E7CD",
+      "page": "https://www.mi.com/uk/product/poco-c71/buy/",
+      "source": "https://i05.appmifile.com/782_item_uk/17/06/2025/2995d28842e5ddd83bec7bb156725ec0.png",
+      "sources": [
+        "https://i05.appmifile.com/782_item_uk/17/06/2025/2995d28842e5ddd83bec7bb156725ec0.png",
+        "https://i05.appmifile.com/721_item_uk/03/07/2025/ac84deb80444aea88a7a92db84679fdc.jpg",
+        "https://i05.appmifile.com/521_item_uk/17/06/2025/ff53186fa97f1e833af393f18ad69460.png"
+      ]
+    },
+    {
+      "model": "POCO C81 Pro",
+      "color": "Oro",
+      "officialColor": "Dorado",
+      "rgb": "#bfbaad",
+      "page": "https://www.mi.com/es/product/poco-c81-pro/buy/",
+      "source": "https://i05.appmifile.com/447_item_es/15/06/2026/4b9f277e306e8212bccf47ceb6797bf1.png",
+      "sources": [
+        "https://i05.appmifile.com/447_item_es/15/06/2026/4b9f277e306e8212bccf47ceb6797bf1.png",
+        "https://i05.appmifile.com/638_item_es/15/06/2026/2a61e4141d3b9cd39c920868cd0e6769.png",
+        "https://i05.appmifile.com/85_item_es/15/06/2026/b2d0835ff78637692e237f614915dfd8.png"
+      ]
+    },
+    {
+      "model": "POCO C81 Pro",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#739497",
+      "page": "https://www.mi.com/es/product/poco-c81-pro/buy/",
+      "source": "https://i05.appmifile.com/145_item_es/15/06/2026/95f360b4e41e42d7c17980599d4dafd7.png",
+      "sources": [
+        "https://i05.appmifile.com/145_item_es/15/06/2026/95f360b4e41e42d7c17980599d4dafd7.png",
+        "https://i05.appmifile.com/371_item_es/15/06/2026/56b84885d176eaac71048775a67d8986.png",
+        "https://i05.appmifile.com/686_item_es/15/06/2026/9f8bddabb551aa040e3405620060a043.png"
+      ]
+    },
+    {
+      "model": "POCO C81 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-c81-pro/buy/",
+      "source": "https://i05.appmifile.com/880_item_es/15/06/2026/416e3d101381d88bc496a67d95f54ab3.png",
+      "sources": [
+        "https://i05.appmifile.com/880_item_es/15/06/2026/416e3d101381d88bc496a67d95f54ab3.png",
+        "https://i05.appmifile.com/522_item_es/15/06/2026/a7f05984ea77d12a983362ed6a4fbe76.png",
+        "https://i05.appmifile.com/688_item_es/15/06/2026/e63a286292626a62aab5a9595115a552.png"
+      ]
+    },
+    {
+      "model": "POCO C85",
+      "color": "Morado",
+      "officialColor": "Morado",
+      "rgb": "#8b91ae",
+      "page": "https://www.mi.com/es/product/poco-c85/buy/",
+      "source": "https://i05.appmifile.com/750_item_es/29/08/2025/b310788d7d80035b452693e49d640312.png",
+      "sources": [
+        "https://i05.appmifile.com/750_item_es/29/08/2025/b310788d7d80035b452693e49d640312.png",
+        "https://i05.appmifile.com/272_item_es/29/08/2025/9a0bf68ffd99fd96d6ca19e1597464ac.png",
+        "https://i05.appmifile.com/304_item_es/29/08/2025/b3bc129318c7be6d87f39b7b0ec9e0ce.png"
+      ]
+    },
+    {
+      "model": "POCO C85",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-c85/buy/",
+      "source": "https://i05.appmifile.com/427_item_es/27/08/2025/46b1482f93659106d0594b77578424b6.png",
+      "sources": [
+        "https://i05.appmifile.com/427_item_es/27/08/2025/46b1482f93659106d0594b77578424b6.png",
+        "https://i05.appmifile.com/194_item_es/27/08/2025/2bb775248587637ecc98779af3951c2b.png",
+        "https://i05.appmifile.com/933_item_es/27/08/2025/ca1a8f87def856a837ed000a305ff448.png"
+      ]
+    },
+    {
+      "model": "POCO C85",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#b4d6dc",
+      "page": "https://www.mi.com/es/product/poco-c85/buy/",
+      "source": "https://i05.appmifile.com/751_item_es/27/08/2025/19a9c49a7568e920ff9476bb8e3f8602.png",
+      "sources": [
+        "https://i05.appmifile.com/751_item_es/27/08/2025/19a9c49a7568e920ff9476bb8e3f8602.png",
+        "https://i05.appmifile.com/31_item_es/27/08/2025/0c0991c70b554b2cc397745a652a3b39.png",
+        "https://i05.appmifile.com/251_item_es/27/08/2025/0bfd87f59b05f44ca38b18c90ad138dc.png"
+      ]
+    },
+    {
+      "model": "POCO C95 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#383838",
+      "page": "https://www.mi.com/es/product/poco-c95-pro/buy/",
+      "source": "https://i02.appmifile.com/695_operatorx_operatorx_xm/08/09/2026/37711d48052f041069d8ec14f1032cd5.png",
+      "sources": [
+        "https://i02.appmifile.com/695_operatorx_operatorx_xm/08/09/2026/37711d48052f041069d8ec14f1032cd5.png",
+        "https://i02.appmifile.com/755_operatorx_operatorx_xm/08/09/2026/a21729e44c0205dcf34b0a8432a580cc.png",
+        "https://i02.appmifile.com/181_operatorx_operatorx_xm/08/09/2026/eaf4c0a7756bcfc58df5bdaa84049c27.png"
+      ]
+    },
+    {
+      "model": "POCO F8 Pro",
+      "color": "Azul",
+      "officialColor": "Azul",
+      "rgb": "#cbeff2",
+      "page": "https://www.mi.com/es/product/poco-f8-pro/buy/",
+      "source": "https://i05.appmifile.com/824_item_es/24/11/2025/d57bb101087fdc8102f6ce503b73b51e.png",
+      "sources": [
+        "https://i05.appmifile.com/824_item_es/24/11/2025/d57bb101087fdc8102f6ce503b73b51e.png",
+        "https://i05.appmifile.com/665_item_es/24/11/2025/3f9b0c4c199428fb111077a7cf3ccea1.png",
+        "https://i05.appmifile.com/529_item_es/24/11/2025/530f240b108fa0a5a75b3b5aca22d2e5.png"
+      ]
+    },
+    {
+      "model": "POCO F8 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-f8-pro/buy/",
+      "source": "https://i05.appmifile.com/649_item_es/24/11/2025/2ae3d466211c3d61c21a515ea5386910.png",
+      "sources": [
+        "https://i05.appmifile.com/649_item_es/24/11/2025/2ae3d466211c3d61c21a515ea5386910.png",
+        "https://i05.appmifile.com/828_item_es/24/11/2025/68dc7bbc080f608ce4488bb6c3463091.png",
+        "https://i05.appmifile.com/719_item_es/24/11/2025/68b5e2ae65308e21b7e028becdbb5761.png"
+      ]
+    },
+    {
+      "model": "POCO F8 Ultra",
+      "color": "Azul",
+      "officialColor": "Denim Blue",
+      "rgb": "#425a75",
+      "page": "https://www.mi.com/es/product/poco-f8-ultra/buy/",
+      "source": "https://i05.appmifile.com/70_item_es/24/11/2025/ec2c929ae551a7448a345ccf92fee4a7.png",
+      "sources": [
+        "https://i05.appmifile.com/70_item_es/24/11/2025/ec2c929ae551a7448a345ccf92fee4a7.png",
+        "https://i05.appmifile.com/816_item_es/24/11/2025/dc71eaeaa42b96141e39d9c690da80c4.png",
+        "https://i05.appmifile.com/856_item_es/24/11/2025/6fd65f6649aadf01f5c9f85ecdf5fccc.png"
+      ]
+    },
+    {
+      "model": "POCO F8 Ultra",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-f8-ultra/buy/",
+      "source": "https://i05.appmifile.com/503_item_es/24/11/2025/3167ad3d7952a9de5e5953b431e0cde4.png",
+      "sources": [
+        "https://i05.appmifile.com/503_item_es/24/11/2025/3167ad3d7952a9de5e5953b431e0cde4.png",
+        "https://i05.appmifile.com/636_item_es/24/11/2025/19f89d7cfe085146afd73eeb7c3cd698.png",
+        "https://i05.appmifile.com/970_item_es/24/11/2025/b4cab7913cb9a3c5dd801499a43aa761.png"
+      ]
+    },
+    {
+      "model": "POCO M8 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#414a52",
+      "page": "https://www.mi.com/es/product/poco-m8-5g/buy/",
+      "source": "https://i05.appmifile.com/892_item_es/04/01/2026/4dffb49286240aa42fe1a787f1d96d27.png",
+      "sources": [
+        "https://i05.appmifile.com/892_item_es/04/01/2026/4dffb49286240aa42fe1a787f1d96d27.png",
+        "https://i05.appmifile.com/891_item_es/04/01/2026/4e3ff4a7365a6ce9ce981312a20ff1f7.png",
+        "https://i05.appmifile.com/42_item_es/04/01/2026/12aa349d5ac6c35322c3d383784ec50f.png"
+      ]
+    },
+    {
+      "model": "POCO M8 5G",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#b9e0e4",
+      "page": "https://www.mi.com/es/product/poco-m8-5g/buy/",
+      "source": "https://i05.appmifile.com/961_item_es/04/01/2026/1f2b4456d44b843087f64f0fb754c30a.png",
+      "sources": [
+        "https://i05.appmifile.com/961_item_es/04/01/2026/1f2b4456d44b843087f64f0fb754c30a.png",
+        "https://i05.appmifile.com/238_item_es/04/01/2026/718078d1b896c6f2a8de720c3a005e43.png",
+        "https://i05.appmifile.com/717_item_es/04/01/2026/490eb4b78f471203b320e67b038189fd.png"
+      ]
+    },
+    {
+      "model": "POCO M8 5G",
+      "color": "Plata",
+      "officialColor": "Plata",
+      "rgb": "#bcbfc3",
+      "page": "https://www.mi.com/es/product/poco-m8-5g/buy/",
+      "source": "https://i05.appmifile.com/958_item_es/04/01/2026/74a77149bcc3f81d0561d8162b0b5cc1.png",
+      "sources": [
+        "https://i05.appmifile.com/958_item_es/04/01/2026/74a77149bcc3f81d0561d8162b0b5cc1.png",
+        "https://i05.appmifile.com/168_item_es/04/01/2026/0a2167b2297579700e829e8209e7e750.png",
+        "https://i05.appmifile.com/222_item_es/04/01/2026/3d70d4cd6652c04a90231e2ea5f15412.png"
+      ]
+    },
+    {
+      "model": "POCO M8 Pro 5G",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#b9e0e4",
+      "page": "https://www.mi.com/es/product/poco-m8-pro-5g/buy/",
+      "source": "https://i05.appmifile.com/834_item_es/04/01/2026/0dc23d8124b64edd8c356f76aff6296b.png",
+      "sources": [
+        "https://i05.appmifile.com/834_item_es/04/01/2026/0dc23d8124b64edd8c356f76aff6296b.png",
+        "https://i05.appmifile.com/32_item_es/04/01/2026/c3e35b214a6f453467377ddc73e9b004.png",
+        "https://i05.appmifile.com/52_item_es/04/01/2026/45579b4a0de6d95acbb16c549339d294.png"
+      ]
+    },
+    {
+      "model": "POCO M8 Pro 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#414a52",
+      "page": "https://www.mi.com/es/product/poco-m8-pro-5g/buy/",
+      "source": "https://i05.appmifile.com/494_item_es/04/01/2026/fad528ccbc2e6c6efd7c6edac83cdb81.png",
+      "sources": [
+        "https://i05.appmifile.com/494_item_es/04/01/2026/fad528ccbc2e6c6efd7c6edac83cdb81.png",
+        "https://i05.appmifile.com/896_item_es/04/01/2026/a6e66ab7817452afb112dfd0e6444fcd.png",
+        "https://i05.appmifile.com/62_item_es/04/01/2026/6f4d175b1dae4bcbc8e83774cce292cb.png"
+      ]
+    },
+    {
+      "model": "POCO M8 Pro 5G",
+      "color": "Plata",
+      "officialColor": "Plata",
+      "rgb": "#bcbfc3",
+      "page": "https://www.mi.com/es/product/poco-m8-pro-5g/buy/",
+      "source": "https://i05.appmifile.com/787_item_es/04/01/2026/9b4acada0f006e99ac5818d20a8c1305.png",
+      "sources": [
+        "https://i05.appmifile.com/787_item_es/04/01/2026/9b4acada0f006e99ac5818d20a8c1305.png",
+        "https://i05.appmifile.com/888_item_es/04/01/2026/454be53a0c3459f07d2e6d88eee3dac2.png",
+        "https://i05.appmifile.com/898_item_es/04/01/2026/9655c158939a2c9a066a0dc24ef356ee.png"
+      ]
+    },
+    {
+      "model": "POCO X6 Pro 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-x6-pro/buy/",
+      "source": "https://i05.appmifile.com/728_item_es/02/01/2024/ebd99362ceaeee0ae395076e7bd89a65.png",
+      "sources": [
+        "https://i05.appmifile.com/728_item_es/02/01/2024/ebd99362ceaeee0ae395076e7bd89a65.png"
+      ]
+    },
+    {
+      "model": "POCO X6 Pro 5G",
+      "color": "Amarillo",
+      "officialColor": "Amarillo",
+      "rgb": "#FFFF00",
+      "page": "https://www.mi.com/es/product/poco-x6-pro/buy/",
+      "source": "https://i05.appmifile.com/655_item_es/02/01/2024/255ad38ccde8a969a38cff292a5d9348.png",
+      "sources": [
+        "https://i05.appmifile.com/655_item_es/02/01/2024/255ad38ccde8a969a38cff292a5d9348.png"
+      ]
+    },
+    {
+      "model": "POCO X6 Pro 5G",
+      "color": "Gris",
+      "officialColor": "Gris",
+      "rgb": "#AAAAAA",
+      "page": "https://www.mi.com/es/product/poco-x6-pro/buy/",
+      "source": "https://i05.appmifile.com/554_item_es/02/01/2024/743e4e8ef0eed1bb1e1459c8878baeea.png",
+      "sources": [
+        "https://i05.appmifile.com/554_item_es/02/01/2024/743e4e8ef0eed1bb1e1459c8878baeea.png"
+      ]
+    },
+    {
+      "model": "POCO X7 Pro",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#98a898",
+      "page": "https://www.mi.com/es/product/poco-x7-pro/buy/",
+      "source": "https://i05.appmifile.com/533_item_es/02/01/2025/c0a04c08616efd91bdce9fcd8a10d1e1.png",
+      "sources": [
+        "https://i05.appmifile.com/533_item_es/02/01/2025/c0a04c08616efd91bdce9fcd8a10d1e1.png",
+        "https://i05.appmifile.com/378_item_es/02/01/2025/1334dfe54d49f9ec29b3e7cd99e37c3d.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-x8-pro/buy/",
+      "source": "https://i05.appmifile.com/637_item_es/17/03/2026/41b7183b88751c3c24c0c7df1e725f85.png",
+      "sources": [
+        "https://i05.appmifile.com/637_item_es/17/03/2026/41b7183b88751c3c24c0c7df1e725f85.png",
+        "https://i05.appmifile.com/731_item_es/12/03/2026/3737a298885e650c0b9c33101f752778.png",
+        "https://i05.appmifile.com/242_item_es/12/03/2026/b8bb2dd3cc28d786b75e830a646a0d4b.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro",
+      "color": "Amarillo",
+      "officialColor": "Amarillo",
+      "rgb": "#FFFF00",
+      "page": "https://www.mi.com/es/product/poco-x8-pro/buy/",
+      "source": "https://i02.appmifile.com/848_operatorx_operatorx_xm/30/06/2026/e7d4a490550655e48cf125a4099b4a14.png",
+      "sources": [
+        "https://i02.appmifile.com/848_operatorx_operatorx_xm/30/06/2026/e7d4a490550655e48cf125a4099b4a14.png",
+        "https://i02.appmifile.com/64_operatorx_operatorx_xm/30/06/2026/da89149b66d3d8f1eceb7a6662731384.png",
+        "https://i02.appmifile.com/187_operatorx_operatorx_xm/30/06/2026/3f05a34aa719ee2e2fc840818f81b9d3.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro",
+      "color": "Verde",
+      "officialColor": "Verde menta",
+      "rgb": "#c5e6e6",
+      "page": "https://www.mi.com/es/product/poco-x8-pro/buy/",
+      "source": "https://i05.appmifile.com/344_item_es/12/03/2026/9a6daa1663eb38c8cbdb6ba30423560d.png",
+      "sources": [
+        "https://i05.appmifile.com/344_item_es/12/03/2026/9a6daa1663eb38c8cbdb6ba30423560d.png",
+        "https://i05.appmifile.com/420_item_es/12/03/2026/52c8a710f6115e79448306847d500e4e.png",
+        "https://i05.appmifile.com/580_item_es/12/03/2026/852f5f7e7da5aa3e5d17b29c13b9a38c.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro",
+      "color": "Blanco",
+      "officialColor": "Blanco",
+      "rgb": "#FFFFFF",
+      "page": "https://www.mi.com/es/product/poco-x8-pro/buy/",
+      "source": "https://i05.appmifile.com/171_item_es/12/03/2026/52b509600f8ab7b1ff46f59eb548f572.png",
+      "sources": [
+        "https://i05.appmifile.com/171_item_es/12/03/2026/52b509600f8ab7b1ff46f59eb548f572.png",
+        "https://i05.appmifile.com/73_item_es/12/03/2026/41ce9207818593e61a3b983c9d6ff914.png",
+        "https://i05.appmifile.com/123_item_es/12/03/2026/09b161f773d7420082c4773d1b34524b.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro Max",
+      "color": "Azul",
+      "officialColor": "Azul",
+      "rgb": "#d4ebf5",
+      "page": "https://www.mi.com/es/product/poco-x8-pro-max/buy/",
+      "source": "https://i05.appmifile.com/661_item_es/12/03/2026/74327128451f75466a4123b5c34d0bfd.png",
+      "sources": [
+        "https://i05.appmifile.com/661_item_es/12/03/2026/74327128451f75466a4123b5c34d0bfd.png",
+        "https://i05.appmifile.com/487_item_es/12/03/2026/8f7b825132a6be60d1c3f656f7f0dc23.png",
+        "https://i05.appmifile.com/419_item_es/12/03/2026/93129d51b5027a7bc8440581ac653457.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro Max",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/poco-x8-pro-max/buy/",
+      "source": "https://i05.appmifile.com/780_item_es/12/03/2026/0484b60a3bb4ce2ba3e74012a47b36f4.png",
+      "sources": [
+        "https://i05.appmifile.com/780_item_es/12/03/2026/0484b60a3bb4ce2ba3e74012a47b36f4.png",
+        "https://i05.appmifile.com/488_item_es/12/03/2026/6afd4d5ce01c5cd1734478d1d04f4401.png",
+        "https://i05.appmifile.com/814_item_es/12/03/2026/fc9ffc3e3fec7e46af0bc6d4be51ccd1.png"
+      ]
+    },
+    {
+      "model": "POCO X8 Pro Max",
+      "color": "Blanco",
+      "officialColor": "Blanco",
+      "rgb": "#FFFFFF",
+      "page": "https://www.mi.com/es/product/poco-x8-pro-max/buy/",
+      "source": "https://i05.appmifile.com/886_item_es/12/03/2026/ac09af66266cb047413130dd31934293.png",
+      "sources": [
+        "https://i05.appmifile.com/886_item_es/12/03/2026/ac09af66266cb047413130dd31934293.png",
+        "https://i05.appmifile.com/622_item_es/12/03/2026/2c9ad8c854ab94b75e3d105afe327673.png",
+        "https://i05.appmifile.com/700_item_es/12/03/2026/938c68b82d0f90d2d54aa801c7c780c9.png"
+      ]
+    },
+    {
+      "model": "Redmi 15",
+      "color": "Gris",
+      "officialColor": "Titan Gray",
+      "rgb": "#a99f95",
+      "page": "https://www.mi.com/es/product/redmi-15/buy/",
+      "source": "https://i05.appmifile.com/473_item_es/02/09/2025/06e3b3358be35d135e8ad1d952e2193a.png",
+      "sources": [
+        "https://i05.appmifile.com/473_item_es/02/09/2025/06e3b3358be35d135e8ad1d952e2193a.png",
+        "https://i05.appmifile.com/822_item_es/02/09/2025/522bac945f0f3b4ebc153670a7e35778.png",
+        "https://i05.appmifile.com/827_item_es/02/09/2025/a02ef97efc644657850c398e9795732b.png"
+      ]
+    },
+    {
+      "model": "Redmi 15",
+      "color": "Negro",
+      "officialColor": "Negro medianoche",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-15/buy/",
+      "source": "https://i05.appmifile.com/755_item_es/25/08/2025/dfb3510dff8ea941d5df0fca6335d689.png",
+      "sources": [
+        "https://i05.appmifile.com/755_item_es/25/08/2025/dfb3510dff8ea941d5df0fca6335d689.png",
+        "https://i05.appmifile.com/19_item_es/25/08/2025/cdeaf48acee2479fd7ef2d64c237ae28.png",
+        "https://i05.appmifile.com/845_item_es/25/08/2025/ea748e541fd7584707727fa0ce3bf25d.png"
+      ]
+    },
+    {
+      "model": "Redmi 15C",
+      "color": "Negro",
+      "officialColor": "Negro medianoche",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-15c/buy/",
+      "source": "https://i05.appmifile.com/842_item_es/25/08/2025/cc971ed06eb2cdf7fb14dc8b3cafcbee.png",
+      "sources": [
+        "https://i05.appmifile.com/842_item_es/25/08/2025/cc971ed06eb2cdf7fb14dc8b3cafcbee.png",
+        "https://i05.appmifile.com/133_item_es/25/08/2025/6cc4808c4135cdd3e58ac44c889a5010.png",
+        "https://i05.appmifile.com/71_item_es/25/08/2025/d132ddb43c3bbc7a202ea9e865a4678e.png"
+      ]
+    },
+    {
+      "model": "Redmi 15C",
+      "color": "Azul",
+      "officialColor": "Azul Nocturno",
+      "rgb": "#21478d",
+      "page": "https://www.mi.com/es/product/redmi-15c/buy/",
+      "source": "https://i05.appmifile.com/648_item_es/26/08/2025/734f07c79fa35ef24b3e30c7f011fd23.png",
+      "sources": [
+        "https://i05.appmifile.com/648_item_es/26/08/2025/734f07c79fa35ef24b3e30c7f011fd23.png",
+        "https://i05.appmifile.com/874_item_es/26/08/2025/3e62b095d2256a97873d10bc1e832685.png",
+        "https://i05.appmifile.com/71_item_es/25/08/2025/d132ddb43c3bbc7a202ea9e865a4678e.png"
+      ]
+    },
+    {
+      "model": "Redmi 15C",
+      "color": "Verde",
+      "officialColor": "Verde Menta",
+      "rgb": "#9fc7c7",
+      "page": "https://www.mi.com/es/product/redmi-15c/buy/",
+      "source": "https://i05.appmifile.com/542_item_es/25/08/2025/955646e0cfc503d0982989555b97dee3.png",
+      "sources": [
+        "https://i05.appmifile.com/542_item_es/25/08/2025/955646e0cfc503d0982989555b97dee3.png",
+        "https://i05.appmifile.com/607_item_es/25/08/2025/2577230cadbc365c47c0c70f356e2d26.png",
+        "https://i05.appmifile.com/71_item_es/25/08/2025/d132ddb43c3bbc7a202ea9e865a4678e.png"
+      ]
+    },
+    {
+      "model": "Redmi 15C",
+      "color": "Naranja",
+      "officialColor": "Naranja crepúsculo",
+      "rgb": "#dda391",
+      "page": "https://www.mi.com/es/product/redmi-15c/buy/",
+      "source": "https://i05.appmifile.com/616_item_es/25/08/2025/beb2fd00e449aa296dd33e69fb9b2932.png",
+      "sources": [
+        "https://i05.appmifile.com/616_item_es/25/08/2025/beb2fd00e449aa296dd33e69fb9b2932.png",
+        "https://i05.appmifile.com/545_item_es/25/08/2025/22bd26ec8ea2f1b1e1addda06241998b.png",
+        "https://i05.appmifile.com/71_item_es/25/08/2025/d132ddb43c3bbc7a202ea9e865a4678e.png"
+      ]
+    },
+    {
+      "model": "Redmi 17",
+      "color": "Azul",
+      "officialColor": "Azul profundo",
+      "rgb": "#2c406a",
+      "page": "https://www.mi.com/es/product/redmi-17/buy/",
+      "source": "https://i02.appmifile.com/655_operatorx_operatorx_xm/04/08/2026/718a97058d48f0f8f8a3db83f44e2c85.png",
+      "sources": [
+        "https://i02.appmifile.com/655_operatorx_operatorx_xm/04/08/2026/718a97058d48f0f8f8a3db83f44e2c85.png",
+        "https://i02.appmifile.com/48_operatorx_operatorx_xm/04/08/2026/035523b60e80d711e939d637c06a19d8.png",
+        "https://i02.appmifile.com/677_operatorx_operatorx_xm/04/08/2026/5731a492e9927015d0d43472ef060b25.png"
+      ]
+    },
+    {
+      "model": "Redmi 17",
+      "color": "Lavanda",
+      "officialColor": "Morado loto",
+      "rgb": "#d4dafc",
+      "page": "https://www.mi.com/es/product/redmi-17/buy/",
+      "source": "https://i05.appmifile.com/921_item_es/10/08/2026/261f36b8d17224e9f7c9af7bc4027ed6.png",
+      "sources": [
+        "https://i05.appmifile.com/921_item_es/10/08/2026/261f36b8d17224e9f7c9af7bc4027ed6.png",
+        "https://i05.appmifile.com/59_item_es/10/08/2026/bde99aed64f35132a1ef050447da408e.png",
+        "https://i05.appmifile.com/537_item_es/10/08/2026/1d888d459cc37b74b8f00af70e55d754.png"
+      ]
+    },
+    {
+      "model": "Redmi 17",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-17/buy/",
+      "source": "https://i02.appmifile.com/814_operatorx_operatorx_xm/04/08/2026/eaaa750d21cb2b0e52e46253f4be2004.png",
+      "sources": [
+        "https://i02.appmifile.com/814_operatorx_operatorx_xm/04/08/2026/eaaa750d21cb2b0e52e46253f4be2004.png",
+        "https://i02.appmifile.com/178_operatorx_operatorx_xm/04/08/2026/d820f4412e33d29ffbab47c7b616049a.png",
+        "https://i02.appmifile.com/608_operatorx_operatorx_xm/04/08/2026/0810ff2f7d8548ffa9ab6b2d3241da97.png"
+      ]
+    },
+    {
+      "model": "Redmi A7 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-a7-pro/buy/",
+      "source": "https://i05.appmifile.com/536_item_es/31/03/2026/8f1ae637ae5c7011845fe1abe21323ff.png",
+      "sources": [
+        "https://i05.appmifile.com/536_item_es/31/03/2026/8f1ae637ae5c7011845fe1abe21323ff.png",
+        "https://i05.appmifile.com/656_item_es/31/03/2026/a178e5724c03ff1fb52cb182c9ca9649.png",
+        "https://i05.appmifile.com/84_item_es/31/03/2026/286f18c9a4544019dcf92587f62584ae.png"
+      ]
+    },
+    {
+      "model": "Redmi A7 Pro",
+      "color": "Verde",
+      "officialColor": "Verde Palmera",
+      "rgb": "#b3c19a",
+      "page": "https://www.mi.com/es/product/redmi-a7-pro/buy/",
+      "source": "https://i05.appmifile.com/303_item_es/31/03/2026/0552ee0e58220bc614d37ffe10e7fd2f.png",
+      "sources": [
+        "https://i05.appmifile.com/303_item_es/31/03/2026/0552ee0e58220bc614d37ffe10e7fd2f.png",
+        "https://i05.appmifile.com/782_item_es/31/03/2026/3759e902701d61a3b00643edf324006b.png",
+        "https://i05.appmifile.com/277_item_es/31/03/2026/ef91a731db334e792a12a6967c9f161b.png"
+      ]
+    },
+    {
+      "model": "Redmi A7 Pro",
+      "color": "Azul",
+      "officialColor": "Azul Niebla",
+      "rgb": "#94aab6",
+      "page": "https://www.mi.com/es/product/redmi-a7-pro/buy/",
+      "source": "https://i05.appmifile.com/343_item_es/31/03/2026/c772bef10e662d13873b254b51d0f8f9.png",
+      "sources": [
+        "https://i05.appmifile.com/343_item_es/31/03/2026/c772bef10e662d13873b254b51d0f8f9.png",
+        "https://i05.appmifile.com/875_item_es/31/03/2026/3a6f7ba59ff81269dea758aec43485d4.png",
+        "https://i05.appmifile.com/253_item_es/31/03/2026/e6ed47bc8d43223db0c8d2fe6c2eb998.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 14 Pro+ 5G",
+      "color": "Negro",
+      "officialColor": "Negro medianoche",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-14-pro-plus-5g/buy/",
+      "source": "https://i05.appmifile.com/710_item_es/10/01/2025/6f9eff0e8a11d462e4b78837fc31538c.png",
+      "sources": [
+        "https://i05.appmifile.com/710_item_es/10/01/2025/6f9eff0e8a11d462e4b78837fc31538c.png",
+        "https://i05.appmifile.com/143_item_es/10/06/2025/db101940b67455d96373759b8db8b405.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15",
+      "color": "Verde",
+      "officialColor": "Verde Bosque",
+      "rgb": "#b7cec0",
+      "page": "https://www.mi.com/es/product/redmi-note-15/buy/",
+      "source": "https://i05.appmifile.com/978_item_es/05/01/2026/ce6baceb9632563f0d3c6c55a37e4d92.png",
+      "sources": [
+        "https://i05.appmifile.com/978_item_es/05/01/2026/ce6baceb9632563f0d3c6c55a37e4d92.png",
+        "https://i05.appmifile.com/607_item_es/12/01/2026/734814f7b1dc08e283699ea3a25219f6.png",
+        "https://i05.appmifile.com/890_item_es/05/01/2026/b4f6a0b3cac833f11ed533d639f2956d.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-15/buy/",
+      "source": "https://i05.appmifile.com/306_item_es/26/12/2025/dbb8dc74954c826ef4f9caafb27bcd8a.png",
+      "sources": [
+        "https://i05.appmifile.com/306_item_es/26/12/2025/dbb8dc74954c826ef4f9caafb27bcd8a.png",
+        "https://i05.appmifile.com/248_item_es/12/01/2026/87b76b53ce51e353b802b74c98507f7b.png",
+        "https://i05.appmifile.com/311_item_es/26/12/2025/90b24facf7af49c53d437d827af27210.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15",
+      "color": "Azul",
+      "officialColor": "Azul Glaciar",
+      "rgb": "#d6eaf7",
+      "page": "https://www.mi.com/es/product/redmi-note-15/buy/",
+      "source": "https://i05.appmifile.com/334_item_es/05/01/2026/7c3826373321f02d294b02d221a5baa5.png",
+      "sources": [
+        "https://i05.appmifile.com/334_item_es/05/01/2026/7c3826373321f02d294b02d221a5baa5.png",
+        "https://i05.appmifile.com/236_item_es/12/01/2026/2f1b4c72c229030d220de771bd4b7a10.png",
+        "https://i05.appmifile.com/848_item_es/05/01/2026/85e48bdbd1170370dd198b7af700b01b.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 5G",
+      "color": "Azul",
+      "officialColor": "Azul glaciar",
+      "rgb": "#97bad3",
+      "page": "https://www.mi.com/es/product/redmi-note-15-5g/buy/",
+      "source": "https://i05.appmifile.com/19_item_es/12/01/2026/8a1138413b6c6dfade805d45b2f4fa2a.png",
+      "sources": [
+        "https://i05.appmifile.com/19_item_es/12/01/2026/8a1138413b6c6dfade805d45b2f4fa2a.png",
+        "https://i05.appmifile.com/386_item_es/12/01/2026/f62a492ffa0e6fc05747d9b5a49cd556.png",
+        "https://i05.appmifile.com/50_item_es/12/01/2026/9eb58340f91c9cdb5de5e0df13fbbf27.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-15-5g/buy/",
+      "source": "https://i05.appmifile.com/239_item_es/26/12/2025/05b379eec12519cf58a265d70ad9ae3b.png",
+      "sources": [
+        "https://i05.appmifile.com/239_item_es/26/12/2025/05b379eec12519cf58a265d70ad9ae3b.png",
+        "https://i05.appmifile.com/126_item_es/12/01/2026/6aab78a45659c3549b4279404cf953dc.png",
+        "https://i05.appmifile.com/845_item_es/26/12/2025/4a24f2bc731252839a0a8941e9a9fede.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro",
+      "color": "Azul",
+      "officialColor": "Azul glaciar",
+      "rgb": "#97bad3",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro/buy/",
+      "source": "https://i05.appmifile.com/279_item_es/26/12/2025/034863a875a80fbd4a67da9850be82b5.png",
+      "sources": [
+        "https://i05.appmifile.com/279_item_es/26/12/2025/034863a875a80fbd4a67da9850be82b5.png",
+        "https://i05.appmifile.com/308_item_es/12/01/2026/152b623f77d0d743e2c550eb605aa520.png",
+        "https://i05.appmifile.com/63_item_es/26/12/2025/1ba0d70967ea9324da567d777c048b1e.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro",
+      "color": "Gris",
+      "officialColor": "Titanio",
+      "rgb": "#d2cbc5",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro/buy/",
+      "source": "https://i05.appmifile.com/505_item_es/12/01/2026/148f5d293767f2db44ab6bc224a29c4c.png",
+      "sources": [
+        "https://i05.appmifile.com/505_item_es/12/01/2026/148f5d293767f2db44ab6bc224a29c4c.png",
+        "https://i05.appmifile.com/932_item_es/12/01/2026/2ba53c34eeff3f87a8a42d0d0b77458e.png",
+        "https://i05.appmifile.com/376_item_es/12/01/2026/111d0f9d33ce457547ebddc1b79551cc.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro 5G",
+      "color": "Azul",
+      "officialColor": "Azul glaciar",
+      "rgb": "#97bad3",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro-5g/buy/",
+      "source": "https://i05.appmifile.com/221_item_es/26/12/2025/f46562d283e36dd431a84fc531b2f742.png",
+      "sources": [
+        "https://i05.appmifile.com/221_item_es/26/12/2025/f46562d283e36dd431a84fc531b2f742.png",
+        "https://i05.appmifile.com/252_item_es/12/01/2026/fc2c17a9768df3d2a252b8ef5041cb43.png",
+        "https://i05.appmifile.com/853_item_es/26/12/2025/cd8de09f3f057d82ae37f17067a18dc4.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro 5G",
+      "color": "Lavanda",
+      "officialColor": "Mist Purple",
+      "rgb": "#c1bee3",
+      "page": "https://www.mi.com/my/product/redmi-note-15-pro-5g/buy/",
+      "source": "https://i02.appmifile.com/240_item_my/12/01/2026/1b69c85a6676fed09e1fb01d79670a74.png",
+      "sources": [
+        "https://i02.appmifile.com/240_item_my/12/01/2026/1b69c85a6676fed09e1fb01d79670a74.png",
+        "https://i02.appmifile.com/549_item_my/13/01/2026/128fb6fb3b788fa972598671ea4fa167.png",
+        "https://i02.appmifile.com/847_item_my/12/01/2026/74647c0e907f12f88adc73b02a51a94c.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro-5g/buy/",
+      "source": "https://i05.appmifile.com/502_item_es/26/12/2025/f178d0db9e0c143c7fdc5e2a1953d91f.png",
+      "sources": [
+        "https://i05.appmifile.com/502_item_es/26/12/2025/f178d0db9e0c143c7fdc5e2a1953d91f.png",
+        "https://i05.appmifile.com/994_item_es/12/01/2026/caacf636620d4b193e5f098b67b7e3ab.png",
+        "https://i05.appmifile.com/44_item_es/26/12/2025/37a0eb827370fe4595d4b0b84f32f141.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro+",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro-plus-5g/buy/",
+      "source": "https://i05.appmifile.com/604_item_es/26/12/2025/a7ead9b3464382b09205f535bbca1709.png",
+      "sources": [
+        "https://i05.appmifile.com/604_item_es/26/12/2025/a7ead9b3464382b09205f535bbca1709.png",
+        "https://i05.appmifile.com/126_item_es/12/01/2026/d872a0cdde2e4ff49ebf173db6e3e26a.png",
+        "https://i05.appmifile.com/462_item_es/26/12/2025/8984d1c17f4abc5ca5c674500488af42.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro+",
+      "color": "Azul",
+      "officialColor": "Azul glaciar",
+      "rgb": "#97bad3",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro-plus-5g/buy/",
+      "source": "https://i05.appmifile.com/800_item_es/26/12/2025/825de3a81c4ca32de6c49843ff042ae3.png",
+      "sources": [
+        "https://i05.appmifile.com/800_item_es/26/12/2025/825de3a81c4ca32de6c49843ff042ae3.png",
+        "https://i05.appmifile.com/30_item_es/12/01/2026/b99340567cdeb6c4101006763bcddcd1.png",
+        "https://i05.appmifile.com/514_item_es/26/12/2025/7d704346404de93b66b196b9fab23d5c.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-17/buy/",
+      "source": "https://i02.appmifile.com/105_operatorx_operatorx_xm/21/08/2026/dabf7ab2f572783ee3911b2393a17aaa.png",
+      "sources": [
+        "https://i02.appmifile.com/105_operatorx_operatorx_xm/21/08/2026/dabf7ab2f572783ee3911b2393a17aaa.png",
+        "https://i02.appmifile.com/21_operatorx_operatorx_xm/21/08/2026/e1244f0f085628bdd96828ef6de234e4.png",
+        "https://i02.appmifile.com/401_operatorx_operatorx_xm/21/08/2026/11a65d4995d13bc606e4de73f8eeaefc.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17",
+      "color": "Lavanda",
+      "officialColor": "Morado Celestial",
+      "rgb": "#c2c1e8",
+      "page": "https://www.mi.com/es/product/redmi-note-17/buy/",
+      "source": "https://i02.appmifile.com/668_operatorx_operatorx_xm/21/08/2026/21da3ad2797feb82e376c1a575c59f0f.png",
+      "sources": [
+        "https://i02.appmifile.com/668_operatorx_operatorx_xm/21/08/2026/21da3ad2797feb82e376c1a575c59f0f.png",
+        "https://i02.appmifile.com/694_operatorx_operatorx_xm/21/08/2026/4449d10797bf34d9e05070892b3d1ee3.png",
+        "https://i02.appmifile.com/718_operatorx_operatorx_xm/21/08/2026/9589c2c093588e2bbd1b32a9818a35e3.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro 5G",
+      "color": "Lavanda",
+      "officialColor": "Morado",
+      "rgb": "#c1afc8",
+      "page": "https://www.mi.com/es/product/redmi-note-17-pro-5g/buy/",
+      "source": "https://i02.appmifile.com/803_operatorx_operatorx_xm/25/08/2026/6b06f67361454d7197c6ae5327c86df1.png",
+      "sources": [
+        "https://i02.appmifile.com/803_operatorx_operatorx_xm/25/08/2026/6b06f67361454d7197c6ae5327c86df1.png",
+        "https://i02.appmifile.com/664_operatorx_operatorx_xm/25/08/2026/a86ae2359aebc9e59f3072063be5f8ff.png",
+        "https://i02.appmifile.com/50_operatorx_operatorx_xm/25/08/2026/2e93639212f0007687f1af21fc815e57.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-17-pro-5g/buy/",
+      "source": "https://i02.appmifile.com/213_operatorx_operatorx_xm/25/08/2026/60f2d40dd431935a40de4da9cfc0fbf3.png",
+      "sources": [
+        "https://i02.appmifile.com/213_operatorx_operatorx_xm/25/08/2026/60f2d40dd431935a40de4da9cfc0fbf3.png",
+        "https://i02.appmifile.com/257_operatorx_operatorx_xm/25/08/2026/c446f9dc8d3c445f299e040cb1c3919b.png",
+        "https://i02.appmifile.com/631_operatorx_operatorx_xm/25/08/2026/3d9f7304a2590a66ab382b9177664a44.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro 5G",
+      "color": "Azul",
+      "officialColor": "Azul Celeste",
+      "rgb": "#a2c6cc",
+      "page": "https://www.mi.com/es/product/redmi-note-17-pro-5g/buy/",
+      "source": "https://i02.appmifile.com/753_operatorx_operatorx_xm/25/08/2026/d7ad843aff63e72642ce94a8b7d6c8dd.png",
+      "sources": [
+        "https://i02.appmifile.com/753_operatorx_operatorx_xm/25/08/2026/d7ad843aff63e72642ce94a8b7d6c8dd.png",
+        "https://i02.appmifile.com/298_operatorx_operatorx_xm/25/08/2026/214bdaf163d7a38a58e0a6028f5d5e53.png",
+        "https://i02.appmifile.com/284_operatorx_operatorx_xm/25/08/2026/96d31e774f960e40677dcfead40aff29.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro Max 5G",
+      "color": "Blanco",
+      "officialColor": "Blanco Fotoactivo",
+      "rgb": "#ebe7e4",
+      "page": "https://www.mi.com/es/product/redmi-note-17-pro-max-5g/buy/",
+      "source": "https://i02.appmifile.com/141_operatorx_operatorx_xm/25/08/2026/d32832f05de476f5aac638c91fdc9db7.png",
+      "sources": [
+        "https://i02.appmifile.com/141_operatorx_operatorx_xm/25/08/2026/d32832f05de476f5aac638c91fdc9db7.png",
+        "https://i02.appmifile.com/881_operatorx_operatorx_xm/25/08/2026/8b1a7e92ef917611a921e08c11e71f64.png",
+        "https://i02.appmifile.com/511_operatorx_operatorx_xm/25/08/2026/55f00a80b73a1b81fca5568c25f294a9.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro Max 5G",
+      "color": "Lavanda",
+      "officialColor": "Purple",
+      "rgb": "#CBB9D1",
+      "page": "https://www.mi.com/my/product/redmi-note-17-pro-max-5g/buy/",
+      "source": "https://i02.appmifile.com/441_operatorx_operatorx_xm/25/08/2026/20f31df899f2c4054080591e5b2e4886.png",
+      "sources": [
+        "https://i02.appmifile.com/441_operatorx_operatorx_xm/25/08/2026/20f31df899f2c4054080591e5b2e4886.png",
+        "https://i02.appmifile.com/682_operatorx_operatorx_xm/25/08/2026/9cac2369423bf81ce5fbfccf06c7a8ab.png",
+        "https://i02.appmifile.com/899_operatorx_operatorx_xm/25/08/2026/b09c037543d483cc6eb1d1dc88a896ca.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro Max 5G",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/redmi-note-17-pro-max-5g/buy/",
+      "source": "https://i02.appmifile.com/786_operatorx_operatorx_xm/25/08/2026/a4368fcd68decc4b03917afe09fa51cd.png",
+      "sources": [
+        "https://i02.appmifile.com/786_operatorx_operatorx_xm/25/08/2026/a4368fcd68decc4b03917afe09fa51cd.png",
+        "https://i02.appmifile.com/910_operatorx_operatorx_xm/25/08/2026/7e2c250c9c742af71c50521d00890e67.png",
+        "https://i02.appmifile.com/903_operatorx_operatorx_xm/25/08/2026/43f1045c0f14f1beab430eb95874d458.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 15",
+      "color": "Verde",
+      "officialColor": "Verde",
+      "rgb": "#ddebde",
+      "page": "https://www.mi.com/es/product/xiaomi-15/buy/",
+      "source": "https://i05.appmifile.com/327_item_es/25/02/2025/45adb1f382c56ccf69c779a1d29692ee.png",
+      "sources": [
+        "https://i05.appmifile.com/327_item_es/25/02/2025/45adb1f382c56ccf69c779a1d29692ee.png",
+        "https://i05.appmifile.com/677_item_es/25/02/2025/2377f6a0be46796e8460dfb54131e6b8.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 15T Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/xiaomi-15t-pro/buy/",
+      "source": "https://i05.appmifile.com/999_item_es/15/09/2025/716a7bc37a686cc99d93fd1a83a61a7d.png",
+      "sources": [
+        "https://i05.appmifile.com/999_item_es/15/09/2025/716a7bc37a686cc99d93fd1a83a61a7d.png",
+        "https://i05.appmifile.com/537_item_es/15/09/2025/fa08b56254520d933468377b4d368ac4.png",
+        "https://i05.appmifile.com/219_item_es/15/09/2025/f9278bc6b2e025f2e6951cc19b69d224.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 17",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/xiaomi-17/buy/",
+      "source": "https://i05.appmifile.com/306_item_es/10/02/2026/25644db3cdb357459d0f31af0221daf4.png",
+      "sources": [
+        "https://i05.appmifile.com/306_item_es/10/02/2026/25644db3cdb357459d0f31af0221daf4.png",
+        "https://i05.appmifile.com/426_item_es/10/02/2026/d8c9684d954e63be3d4dc9bf75103fe2.png",
+        "https://i05.appmifile.com/632_item_es/10/02/2026/e93324c766730742506fe6edbb1941ea.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 17 Ultra",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/xiaomi-17-ultra/buy/",
+      "source": "https://i05.appmifile.com/42_item_es/10/02/2026/83e53eb14c660ce0189cd3dae258254f.png",
+      "sources": [
+        "https://i05.appmifile.com/42_item_es/10/02/2026/83e53eb14c660ce0189cd3dae258254f.png",
+        "https://i05.appmifile.com/999_item_es/10/02/2026/a807331bf197e7445690e00101fdd085.png",
+        "https://i05.appmifile.com/964_item_es/10/02/2026/cb2a613a0f7f4e5622420cf1a5eadc75.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 17T",
+      "color": "Azul",
+      "officialColor": "Azul",
+      "rgb": "#d4ebf5",
+      "page": "https://www.mi.com/es/product/xiaomi-17t/buy/",
+      "source": "https://i05.appmifile.com/329_item_es/18/05/2026/b537b37680041f0477f4e69d59ea3285.png",
+      "sources": [
+        "https://i05.appmifile.com/329_item_es/18/05/2026/b537b37680041f0477f4e69d59ea3285.png",
+        "https://i05.appmifile.com/244_item_es/18/05/2026/06b3e005cfebec682e6e1f3dc3ff7051.png",
+        "https://i05.appmifile.com/550_item_es/18/05/2026/bdadbd3812c4e13ac42732cde2476b65.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 17T",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "rgb": "#000000",
+      "page": "https://www.mi.com/es/product/xiaomi-17t/buy/",
+      "source": "https://i05.appmifile.com/178_item_es/18/05/2026/2e720fa0573d3c48ac68af5dc5cb8820.png",
+      "sources": [
+        "https://i05.appmifile.com/178_item_es/18/05/2026/2e720fa0573d3c48ac68af5dc5cb8820.png",
+        "https://i05.appmifile.com/985_item_es/18/05/2026/e924950cc28df1ce8ace8b9353311f9d.png",
+        "https://i05.appmifile.com/326_item_es/18/05/2026/8149058f8b2a2cb96e892a5110626b6c.png"
+      ]
+    },
+    {
+      "model": "Xiaomi 17T Pro",
+      "color": "Violeta",
+      "officialColor": "Violeta profundo",
+      "rgb": "#877088",
+      "page": "https://www.mi.com/es/product/xiaomi-17t-pro/buy/",
+      "source": "https://i05.appmifile.com/953_item_es/18/05/2026/6788103f4ed244678a3c274894316aa6.png",
+      "sources": [
+        "https://i05.appmifile.com/953_item_es/18/05/2026/6788103f4ed244678a3c274894316aa6.png",
+        "https://i05.appmifile.com/337_item_es/18/05/2026/bae271c3b9372ecfa19212ffaccc1c96.png",
+        "https://i05.appmifile.com/183_item_es/18/05/2026/c2114e4a81d704ec841a40f2fe9fc5ff.png"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "model": "POCO X8 Pro Max",
+      "color": "Naranja",
+      "officialColors": [
+        "Negro",
+        "Blanco",
+        "Azul"
+      ]
+    },
+    {
+      "model": "Redmi 15R 5G",
+      "color": "Morado",
+      "reason": "No catalog"
+    },
+    {
+      "model": "Redmi 15R 5G",
+      "color": "Negro",
+      "reason": "No catalog"
+    },
+    {
+      "model": "Redmi 15R 5G",
+      "color": "Blanco",
+      "reason": "No catalog"
+    },
+    {
+      "model": "Redmi 15R 5G",
+      "color": "Verde",
+      "reason": "No catalog"
+    },
+    {
+      "model": "Redmi Note 15 Pro+",
+      "color": "Marrón Claro",
+      "officialColors": [
+        "Café Moca",
+        "Negro",
+        "Azul glaciar"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro+",
+      "color": "Marrón Oscuro",
+      "officialColors": [
+        "Café Moca",
+        "Negro",
+        "Azul glaciar"
+      ]
+    },
+    {
+      "model": "Redmi Note 17 Pro 5G",
+      "color": "Naranja",
+      "officialColors": [
+        "Azul Celeste",
+        "Negro",
+        "Morado"
+      ]
+    }
+  ]
+}

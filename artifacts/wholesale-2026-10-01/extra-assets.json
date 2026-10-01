@@ -1,0 +1,182 @@
+{
+  "assets": [
+    {
+      "model": "Blackview BL7000",
+      "color": "Negro",
+      "source": "https://d2kbvjszk9d5ln.cloudfront.net/yshop/bl7000/sect88-1.webp",
+      "page": "https://www.blackview.hk/products/item/bl7000"
+    },
+    {
+      "model": "Blackview BL7000",
+      "color": "Naranja",
+      "source": "https://d2kbvjszk9d5ln.cloudfront.net/yshop/bl7000/sect88-2.webp",
+      "page": "https://www.blackview.hk/products/item/bl7000"
+    },
+    {
+      "model": "Itel A200",
+      "color": "Naranja",
+      "source": "https://www.itel-life.com/fileadmin/assets/img/plp/A200/orange.png",
+      "page": "https://www.itel-life.com/products/phone/a-series/a200/spec",
+      "officialColor": "Comet Orange"
+    },
+    {
+      "model": "Itel A200",
+      "color": "Gris",
+      "source": "https://www.itel-life.com/fileadmin/assets/img/plp/A200/Meteor_Titanium.png",
+      "page": "https://www.itel-life.com/products/phone/a-series/a200/spec",
+      "officialColor": "Meteor Titanium"
+    },
+    {
+      "model": "Itel A200",
+      "color": "Verde",
+      "source": "https://www.itel-life.com/fileadmin/assets/img/plp/A200/green.png",
+      "page": "https://www.itel-life.com/products/phone/a-series/a200/spec",
+      "officialColor": "Nebula Green"
+    },
+    {
+      "model": "Realme Note 70",
+      "color": "Negro",
+      "source": "https://image01.realme.net/general/20250820/175568284647508dfa8f5415e48e5be737aac4314d17b.png",
+      "page": "https://www.realme.com/global/realme-note-70/specs",
+      "officialColor": "Obsidian Black"
+    },
+    {
+      "model": "Infinix Smart 20",
+      "color": "Naranja",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/Sunlike_Orange.webp?v=1781068963",
+      "page": "https://infinixmobiles.in/products/smart-20",
+      "officialColor": "Sunlike Orange"
+    },
+    {
+      "model": "Infinix Smart 20",
+      "color": "Negro",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/FrontBack.webp?v=1781068905",
+      "page": "https://infinixmobiles.in/products/smart-20",
+      "officialColor": "Shadow Black"
+    },
+    {
+      "model": "Infinix Smart 20",
+      "color": "Gris",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/PolarisTitanium.webp?v=1781068851",
+      "page": "https://infinixmobiles.in/products/smart-20",
+      "officialColor": "Polaris Titanium"
+    },
+    {
+      "model": "Infinix Smart 20",
+      "color": "Azul",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/Blue.webp?v=1781068792",
+      "page": "https://infinixmobiles.in/products/smart-20",
+      "officialColor": "Cloudline Blue"
+    },
+    {
+      "model": "Infinix Smart 10",
+      "color": "Negro",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/01_917bfba4-fe63-4fc0-9596-2a35168cf8e6.png?v=1753268435",
+      "page": "https://infinixmobiles.in/products/smart-10",
+      "officialColor": "Sleek Black"
+    },
+    {
+      "model": "Infinix Smart 10",
+      "color": "Oro",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/01_92d71e3b-718d-4e5f-a859-d19383e53700.png?v=1753268124",
+      "page": "https://infinixmobiles.in/products/smart-10",
+      "officialColor": "Twilight Gold"
+    },
+    {
+      "model": "Infinix Smart 10",
+      "color": "Plata",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/smart10.png?v=1753765297",
+      "page": "https://infinixmobiles.in/products/smart-10",
+      "officialColor": "Titanuim Silver"
+    },
+    {
+      "model": "Infinix GT 30 Pro",
+      "color": "Negro",
+      "source": "https://cdn.shopify.com/s/files/1/0928/3089/2308/files/GT_30_PRO_Dark_Flare-1_914d43d1-8086-48c2-9da5-75b57b4c45b8.webp?v=1767680484",
+      "page": "https://infinixmobiles.in/products/gt-30-pro-5g",
+      "officialColor": "Dark Flare"
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Azul",
+      "source": "https://cdn.shopify.com/s/files/1/0579/3169/4264/files/Oukitel_C17_Plus_Blue.png?v=1788088127",
+      "page": "https://www.oukitel.co.za/products/oukitel-c17-plus-4g-smartphone-120hz-display-64mp-camera",
+      "officialColor": "Blue"
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Gris",
+      "source": "https://cdn.shopify.com/s/files/1/0579/3169/4264/files/Oukitel_C17_Plus_Silver.png?v=1788088126",
+      "page": "https://www.oukitel.co.za/products/oukitel-c17-plus-4g-smartphone-120hz-display-64mp-camera",
+      "officialColor": "Silver"
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Naranja",
+      "source": "https://cdn.shopify.com/s/files/1/0579/3169/4264/files/C17_Plus_1.2.png?v=1788160851",
+      "page": "https://www.oukitel.co.za/products/oukitel-c17-plus-4g-smartphone-120hz-display-64mp-camera",
+      "officialColor": "Orange"
+    },
+    {
+      "model": "Nokia 106",
+      "color": "Gris",
+      "officialColor": "Dark grey",
+      "source": "https://images.ctfassets.net/wcfotm6rrl7u/48NW80xnM3jrIWCPi8fOAu/52ecd4358e54e107fbac1711b35a9c11/nokia-106-black-front_back-int.png",
+      "sources": [
+        "https://images.ctfassets.net/wcfotm6rrl7u/48NW80xnM3jrIWCPi8fOAu/52ecd4358e54e107fbac1711b35a9c11/nokia-106-black-front_back-int.png",
+        "https://images.ctfassets.net/wcfotm6rrl7u/ypwSIZCIZK6xWB6YalyHG/fd41aa656c89cd4ddf1bf37d39e34548/nokia-106-black-front-int.png",
+        "https://images.ctfassets.net/wcfotm6rrl7u/4PT35fyEZeHymZGpJjCqVk/e1adc7aece9187f106664cea29a72624/nokia-106-black-back-int.png"
+      ],
+      "page": "https://www.hmd.com/en_int/nokia-106-2018"
+    },
+    {
+      "model": "Nokia 110 4G",
+      "color": "Negro",
+      "officialColor": "Midnight Black",
+      "source": "https://images.ctfassets.net/wcfotm6rrl7u/3RynafoI3SuF5XBg83LDvz/ff05c3967e2141ca0faf556969cb810f/nokia-110_4G-midnight_black-front_back-int.png",
+      "sources": [
+        "https://images.ctfassets.net/wcfotm6rrl7u/3RynafoI3SuF5XBg83LDvz/ff05c3967e2141ca0faf556969cb810f/nokia-110_4G-midnight_black-front_back-int.png",
+        "https://images.ctfassets.net/wcfotm6rrl7u/Wvs2HhcVe0Oil0ZG9aHMQ/8ff1107c1fe2e4859609c0279503019e/nokia-110_4G-midnight_black-front-int.png",
+        "https://images.ctfassets.net/wcfotm6rrl7u/3OJA9ChV9EPsVOeIfxKTtO/cc8e46eec789ba7759cf5ecd123e7174/nokia-110_4G-midnight_black-back-int.png"
+      ],
+      "page": "https://www.hmd.com/en_int/nokia-110-4g"
+    },
+    {
+      "model": "KingKong 8",
+      "color": "Negro",
+      "officialColor": "Black",
+      "source": "https://cubot.net/public/uploads/smartphones/KINGKONG8.zip#KINGKONG8/Black/02.png",
+      "sources": [
+        "https://cubot.net/public/uploads/smartphones/KINGKONG8.zip#KINGKONG8/Black/02.png",
+        "https://cubot.net/public/uploads/smartphones/KINGKONG8.zip#KINGKONG8/Black/01.png",
+        "https://cubot.net/public/uploads/smartphones/KINGKONG8.zip#KINGKONG8/Black/03.png"
+      ],
+      "page": "https://cubot.net/Support/id/106/cid/20?l=en-us"
+    },
+    {
+      "model": "Motorola G06 Power",
+      "color": "Khaki",
+      "officialColor": "PANTONE Laurel Oak",
+      "source": "https://motorolain.vteximg.com.br/arquivos/ids/161257/motorola-g06-power-pdp-ecom-render-06-laurel-oak-.png?v=638950647039170000",
+      "sources": [
+        "https://motorolain.vteximg.com.br/arquivos/ids/161257/motorola-g06-power-pdp-ecom-render-06-laurel-oak-.png?v=638950647039170000",
+        "https://motorolain.vteximg.com.br/arquivos/ids/161258/motorola-g06-power-pdp-ecom-render-01-laurel-oak-.png?v=638950647039170000",
+        "https://motorolain.vteximg.com.br/arquivos/ids/161259/motorola-g06-power-pdp-ecom-render-04-laurel-oak-.png?v=638950647039330000"
+      ],
+      "page": "https://www.motorola.in/smartphones-moto-g06-power/p"
+    },
+    {
+      "model": "Motorola G86 Power 5G",
+      "color": "Rojo",
+      "officialColor": "Rojo",
+      "source": "https://prmoto.vteximg.com.br/arquivos/ids/166279/8--4-.jpg?v=639220018802200000",
+      "sources": [
+        "https://prmoto.vteximg.com.br/arquivos/ids/166279/8--4-.jpg?v=639220018802200000",
+        "https://prmoto.vteximg.com.br/arquivos/ids/166280/2--3-.jpg?v=639220018802200000",
+        "https://prmoto.vteximg.com.br/arquivos/ids/166281/3--4-.jpg?v=639220018802200000"
+      ],
+      "page": "https://www.motorola.com.pe/moto-g86-power-5g/p"
+    }
+  ],
+  "unresolved": []
+}

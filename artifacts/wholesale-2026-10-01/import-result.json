@@ -1,0 +1,632 @@
+[
+  {
+    "id": 194,
+    "model": "Blackview BL7000",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 195,
+    "model": "Blackview BL9000",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 196,
+    "model": "Blackview BV4800 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 197,
+    "model": "Blackview Fort 100",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 198,
+    "model": "Blackview Fort 200",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 199,
+    "model": "Blackview Rock 2",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 200,
+    "model": "Blackview Xplore 1",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 201,
+    "model": "Blackview Xplore 1 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 202,
+    "model": "Blackview Xplore 2",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 203,
+    "model": "Blackview Xplore 2 Projector",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 204,
+    "model": "Doogee Blade 10 Power",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 205,
+    "model": "Doogee Blade 10 Ultra Energy",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 206,
+    "model": "Doogee Blade 20 X",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 207,
+    "model": "Doogee Fire 5 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 208,
+    "model": "Doogee Fire 5 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 209,
+    "model": "Doogee Fire 7",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 210,
+    "model": "Doogee V Max 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 211,
+    "model": "Doogee V Max LR",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 212,
+    "model": "Hotwav A17 Pro Max",
+    "added": 7,
+    "created": true
+  },
+  {
+    "id": 213,
+    "model": "Hotwav A18 Pro Max",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 214,
+    "model": "Hotwav A26 Ultra",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 215,
+    "model": "Hotwav A36",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 216,
+    "model": "Hotwav Hyper 8E",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 217,
+    "model": "Hotwav Note 13 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 218,
+    "model": "Hotwav T8",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 219,
+    "model": "Hotwav X100 SE",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 220,
+    "model": "Infinix GT 30 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 221,
+    "model": "Infinix Smart 10",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 222,
+    "model": "Infinix Smart 20",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 223,
+    "model": "Itel A200",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 224,
+    "model": "Motorola Edge 60 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 225,
+    "model": "Motorola G06",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 226,
+    "model": "Motorola E15",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 227,
+    "model": "Motorola Edge 60",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 228,
+    "model": "Motorola Edge 70",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 229,
+    "model": "Motorola Edge 70 Fusion",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 230,
+    "model": "Motorola G15",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 231,
+    "model": "Motorola G35 5G",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 232,
+    "model": "Motorola G47",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 233,
+    "model": "Motorola G56 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 234,
+    "model": "Motorola G67",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 235,
+    "model": "Motorola G86 5G",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 236,
+    "model": "Oukitel C17 Plus",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 237,
+    "model": "Oukitel C72",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 238,
+    "model": "POCO C71",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 239,
+    "model": "POCO C81 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 240,
+    "model": "POCO C85",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 241,
+    "model": "POCO C95 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 242,
+    "model": "POCO F8 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 243,
+    "model": "POCO F8 Ultra",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 244,
+    "model": "POCO M8 5G",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 245,
+    "model": "POCO M8 Pro 5G",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 246,
+    "model": "POCO X6 Pro 5G",
+    "added": 6,
+    "created": true
+  },
+  {
+    "id": 247,
+    "model": "POCO X7 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 248,
+    "model": "POCO X8 Pro",
+    "added": 7,
+    "created": true
+  },
+  {
+    "id": 249,
+    "model": "POCO X8 Pro Max",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 250,
+    "model": "Redmi 15",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 251,
+    "model": "Redmi 15C",
+    "added": 8,
+    "created": true
+  },
+  {
+    "id": 252,
+    "model": "Redmi 17",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 253,
+    "model": "Redmi A7 Pro",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 254,
+    "model": "Redmi Note 14 Pro+ 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 255,
+    "model": "Redmi Note 15",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 256,
+    "model": "Redmi Note 15 5G",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 257,
+    "model": "Redmi Note 15 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 258,
+    "model": "Redmi Note 15 Pro 5G",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 259,
+    "model": "Redmi Note 15 Pro+",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 260,
+    "model": "Redmi Note 17",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 261,
+    "model": "Redmi Note 17 Pro 5G",
+    "added": 6,
+    "created": true
+  },
+  {
+    "id": 262,
+    "model": "Redmi Note 17 Pro Max 5G",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 263,
+    "model": "Xiaomi 15",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 264,
+    "model": "Xiaomi 15T Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 265,
+    "model": "Xiaomi 17",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 266,
+    "model": "Xiaomi 17 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 267,
+    "model": "Xiaomi 17T",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 268,
+    "model": "Xiaomi 17T Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 269,
+    "model": "Realme Note 70",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 270,
+    "model": "Ulefone Armor 27T Pro+",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 271,
+    "model": "Ulefone Armor 26 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 272,
+    "model": "Ulefone Armor 28 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 273,
+    "model": "Ulefone Armor 29 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 274,
+    "model": "Ulefone Armor 29 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 275,
+    "model": "Ulefone Armor Mini 20T Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 276,
+    "model": "Ulefone Armor X16",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 277,
+    "model": "Ulefone RugKing 3 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 48,
+    "model": "iPhone 13",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 83,
+    "model": "iPhone 14 Pro Max",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 95,
+    "model": "iPhone 15 Pro",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 103,
+    "model": "iPhone 15 Pro Max",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 108,
+    "model": "iPhone 16",
+    "added": 5,
+    "created": false
+  },
+  {
+    "id": 112,
+    "model": "iPhone 16 Pro",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 120,
+    "model": "iPhone 17",
+    "added": 2,
+    "created": false
+  },
+  {
+    "id": 121,
+    "model": "iPhone 17 Pro",
+    "added": 4,
+    "created": false
+  },
+  {
+    "id": 124,
+    "model": "iPhone 17 Pro Max",
+    "added": 2,
+    "created": false
+  },
+  {
+    "id": 278,
+    "model": "iPhone 18 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 279,
+    "model": "iPhone 18 Pro Max",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 280,
+    "model": "KingKong 8",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 281,
+    "model": "Nokia 106",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 282,
+    "model": "Nokia 110 4G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 283,
+    "model": "Motorola G06 Power",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 284,
+    "model": "Motorola G86 Power 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 210,
+    "model": "Doogee V Max 2",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 213,
+    "model": "Hotwav A18 Pro Max",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 219,
+    "model": "Hotwav X100 SE",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 237,
+    "model": "Oukitel C72",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 236,
+    "model": "Oukitel C17 Plus",
+    "added": 1,
+    "created": false
+  }
+]

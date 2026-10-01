@@ -1,0 +1,16 @@
+{
+  "verifiedAt": "2026-10-01T22:53:35.072Z",
+  "activeProducts": 117,
+  "importedModels": 100,
+  "importedVariants": 238,
+  "hostedPhotos": 382,
+  "pendingVariants": 27,
+  "checks": [
+    "supplier price + USD30, nearest USD10",
+    "10 units per new variant",
+    "grouped models",
+    "existing products and variants preserved",
+    "total stock",
+    "hosted WebP HTTP 200"
+  ]
+}

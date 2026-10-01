@@ -1,0 +1,483 @@
+{
+  "assets": [
+    {
+      "model": "Blackview BL9000",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/bl9000-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/BL9000-Black_01.jpg?v=1705485067"
+    },
+    {
+      "model": "Blackview BL9000",
+      "color": "Oro",
+      "officialColor": "Gold",
+      "page": "https://store.blackview.hk/products/bl9000-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/BL9000-Gold_01.jpg?v=1705485068"
+    },
+    {
+      "model": "Blackview BV4800 Pro",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/bv4800-pro-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/BV4800Pro-Black_01.jpg?v=1729579264"
+    },
+    {
+      "model": "Blackview BV4800 Pro",
+      "color": "Verde",
+      "officialColor": "Green",
+      "page": "https://store.blackview.hk/products/bv4800-pro-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/BV4800Pro-Green_01.jpg?v=1729579274"
+    },
+    {
+      "model": "Blackview Fort 100",
+      "color": "Blanco",
+      "officialColor": "White",
+      "page": "https://store.blackview.hk/products/fort-100-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/FORT100-White_01.jpg?v=1773817602"
+    },
+    {
+      "model": "Blackview Fort 100",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/fort-100-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/FORT100-Black_01.jpg?v=1773817923"
+    },
+    {
+      "model": "Blackview Fort 200",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/fort-200-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/FORT200-Black_01.jpg?v=1773657156"
+    },
+    {
+      "model": "Blackview Fort 200",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://store.blackview.hk/products/fort-200-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/FORT200-Orange_01.jpg?v=1773657208"
+    },
+    {
+      "model": "Blackview Rock 2",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://store.blackview.hk/products/rock-2-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/ROCK2-Orange_01.jpg?v=1765856484"
+    },
+    {
+      "model": "Blackview Rock 2",
+      "color": "Lavanda",
+      "officialColor": "Purple",
+      "page": "https://store.blackview.hk/products/rock-2-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/ROCK2-Purple_01.jpg?v=1765856696"
+    },
+    {
+      "model": "Blackview Xplore 1",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://store.blackview.hk/products/xplore-1-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/XPLORE1-Orange_01.jpg?v=1755676343"
+    },
+    {
+      "model": "Blackview Xplore 1 Pro",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://store.blackview.hk/products/xplore-1-pro-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/Blackview_XPLORE_1_Pro_Orange_Thermal_Imaging_1.jpg?v=1785822300"
+    },
+    {
+      "model": "Blackview Xplore 1 Pro",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/xplore-1-pro-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/XPLEASE_1_Pro_Black.jpg?v=1784274289"
+    },
+    {
+      "model": "Blackview Xplore 2",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/xplore-2-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/XPLORE2-Black_01.jpg?v=1756894439"
+    },
+    {
+      "model": "Blackview Xplore 2 Projector",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://store.blackview.hk/products/xplore-2-projector-price",
+      "source": "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/XPLORE-2-Projector-Black_01.jpg?v=1757744510"
+    },
+    {
+      "model": "Doogee Blade 10 Power",
+      "color": "Plata",
+      "officialColor": "Plain",
+      "page": "https://www.doogee.cc/products/doogee-blade-10-power",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/12_0f39dcad-2c96-4cb2-b501-5a6116eec400.jpg?v=1736134620"
+    },
+    {
+      "model": "Doogee Blade 10 Power",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.doogee.cc/products/doogee-blade-10-power",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/12_6900cdf0-d9f9-431d-80ab-9a64d658896b.jpg?v=1736134617"
+    },
+    {
+      "model": "Doogee Blade 10 Ultra Energy",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.doogee.cc/products/blade10-ultra-energy",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_32916e9f-b811-4c1d-885d-b1ac2d8fbbcb.png?v=1751443989"
+    },
+    {
+      "model": "Doogee Blade 10 Ultra Energy",
+      "color": "Natural",
+      "officialColor": "Plain",
+      "page": "https://www.doogee.cc/products/blade10-ultra-energy",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_03c8c036-f79b-45a4-8ee4-a6c1f55872ce.jpg?v=1751443993"
+    },
+    {
+      "model": "Doogee Blade 20 X",
+      "color": "Lavanda",
+      "officialColor": "Purple",
+      "page": "https://www.doogee.cc/products/doogee-blade20-x-rugged-phone",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_7ff2c161-66b3-49a0-858c-db08389e9e8f.png?v=1786098215"
+    },
+    {
+      "model": "Doogee Blade 20 X",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.doogee.cc/products/doogee-blade20-x-rugged-phone",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_465fa037-775e-4ef2-8e78-ce525e9505cf.png?v=1786098159"
+    },
+    {
+      "model": "Doogee Fire 5 Pro",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.doogee.cc/products/fire-5-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_841abbb1-0ad1-42fc-a727-3311699fad5a.png?v=1758952699"
+    },
+    {
+      "model": "Doogee Fire 5 Pro",
+      "color": "Gris",
+      "officialColor": "Gray",
+      "page": "https://www.doogee.cc/products/fire-5-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_cb972881-8d1e-438f-af87-b03785fce184.png?v=1758952698"
+    },
+    {
+      "model": "Doogee Fire 5 Pro",
+      "color": "Verde",
+      "officialColor": "Green",
+      "page": "https://www.doogee.cc/products/fire-5-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_68c2eea2-2cc4-414a-b228-5feb4bd06e2a.png?v=1758952686"
+    },
+    {
+      "model": "Doogee Fire 5 Ultra",
+      "color": "Verde",
+      "officialColor": "Green",
+      "page": "https://www.doogee.cc/products/fire-5-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_Fire_3_Ultra_SKU_Green_e9a54068-f3f5-4025-915b-412511f0f1f9.jpg?v=1786093386"
+    },
+    {
+      "model": "Doogee Fire 7",
+      "color": "Gris",
+      "officialColor": "Gray",
+      "page": "https://www.doogee.cc/products/fire-7",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_29d4f85c-7472-4824-9a32-a507efc73089.jpg?v=1761558339"
+    },
+    {
+      "model": "Doogee Fire 7",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.doogee.cc/products/fire-7",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_5dc6a0c6-1287-49ec-ad9b-555555ca4561.png?v=1764136625"
+    },
+    {
+      "model": "Doogee Fire 7",
+      "color": "Verde",
+      "officialColor": "Green",
+      "page": "https://www.doogee.cc/products/fire-7",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/11_0930820d-7484-4faa-969a-25cc35a3d0e7.jpg?v=1761558343"
+    },
+    {
+      "model": "Doogee V Max 2",
+      "color": "Gris",
+      "officialColor": "Gray",
+      "page": "https://www.doogee.cc/products/v-max-2",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_V_Max_2_SKU_Gray.jpg?v=1786086372"
+    },
+    {
+      "model": "Doogee V Max 2",
+      "color": "Marrón Oscuro",
+      "officialColor": "Black",
+      "page": "https://www.doogee.cc/products/v-max-2",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_V_Max_2_Main_Black.jpg?v=1786086372"
+    },
+    {
+      "model": "Doogee V Max LR",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.doogee.cc/products/v-max-lr",
+      "source": "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_V_Max_LR_Main_Black.jpg?v=1786088657"
+    },
+    {
+      "model": "Hotwav A17 Pro Max",
+      "color": "Plata",
+      "officialColor": "Silver",
+      "page": "https://www.hotwav.com/products/hotwav-a17-pro-max",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/2_ea3e494c-5348-4817-b89f-9a59fca58659.png?v=1776506324"
+    },
+    {
+      "model": "Hotwav A17 Pro Max",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.hotwav.com/products/hotwav-a17-pro-max",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/2_e5442eb9-f5cc-4530-ab7b-c23587cfd6d4.png?v=1776506198"
+    },
+    {
+      "model": "Hotwav A17 Pro Max",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.hotwav.com/products/hotwav-a17-pro-max",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/2_796a0c7e-da74-44ad-b310-965690fd8547.png?v=1776506275"
+    },
+    {
+      "model": "Hotwav A18 Pro Max",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.hotwav.com/products/hotwav-a18-pro-max-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/2_c9748204-4ff7-4698-85b1-a3a663f5caad.png?v=1786015824"
+    },
+    {
+      "model": "Hotwav A18 Pro Max",
+      "color": "Blanco",
+      "officialColor": "White",
+      "page": "https://www.hotwav.com/products/hotwav-a18-pro-max-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/2_1f8404e4-4bc8-4219-a3cd-b6d2cc8092c1.png?v=1786015824"
+    },
+    {
+      "model": "Hotwav A18 Pro Max",
+      "color": "Rojo",
+      "officialColor": "Rose",
+      "page": "https://www.hotwav.com/products/hotwav-a18-pro-max-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/a18_4cd51b9b-d978-4f6c-9613-b7efacc1e6f8.png?v=1786015824"
+    },
+    {
+      "model": "Hotwav A26 Ultra",
+      "color": "Naranja",
+      "officialColor": "Sunset Orange",
+      "page": "https://www.hotwav.com/products/hotwav-a26-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/dc75a92aa057e8034485aebe92089fe0.webp?v=1772855271"
+    },
+    {
+      "model": "Hotwav A26 Ultra",
+      "color": "Blanco",
+      "officialColor": "Pearl White",
+      "page": "https://www.hotwav.com/products/hotwav-a26-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/c1895ce3ea943efc36f2ef8f1b2ea3a8_7d8755af-5e49-43a0-8fb3-d500ccdc0f9f.webp?v=1772855271"
+    },
+    {
+      "model": "Hotwav A36",
+      "color": "Blanco",
+      "officialColor": "Blanco",
+      "page": "https://www.hotwav.com/products/hotwav-a36",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/A36_11zon.webp?v=1772855389"
+    },
+    {
+      "model": "Hotwav Hyper 8E",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://www.hotwav.com/products/hotwav-hyper-8e-rugged-phone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/Hyper-8E-1.jpg?v=1789827126"
+    },
+    {
+      "model": "Hotwav Note 13 Pro",
+      "color": "Negro",
+      "officialColor": "Black",
+      "page": "https://www.hotwav.com/products/hotwav-note-13-pro-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/Note13Pro-product-6-304832.jpg?v=1716283287"
+    },
+    {
+      "model": "Hotwav T8",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.hotwav.com/products/hotwav-t8-rugged-phone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/T8-img2.webp?v=1776653237"
+    },
+    {
+      "model": "Hotwav T8",
+      "color": "Verde",
+      "officialColor": "Green",
+      "page": "https://www.hotwav.com/products/hotwav-t8-rugged-phone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/T8-img4.webp?v=1776653313"
+    },
+    {
+      "model": "Hotwav X100 SE",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://www.hotwav.com/products/hotwav-x100se-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/X00SE__2.webp?v=1786691892"
+    },
+    {
+      "model": "Hotwav X100 SE",
+      "color": "Blanco",
+      "officialColor": "White",
+      "page": "https://www.hotwav.com/products/hotwav-x100se-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/X00SE__1_1.webp?v=1786691887"
+    },
+    {
+      "model": "Hotwav X100 SE",
+      "color": "Rojo",
+      "officialColor": "Rose",
+      "page": "https://www.hotwav.com/products/hotwav-x100se-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/X00SE__3.webp?v=1786691804"
+    },
+    {
+      "model": "Oukitel C72",
+      "color": "Oro",
+      "officialColor": "Gold",
+      "page": "https://oukitel.com/products/oukitel-c72-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0392/7428/3139/files/9_f262edfa-33eb-4bc6-af5d-228127c78ebd.jpg?v=1777025082"
+    },
+    {
+      "model": "Oukitel C72",
+      "color": "Lavanda",
+      "officialColor": "Pink",
+      "page": "https://oukitel.com/products/oukitel-c72-smartphone",
+      "source": "https://cdn.shopify.com/s/files/1/0392/7428/3139/files/11_1b9de11f-e5ea-40c2-ad08-353503b3532c.jpg?v=1777025082"
+    },
+    {
+      "model": "Ulefone Armor 27T Pro+",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-27t-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/Ulefone_Armor_27T_Pro_Thermal_imaging_Rugged_Phone.jpg?v=1765272933"
+    },
+    {
+      "model": "Ulefone Armor 26 Ultra",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-26-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/Ulefone_Armor_26_Ultra_Black_5G_Rugged_Phone.jpg?v=1762842931"
+    },
+    {
+      "model": "Ulefone Armor 28 Ultra",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-28-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneArmor28Ultra-Black-1000px-8_0171f6b8-1e30-4ea9-b491-aa0b0c1ffcac.jpg?v=1765268405"
+    },
+    {
+      "model": "Ulefone Armor 29 Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-29-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneArmor29Pro-MarvelBlack-1000px-18.jpg?v=1765337056"
+    },
+    {
+      "model": "Ulefone Armor 29 Ultra",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-29-ultra",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneArmor29Ultra-MarvelBlack-1000px-18_430e211c-249b-41b8-a103-f7a0bd5d37e6.jpg?v=1766815911"
+    },
+    {
+      "model": "Ulefone Armor Mini 20T Pro",
+      "color": "Negro",
+      "officialColor": "Negro",
+      "page": "https://store.ulefone.com/products/armor-mini-20t-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/Ulefone_Armor_Mini_20T_Pro_Rugged_Small_Smartphone.jpg?v=1762842575"
+    },
+    {
+      "model": "Ulefone Armor X16",
+      "color": "Marrón Claro",
+      "officialColor": "Sand Dune",
+      "page": "https://store.ulefone.com/products/armor-x16",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneArmorX16SandDune-1000px-26.jpg?v=1751971540"
+    },
+    {
+      "model": "Ulefone Armor X16",
+      "color": "Negro",
+      "officialColor": "Wasteland Shadow",
+      "page": "https://store.ulefone.com/products/armor-x16",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneArmorX16WastelandShadow-1000px-26.jpg?v=1751971540"
+    },
+    {
+      "model": "Ulefone RugKing 3 Pro",
+      "color": "Naranja",
+      "officialColor": "Orange",
+      "page": "https://store.ulefone.com/products/rugking-3-pro",
+      "source": "https://cdn.shopify.com/s/files/1/0749/2019/8462/files/UlefoneRugKing3ProOrange-1000px-15.jpg?v=1765177325"
+    }
+  ],
+  "unresolved": [
+    {
+      "model": "Blackview BL7000",
+      "color": "Negro",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Blackview BL7000",
+      "color": "Naranja",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Blackview BV9300 Pro Plus",
+      "color": "Negro",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Doogee V Max LR",
+      "color": "Battle Rust",
+      "reason": "Color mismatch",
+      "officialColors": [
+        "Black",
+        "Gray"
+      ]
+    },
+    {
+      "model": "Hotwav A18 Pro Max",
+      "color": "Gris",
+      "reason": "Color mismatch",
+      "officialColors": [
+        "Orange",
+        "Black",
+        "White",
+        "Rose"
+      ]
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Naranja",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Gris",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Oukitel C17 Plus",
+      "color": "Azul",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Oukitel C26",
+      "color": "Plata",
+      "reason": "Color mismatch",
+      "officialColors": [
+        "Orange",
+        "Gold",
+        "Blue",
+        "Purple"
+      ]
+    },
+    {
+      "model": "Oukitel C65",
+      "color": "Verde",
+      "reason": "No exact official model in storefront"
+    },
+    {
+      "model": "Oukitel C65",
+      "color": "Oro",
+      "reason": "No exact official model in storefront"
+    }
+  ]
+}

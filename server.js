@@ -1603,6 +1603,16 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         if (variants !== undefined) {
             const parsedVariants = normalizeVariants(variants);
             if (!parsedVariants) return res.status(400).json({ error: 'Variantes inválidas' });
+            const {data: previous, error: previousError} = await supabase.from('products').select('variants').eq('id', id).is('archived_at', null).single();
+            if (previousError) throw previousError;
+            const existingPhotos = new Map(parseVariants(previous.variants).map(v => [variantNameFor(v), v]));
+            for (const variant of parsedVariants) {
+                const old = existingPhotos.get(variantNameFor(variant));
+                if (!old) continue;
+                if (!variant.image_url) variant.image_url = old.image_url || '';
+                if (!Array.isArray(variant.images)) variant.images = old.images || [];
+                if (!variant.color_hex && old.color_hex) variant.color_hex = old.color_hex;
+            }
             updateData.variants = parsedVariants;
         }
         if (Object.keys(updateData).length === 0) return res.status(400).json({ error: 'No hay datos para actualizar' });
