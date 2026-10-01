@@ -66,14 +66,11 @@ async function main() {
                 const gallery = await page.evaluate(() => ({urls: [...document.querySelectorAll('.gallery-thumb')].map(button => button.dataset.image),
                     main: document.getElementById('main-product-img').src, variant: document.querySelector('.product-details').dataset.selectedVariant}));
                 const matching = product.variants.filter(v => v.color === color);
-                assert.equal(gallery.urls.length, new Set(matching.map(v => v.photo_key)).size, `${product.name}, ${color}`);
+                assert.equal(gallery.urls.length, 1, `${product.name}, ${color}: one representative photo`);
                 assert.equal(new Set(gallery.urls).size, gallery.urls.length);
                 assert.ok(matching.some(v => photoKey(v.image_url) === photoKey(gallery.main)), `${product.name}, ${color}: ${gallery.main}`);
                 assert.ok(gallery.variant.startsWith(color));
-                if (gallery.urls.length > 1) {
-                    await page.evaluate(() => document.querySelectorAll('.gallery-thumb')[1].click());
-                    assert.equal(await page.$eval('#main-product-img', img => img.src), gallery.urls[1]);
-                }
+                assert.equal(await page.$eval('.gallery-thumbnails', el => el.hidden), true);
             }
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
             findings.push({name: product.name, variants: product.variants.length, uniquePhotos: product.images.length, colors: colors.length});

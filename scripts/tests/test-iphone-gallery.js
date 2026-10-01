@@ -40,7 +40,7 @@ const product = normalizeProductImages({
             photos: document.querySelectorAll('.gallery-thumb').length
         }));
         assert.equal(initial.name, 'iPhone 14 Pro');
-        assert.equal(initial.photos, new Set(product.variants.filter(v => v.color === product.variants[0].color).map(v => v.photo_key)).size);
+        assert.equal(initial.photos, 1);
         await page.waitForFunction(() => document.querySelector('.gallery-thumb img')?.naturalWidth > 0, { timeout: 10000 });
         const conditionTextColor = await page.$eval('.var-btn[data-type="condition"]', el => getComputedStyle(el).color);
         assert.equal(conditionTextColor, 'rgb(29, 29, 31)');
@@ -64,7 +64,7 @@ const product = normalizeProductImages({
         }));
         assert.equal(selection.variant, 'Morado - 256GB - Bat: 100% - Cond: eSIM');
         assert.equal(selection.price, '510');
-        assert.equal(selection.image.split('?')[0], product.variants.find(v => v.color === 'Morado' && v.capacity === '256GB' && v.batt === '100%').image_url);
+        assert.equal(selection.image.split('?')[0], product.variants.find(v => v.color === 'Morado' && v.image_url).image_url);
         const catalog = await browser.newPage();
         await catalog.setRequestInterception(true);
         catalog.on('request', request => {

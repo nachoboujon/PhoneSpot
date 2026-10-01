@@ -54,13 +54,27 @@ async function main() {
             await page.$eval('#btn-next-step', button => button.click());
             assert.equal(await page.$eval('#checkout-part2', el => getComputedStyle(el).display), 'none');
             assert.equal(await page.$eval('#chk-lastname', el => el.getAttribute('aria-invalid')), 'true');
+            assert.equal(await page.$eval('#chk-lastname', el => el.getAttribute('aria-describedby')), 'chk-lastname-error');
+            assert.match(await page.$eval('#chk-lastname-error', el => el.textContent), /Completá/);
+            assert.equal(await page.evaluate(() => document.activeElement.id), 'chk-lastname');
+            await page.screenshot({path: path.join(output, `validation-${width}.png`)});
             assert.equal(writes, 0);
             await page.$eval('#chk-lastname', input => {input.value = 'Prueba'; input.dispatchEvent(new Event('input', {bubbles: true}));});
+            assert.equal(await page.$eval('#chk-lastname-error', el => el.textContent), '');
+            assert.equal(await page.$eval('.checkout-back-link', el => el.getAttribute('href')), 'carrito.html');
+            assert.equal(await page.$eval('#chk-name', el => el.autocomplete), 'given-name');
+            if (width === 390) assert.ok(await page.$eval('#chk-phone', el => parseFloat(getComputedStyle(el).fontSize) >= 16));
             // Enter in step 1 advances to review, without creating an order.
             await page.$eval('#checkout-form', form => form.dispatchEvent(new Event('submit', {bubbles: true, cancelable: true})));
             assert.equal(writes, 0);
             assert.match(await page.$eval('#checkout-review', el => el.textContent), /buyer@example.invalid/);
             assert.equal(await page.$eval('#step2-indicator', el => el.getAttribute('aria-current')), 'step');
+            await page.$eval('#btn-prev-step', button => button.click());
+            assert.equal(await page.evaluate(() => document.activeElement.id), 'checkout-contact-title');
+            assert.equal(await page.$eval('#chk-lastname', el => el.value), 'Prueba');
+            await page.$eval('#btn-next-step', button => button.click());
+            assert.doesNotMatch(await page.$eval('#checkout-items', el => el.textContent), /Sin Cargo|Bonificado/);
+            await new Promise(resolve => setTimeout(resolve, 350));
             await page.screenshot({path: path.join(output, `review-${width}.png`)});
             mode = 'rejected';
             await page.$eval('#checkout-form', form => {form.dispatchEvent(new Event('submit', {bubbles: true, cancelable: true})); form.dispatchEvent(new Event('submit', {bubbles: true, cancelable: true}));});

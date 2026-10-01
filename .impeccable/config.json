@@ -110,6 +110,34 @@
         ],
         "createdAt": "2026-10-01T14:43:23.591Z",
         "reason": "Agent verified desktop/mobile screenshots and carousel CSS: the full-bleed carousel wrapper has no visible text of its own; slide content uses 24px padding on desktop and 20px on mobile, with additional slide insets. The wrapper warning is a false positive."
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "public/catalogo.html",
+          "public/style.css"
+        ],
+        "createdAt": "2026-10-01T15:11:37.518Z",
+        "reason": "Agent retains the existing PhoneSpot typography under the user request to preserve the established appearance; changing the brand font is outside this interaction repair."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "public/catalogo.html"
+        ],
+        "createdAt": "2026-10-01T15:11:37.590Z",
+        "reason": "Agent verified desktop/mobile captures: the warning targets the full-bleed catalog hero, whose centered heading and subtitle have clear space inside the background. Filter headings and labels now have explicit padding."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/catalogo.html"
+        ],
+        "createdAt": "2026-10-01T15:11:37.662Z",
+        "reason": "Agent verified catalog filters and cart opening/closing at 1440 and 390px without horizontal overflow. Root horizontal clipping contains closed fixed sidebars and does not clip the controls."
       }
     ]
   }

@@ -1384,9 +1384,9 @@ footer {
 
 .side-cart-header { padding: 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
 .side-cart-header h3 { margin: 0; font-size: 1.2rem; }
-.close-cart-btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; font-size: 1.5rem; color: #555; transition: color 0.2s; }
+.close-cart-btn { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; font-size: 1.5rem; color: #555; transition: color 0.2s; }
 .close-cart-btn:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
-.close-cart-btn:hover { color: #000; }
+.close-cart-btn:hover { color: #000; background: #f1f3f4; transform: none; box-shadow: none; }
 
 .side-cart-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
 .side-cart-footer { padding: 1.5rem; border-top: 1px solid #eee; background: #fdfdfd; }
@@ -1414,7 +1414,7 @@ footer {
 .side-cart-item__actions { display: flex; flex-direction: column; align-items: flex-end; gap: .65rem; }
 .side-cart-quantity { display: inline-grid; grid-template-columns: 30px 30px 30px; align-items: center; height: 32px; overflow: hidden; border: 1px solid #e1e1e1; border-radius: 9px; background: #f5f5f5; }
 .side-cart-quantity button { display: grid; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 0; background: transparent; color: #222; font-size: .68rem; place-items: center; }
-.side-cart-quantity button:hover { box-shadow: none; background: #e5e5e5; transform: none; }
+.side-cart-quantity button:hover { box-shadow: none; background: #e5e5e5; color: #202428; transform: none; }
 .side-cart-quantity span { color: #111; font-size: .78rem; font-weight: 800; text-align: center; }
 .side-cart-remove { display: inline-flex; align-items: center; gap: .35rem; padding: 0; border: 0; border-radius: 0; background: transparent; color: #e5484d; cursor: pointer; font: inherit; font-size: .75rem; font-weight: 700; }
 .side-cart-remove:hover { box-shadow: none; background: transparent; color: #b42328; text-decoration: underline; transform: none; }
@@ -2576,7 +2576,14 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
 
 /* Filtros compactos y operables por teclado en el catálogo. */
 #catalog-filter-toggle { display: none; }
+#catalog-filter-toggle:hover { color: #202428; background: #f0f2f3; transform: none; box-shadow: none; }
 .filter-title { width: 100%; border: 0; background: transparent; font: inherit; text-align: left; }
+.catalog-container .filter-title { padding: .75rem .5rem; border-radius: 8px; text-transform: none; letter-spacing: normal; transition: background-color .18s ease; }
+.catalog-container .filter-title:hover { color: #202428; background: #f0f2f3; transform: none; box-shadow: none; }
+.catalog-container .filter-label { min-height: 40px; padding: .4rem .5rem; border-radius: 6px; transition: background-color .18s ease; }
+.catalog-container .filter-label:hover { background: #f0f2f3; transform: none; }
+.catalog-container .filter-label:has(input:checked) { background: #e8edf0; color: #171b1f; }
+.catalog-container .filter-label:focus-within { outline: 2px solid #202428; outline-offset: 2px; }
 .filter-title:focus-visible, #catalog-filter-toggle:focus-visible, .var-btn:focus-visible, .gallery-thumb:focus-visible {
     outline: 3px solid #2264a5;
     outline-offset: 3px;
@@ -2701,7 +2708,7 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
 #full-catalog-container .product-img-wrapper,
 #full-catalog-container .product-card[data-category*="celular"] .product-img-wrapper { height: 190px !important; min-height: 190px !important; margin-bottom: .8rem !important; background: #f2f3f4; perspective: none; }
 #full-catalog-container .product-img-wrapper::after { display: none; }
-#full-catalog-container .product-card .product-img { display: block; width: 100% !important; height: 180px !important; max-height: 180px !important; margin: 0 !important; object-fit: contain !important; mix-blend-mode: multiply; transform: none !important; transition: none !important; }
+#full-catalog-container .product-card .product-img { display: block; width: 100% !important; height: 180px !important; max-height: 180px !important; margin: 0 !important; object-fit: contain !important; mix-blend-mode: normal; transform: none !important; transition: none !important; }
 #full-catalog-container .product-card .card-condition { display: block; min-height: 2em; margin: .25rem 0 .55rem; color: #59616a; font-size: .76rem; font-weight: 600; line-height: 1.35; }
 #full-catalog-container .product-card h4 { flex: none !important; min-height: 2.4em; margin: 0 0 .35rem !important; font-size: 1rem !important; line-height: 1.2; }
 #full-catalog-container .product-card .card-price-wrap { margin-bottom: .9rem !important; }
@@ -2727,7 +2734,7 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
 .product-page .product-details { grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: clamp(2.5rem, 5vw, 5rem); }
 .product-page .product-gallery { display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
 .product-page .product-gallery-main { display: grid; position: relative; place-items: center; min-height: 540px; overflow: hidden; border-radius: 14px; background: #f2f3f4; }
-.product-page .product-gallery-main img { display: block; width: 100%; height: 540px; padding: 1.5rem; border-radius: 0; background: transparent; object-fit: contain; mix-blend-mode: multiply; }
+.product-page .product-gallery-main img { display: block; width: 100%; height: 540px; padding: 1.5rem; border-radius: 0; background: transparent; object-fit: contain; mix-blend-mode: normal; }
 .product-page .gallery-thumbnails { display: flex; gap: .55rem; width: 100%; min-width: 0; overflow-x: auto; padding: .2rem; }
 .product-page .gallery-thumbnails[hidden] { display: none; }
 .product-page .gallery-thumb { width: 72px; min-height: 82px; padding: .25rem; border: 1px solid #d9dde1; border-radius: 9px; background: #fff; box-shadow: none; }

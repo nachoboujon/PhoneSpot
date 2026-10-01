@@ -69,13 +69,14 @@ window.productGalleryImages = (product) => {
 };
 window.galleryForColor = (product, color) => {
     const variants = Array.isArray(product.variants) ? product.variants : [];
-    const matchingVariants = color ? variants.filter(variant => variant.color === color) : variants;
-    const seen = new Set();
-    const photos = matchingVariants.filter(v => {
-        const key = v.photo_key || v.image_url;
-        return v.image_url && !seen.has(key) && seen.add(key);
-    });
-    if (photos.length) return photos.map(v => ({url: window.getFullImageUrl(v.image_url), color: v.color}));
+    const normalizeColor = value => String(value || '').trim().toLocaleLowerCase('es');
+    const photos = new Map();
+    for (const variant of variants) {
+        const key = normalizeColor(variant.color);
+        if (!key || !variant.image_url || (color && key !== normalizeColor(color)) || photos.has(key)) continue;
+        photos.set(key, {url: window.getFullImageUrl(variant.image_url), color: variant.color});
+    }
+    if (photos.size) return [...photos.values()];
     if (color && variants.length) {
         return product.image_url ? [{url: window.getFullImageUrl(product.image_url), color: ''}] : [];
     }
@@ -718,10 +719,10 @@ async function renderCheckout() { await window.dolarPromise;
         shippingName = selectedShipping.dataset.name || 'Envío';
         
         // Envío local sin cargo
-        if (userZip === '3283' || userZip === '3280' || userZip === '3265' || userZip === '3260') {
+        if (!shippingToArrange && (userZip === '3283' || userZip === '3280' || userZip === '3265' || userZip === '3260')) {
             shippingCost = 0;
             shippingName = 'Envío Local (Sin Cargo)';
-        } else if (isFreeShipping) {
+        } else if (!shippingToArrange && isFreeShipping) {
             shippingCost = 0;
             shippingName = 'Envío (Bonificado por Promoción)';
         }
@@ -1009,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         sideCart.innerHTML = `
             <div class="side-cart-header">
                 <h3>Tu Carrito</h3>
-                <button type="button" class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                <button type="button" class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
             </div>
             <div id="free-shipping-container" style="padding: 1rem 1.5rem; background: #fdfdfd; border-bottom: 1px solid var(--border-color);">
                 <p id="free-shipping-text" style="margin: 0 0 0.5rem; font-size: 0.85rem; font-weight: bold; color: var(--text-color); text-align: center;"></p>
@@ -1577,7 +1578,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Color <span id="selected-color-name">${uniqueColors[0]}</span></h3>
                                 <div class="product-option-list" id="color-opts">
-                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn color-photo-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}"><img src="${window.getFullImageUrl(prod.variants.find(v => v.color === c && v.image_url)?.image_url || prod.image_url)}" alt="" loading="lazy"><span>${c}</span></button>`).join('')}
+                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
                                 </div>
                                 <p id="photo-color-note" class="photo-color-note" hidden></p>
                             </div>
@@ -1818,10 +1819,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             container.dataset.price = variant.price || prodArg.price;
                             const priceEl = document.getElementById('dynamic-price');
                             if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span>ARS</span>`;
-                            if (variant.image_url) {
-                                const galleryVariant = prodArg.variants.find(v => v.color === variant.color && (v.photo_key || v.image_url) === (variant.photo_key || variant.image_url));
-                                window.setProductImage(galleryVariant?.image_url || variant.image_url);
-                            }
+                            const photo = window.galleryForColor(prodArg, variant.color)[0];
+                            if (photo) window.setProductImage(photo.url);
                         }
                     };
 
@@ -4296,7 +4295,8 @@ window.updateCardVariant = function(el) {
         const priceEl = card.querySelector('.card-price');
         if (priceEl) priceEl.innerHTML = window.formatPrice(Number(variant.price || card.dataset.price));
         const image = card.querySelector('.product-img');
-        if (image && variant.image_url) image.src = window.getFullImageUrl(variant.image_url);
+        const photo = window.galleryForColor({image_url: image?.src, variants: info.variants}, variant.color)[0];
+        if (image && photo) image.src = photo.url;
         const stockMsg = card.querySelector('.card-variant-stock');
         const button = card.querySelector('.add-to-cart-btn');
         if (stockMsg) stockMsg.textContent = variant.stock > 0 ? `Stock: ${variant.stock}` : 'Sin stock';

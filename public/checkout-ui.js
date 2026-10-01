@@ -4,6 +4,20 @@
     let lockedControls = [];
     const signature = items => JSON.stringify(items.map(item => [item.id, item.variant_name || '', item.quantity, item.price]));
     const field = id => document.getElementById(id);
+    function showFieldError(input, message) {
+        let error = field(`${input.id}-error`);
+        if (!error && message) {
+            error = document.createElement('span');
+            error.id = `${input.id}-error`;
+            error.className = 'checkout-field-error';
+            input.insertAdjacentElement('afterend', error);
+            const descriptions = new Set((input.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
+            descriptions.add(error.id);
+            input.setAttribute('aria-describedby', [...descriptions].join(' '));
+        }
+        if (error) error.textContent = message;
+        input.setAttribute('aria-invalid', String(Boolean(message)));
+    }
     window.PhoneSpotCheckout = {
         confirmed: false,
         uncertain: false,
@@ -16,14 +30,13 @@
                 if (input.id === 'chk-email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim())) input.setCustomValidity('Ingresá un email válido.');
                 if (input.id === 'chk-phone' && !isValidPhone(input.value)) input.setCustomValidity('Ingresá un teléfono argentino válido, con código de área.');
                 if (input.id === 'chk-zip' && !/^(?:\d{4,5}|[a-z]\d{4}[a-z]{3})$/i.test(input.value.trim())) input.setCustomValidity('Ingresá un código postal válido: 4 o 5 números, o CPA.');
-                input.setAttribute('aria-invalid', String(!input.checkValidity()));
+                showFieldError(input, input.checkValidity() ? '' : input.validationMessage);
             }
             const invalid = inputs.find(input => !input.checkValidity());
             if (invalid) {
                 this.step(1);
                 invalid.focus();
-                invalid.reportValidity();
-                this.message('Revisá el campo indicado para continuar.');
+                this.message('Revisá los campos indicados para continuar.');
                 return false;
             }
             if (!document.querySelector('input[name="shipping_method"]:checked')) {
@@ -44,7 +57,7 @@
                 if (number === step) indicator.setAttribute('aria-current', 'step');
                 else indicator.removeAttribute('aria-current');
             }
-            if (number === 2) field('checkout-review-title').focus();
+            field(number === 2 ? 'checkout-review-title' : 'checkout-contact-title')?.focus();
         },
         review(items) {
             reviewedCart = signature(items);
@@ -102,6 +115,10 @@
     document.addEventListener('input', event => {
         if (!event.target.closest('#checkout-form')) return;
         event.target.setCustomValidity?.('');
-        event.target.removeAttribute('aria-invalid');
+        if (event.target.matches('input, select')) {
+            const error = field(`${event.target.id}-error`);
+            if (error) error.textContent = '';
+            event.target.removeAttribute('aria-invalid');
+        }
     });
 })();

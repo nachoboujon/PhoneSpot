@@ -14,6 +14,7 @@
     "test:cart-ui": "node scripts/tests/test-add-to-cart-ui.js",
     "test:checkout-ui": "node scripts/tests/test-checkout-ui.js",
     "test:home-ui": "node scripts/tests/test-home-ui.js",
+    "test:shopping-ui": "node scripts/tests/test-shopping-experience.js",
     "test:api": "node scripts/tests/test-api-validation.js",
     "test:storefront": "node scripts/tests/test-storefront-readonly.js",
     "test:purchase-flow": "node scripts/tests/test-purchase-flow.js",
