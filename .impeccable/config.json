@@ -101,6 +101,15 @@
         ],
         "createdAt": "2026-10-01T14:10:14.373Z",
         "reason": "Agent checked desktop/mobile and menu operation: only root horizontal clipping contains the existing off-canvas sidebars; navigation remains outside any vertically clipped container."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-01T14:43:23.591Z",
+        "reason": "Agent verified desktop/mobile screenshots and carousel CSS: the full-bleed carousel wrapper has no visible text of its own; slide content uses 24px padding on desktop and 20px on mobile, with additional slide insets. The wrapper warning is a false positive."
       }
     ]
   }

@@ -19,7 +19,7 @@ async function main() {
                 let writes = 0;
                 let cart = [];
                 page.on('pageerror', error => errors.push(error.message));
-                await page.setViewport({width, height: 900});
+                await page.setViewport({width, height: 900, deviceScaleFactor: width === 390 ? 2 : 1});
                 await page.emulateMediaFeatures([{name: 'prefers-reduced-motion', value: reduced ? 'reduce' : 'no-preference'}]);
                 await page.evaluateOnNewDocument(() => {
                     localStorage.setItem('cookies_accepted', 'true');
@@ -53,7 +53,18 @@ async function main() {
                 });
                 await page.goto(base + '/index.html', {waitUntil: 'domcontentloaded'});
                 await page.waitForSelector('.product-card');
-                assert.equal(await page.$eval('.business-hero', el => getComputedStyle(el).opacity), '1');
+                assert.equal(await page.$('.business-hero'), null);
+                assert.equal(await page.$('.ecosystem-banner'), null);
+                await page.waitForSelector('.carousel-slide[data-image]');
+                assert.ok(await page.$eval('.carousel-slide', (el, dense) => el.dataset.image.endsWith(dense ? '-v1.png' : '-v2.jpg'), width === 390));
+                const carouselLayout = await page.$eval('.home-carousel', el => {
+                    const container = el.getBoundingClientRect();
+                    const button = el.querySelector('.carousel-slide.active .btn').getBoundingClientRect();
+                    return {top: container.top, bottom: container.bottom, buttonTop: button.top, buttonBottom: button.bottom};
+                });
+                assert.ok(carouselLayout.buttonTop >= carouselLayout.top && carouselLayout.buttonBottom <= carouselLayout.bottom, JSON.stringify({width, carouselLayout}));
+                assert.equal(await page.$eval('.product-img', el => getComputedStyle(el).objectFit), 'contain');
+                assert.equal(await page.$eval('.product-img', el => getComputedStyle(el).transform), 'none');
                 assert.equal(await page.$eval('.home-contact', el => getComputedStyle(el).opacity), '1');
                 assert.equal(await page.$('.newsletter form'), null);
                 assert.equal(await page.$eval('.home-contact__email', el => new URL(el.href).protocol), 'mailto:');
@@ -92,7 +103,7 @@ async function main() {
         const fallback = await browser.newPage();
         await fallback.setJavaScriptEnabled(false);
         await fallback.goto(base + '/index.html', {waitUntil: 'domcontentloaded'});
-        assert.equal(await fallback.$eval('.business-hero', el => getComputedStyle(el).opacity), '1');
+        assert.equal(await fallback.$('.business-hero'), null);
         assert.equal(await fallback.$eval('.home-contact', el => getComputedStyle(el).opacity), '1');
         await fallback.close();
         console.log('Home desktop/mobile: visible initial content, scroll reveal, reduced motion, menu, real contact links, cart integration and no-JS static fallback passed. No real API writes.');

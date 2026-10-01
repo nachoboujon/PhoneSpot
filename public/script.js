@@ -2305,7 +2305,9 @@ const checkoutForm = document.getElementById('checkout-form');
             const initCarousel = () => {
                 const activeSlide = slides[currentSlide];
                 if (carouselVisible && activeSlide?.dataset.image && !activeSlide.dataset.imageLoaded) {
-                    activeSlide.style.backgroundImage = `linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.58)), url("${activeSlide.dataset.image}")`;
+                    activeSlide.style.backgroundImage = document.body.classList.contains('home-page')
+                        ? `url("${activeSlide.dataset.image}")`
+                        : `linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.58)), url("${activeSlide.dataset.image}")`;
                     activeSlide.dataset.imageLoaded = 'true';
                 }
                 slides.forEach((slide, index) => {
@@ -3582,12 +3584,15 @@ async function applyFrontendSettings() {
                                 </div>
                             </div>
                         `);
-                        // Only substitute known local banners; custom remote images stay intact.
+                        // Keep compressed banners on standard screens; use the existing
+                        // lossless source on dense displays. Only the active slide loads.
                         let imageUrl = slide.image || '';
                         try {
                             const parsed = new URL(imageUrl, window.location.href);
-                            if (parsed.origin === window.location.origin && /^\/uploads\/hero-graphite-(phone|laptop|accessories)-v1\.png$/.test(parsed.pathname)) {
-                                parsed.pathname = parsed.pathname.replace('-v1.png', '-v2.jpg');
+                            if (parsed.origin === window.location.origin && /^\/uploads\/hero-graphite-(phone|laptop|accessories)-v(?:1\.png|2\.jpg)$/.test(parsed.pathname)) {
+                                parsed.pathname = window.devicePixelRatio > 1
+                                    ? parsed.pathname.replace('-v2.jpg', '-v1.png')
+                                    : parsed.pathname.replace('-v1.png', '-v2.jpg');
                                 imageUrl = parsed.href;
                             }
                         } catch (_) { /* Preserve the original URL if it cannot be parsed. */ }
