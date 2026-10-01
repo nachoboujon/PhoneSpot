@@ -54,7 +54,8 @@ window.cardImageUrl = url => url?.includes('/uploads/official-products/') ? url.
 window.variantNameFor = (variant) => [
     variant.color, variant.capacity, variant.ram,
     variant.batt ? `Bat: ${variant.batt}` : '',
-    variant.condition ? `Cond: ${variant.condition}` : ''
+    variant.condition ? `Cond: ${variant.condition}` : '',
+    variant.configuration ? `Config: ${variant.configuration}` : ''
 ].filter(Boolean).join(' - ');
 window.productGalleryImages = (product) => {
     const variants = Array.isArray(product.variants) ? product.variants : [];
@@ -873,6 +874,10 @@ async function loadProductsFromDB() {
                     const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
+                    const configurations = [...new Set(prod.variants.map(v => v.configuration).filter(Boolean))];
+                    if (configurations.length) {
+                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
+                    }
                     if (uniqueColors.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
@@ -917,6 +922,7 @@ async function loadProductsFromDB() {
                                 const end = prod.description.indexOf(']');
                                 if (end !== -1) c = prod.description.substring(12, end);
                             }
+                            c = prod.commercial_label || c;
                             if (prod.variants && prod.variants.length > 0) {
                                 const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
                                 if (batts.length > 0) {
@@ -1376,6 +1382,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
 
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
+                    const configurations = [...new Set(prod.variants.map(v => v.configuration).filter(Boolean))];
+                    if (configurations.length) {
+                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
+                    }
                     if (uniqueColors.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
                         uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
@@ -1420,6 +1430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 const end = prod.description.indexOf(']');
                                 if (end !== -1) c = prod.description.substring(12, end);
                             }
+                            c = prod.commercial_label || c;
                             if (prod.variants && prod.variants.length > 0) {
                                 const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
                                 if (batts.length > 0) {
@@ -1600,6 +1611,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                             ` : ''}
 
+                            ${prod.variants.some(v => v.configuration) ? `
+                            <div class="product-option-group">
+                                <h3>Configuración</h3>
+                                <div class="product-option-list" id="configuration-opts">
+                                    ${[...new Set(prod.variants.map(v => v.configuration).filter(Boolean))].map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="configuration" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                </div>
+                            </div>` : ''}
                             ${uniqueCaps.length > 0 ? `
                             <div class="product-option-group">
                                 <h3>Almacenamiento</h3>
@@ -1649,6 +1667,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         displayDesc = displayDesc.substring(endIdx + 1).trim();
                     }
                 }
+                prodCondition = prod.commercial_label || prodCondition;
                 if (prod.variants && prod.variants.length > 0) {
                     const batts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
                     if (batts.length > 0) {
@@ -1685,12 +1704,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <span>${prod.category}</span>
                                 </div>
                                 
-                                <h2>${prod.name}</h2>
- ${commercialProducts.length > 1 ? `<nav class="product-option-group" aria-label="Otras opciones de este modelo"><h3>Opciones de venta separadas</h3>${commercialProducts.map(option => option.commercial_type === prod.commercial_type ? `<span aria-current="page">${option.commercial_label || "Equipo"}</span>` : `<a class="btn" href="${window.productPageUrl(option)}">Ver ${option.commercial_label || "equipo"}</a>`).join(" ")}</nav>` : ""}
-                                
                                 <p class="product-condition-tag">
                                     <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
                                 </p>
+                                <h2>${prod.name}</h2>
+                                ${commercialProducts.length > 1 ? `<div class="product-commercial-options" role="navigation" aria-label="Otras opciones de este modelo">${commercialProducts.filter(option => option.commercial_type !== prod.commercial_type).map(option => `<a class="product-commercial-link" href="${window.productPageUrl(option)}"><span>Ver ${option.commercial_label || 'equipo'}</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>`).join('')}</div>` : ''}
 
                                 <div class="product-purchase-panel">
                                     <div class="product-price-panel">
@@ -1792,7 +1810,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // AHORA SÍ CONECTAMOS LOS EVENTOS, DESPUÉS DE INNER HTML
                 if (hasVariants) {
                     window.checkVariantStock = (prodArg) => {
-                        const dimensions = ['color', 'capacity', 'ram', 'batt', 'condition'];
+                        const dimensions = ['color', 'configuration', 'capacity', 'ram', 'batt', 'condition'];
                         let matches = prodArg.variants || [];
                         for (const key of dimensions) {
                             const buttons = [...document.querySelectorAll(`.var-btn[data-type="${key}"]`)];
@@ -2588,6 +2606,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 row.innerHTML = `
                     <input type="text" class="var-color" placeholder="Color (Ej: Blanco o Único)" required style="flex:1; min-width:120px;">
                     <input type="text" class="var-cap" placeholder="Almacen. (Opcional)" style="flex:1; min-width:120px;">
+                    <input type="text" class="var-configuration" placeholder="Configuración (CPU / pantalla)" aria-label="Configuración" style="flex:1; min-width:180px;">
                     <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
                     <input type="text" class="var-batt" placeholder="Batería (Opc. Ej: 100%)" style="flex:1; min-width:110px;">
                     <input type="text" class="var-condition" placeholder="Condición / tipo (Opc.)" style="flex:1; min-width:130px;">
@@ -2623,6 +2642,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const color = row.querySelector('.var-color').value.trim();
                 const capacity = row.querySelector('.var-cap').value.trim();
                 const ram = row.querySelector('.var-ram').value.trim();
+                const configuration = row.querySelector('.var-configuration')?.value.trim() || '';
                 const battEl = row.querySelector('.var-batt');
                 const batt = battEl ? battEl.value.trim() : '';
                 const variantCondition = row.querySelector('.var-condition')?.value.trim() || '';
@@ -2636,6 +2656,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         ram,
                         batt,
                         condition: variantCondition,
+                        configuration,
                         price,
                         stock
                     });
@@ -2749,6 +2770,7 @@ const checkoutForm = document.getElementById('checkout-form');
                                     <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
                                         <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul o Único)" style="padding:0.2rem; width:120px;">
                                         <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (Opcional)" style="padding:0.2rem; width:120px;">
+                                        <input type="text" id="new-configuration-${p.id}" placeholder="Configuración (CPU / pantalla)" aria-label="Configuración" style="padding:0.2rem; width:200px;">
                                         <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
                                         <input type="text" id="new-batt-${p.id}" placeholder="Batería (Opc)" style="padding:0.2rem; width:90px;">
                                         <input type="text" id="new-condition-${p.id}" placeholder="Condición (Opc)" style="padding:0.2rem; width:130px;">
@@ -2837,6 +2859,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 const color = document.getElementById(`new-color-${id}`).value.trim();
                 const cap = document.getElementById(`new-cap-${id}`).value.trim();
                 const ram = document.getElementById(`new-ram-${id}`).value.trim();
+                const configuration = document.getElementById(`new-configuration-${id}`)?.value.trim() || '';
                 const battEl = document.getElementById(`new-batt-${id}`);
                 const batt = battEl ? battEl.value.trim() : '';
                 const condition = document.getElementById(`new-condition-${id}`)?.value.trim() || '';
@@ -2847,7 +2870,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 if (!color && !cap) return showToast('Ingresa al menos un Color o Capacidad', 'fa-exclamation');
 
                 let variants = window[`adminProductVariants_${id}`] || [];
-                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, condition, stock, price });
+                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, condition, configuration, stock, price });
                 
                 await saveVariantsToDB(id, variants);
             };
@@ -4280,14 +4303,14 @@ window.updateCardVariant = function(el) {
     try {
         const info = JSON.parse(unescape(card.dataset.stockInfo || '{}'));
         if (!Array.isArray(info.variants) || !info.variants.length) return;
-        const dimensions = ['color', 'capacity', 'ram', 'batt', 'condition'];
+        const dimensions = ['color', 'configuration', 'capacity', 'ram', 'batt', 'condition'];
         let matches = info.variants;
         for (const key of dimensions) {
             const select = card.querySelector(`.var-select[data-type="${key}"]`);
             if (!select) continue;
             const options = [...new Set(matches.map(v => v[key]).filter(Boolean))];
             const selected = options.includes(select.value) ? select.value : options[0];
-            const label = { color: 'Color', capacity: 'Cap', ram: 'RAM', batt: 'Bat', condition: 'Cond' }[key];
+            const label = { color: 'Color', configuration: 'Equipo', capacity: 'Cap', ram: 'RAM', batt: 'Bat', condition: 'Cond' }[key];
             select.innerHTML = options.map(value => `<option value="${value}">${label}: ${value}</option>`).join('');
             select.value = selected;
             matches = matches.filter(v => v[key] === selected);

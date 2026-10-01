@@ -1,5 +1,7 @@
 const assert = require('node:assert/strict');
 const puppeteer = require('puppeteer');
+const fs = require('node:fs');
+const path = require('node:path');
 const {splitCommercialProduct} = require('../../public/product-commercial-types');
 const {normalizeProductImages} = require('../../lib/product-images');
 const originals = require('../../artifacts/image-audit-products.json');
@@ -22,6 +24,8 @@ async function main() {
     const unknown = splitCommercialProduct({...mixed, description: '', variants: [{condition: 'Sin activar', price: 10, stock: 1}]});
     assert.equal(unknown[0].commercial_type, 'standard', 'Activation state does not prove Apple warranty');
     const browser = await puppeteer.launch({headless: true});
+    const screenshots = path.resolve(__dirname, '../../artifacts/audit/commercial-types');
+    fs.mkdirSync(screenshots, {recursive: true});
     try {
         for (const width of [1440, 390]) {
             const context = await browser.createBrowserContext();
@@ -69,12 +73,16 @@ async function main() {
             await page.goto(`${base}/producto.html?id=89&tipo=apple_warranty`, {waitUntil: 'domcontentloaded'});
             await page.waitForSelector('.product-details');
             assert.equal(await page.$eval('.product-details', detail => detail.dataset.commercialType), 'apple_warranty');
+            await page.$eval('.product-commercial-options', element => element.scrollIntoView({block: 'center'}));
+            await page.screenshot({path: path.join(screenshots, `link-to-american-${width}.png`)});
             assert.ok(await page.$eval('.product-condition-tag', tag => /Apple/.test(tag.textContent)));
             assert.ok(await page.$eval('.product-details', detail => JSON.parse(unescape(detail.dataset.stockInfo)).variants.every(variant => /Apple/.test(variant.condition))));
             await page.$eval('.product-details .add-to-cart-btn', button => button.click());
             await page.waitForFunction(() => document.querySelector('.product-details')?.dataset.cartState === 'success');
             await page.goto(`${base}/producto.html?id=89&tipo=americano`, {waitUntil: 'domcontentloaded'});
             await page.waitForSelector('.product-details');
+            await page.$eval('.product-commercial-options', element => element.scrollIntoView({block: 'center'}));
+            await page.screenshot({path: path.join(screenshots, `link-to-warranty-${width}.png`)});
             await page.$eval('.product-details .add-to-cart-btn', button => button.click());
             await page.waitForFunction(() => document.querySelector('.product-details')?.dataset.cartState === 'success');
             assert.equal(writes.length, 2);

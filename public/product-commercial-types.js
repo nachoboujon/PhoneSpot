@@ -32,7 +32,7 @@
             const description = type === 'apple_warranty'
                 ? `[Condición: ${label}] ${String(product.description || product.name).replace(/^\[Condición:[^\]]*\]\s*/i, '').replace(/\bamericano\b/gi, 'con garantía oficial de Apple')}`
                 : product.description;
-            return {...product, name: label ? `${product.name} · ${label}` : product.name, base_name: product.name,
+            return {...product, name: product.name, base_name: product.name,
                 description, commercial_type: type, commercial_label: label,
                 favorite_key: type === 'americano' || groups.size === 1 ? String(product.id) : `${product.id}:${type}`,
                 variants: entries,

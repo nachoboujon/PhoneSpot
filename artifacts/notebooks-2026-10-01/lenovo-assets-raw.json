@@ -1,0 +1,1049 @@
+[
+  {
+    "key": "lenovo-flex",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Flex_5_15ITL05",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_01.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_01.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_02.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_02.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_03.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_03.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_04.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_04.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_05.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_05.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_06.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT1_06.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT2_01.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT2_01.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_01.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_01.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_02.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_02.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_03.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_03.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_04.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_04.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_05.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_05.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_06.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_06.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_07.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_07.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_08.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_08.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_09.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_09.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_10.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_10.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_11.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_11.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_12.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_12.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_13.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_13.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_14.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_14.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_15.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_15.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_16.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_16.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_17.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_17.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_18.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_18.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_19.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_19.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_20.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_20.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_21.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_21.png",
+          "color": "Platinum Grey",
+          "caseColors": [
+            "Platinum Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_22.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_22.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_23.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_23.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_24.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_24.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT4_25.png",
+          "alt": "IdeaPad_Flex_5_15ITL05_CT4_25.png",
+          "color": "Graphite Grey",
+          "caseColors": [
+            "Graphite Grey"
+          ],
+          "tags": null
+        }
+      ],
+      "media_video_360_url": null,
+      "media_video_3d_url": null
+    }
+  },
+  {
+    "key": "lenovo-pro",
+    "page": "https://psref.lenovo.com/Detail/IdeaPad_Pro_5_16IAH10?M=83JM001GUS",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool//Sys/Image/IdeaPad/IdeaPad_Pro_5_16IAH10/Compressedimage/IdeaPad_Pro_5_16IAH10_CT2_02.png",
+          "alt": null,
+          "color": null,
+          "caseColors": null,
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool//Sys/Image/IdeaPad/IdeaPad_Pro_5_16IAH10/Compressedimage/IdeaPad_Pro_5_16IAH10_CT2_03.png",
+          "alt": null,
+          "color": null,
+          "caseColors": null,
+          "tags": null
+        }
+      ]
+    }
+  },
+  {
+    "key": "lenovo-amn8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15AMN8",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_01.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_01.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_02.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_02.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_03.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_03.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_04.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_04.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_05.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_05.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_06.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT1_06.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_01.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_01.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_02.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_02.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_03.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_03.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_04.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_04.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_05.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_05.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_06.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_06.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_07.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_07.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_08.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_08.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_09.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_09.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_10.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_10.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_11.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_11.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_12.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_12.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_13.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_13.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_14.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_14.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_15.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_15.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_16.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_16.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_17.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_17.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_18.png",
+          "alt": "IdeaPad_Slim_3_15AMN8_CT2_18.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        }
+      ],
+      "media_video_360_url": "https://psrefstuff.lenovo.com/syspool/Sys/360/Ideapad_Slim_3_Gen_8_15inch_360_AMD.mp4",
+      "media_video_3d_url": null
+    }
+  },
+  {
+    "key": "lenovo-iru8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IRU8",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_01.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT1_01.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_02.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT1_02.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_03.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT1_03.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_04.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT1_04.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_05.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT1_05.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_01.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_01.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_02.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_02.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_03.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_03.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_04.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_04.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_05.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_05.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_06.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_06.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_07.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_07.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_08.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_08.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_09.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_09.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_10.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_10.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_11.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_11.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_12.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_12.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_13.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_13.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_14.png",
+          "alt": "IdeaPad_Slim_3_15IRU8_CT2_14.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        }
+      ],
+      "media_video_360_url": "https://psrefstuff.lenovo.com/syspool/Sys/360/Ideapad_Slim_3_Gen_8_15inch_Intel.mp4",
+      "media_video_3d_url": null
+    }
+  },
+  {
+    "key": "lenovo-amn7",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_1_15AMN7",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT1_01.png",
+          "alt": "IdeaPad_1_15AMN7_CT1_01.png",
+          "color": "Cloud Grey",
+          "caseColors": [
+            "Cloud Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT2_01.png",
+          "alt": "IdeaPad_1_15AMN7_CT2_01.png",
+          "color": "Cloud Grey",
+          "caseColors": [
+            "Cloud Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT2_02.png",
+          "alt": "IdeaPad_1_15AMN7_CT2_02.png",
+          "color": "Cloud Grey",
+          "caseColors": [
+            "Cloud Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_01.png",
+          "alt": "IdeaPad_1_15AMN7_CT3_01.png",
+          "color": "Sand",
+          "caseColors": [
+            "Sand"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_02.png",
+          "alt": "IdeaPad_1_15AMN7_CT3_02.png",
+          "color": "Sand",
+          "caseColors": [
+            "Sand"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_03.png",
+          "alt": "IdeaPad_1_15AMN7_CT3_03.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_04.png",
+          "alt": "IdeaPad_1_15AMN7_CT3_04.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        }
+      ],
+      "media_video_360_url": null,
+      "media_video_3d_url": null
+    }
+  },
+  {
+    "key": "lenovo-ian8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IAN8",
+    "type": "manufacturer",
+    "photos": {
+      "code": 1,
+      "data": [
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_01.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_01.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_02.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_02.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_03.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_03.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_04.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_04.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_05.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_05.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_06.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT1_06.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_01.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_01.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_02.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_02.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_03.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_03.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_04.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_04.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_05.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_05.png",
+          "color": "Abyss Blue",
+          "caseColors": [
+            "Abyss Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_06.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_06.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_07.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_07.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_08.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_08.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_09.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_09.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_10.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_10.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_11.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_11.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_12.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_12.png",
+          "color": "Arctic Grey",
+          "caseColors": [
+            "Arctic Grey"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_13.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_13.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_14.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_14.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_15.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_15.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_16.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_16.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_17.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_17.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_18.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_18.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        },
+        {
+          "src": "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_19.png",
+          "alt": "IdeaPad_Slim_3_15IAN8_CT2_19.png",
+          "color": "Frost Blue",
+          "caseColors": [
+            "Frost Blue"
+          ],
+          "tags": null
+        }
+      ],
+      "media_video_360_url": "https://psrefstuff.lenovo.com/syspool/Sys/360/Ideapad_Slim_3_Gen_8_15inch_Intel.mp4",
+      "media_video_3d_url": null
+    }
+  }
+]

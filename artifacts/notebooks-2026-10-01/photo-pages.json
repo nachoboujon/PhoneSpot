@@ -1,0 +1,422 @@
+[
+  {
+    "key": "acer-a15",
+    "page": "https://store.acer.com/fr-fr/acer-aspire-15-ordinateur-portable-a15-51m-gris",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-ag42",
+    "page": "https://www.acer.com/us-en/laptops/aspire/aspire-go-amd/pdp/NX.JJHAA.003",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-ag42-gray",
+    "page": "https://www.acer.com/ca-fr/laptops/aspire/aspire-go-amd/pdp/NX.JLGAA.005",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-ag72",
+    "page": "https://www.acer.com/gb-en/laptops/aspire/aspire-go-intel/pdp/NX.JRREK.00G",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-lite",
+    "page": "https://www.acer.com/jp-ja/laptops/aspire/aspire-lite/pdp/NX.DAKSJ.001",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-nitro41",
+    "page": "https://www.acer.com/pl-pl/laptops/nitro/nitro-v-15-amd/pdp/NH.QPDEP.00G",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-nitro52",
+    "page": "https://store.acer.com/it-it/acer-nitro-v-15-notebook-gaming-anv15-52-nero",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-yoga",
+    "page": "https://www.mastertech.com.py/producto/notebook-acer-gadget-e10-etbook-yoga-cwi557-core-i3-1315u-1-2ghz-8gb-256gb-ssd-13-42-5k-touch-w11-tablet-esp-port-gris/",
+    "type": "retailer"
+  },
+  {
+    "key": "audisat",
+    "page": "https://megaelectronicos.com.py/producto/1457995/notebook-audisat-x99-156-intel-n95-de-17ghz-8gb-ram512gb-ssd-negro-1-ano-de-garantia",
+    "type": "retailer"
+  },
+  {
+    "key": "asus-f1502",
+    "page": "https://www.asus.com/laptops/for-home/vivobook/asus-vivobook-15-x1502/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-g615",
+    "page": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-g614",
+    "page": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025-g614/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-fx607",
+    "page": "https://b2b.lojaasus.com.br/notebook-asus-tuf-gaming-f16-fx607vu-rl053w-mecha-gray.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-e1504f",
+    "page": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504f.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-e1504ga",
+    "page": "https://www.asus.com/laptops/for-home/vivobook/asus-vivobook-go-15-e1504g/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-x1504",
+    "page": "https://www.asus.com/laptops/for-home/vivobook/asus-vivobook-15-x1504/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-ux3405",
+    "page": "https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-14-ux3405/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc15250",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-dc15250-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc16250",
+    "page": "https://www.dell.com/de-de/shop/dell-laptops/dell-16-laptop/spd/dell-dc16250-laptop/cndc1625005",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc15255",
+    "page": "https://www.dell.com/nl-nl/shop/dell-laptops/dell-15-laptop/spd/dell-dc15255-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-d15260",
+    "page": "https://www.dell.com/en-sg/shop/laptop-notebook-computers/dell-15-laptop/spd/dell-d15260-laptop/cd15260ctoh1msgh",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-da15265",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/alienware-15-gaming-laptop/spd/alienware-da15265-gaming-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-5640",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/inspiron-16-laptop/spd/inspiron-16-5640-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-7430",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/latitude-7430-laptop/spd/latitude-14-7430-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-7455",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/latitude-7455-laptop/spd/latitude-14-7455-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-a12vf",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-A12VX",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-b2rw",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-B2RW",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-b2hw",
+    "page": "https://www.msi.com/Laptop/Cyborg-A15-AI-B2HW",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-thin",
+    "page": "https://www.msi.com/Laptop/Thin-A15-B7VX",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-f1502-support",
+    "page": "https://www.asus.com/supportonly/f1502va/helpdesk/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-e1504ga-store",
+    "page": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504g.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fd000",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fd200",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-156-inch-laptop-ai-pc-b59bqav-1",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-cn300",
+    "page": "https://www.hp.com/us-en/shop/custom/hp-laptop-17t-cn300-17-inch-intel-processor-n200-8gb-ram-512gb-ssd-jet-black-77L21AV_31175",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009",
+    "page": "https://support.hp.com/hk-en/product/troubleshooting/hp-15.6-inch-laptop-pc-15-d5000/model/2101006283?sku=6H9F1LA",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-840g8",
+    "page": "https://www.hpshop.co.za/products/hp-elitebook-840-g8-14-core-i7-1165g7-8gb-ram-256gb-ssd-win-10-pro-laptop-5p6u2ea-144636",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-flex",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Flex_5_15ITL05",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-pro",
+    "page": "https://psref.lenovo.com/Detail/IdeaPad_Pro_5_16IAH10?M=83JM001GUS",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-amn8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15AMN8",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-iru8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IRU8",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-amn7",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_1_15AMN7",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-ian8",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IAN8",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-a315",
+    "page": "https://store.acer.com/en-us/aspire-3-laptop-a315-24pt-r8w1",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-b2rw-gallery",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-B2RWX/Gallery",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-b2hw-gallery",
+    "page": "https://www.msi.com/Laptop/Cyborg-A15-B2HWX/Gallery",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-a12-gallery",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-A12VX/Gallery",
+    "type": "manufacturer"
+  },
+  {
+    "key": "msi-thin-gallery",
+    "page": "https://www.msi.com/Laptop/Thin-A15-B7VX/Gallery",
+    "type": "manufacturer"
+  },
+  {
+    "key": "samsung-book4",
+    "page": "https://www.samsung.com/cl/computers/galaxy-book/galaxy-book4-15-6-inch-intel-core-i5-16gb-512gb-np750xgj-ks5cl/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-850g7",
+    "page": "https://jp.ext.hp.com/notebooks/business/elitebook_850_g7/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-cn300-pdp",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-17t-cn300-173-7p3q0av-1",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009-retail",
+    "page": "https://hp-bpe.com/producto/laptop-hp-15-dy5009la-intel-core-i7-8-gb-512-gb-ssd-15-6-hd-windows-11-home-single-language-6h9f1la/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-ep0355",
+    "page": "https://atacadoconnect.com/produto/notebooks/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl/1372960",
+    "type": "manufacturer"
+  },
+  {
+    "key": "samsung-book4-gallery",
+    "page": "https://www.samsung.com/cl/computers/galaxy-book/galaxy-book4-15-6-inch-13th-i5-8gb-512gb-np750xgj-ks6cl/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-iru8-store",
+    "page": "https://shop.lenovo.ua/en/notebooks/noutbuk-ideapad-slim-3-15iru8-arctic-grey-82x700ghra.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-pro-store",
+    "page": "https://store.lenovo.com/in/en/nb-ip-pro-5-16iah10-u9-32g-1t-11s-83jm0023in-384.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "lenovo-flex-store",
+    "page": "https://www.lenovo.com/au/en/p/laptops/ideapad/ideapad-flex-series/ideapad-flex-5-15itl05/88ipf501565",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-lite-retail",
+    "page": "https://www.promart.pe/laptop-acer-aspire-lite-amd-ryzen-7-5825u-16gb-ram-1tb-ssd-15-6--1001400421/p",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-d15260-retail",
+    "page": "https://www.walmart.com/ip/5529259877",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-omnibook",
+    "page": "https://www.electronicexpress.com/catalog/569288/15-6-inch-omnibook-3-touchscreen-laptop-amd-ryzen-ai-5-340-amd-radeon-800m-graphics-16gb-512gb-ssd-glacier-silver",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-victus-fb",
+    "page": "https://www.bestbuy.com/product/hp-victus-15-6-full-hd-gaming-laptop-amd-ryzen-5-7535hs-2023-8gb-ddr5-memory-nvidia-geforce-rtx-3050-512gb-ssd-mica-silver/J3YH84TCPC/sku/6672944",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-victus-fa",
+    "page": "https://www.bestbuy.com/site/hp-victus-15-6-fhd-144hz-gaming-laptop-intel-core-i5-13420h-8gb-memory-nvidia-geforce-rtx-3050-512gb-ssd-performance-blue/6618975.p",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fc",
+    "page": "https://www.bestbuy.com/product/hp-15-6-full-hd-touch-screen-laptop-amd-ryzen-5-8gb-memory-512gb-ssd-natural-silver/6636439",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dq6105",
+    "page": "https://www.bestbuy.com/product/hp-14-laptop-intel-n150-processor-2025-4gb-memory-128gb-ufs-pale-rose-gold/JJGW3FGF9T",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-lite-alt",
+    "page": "https://www.acer.com/gb-en/laptops/aspire/aspire-lite/pdp/NX.JR4EK.003",
+    "type": "manufacturer"
+  },
+  {
+    "key": "asus-f1502-fr",
+    "page": "https://www.asus.com/fr/laptops/for-home/vivobook/vivobook-15-f1502-12th-gen-intel/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc16250-us",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-16-laptop/spd/dell-dc16250-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc15255-us",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-dc15255-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-d15260-us",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-d15260-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-5640-retail",
+    "page": "https://www.primeabgb.com/online-price-reviews-india/dell-inspiron-16-5640-intel-core-i7-150u-16-inch-laptop-16gb-ddr5-ram-512gb-ssd-windows-11-ms-office-21-ice-blue-oin5640152801rinu1o/",
+    "type": "retailer"
+  },
+  {
+    "key": "hp-840g8-jp",
+    "page": "https://jp.ext.hp.com/notebooks/business/elitebook_840_g8/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009-hwt",
+    "page": "https://hwtcomputers.com/producto/laptop-hp-15-dy5009la-i7-1255u-2/",
+    "type": "retailer"
+  },
+  {
+    "key": "hp-victus-fa-retail",
+    "page": "https://itubia.com/products/hp-victus-15-fa2013dx-gaming-laptop-rtx-3050",
+    "type": "retailer"
+  },
+  {
+    "key": "samsung-book4-biz",
+    "page": "https://www.samsung.com/cl/business/computers/galaxy-book/galaxy-book4-15-6-inch-13th-core-7-16gb-512gb-np750xgj-ks2cl/buy/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "acer-lite-cl",
+    "page": "https://www.acer.com/cl-es/laptops/aspire/aspire-lite/pdp/NX.DAKAL.002",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-7430-retail",
+    "page": "https://www.laptoparena.net/dell/laptop-dell-latitude-7430-x3xf4-black-106254",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fd2050-retail",
+    "page": "https://megaeletronicos.com/producto/1637182/notebook-hp-15-fd2050wm-156-intel-core-ultra-5-225u-8gb-ram512gb-ssd-prata",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fa2013-mauri",
+    "page": "https://www.mauricomputacion.com.ar/catalogo/26431-notebook-hp-victus-15-fa2013dx-i5-13420h-8gb-512gb-ssd-rtx-3050-15.6-144hz-gris",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-840g8-nl",
+    "page": "https://sit-direct-store.hpcloud.hp.com/nl-nl/shop/products/laptops/hp-elitebook-840-g8-notebook-pc-3g2g3ea-abh",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-dc16250-blue",
+    "page": "https://www.dell.com/en-ca/shop/laptops-ultrabooks/dell-16-laptop/spd/dell-dc16250-laptop/caedc16250pbtohlfc",
+    "type": "manufacturer"
+  },
+  {
+    "key": "samsung-book4-ar",
+    "page": "https://shop.samsung.com/ar/galaxy-book4--15-6---i5--16-gb--intel-iris-xe---/p",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-840g8-adorama",
+    "page": "https://www.adorama.com/ihp359z6taba.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fd0133-mega",
+    "page": "https://megaeletronicos.com/producto/1455328/notebook-hp-15-fd0131wm-156-intel-core-i3-n305-de-38ghz-8gb-ram256gb-ssd-prata",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-fd-jp",
+    "page": "https://jp.ext.hp.com/notebooks/personal/hp_15_fd/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009-shop",
+    "page": "https://www.hp.com/pe-es/shop/laptop-hp-15-dy5009la-6h9f1la.html",
+    "type": "manufacturer"
+  }
+]

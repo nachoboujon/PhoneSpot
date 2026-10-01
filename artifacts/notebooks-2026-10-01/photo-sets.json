@@ -1,0 +1,754 @@
+[
+  {
+    "model": "Acer Aspire 15 A15-51M",
+    "color": "Gris",
+    "page": "https://store.acer.com/fr-fr/acer-aspire-15-ordinateur-portable-a15-51m-gris",
+    "sourceType": "manufacturer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-on-wp-start-screen-steel-gray-01_11.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-wp-win11-steel-gray-02_11.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-wp-win11-steel-gray-03_11.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-on-wp-steel-gray-04_11.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-steel-gray-05_11.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-aspire-15-a15-51m-with-fingerprint-with-backlit-steel-gray-06_11.jpg"
+    ]
+  },
+  {
+    "model": "Acer Aspire 3 A315-24PT",
+    "color": "Plata",
+    "page": "https://store.acer.com/en-us/aspire-3-laptop-a315-24pt-r8w1",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-wallpaper-win11-silver-01-1000x1000_nx.khdaa.002.png",
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-wallpaper-silver-02-1000x1000_nx.khdaa.002.png",
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-wallpaper-silver-03-1000x1000_nx.khdaa.002.png",
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-wallpaper-silver-04-1000x1000_nx.khdaa.002.png",
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-silver-05-1000x1000_nx.khdaa.002.png",
+      "https://static-ecpa.acer.com/media/catalog/product/a/c/acer-aspire-3-a315-24p-non-fingerprint-non-backlit-silver-06-1000x1000_nx.khdaa.002.png"
+    ]
+  },
+  {
+    "model": "Acer Aspire Go 15 AG15-42P",
+    "color": "Plata",
+    "page": "https://www.acer.com/us-en/laptops/aspire/aspire-go-amd/pdp/NX.JJHAA.003",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-42p-non-fingerprint-non-backlit-wp-pure-silver-02?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-42p-non-fingerprint-non-backlit-wp-pure-silver-03?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-42p-non-fingerprint-non-backlit-wp-pure-silver-04?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-42p-non-fingerprint-non-backlit-pure-silver-05?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-42p-non-fingerprint-non-backlit-pure-silver-08?wid=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Acer Aspire Go 15 AG15-72P",
+    "color": "Plata",
+    "page": "https://www.acer.com/gb-en/laptops/aspire/aspire-go-intel/pdp/NX.JRREK.00G",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-72p-non-fingerprint-non-backlit-wp-pure-silver-02?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-72p-non-fingerprint-non-backlit-wp-pure-silver-03?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-72p-non-fingerprint-non-backlit-wp-pure-silver-04?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-72p-non-fingerprint-non-backlit-pure-silver-05?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-go-15-ag15-72p-non-fingerprint-non-backlit-pure-silver-06?wid=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Acer Aspire Lite AL15-43P",
+    "color": "Plata",
+    "page": "https://www.acer.com/cl-es/laptops/aspire/aspire-lite/pdp/NX.DAKAL.002",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://images.acer.com/is/image/acer/acer-aspire-lite-15-al15-43p-non-fingerprint-non-backlit-silver-04?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-lite-15-al15-43p-non-fingerprint-non-backlit-silver-05?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-lite-15-al15-43p-non-fingerprint-non-backlit-silver-06?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-lite-15-al15-43p-non-fingerprint-non-backlit-silver-08?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-aspire-lite-15-al15-43p-non-fingerprint-non-backlit-wp-logo-silver-03?wid=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Acer Nitro V 15 ANV15-41",
+    "color": "Negro",
+    "page": "https://www.acer.com/pl-pl/laptops/nitro/nitro-v-15-amd/pdp/NH.QPDEP.00G",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://images.acer.com/is/image/acer/acer-nitro-v-15-anv15-41-non-fingerprint-with-backlit-wp-black-02?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-nitro-v-15-anv15-41-non-fingerprint-with-backlit-wp-black-03?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-nitro-v-15-anv15-41-non-fingerprint-with-backlit-black-05?wid=1200&fmt=png-alpha",
+      "https://images.acer.com/is/image/acer/acer-nitro-v-15-anv15-41-non-fingerprint-with-backlit-black-08?wid=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Acer Nitro V 15 ANV15-52",
+    "color": "Negro",
+    "page": "https://store.acer.com/it-it/acer-nitro-v-15-notebook-gaming-anv15-52-nero",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-on-wp-black-01_3.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-on-wp-black-02_3.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-on-wp-black-03_3.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-on-wp-black-04_3.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-on-black-05_3.jpg",
+      "https://static2-ecemea.acer.com/media/catalog/product/a/c/acer-nitro-v-15-anv15-52-non-fingerprint-with-backlit-black-06_3.jpg"
+    ]
+  },
+  {
+    "model": "Acer EtBook Yoga CWI557",
+    "color": "Gris",
+    "page": "https://www.mastertech.com.py/producto/notebook-acer-gadget-e10-etbook-yoga-cwi557-core-i3-1315u-1-2ghz-8gb-256gb-ssd-13-42-5k-touch-w11-tablet-esp-port-gris/",
+    "sourceType": "retailer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://www.mastertech.com.py/wp-content/uploads/2026/04/57717.jpg",
+      "https://www.mastertech.com.py/wp-content/uploads/2026/04/57717_sec_1.jpg",
+      "https://www.mastertech.com.py/wp-content/uploads/2026/04/57717_sec_2.jpg"
+    ]
+  },
+  {
+    "model": "Audisat X99",
+    "color": "Negro",
+    "page": "https://megaelectronicos.com.py/producto/1457995/notebook-audisat-x99-156-intel-n95-de-17ghz-8gb-ram512gb-ssd-negro-1-ano-de-garantia",
+    "sourceType": "retailer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/5/7/9/9/145799/1746795853_1746795853.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/5/7/9/9/145799/681e17a163c68.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/5/7/9/9/145799/681e2d0f57a90.webp"
+    ]
+  },
+  {
+    "model": "ASUS Vivobook 15 F1502V",
+    "color": "Azul",
+    "page": "https://www.asus.com/fr/laptops/for-home/vivobook/vivobook-15-f1502-12th-gen-intel/",
+    "sourceType": "manufacturer",
+    "officialColor": "Azul",
+    "sources": [
+      "https://dlcdnwebimgs.asus.com/gain/7f768a46-c944-4567-8974-346dc7b50823/w800",
+      "https://dlcdnwebimgs.asus.com/gain/dc82f478-fb92-4691-9f72-809af0031f58/w800",
+      "https://dlcdnwebimgs.asus.com/gain/ff08e3b6-f948-43b4-aa79-a6011e1f1eec/w800",
+      "https://dlcdnwebimgs.asus.com/gain/28fff655-0bae-4a7a-ba8a-1adb8a586950/w800",
+      "https://dlcdnwebimgs.asus.com/gain/70426bed-05e6-470e-b3ac-1d81e18ec0b5/w800",
+      "https://dlcdnwebimgs.asus.com/gain/db357cb1-28a3-4b9f-a6d3-bc8fbd98ceb1/w800"
+    ]
+  },
+  {
+    "model": "ASUS Vivobook 15 X1504VA",
+    "color": "Plata",
+    "page": "https://www.asus.com/laptops/for-home/vivobook/asus-vivobook-15-x1504/",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://dlcdnwebimgs.asus.com/gain/c07e97f2-896a-4055-9526-21485f507b72/w800",
+      "https://dlcdnwebimgs.asus.com/gain/7d48961d-95e3-4f95-a4b9-37c0a1dbd42c/w800",
+      "https://dlcdnwebimgs.asus.com/gain/1b38954c-6bbe-4039-b69b-0d4c21436788/w800",
+      "https://dlcdnwebimgs.asus.com/gain/69f86903-0756-4db3-976e-ebe1a26c357d/w800",
+      "https://dlcdnwebimgs.asus.com/gain/cc3feba6-9bac-4175-a9e3-baafe65bd2b9/w800",
+      "https://dlcdnwebimgs.asus.com/gain/de7ed847-c884-484c-8cf0-bdfa2ea14d72/w800"
+    ]
+  },
+  {
+    "model": "ASUS Zenbook 14 UX3405C",
+    "color": "Negro",
+    "page": "https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-14-ux3405/",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://dlcdnwebimgs.asus.com/gain/7aadfea8-3d7b-4fd5-b2f5-44060507985f/w800",
+      "https://dlcdnwebimgs.asus.com/gain/a8f7fa16-3329-408b-9bd8-4cb7fa605d7a/w800",
+      "https://dlcdnwebimgs.asus.com/gain/4f4e3cbc-adac-4b50-85f9-647020c096b8/w800",
+      "https://dlcdnwebimgs.asus.com/gain/419bcbb5-b469-4805-b50a-56f41dab768c/w800",
+      "https://dlcdnwebimgs.asus.com/gain/4b6e330e-1183-4c45-b574-3790242b0740/w800",
+      "https://dlcdnwebimgs.asus.com/gain/5d80ba82-0705-4426-a279-5e296df3966f/w800"
+    ]
+  },
+  {
+    "model": "ASUS ROG Strix G16 G615J",
+    "color": "Gris",
+    "page": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025/",
+    "sourceType": "manufacturer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://dlcdnwebimgs.asus.com/gain/E20134EE-F6B3-4AB7-A1B5-73795E91011D/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/8BF1D3EE-E117-4C89-9982-0390AC9C1E9C/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/414B12A0-4930-498A-9A3D-9F4FDAF2FDEF/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/D8C4633A-F6F1-4814-A308-75888ABC88B2/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/BFBA7201-AD51-4679-B179-02DE5C424490/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/37F81907-05FB-49B8-8079-882301CB54D7/w1000/h732"
+    ]
+  },
+  {
+    "model": "ASUS ROG Strix G16 G614F",
+    "color": "Gris",
+    "page": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025-g614/",
+    "sourceType": "manufacturer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://dlcdnwebimgs.asus.com/gain/E17607E8-B0AA-41B4-AFE2-8F30F0899C3E/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/833B55E9-8E7D-4086-B8F4-BE5E3F706DBF/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/2283CD69-E617-4E0F-A940-6D82E632B5E2/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/3F545821-B6BD-43C6-972C-7E68D9FB1E23/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/4193C262-867E-4498-ABED-A88177BADB62/w1000/h732",
+      "https://dlcdnwebimgs.asus.com/gain/AB2D262C-F968-4E6A-9E76-0C2E03D0B325/w1000/h732"
+    ]
+  },
+  {
+    "model": "ASUS TUF Gaming F16 FX607VU",
+    "color": "Gris",
+    "page": "https://b2b.lojaasus.com.br/notebook-asus-tuf-gaming-f16-fx607vu-rl053w-mecha-gray.html",
+    "sourceType": "manufacturer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://b2b.lojaasus.com.br/media/catalog/product/p/r/principal_01-_fx607__1.png",
+      "https://b2b.lojaasus.com.br/media/catalog/product/s/e/secundaria-_fx607_1__1.png",
+      "https://b2b.lojaasus.com.br/media/catalog/product/s/e/secundaria-_fx607_2__1.png",
+      "https://b2b.lojaasus.com.br/media/catalog/product/s/e/secundaria-_fx607_3__1.png",
+      "https://b2b.lojaasus.com.br/media/catalog/product/s/e/secundaria-_fx607_4__1.png",
+      "https://b2b.lojaasus.com.br/media/catalog/product/s/e/secundaria-_fx607_5__1.png"
+    ]
+  },
+  {
+    "model": "ASUS Vivobook Go 15 E1504F",
+    "color": "Negro",
+    "page": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504f.html",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_7__2.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_0__6_1.jpg",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_7__6_1.jpg",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_9__6_1.jpg",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_8__6_1.jpg",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundario_vivobook_go_15_e1504f-mixed_black_3__6_1.jpg"
+    ]
+  },
+  {
+    "model": "ASUS Vivobook Go 15 E1504GA",
+    "color": "Plata",
+    "page": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504g.html",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://br.store.asus.com/media/catalog/product/p/r/principal_1_capa_6.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundaria_0__1_10.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundaria_6__6_2.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundaria_0__1_11.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundaria_6__6_3.png",
+      "https://br.store.asus.com/media/catalog/product/s/e/secundaria_6__6_4.png"
+    ]
+  },
+  {
+    "model": "Dell 15 DC15250",
+    "color": "Negro",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-dc15250-laptop",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-gallery-1.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-usbc-data-gallery-2.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-gallery-4.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-intel-3530/media-gallery/laptop-dell-dc15250nt-bk-plastic-gallery-8.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell 15 DC15255",
+    "color": "Negro",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-dc15255-laptop",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-gallery-1.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-usbc-data-gallery-2.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-gallery-4.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/dell-15-amd-3535/media-gallery/laptop-dell-dc15255nt-bk-plastic-gallery-8.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell 16 DC16250",
+    "color": "Azul",
+    "page": "https://www.dell.com/en-ca/shop/laptops-ultrabooks/dell-16-laptop/spd/dell-dc16250-laptop/caedc16250pbtohlfc",
+    "sourceType": "manufacturer",
+    "officialColor": "Ice Blue",
+    "sources": [
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-1.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-2.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-4.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-5.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell 15 D15260",
+    "color": "Negro",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/dell-15-laptop/spd/dell-d15260-laptop",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/d15260/media-gallery/black/laptop-15-d15260-nt-black-gallery-1.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/d15260/media-gallery/black/laptop-15-d15260-nt-black-gallery-2.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/d15260/media-gallery/black/laptop-15-d15260-nt-black-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/d15260/media-gallery/black/laptop-15-d15260-nt-black-gallery-5.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/d15260/media-gallery/black/laptop-15-d15260-nt-black-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell Alienware 15 DA15265",
+    "color": "Negro",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/alienware-15-gaming-laptop/spd/alienware-da15265-gaming-laptop",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-1.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-2.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-4.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/da15265/media-gallery/laptop-alienware-15-da15265-laptop-mb2-black-gallery-8.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell Latitude 7455",
+    "color": "Gris",
+    "page": "https://www.dell.com/en-us/shop/dell-laptops/latitude-7455-laptop/spd/latitude-14-7455-laptop",
+    "sourceType": "manufacturer",
+    "officialColor": "Titan Gray",
+    "sources": [
+      "https://i.dell.com/assetlink/img/global/laptop-latitude-7455t-gray-wlan-cn-gallery-2-dl1ew7a-large.png?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/latitude-notebooks/7455/media-gallery/touch/laptop-latitude-7455t-gray-wlan-gallery-4.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/latitude-notebooks/7455/media-gallery/touch/laptop-latitude-7455t-gray-wlan-gallery-3.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/latitude-notebooks/7455/media-gallery/touch/laptop-latitude-7455t-gray-wlan-gallery-6.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit",
+      "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/latitude-notebooks/7455/media-gallery/touch/laptop-latitude-7455t-gray-wlan-gallery-8.psd?fmt=png-alpha&wid=1200&hei=1000&fit=fit"
+    ]
+  },
+  {
+    "model": "Dell Inspiron 16 5640",
+    "color": "Azul",
+    "page": "https://www.primeabgb.com/online-price-reviews-india/dell-inspiron-16-5640-intel-core-i7-150u-16-inch-laptop-16gb-ddr5-ram-512gb-ssd-windows-11-ms-office-21-ice-blue-oin5640152801rinu1o/",
+    "sourceType": "retailer",
+    "officialColor": "Ice Blue",
+    "sources": [
+      "https://www.primeabgb.com/wp-content/uploads/2026/09/Dell-Inspiron-16-5640-Intel-Core-i7-150U-16-Inch-Laptop-16GB-DDR5-RAM-512GB-SSD-Windows-11-MS-Office-21-Ice-Blue-OIN5640152801RINU1O.jpg"
+    ]
+  },
+  {
+    "model": "Dell Latitude 7430",
+    "color": "Negro",
+    "page": "https://www.laptoparena.net/dell/laptop-dell-latitude-7430-x3xf4-black-106254",
+    "sourceType": "retailer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://www.laptoparena.net/images/DELL_Latitude_7430_c89ecd.jpg",
+      "https://www.laptoparena.net/images/DELL_Latitude_7430_eca49f.jpg",
+      "https://www.laptoparena.net/images/DELL_Latitude_7430_d313d9.jpg",
+      "https://www.laptoparena.net/images/DELL_Latitude_7430_a16701.jpg"
+    ]
+  },
+  {
+    "model": "HP Laptop 15t-fd000",
+    "color": "Negro",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://hp.widen.net/content/z7we17a6pc/webp/z7we17a6pc.png?w=1200&h=1000&color=ffffff00",
+      "https://hp.widen.net/content/tt6phdlpew/webp/tt6phdlpew.png?w=1200&h=1000&color=ffffff00",
+      "https://hp.widen.net/content/rbd67mqzsj/webp/rbd67mqzsj.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15t-fd200",
+    "color": "Negro",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-156-inch-laptop-ai-pc-b59bqav-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://hp.widen.net/content/yrc5me5aj6/webp/yrc5me5aj6.png?w=1200&h=1000&color=ffffff00",
+      "https://hp.widen.net/content/wq8suoc0kx/webp/wq8suoc0kx.png?w=1200&h=1000&color=ffffff00",
+      "https://hp.widen.net/content/2owm6b0kxb/webp/2owm6b0kxb.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 17t-cn300",
+    "color": "Negro",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-17t-cn300-173-7p3q0av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://hp.widen.net/content/b6nf4nqwf9/webp/b6nf4nqwf9.png?w=1200&h=1000&color=ffffff00",
+      "https://hp.widen.net/content/czicxyqal8/webp/czicxyqal8.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0084wm",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0133wm",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0150wn",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0153wm",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0173wm",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd0182wn",
+    "color": "Plata",
+    "page": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://hp.widen.net/content/o2n0m3ed8a/webp/o2n0m3ed8a.png?w=1200&h=1000&color=ffffff00"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fd2050wm",
+    "color": "Plata",
+    "page": "https://megaeletronicos.com/producto/1637182/notebook-hp-15-fd2050wm-156-intel-core-ultra-5-225u-8gb-ram512gb-ssd-prata",
+    "sourceType": "retailer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/6/3/7/1/8/163718/1781632680_1781632680.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/6/3/7/1/8/163718/6a318eae62088.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/6/3/7/1/8/163718/6a318eae8d289.webp"
+    ]
+  },
+  {
+    "model": "HP Laptop 14-ep0355cl",
+    "color": "Plata",
+    "page": "https://atacadoconnect.com/produto/notebooks/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl/1372960",
+    "sourceType": "retailer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://cdn.atacadoconnect.com/produtos/1372960/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl-1372960-gzixi.webp",
+      "https://cdn.atacadoconnect.com/produtos/1372960/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl-1372960-lbhef.webp",
+      "https://cdn.atacadoconnect.com/produtos/1372960/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl-1372960-o4y68.webp",
+      "https://cdn.atacadoconnect.com/produtos/1372960/notebook-hp-intel-core-5-120u-16gb-ram-1tb-ssd-tela-14-full-hd-windows-11-ingles-prata-14-ep0355cl-1372960-q2ur8.webp"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-dy5009la",
+    "color": "Plata",
+    "page": "https://hwtcomputers.com/producto/laptop-hp-15-dy5009la-i7-1255u-2/",
+    "sourceType": "retailer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://hwtcomputers.com/wp-content/uploads/2025/07/12.png",
+      "https://hwtcomputers.com/wp-content/uploads/2025/07/13.png",
+      "https://hwtcomputers.com/wp-content/uploads/2025/07/14.png"
+    ]
+  },
+  {
+    "model": "HP EliteBook 840 G8",
+    "color": "Plata",
+    "page": "https://jp.ext.hp.com/notebooks/business/elitebook_840_g8/",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": []
+  },
+  {
+    "model": "HP EliteBook 850 G7",
+    "color": "Plata",
+    "page": "https://jp.ext.hp.com/notebooks/business/elitebook_850_g7/",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img1.jpg",
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img2.jpg",
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img3.jpg",
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img4.jpg",
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img5.jpg",
+      "https://jp.ext.hp.com/content/dam/jp-ext-hp-com/jp/ja/ec/notebooks/business/elitebook_850_g7/images/product_img6.jpg"
+    ]
+  },
+  {
+    "model": "HP OmniBook 3 15-fn0505nr",
+    "color": "Plata",
+    "page": "https://www.electronicexpress.com/catalog/569288/15-6-inch-omnibook-3-touchscreen-laptop-amd-ryzen-ai-5-340-amd-radeon-800m-graphics-16gb-512gb-ssd-glacier-silver",
+    "sourceType": "retailer",
+    "officialColor": "Glacier Silver",
+    "sources": [
+      "https://images.electronicexpress.com/product.c.xl/569288-00.jpg",
+      "https://images.electronicexpress.com/product.c.xl/569288-000.jpg",
+      "https://images.electronicexpress.com/product.c.xl/569288-001.jpg",
+      "https://images.electronicexpress.com/product.c.xl/569288-002.jpg",
+      "https://images.electronicexpress.com/product.c.xl/569288-004.jpg"
+    ]
+  },
+  {
+    "model": "HP Laptop 14-dq6105dx",
+    "color": "Rosa dorado",
+    "page": "https://www.bestbuy.com/product/hp-14-laptop-intel-n150-processor-2025-4gb-memory-128gb-ufs-pale-rose-gold/JJGW3FGF9T",
+    "sourceType": "manufacturer",
+    "officialColor": "Pale Rose Gold",
+    "sources": [
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_sd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_ld.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_rd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_bd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_av1.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6667/6667483_av2.jpg"
+    ]
+  },
+  {
+    "model": "HP Laptop 15-fc0146dx",
+    "color": "Plata",
+    "page": "https://www.bestbuy.com/product/hp-15-6-full-hd-touch-screen-laptop-amd-ryzen-5-8gb-memory-512gb-ssd-natural-silver/6636439",
+    "sourceType": "manufacturer",
+    "officialColor": "Natural Silver",
+    "sources": [
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_sd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_ld.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_rd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_bd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_av1.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6636/6636439_av2.jpg"
+    ]
+  },
+  {
+    "model": "HP Victus 15-fb3113dx",
+    "color": "Gris",
+    "page": "https://www.bestbuy.com/product/hp-victus-15-6-full-hd-gaming-laptop-amd-ryzen-5-7535hs-2023-8gb-ddr5-memory-nvidia-geforce-rtx-3050-512gb-ssd-mica-silver/J3YH84TCPC/sku/6672944",
+    "sourceType": "manufacturer",
+    "officialColor": "Mica Silver",
+    "sources": [
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_sd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_ld.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_rd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_bd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_av1.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6672/6672944_av2.jpg"
+    ]
+  },
+  {
+    "model": "HP Victus 15-fb3093dx",
+    "color": "Gris",
+    "page": "https://www.bestbuy.com/product/hp-victus-15-6-full-hd-gaming-laptop-amd-ryzen-5-7535hs-2023-8gb-ddr5-memory-nvidia-geforce-rtx-3050-512gb-ssd-mica-silver/J3YH84TCPC/sku/6672944",
+    "sourceType": "manufacturer",
+    "officialColor": "Mica Silver",
+    "sources": [
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_sd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_ld.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_rd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_bd.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_av1.jpg",
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6623/6623881_av2.jpg"
+    ]
+  },
+  {
+    "model": "HP Victus 15-fa2013dx",
+    "color": "Gris",
+    "page": "https://www.mauricomputacion.com.ar/catalogo/26431-notebook-hp-victus-15-fa2013dx-i5-13420h-8gb-512gb-ssd-rtx-3050-15.6-144hz-gris",
+    "sourceType": "retailer",
+    "officialColor": "Mica Silver",
+    "sources": [
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/500x500/1787854047.webp",
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/350x350/1787854047.webp",
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/1787854047.webp",
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/1787854048.webp",
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/1787854049.webp",
+      "https://d1j796mnyks2gj.cloudfront.net/galerias/26431/1787854050.webp"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad Flex 5 15ITL05",
+    "color": "Gris",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Flex_5_15ITL05",
+    "sourceType": "manufacturer",
+    "officialColor": "Graphite Grey",
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_01.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_02.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_03.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_04.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT1_05.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Flex_5_15ITL05/Compressedimage/IdeaPad_Flex_5_15ITL05_CT2_01.png"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad Pro 5 16IAH10",
+    "color": "Gris",
+    "page": "https://psref.lenovo.com/Detail/IdeaPad_Pro_5_16IAH10?M=83JM001GUS",
+    "sourceType": "manufacturer",
+    "officialColor": null,
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool//Sys/Image/IdeaPad/IdeaPad_Pro_5_16IAH10/Compressedimage/IdeaPad_Pro_5_16IAH10_CT2_02.png",
+      "https://psrefstuff.lenovo.com/syspool//Sys/Image/IdeaPad/IdeaPad_Pro_5_16IAH10/Compressedimage/IdeaPad_Pro_5_16IAH10_CT2_03.png"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad Slim 3 15AMN8",
+    "color": "Azul",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15AMN8",
+    "sourceType": "manufacturer",
+    "officialColor": "Abyss Blue",
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_03.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT1_04.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_08.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_09.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_10.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15AMN8/Compressedimage/IdeaPad_Slim_3_15AMN8_CT2_11.png"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad Slim 3 15IRU8",
+    "color": "Gris",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IRU8",
+    "sourceType": "manufacturer",
+    "officialColor": "Arctic Grey",
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT1_03.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_07.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_08.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_09.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_10.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IRU8/Compressedimage/IdeaPad_Slim_3_15IRU8_CT2_11.png"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad 1 15AMN7",
+    "color": "Azul",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_1_15AMN7",
+    "sourceType": "manufacturer",
+    "officialColor": "Abyss Blue",
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_03.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_1_15AMN7/Compressedimage/IdeaPad_1_15AMN7_CT3_04.png"
+    ]
+  },
+  {
+    "model": "Lenovo IdeaPad Slim 3 15IAN8",
+    "color": "Gris",
+    "page": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Slim_3_15IAN8",
+    "sourceType": "manufacturer",
+    "officialColor": "Arctic Grey",
+    "sources": [
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_03.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT1_04.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_06.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_07.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_08.png",
+      "https://psrefstuff.lenovo.com/syspool/Sys/Image/IdeaPad/IdeaPad_Slim_3_15IAN8/Compressedimage/IdeaPad_Slim_3_15IAN8_CT2_09.png"
+    ]
+  },
+  {
+    "model": "MSI Cyborg 15 A12VF",
+    "color": "Negro",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-A12VX/Gallery",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://storage-asset.msi.com/global/picture/product/product_1689929164035d455e28bd5c6c5d5095bc9d7c8f14.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1666230669e65667471cb0c16ca2519966ff6a4bfd.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1666230671cfcf9af85b2fed6bd4d725febb0677a6.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_166623067192bcedebe0e593705d46f080a4ba0a09.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_16662306748071a16fe9336a450e6677396d0f9855.webp"
+    ]
+  },
+  {
+    "model": "MSI Cyborg 15 B2RWFKG",
+    "color": "Negro",
+    "page": "https://www.msi.com/Laptop/Cyborg-15-B2RWX/Gallery",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://storage-asset.msi.com/global/picture/product/product_175617661604bc4cd71181808f19d86b16d2408d9e.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_17561766173a0a75cb0437b41814a693afd454f5ec.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_175617661873c16729ce610239bc0720faeb4a69b9.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1756176618c5694005144230c7c8eefdf76b1f1346.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_17561766211977a2fd257382a064728c9c530c1149.webp"
+    ]
+  },
+  {
+    "model": "MSI Cyborg A15 AI B2HWEKG",
+    "color": "Negro",
+    "page": "https://www.msi.com/Laptop/Cyborg-A15-B2HWX/Gallery",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://storage-asset.msi.com/global/picture/product/product_175617656686eaaf7dab6de051e69db280b5d92f32.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_17561765669f608fd4d4544e6ebff1eb5868b4c6e7.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1756176568eeae51ebb520a43a27e04ea63040d723.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1756176568984224609425d3f1c2f643e46ca41454.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1756176570eaf6d8f972cc17aad2376936cfc59e90.webp"
+    ]
+  },
+  {
+    "model": "MSI Thin A15 B7VE",
+    "color": "Gris",
+    "page": "https://www.msi.com/Laptop/Thin-A15-B7VX/Gallery",
+    "sourceType": "manufacturer",
+    "officialColor": "Gris",
+    "sources": [
+      "https://storage-asset.msi.com/global/picture/product/product_1703836839512348f82869818a657ab12f0f840ab8.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_171152425564c5420b7032e5b4deb74ac673755149.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1711524255720b01f06f59ff671fadc77f086c5c82.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_170383684134aa9738df4fa5cd296eb7c534c6eba4.webp",
+      "https://storage-asset.msi.com/global/picture/product/product_1703836843f7fe4452922596c1e159dd7abedf6125.webp"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Book4 NP750XGJ",
+    "color": "Plata",
+    "page": "https://shop.samsung.com/ar/galaxy-book4--15-6---i5--16-gb--intel-iris-xe---/p",
+    "sourceType": "manufacturer",
+    "officialColor": "Plata",
+    "sources": [
+      "https://samsungar.vtexassets.com/arquivos/ids/224435/Samsung-386483000-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388783--Download-.png",
+      "https://samsungar.vtexassets.com/arquivos/ids/224436/Samsung-386483015-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388763--Download.png",
+      "https://samsungar.vtexassets.com/arquivos/ids/224437/Samsung-386483036-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388764--Download.png",
+      "https://samsungar.vtexassets.com/arquivos/ids/224438/Samsung-386483051-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388748--Download.png",
+      "https://samsungar.vtexassets.com/arquivos/ids/224439/Samsung-386483069-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388749--Download.png",
+      "https://samsungar.vtexassets.com/arquivos/ids/224440/Samsung-386483095-ar-galaxy-book4-156-inch-np750xgja-566993-np750xgj-ks2ar-549388750--Download-.png"
+    ]
+  }
+]

@@ -174,6 +174,7 @@ const normalizeVariants = (variants) => {
             ram: v.ram ? String(v.ram).trim() : '',
             batt: v.batt ? String(v.batt).trim() : '',
             condition: v.condition ? String(v.condition).trim() : '',
+            configuration: v.configuration ? String(v.configuration).trim() : '',
             image_url: v.image_url ? String(v.image_url).trim() : '',
             price: validPrice,
             stock: Number.isInteger(Number(v.stock)) && Number(v.stock) >= 0 ? Number(v.stock) : 0
@@ -186,7 +187,8 @@ const variantNameFor = (variant) => [
     variant.capacity,
     variant.ram,
     variant.batt ? `Bat: ${variant.batt}` : null,
-    variant.condition ? `Cond: ${variant.condition}` : null
+    variant.condition ? `Cond: ${variant.condition}` : null,
+    variant.configuration ? `Config: ${variant.configuration}` : null
 ].filter(Boolean).join(' - ');
 
 const publicProduct = (product, options) => {

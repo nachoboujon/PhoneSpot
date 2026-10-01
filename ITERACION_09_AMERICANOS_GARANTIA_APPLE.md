@@ -25,3 +25,9 @@ Pruebas con datos interceptados en escritorio y celular: tarjetas separadas, fil
 También se revisan las galerías por color de los modelos importados y la sintaxis de los módulos modificados.
 
 Los cambios están preparados localmente; todavía no están publicados.
+
+## Ajuste visual solicitado
+
+Los nombres vuelven a mostrar únicamente el modelo. La condición se presenta debajo de la marca en las tarjetas y en la ficha, conservando la separación entre ambos tipos de venta.
+
+El enlace para ver la otra opción es compacto: tipografía de 0,8 rem, borde discreto, fondo transparente, altura mínima de 36 px y foco visible. Se quitó el encabezado redundante y el estilo del botón principal de compra. Se usa un contenedor de navegación propio para evitar que las reglas del menú móvil oculten el enlace.

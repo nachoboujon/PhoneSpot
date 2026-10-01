@@ -2757,6 +2757,16 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
 .product-page .product-info h2 { margin: 0 0 .65rem; color: #171b1f; font-size: clamp(2.25rem, 3.5vw, 3.15rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
 .product-page .product-condition-tag { margin: 0 0 1.2rem; color: #505961; font-size: .86rem; line-height: 1.4; }
 .product-page .product-condition-tag i { margin-right: .3rem; }
+.product-page .product-commercial-options { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .85rem; }
+.product-page .product-commercial-link {
+    display: inline-flex; align-items: center; gap: .55rem; width: fit-content; max-width: 100%;
+    min-height: 36px; padding: .4rem .65rem; border: 1px solid #d5dade; border-radius: 6px;
+    color: #39434c; background: transparent; font-size: .8rem; font-weight: 600; line-height: 1.35;
+    text-decoration: none; transition: background-color .15s ease, border-color .15s ease;
+}
+.product-page .product-commercial-link i { font-size: .7rem; flex-shrink: 0; }
+.product-page .product-commercial-link:hover { background: #f2f4f5; border-color: #aab2b9; }
+.product-page .product-commercial-link:focus-visible { outline: 2px solid #39434c; outline-offset: 3px; }
 .product-page .product-purchase-panel { display: grid; gap: .85rem; margin: .35rem 0 1.65rem; padding: 1.45rem; border-radius: 14px; background: #202428; color: #fff; }
 .product-page .product-price-panel { margin: 0; padding: 0; border-radius: 0; background: none; }
 .product-page .product-price-label { display: block; margin-bottom: .2rem; color: #c3cbd1; font-size: .8rem; font-weight: 650; }
