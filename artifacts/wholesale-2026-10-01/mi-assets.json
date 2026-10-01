@@ -696,6 +696,19 @@
     },
     {
       "model": "Redmi Note 15 Pro+",
+      "color": "Café Moca",
+      "officialColor": "Café Moca",
+      "rgb": "#685345",
+      "page": "https://www.mi.com/es/product/redmi-note-15-pro-plus-5g/buy/",
+      "source": "https://i05.appmifile.com/303_item_es/12/01/2026/024b0bec6812cd369c2f4d371cf2eaed.png",
+      "sources": [
+        "https://i05.appmifile.com/303_item_es/12/01/2026/024b0bec6812cd369c2f4d371cf2eaed.png",
+        "https://i05.appmifile.com/776_item_es/12/01/2026/48048adaf9fd391b42dc2abbc2ce0090.png",
+        "https://i05.appmifile.com/154_item_es/12/01/2026/d5309d6fb0f23986e424cf32d4774d64.png"
+      ]
+    },
+    {
+      "model": "Redmi Note 15 Pro+",
       "color": "Negro",
       "officialColor": "Negro",
       "rgb": "#000000",
@@ -944,24 +957,6 @@
       "model": "Redmi 15R 5G",
       "color": "Verde",
       "reason": "No catalog"
-    },
-    {
-      "model": "Redmi Note 15 Pro+",
-      "color": "Marrón Claro",
-      "officialColors": [
-        "Café Moca",
-        "Negro",
-        "Azul glaciar"
-      ]
-    },
-    {
-      "model": "Redmi Note 15 Pro+",
-      "color": "Marrón Oscuro",
-      "officialColors": [
-        "Café Moca",
-        "Negro",
-        "Azul glaciar"
-      ]
     },
     {
       "model": "Redmi Note 17 Pro 5G",

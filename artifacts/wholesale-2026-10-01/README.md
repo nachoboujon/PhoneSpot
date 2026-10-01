@@ -4,17 +4,19 @@ Alcance: únicamente celulares de las doce listas mayoristas. Se excluyeron relo
 
 ## Resultado
 
-- 238 variantes nuevas, agrupadas en 100 modelos; nueve modelos iPhone ya existían y recibieron variantes adicionales.
+- 264 variantes nuevas, agrupadas en 110 modelos; nueve modelos iPhone ya existían y recibieron variantes adicionales.
 - Precio por variante: `floor((precioMayoristaUSD + 35) / 10) * 10`, equivalente a sumar USD 30 y redondear a la decena más cercana, con empates hacia arriba.
 - Stock inicial: 10 por variante; el stock del producto suma sus variantes.
-- Fotos provenientes de fabricantes, convertidas a WebP y alojadas en Supabase. Se conservaron las fotos, precios y existencias de las variantes anteriores.
-- 27 variantes pendientes: ver [PENDIENTES.md](PENDIENTES.md). No se publicaron con fotos de otro modelo o color.
+- 422 fotos provenientes de fabricantes y, según la autorización posterior del usuario, distribuidores y tiendas. Se convirtieron a WebP y se alojaron en Supabase. Se conservaron las fotos, precios y existencias de las variantes anteriores.
+- No quedan variantes pendientes. Dos filas duplicadas por alias de color se consolidaron: Motorola Edge 60 Pro morado/violeta y CAT B68 negro/negro+naranja.
 
 ## Evidencia y fuentes
 
-`source-cards.json` conserva la transcripción del proveedor; `phones.json` contiene los 265 registros normalizados de celulares. `image-manifest.json` identifica la página oficial, URL original, color del fabricante, archivo alojado, dimensiones y tamaño de cada fotografía. `import-result.json` registra las altas y ampliaciones; `verification.json` documenta la comprobación posterior con lectura de la base y de los archivos públicos.
+`source-cards.json` conserva la transcripción del proveedor; `phones.json` contiene los 264 registros normalizados de celulares. `image-manifest.json` identifica la página de origen, URL original, tipo de fuente, color, archivo alojado, dimensiones y tamaño de cada fotografía. `import-result.json` registra las altas y ampliaciones; `verification.json` documenta la comprobación posterior con lectura de la base y de los archivos públicos.
 
 Los alias de colores Hotwav rojo/Rose, Oukitel C72 lavanda/Pink y Doogee V Max 2 marrón oscuro/Black se cotejaron visualmente con las fotos de referencia del proveedor y del fabricante; se conserva el nombre usado por el proveedor y el nombre oficial en el manifiesto.
+
+Los dos nombres marrones del Redmi Note 15 Pro+ se unificaron como Café Moca, conservando las configuraciones y precios distintos. El CAT B68 utiliza la terminación negra con detalles naranjas; las dos filas del proveedor mostraban el mismo equipo y precio. Los Nokia 5310 mantienen la denominación comercial de la lista y las imágenes de tiendas coincidentes; no se agregaron especificaciones de red no verificadas.
 
 ## Mantenimiento
 

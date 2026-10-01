@@ -40,6 +40,8 @@ for (const [sourceIndex, raw] of source.entries()) {
     model = model.replace(/^Blackview XPLORE/i, 'Blackview Xplore').replace(/ PRO$/i, ' Pro').replace(/15c$/i, '15C');
     if (model === 'Ulefone 27T Pro') {model = 'Ulefone Armor 27T Pro+'; type = '';}
     color = ({Silver:'Plata',Black:'Negro',Glacier:'Glaciar'})[color] || color;
+    if (model === 'Redmi Note 15 Pro+' && /^Marrón (Claro|Oscuro)$/.test(color)) color = 'Café Moca';
+    if (model === 'CAT B68 4G' && color === 'Negro') color = 'Negro + Naranja';
     const brand = model.startsWith('iPhone') ? 'Apple' : model.startsWith('KingKong') ? 'Cubot' : model.split(' ')[0];
     if (type) condition += ` · ${type}`;
     const price = Math.floor((raw.wholesaleUsd + 35) / 10) * 10;

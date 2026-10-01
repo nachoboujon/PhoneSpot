@@ -628,5 +628,107 @@
     "model": "Oukitel C17 Plus",
     "added": 1,
     "created": false
+  },
+  {
+    "id": 285,
+    "model": "Blackview BV9300 Pro Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 211,
+    "model": "Doogee V Max LR",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 213,
+    "model": "Hotwav A18 Pro Max",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 220,
+    "model": "Infinix GT 30 Pro",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 233,
+    "model": "Motorola G56 5G",
+    "added": 1,
+    "created": false
+  },
+  {
+    "id": 286,
+    "model": "Motorola G57 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 287,
+    "model": "Oukitel C26",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 288,
+    "model": "Oukitel C65",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 249,
+    "model": "POCO X8 Pro Max",
+    "added": 2,
+    "created": false
+  },
+  {
+    "id": 289,
+    "model": "Redmi 15R 5G",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 259,
+    "model": "Redmi Note 15 Pro+",
+    "added": 2,
+    "created": false
+  },
+  {
+    "id": 261,
+    "model": "Redmi Note 17 Pro 5G",
+    "added": 3,
+    "created": false
+  },
+  {
+    "id": 290,
+    "model": "CAT B28",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 291,
+    "model": "CAT B68 4G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 292,
+    "model": "Nokia 5310 4G",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 293,
+    "model": "UR UM-05",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 294,
+    "model": "UR UM-06",
+    "added": 1,
+    "created": true
   }
 ]

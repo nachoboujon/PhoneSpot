@@ -3468,7 +3468,7 @@
     "wholesaleUsd": 404,
     "sourceIndex": 193,
     "model": "Redmi Note 15 Pro+",
-    "color": "Marrón Claro",
+    "color": "Café Moca",
     "capacity": "512GB",
     "ram": "12GB",
     "batt": "",
@@ -3558,7 +3558,7 @@
     "wholesaleUsd": 348,
     "sourceIndex": 198,
     "model": "Redmi Note 15 Pro+",
-    "color": "Marrón Oscuro",
+    "color": "Café Moca",
     "capacity": "256GB",
     "ram": "8GB",
     "batt": "",
@@ -4194,25 +4194,10 @@
     "batt": "",
     "condition": "Nuevo sellado",
     "stock": 10,
-    "price": 50
-  },
-  {
-    "source": "CELULARES CON TECLA MAYORISTA.pdf",
-    "page": 1,
-    "card": 3,
-    "brand": "CAT",
-    "category": "Celulares con tecla",
-    "label": "CAT - B68 4G - Negro",
-    "wholesaleUsd": 24,
-    "sourceIndex": 234,
-    "model": "CAT B68 4G",
-    "color": "Negro",
-    "capacity": "",
-    "ram": "",
-    "batt": "",
-    "condition": "Nuevo sellado",
-    "stock": 10,
-    "price": 50
+    "price": 50,
+    "duplicateSourceIndices": [
+      234
+    ]
   },
   {
     "source": "CELULARES CON TECLA MAYORISTA.pdf",

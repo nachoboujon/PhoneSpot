@@ -1,10 +1,10 @@
 {
-  "verifiedAt": "2026-10-01T22:53:35.072Z",
-  "activeProducts": 117,
-  "importedModels": 100,
-  "importedVariants": 238,
-  "hostedPhotos": 382,
-  "pendingVariants": 27,
+  "verifiedAt": "2026-10-01T23:12:53.200Z",
+  "activeProducts": 127,
+  "importedModels": 110,
+  "importedVariants": 264,
+  "hostedPhotos": 422,
+  "pendingVariants": 0,
   "checks": [
     "supplier price + USD30, nearest USD10",
     "10 units per new variant",

@@ -3,6 +3,7 @@ const slug=s=>s.toLowerCase().replace(/\+/g,' plus ').replace(/[^a-z0-9]+/g,'-')
 const aliases={Negro:['negro','black','midnight black'],Blanco:['blanco','white','blanco fotoactivo'],Oro:['dorado','gold'],Azul:['azul','blue','denim blue','ice blue','glacier blue'],Verde:['verde','green','mint green','forest green'],Morado:['morado','purple'],Lavanda:['lavanda','purple','violeta'],Gris:['gris','gray','grey','titanio','titan gray'],Plata:['plata','silver'],Amarillo:['amarillo','yellow'],Naranja:['naranja','orange'],Violeta:['violeta','violet','purple'], 'Marrón Claro':['mocha brown','marron moca'], 'Marrón Oscuro':['mocha brown','marron moca']};
 const clean=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 aliases.Lavanda.push('morado');
+aliases['Café Moca']=['cafe moca','mocha brown'];
 const assets=[],unresolved=[];
 for(const row of rows.filter(r=>['Xiaomi','Redmi','POCO'].includes(r.brand))){if(assets.some(a=>a.model===row.model&&a.color===row.color)||unresolved.some(a=>a.model===row.model&&a.color===row.color))continue;
 const file=`${base}/mi-catalogs/${slug(row.model)}.json`;if(!fs.existsSync(file)){unresolved.push({model:row.model,color:row.color,reason:'No catalog'});continue;}

@@ -36,6 +36,7 @@ async function main() {
         assert.equal(p.stock, p.variants.reduce((s, v) => s + Number(v.stock || 0), 0), `${model} total stock`);
     }
     const queue = [...urls];
+    let checkedPhotos = 0;
     await Promise.all(Array.from({length: 2}, async () => {
         while (queue.length) {
             const url = queue.shift();
@@ -48,6 +49,7 @@ async function main() {
             assert.equal(response.status, 200, url);
             assert.match(response.headers.get('content-type'), /image\/webp/, url);
             assert.ok(Number(response.headers.get('content-length')) > 0, url);
+            if (++checkedPhotos % 50 === 0) console.log(`Verified hosted photos ${checkedPhotos}/${urls.size}`);
             await new Promise(resolve => setTimeout(resolve, 250));
         }
     }));
