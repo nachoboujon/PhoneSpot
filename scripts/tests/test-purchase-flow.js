@@ -1,11 +1,16 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
+const supabaseUrl = process.env.TEST_SUPABASE_URL;
+const supabaseKey = process.env.TEST_SUPABASE_SERVICE_ROLE_KEY;
+
+if (process.env.ALLOW_DATABASE_MUTATIONS !== '1' || !supabaseUrl || supabaseUrl === process.env.SUPABASE_URL) {
+    console.error('Esta prueba modifica stock y pedidos. Requiere ALLOW_DATABASE_MUTATIONS=1 y una TEST_SUPABASE_URL distinta de producción.');
+    process.exit(1);
+}
 
 if (!supabaseUrl || !supabaseKey) {
-    console.error('ERROR: Faltan credenciales de Supabase en .env');
+    console.error('ERROR: Faltan TEST_SUPABASE_URL y TEST_SUPABASE_SERVICE_ROLE_KEY');
     process.exit(1);
 }
 

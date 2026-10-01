@@ -3,69 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Compra Exitosa! | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
+    <title>Pedido registrado | PhoneSpot</title>
+    <link rel="stylesheet" href="style.css?v=049402bcc48e">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body style="background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; padding: 2rem 1rem;">
     
     <div style="background: var(--card-bg, #ffffff); padding: 3rem 2rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); max-width: 540px; width: 100%; border: 1px solid var(--border-color, #eee);">
-        <div style="width: 80px; height: 80px; background: #2ecc71; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(46, 204, 113, 0.25);">
-            <i class="fa-solid fa-check" style="color: white; font-size: 2.5rem;"></i>
+        <div style="width: 80px; height: 80px; background: #177b42; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>
         </div>
         
-        <h1 style="margin-bottom: 0.8rem; font-size: 2.2rem; color: var(--text-color, #111); font-weight: 800; letter-spacing: -0.5px;">¡Compra Confirmada!</h1>
+        <h1 style="margin-bottom: 0.8rem; font-size: 2.2rem; color: var(--text-color, #111); font-weight: 800; letter-spacing: -0.5px;">Pedido registrado</h1>
         <p id="order-message" style="color: var(--text-muted, #666); font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.5rem;">
-            Tu orden ha sido procesada correctamente. Hemos enviado el comprobante a tu correo electrónico.
+            Revisá tus pedidos desde tu cuenta para confirmar el estado de la compra.
         </p>
 
         <div id="wp-action-container" style="margin-bottom: 1.5rem; display: none;">
-            <a id="wp-btn" href="#" target="_blank" class="btn" style="background: #25D366; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 0.95rem 1.5rem; border-radius: 30px; font-weight: bold; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); transition: 0.2s;">
+            <a id="wp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn" style="background: #177b42; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 0.95rem 1.5rem; border-radius: 30px; font-weight: bold; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12); transition: 0.2s;">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Coordinar pago por WhatsApp
             </a>
-            <small style="color: var(--text-muted, #777); display: block; margin-top: 0.5rem; font-size: 0.85rem;">Si no se abrió automáticamente, hacé clic en el botón para avisarnos.</small>
+            <small style="color: var(--text-muted, #59616a); display: block; margin-top: 0.5rem; font-size: 0.85rem;">Abrí WhatsApp para coordinar el pago y el envío. Tu pedido queda registrado en PhoneSpot.</small>
         </div>
 
         <div style="background: #f0f4f8; padding: 1.2rem; border-radius: 12px; margin-bottom: 1.5rem;">
-            <p style="margin: 0; font-size: 0.95rem; color: var(--text-muted, #555);">Serás redirigido al inicio del sitio en <strong id="countdown" style="color: #111; font-size: 1.1rem;">6</strong> segundos...</p>
+            <p style="margin: 0; font-size: 0.95rem; color: var(--text-muted, #555);">El pago y el envío se coordinan por WhatsApp. Podés consultar el estado desde <a href="perfil.html">tu cuenta</a>.</p>
         </div>
 
+        <p style="color:#555;line-height:1.6">Revisá el correo de tu cuenta, incluida la carpeta de spam, y consultá el estado en <a href="perfil.html">Mis pedidos</a>.</p>
         <a href="index.html" class="btn btn-block" style="background: #111; color: white; display: inline-block; padding: 0.9rem; border-radius: 30px; text-decoration: none; font-weight: bold;">Volver a la Tienda</a>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('orderId');
-        const total = urlParams.get('total');
-        const wpUrl = urlParams.get('wpUrl');
+        let confirmation;
+        try {
+            const saved = JSON.parse(sessionStorage.getItem('phoneSpotOrderConfirmation'));
+            if (saved?.orderId === orderId && Date.now() - saved.createdAt < 86400000) confirmation = saved;
+        } catch (_) { /* The account remains the source of order status. */ }
+        const total = confirmation?.total ?? urlParams.get('total');
+        const wpUrl = confirmation?.wpUrl || urlParams.get('wpUrl');
 
-        if (orderId) {
+        if (/^\d+$/.test(orderId || '') && Number(orderId) > 0) {
             let msg = `Tu orden <strong style="color: #111;">#${orderId}</strong> ha sido registrada con éxito.`;
-            if (total) {
+            if (total !== null && total !== undefined && Number.isFinite(Number(total)) && Number(total) >= 0) {
                 const formatted = Number(total).toLocaleString('es-AR');
                 msg += `<br>Total a abonar: <strong style="color: #111; font-size: 1.15rem;">$${formatted} ARS</strong>`;
             }
-            msg += `<br><span style="font-size: 0.95rem; color: #777;">Enviamos el comprobante a tu correo electrónico.</span>`;
+            msg += `<br><span style="font-size: 0.95rem; color: #59616a;">El pago está pendiente de coordinación. Revisá tu correo y tus pedidos.</span>`;
             document.getElementById('order-message').innerHTML = msg;
         }
 
-        if (wpUrl) {
+        let safeWhatsAppUrl;
+        try {
+            const parsed = new URL(wpUrl);
+            if (parsed.protocol === 'https:' && parsed.hostname === 'wa.me' && /^\/\d+$/.test(parsed.pathname)) safeWhatsAppUrl = parsed.href;
+        } catch (_) { /* Un enlace inválido no debe convertirse en una acción. */ }
+        if (safeWhatsAppUrl) {
             const wpContainer = document.getElementById('wp-action-container');
             const wpBtn = document.getElementById('wp-btn');
-            wpBtn.href = wpUrl;
+            wpBtn.href = safeWhatsAppUrl;
             wpContainer.style.display = 'block';
         }
 
-        let count = 6;
-        const countSpan = document.getElementById('countdown');
-        const timer = setInterval(() => {
-            count--;
-            if (count > 0 && countSpan) countSpan.innerText = count;
-            if (count <= 0) {
-                clearInterval(timer);
-                window.location.href = 'index.html';
-            }
-        }, 1000);
     </script>
 </body>
 </html>

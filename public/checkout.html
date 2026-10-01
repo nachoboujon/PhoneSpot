@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
+    <link rel="stylesheet" href="checkout-ui.css?v=c6018807548a">
+    <link rel="stylesheet" href="style.css?v=049402bcc48e">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
+    <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
 </head>
-<body>
+<body class="checkout-flow">
     
     <header>
         <div class="logo"><h1><a href="index.html"><img class="brand-mark" src="uploads/PhoneSpot-trans.png" alt="PhoneSpot Logo"> <span>PhoneSpot.</span></a></h1></div>
@@ -15,6 +17,7 @@
 
     <main class="checkout-page">
         <h2>Finalizar Compra</h2>
+        <p class="checkout-intro">Revisá tus datos y confirmá el pedido. Después coordinamos el pago y el envío por WhatsApp.</p>
         <div class="checkout-container">
             <div class="checkout-form">
                 
@@ -24,7 +27,8 @@
                     <div class="step" id="step2-indicator">2. Confirmación</div>
                 </div>
 
-                <form id="checkout-form">
+                <p id="checkout-status" class="checkout-status" role="status" aria-live="polite" aria-atomic="true"></p>
+                <form id="checkout-form" novalidate>
                     
                     <!-- PARTE 1: Contacto y Envío -->
                     <div id="checkout-part1" class="checkout-part">
@@ -47,7 +51,7 @@
                             </div>
                             <div class="form-group" style="display: flex; gap: 10px;">
                                 <div style="flex:1;">
-                                    <label for="chk-dni">DNI / CUIL *</label>
+                                    <label for="chk-dni">DNI *</label>
                                     <input type="text" id="chk-dni" inputmode="numeric" pattern="[0-9]{7,8}" maxlength="8" placeholder="Sin puntos ni espacios" required style="width:100%; padding:0.8rem; border-radius:8px; border:1px solid #ddd;">
                                 </div>
                                 <div style="flex:1;">
@@ -92,10 +96,13 @@
                     <div id="checkout-part2" class="checkout-part" style="display: none;">
                         <div class="checkout-section">
                             <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.5rem; border-bottom:1px solid #eee; padding-bottom:0.5rem;">
-                                <button type="button" id="btn-prev-step" style="background:none; border:none; cursor:pointer; font-size:1.2rem; color:#666;"><i class="fa-solid fa-arrow-left"></i></button>
-                                <h3 style="margin:0; font-size:1.4rem;"><i class="fa-solid fa-credit-card"></i> 3. Coordinación del pago</h3>
+                                <button type="button" id="btn-prev-step" aria-label="Editar datos de contacto y envío" style="background:none; border:none; cursor:pointer; font-size:1.2rem; color:#666;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"/></svg></button>
+                                <h3 style="margin:0; font-size:1.4rem;">Pago y entrega</h3>
                             </div>
                             
+                            <h3 id="checkout-review-title" tabindex="-1">Revisá tu pedido</h3>
+                            <dl id="checkout-review" class="checkout-review"></dl>
+                            <p id="checkout-review-total" class="checkout-review-total"></p>
                             <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">Al confirmar el pedido, coordinaremos el pago por WhatsApp. No se cobra en esta página.</p>
 
                             <div class="form-group" style="display:flex; flex-direction:column; gap:1rem;">
@@ -110,6 +117,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-block" style="background-color: var(--text-color); flex: 1;" id="btn-confirm-pay">Confirmar pedido</button>
+                    </div>
 
                 </form>
             </div>
@@ -135,7 +143,9 @@
         </div>
     </main>
 
-    <script src="script.js?v=20260929-admin-social-catalog"></script>
+    <script src="checkout-ui.js?v=944d24277ab4"></script>
+    <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
+    <script src="script.js?v=3bde03338e65"></script>
 
     <!-- WhatsApp Flotante -->
     

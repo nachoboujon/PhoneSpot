@@ -2,6 +2,7 @@ const assert = require('assert');
 const path = require('path');
 const { spawn } = require('child_process');
 const puppeteer = require('puppeteer');
+const {normalizeProductImages} = require('../../lib/product-images');
 
 const cards = require('../../artifacts/iphone-import-preview.json').filter(card => card.model === 'iPhone 14 Pro');
 const storageBase = 'https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/';
@@ -10,11 +11,11 @@ const variants = cards.map(card => ({
     condition: card.condition || 'Americano', stock: 10, price: card.price,
     image_url: storageBase + card.image
 }));
-const product = {
+const product = normalizeProductImages({
     id: 999, name: 'iPhone 14 Pro', description: '[Condición: Americano] Elegí tu variante.',
     brand: 'Apple', category: 'celulares', stock: 160, price: 450,
     image_url: variants[0].image_url, images: variants.map(variant => variant.image_url), variants
-};
+});
 
 (async () => {
     const server = spawn(process.execPath, ['server.js'], {
@@ -39,7 +40,7 @@ const product = {
             photos: document.querySelectorAll('.gallery-thumb').length
         }));
         assert.equal(initial.name, 'iPhone 14 Pro');
-        assert.equal(initial.photos, 16);
+        assert.equal(initial.photos, new Set(product.variants.filter(v => v.color === product.variants[0].color).map(v => v.photo_key)).size);
         await page.waitForFunction(() => document.querySelector('.gallery-thumb img')?.naturalWidth > 0, { timeout: 10000 });
         const conditionTextColor = await page.$eval('.var-btn[data-type="condition"]', el => getComputedStyle(el).color);
         assert.equal(conditionTextColor, 'rgb(29, 29, 31)');
@@ -63,7 +64,7 @@ const product = {
         }));
         assert.equal(selection.variant, 'Morado - 256GB - Bat: 100% - Cond: eSIM');
         assert.equal(selection.price, '510');
-        assert.equal(selection.image, variants.find(v => v.color === 'Morado' && v.capacity === '256GB' && v.batt === '100%').image_url);
+        assert.equal(selection.image.split('?')[0], product.variants.find(v => v.color === 'Morado' && v.capacity === '256GB' && v.batt === '100%').image_url);
         const catalog = await browser.newPage();
         await catalog.setRequestInterception(true);
         catalog.on('request', request => {

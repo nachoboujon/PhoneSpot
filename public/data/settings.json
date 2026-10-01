@@ -7,19 +7,19 @@
     {
       "title": "Tecnología que se siente premium",
       "subtitle": "Smartphones seleccionados. Diseño, potencia y confianza.",
-      "image": "uploads/hero-graphite-phone-v1.png",
+      "image": "uploads/hero-graphite-phone-v2.jpg",
       "link": "catalogo.html?cat=apple"
     },
     {
       "title": "Tu próximo equipo empieza acá",
       "subtitle": "Notebooks para crear, estudiar y trabajar sin límites.",
-      "image": "uploads/hero-graphite-laptop-v1.png",
+      "image": "uploads/hero-graphite-laptop-v2.jpg",
       "link": "catalogo.html?cat=notebooks"
     },
     {
       "title": "Los detalles también importan",
       "subtitle": "Accesorios esenciales, elegidos para acompañarte todos los días.",
-      "image": "uploads/hero-graphite-accessories-v1.png",
+      "image": "uploads/hero-graphite-accessories-v2.jpg",
       "link": "catalogo.html?cat=accesorios"
     }
   ],

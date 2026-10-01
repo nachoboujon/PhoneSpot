@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhoneSpot | Celulares para tu negocio</title>
-    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
+    <link rel="stylesheet" href="home-ui.css?v=fc6c1ecca389">
+    <link rel="stylesheet" href="style.css?v=049402bcc48e">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <meta property="og:title" content="PhoneSpot | Tu tienda de tecnología">
@@ -17,8 +18,9 @@
     {"@context":"https://schema.org","@type":"Store","name":"PhoneSpot","url":"https://www.phonespot.site/","image":"https://www.phonespot.site/uploads/PhoneSpot-trans.png","telephone":"+5493447416011","address":{"@type":"PostalAddress","addressRegion":"Entre Ríos","addressCountry":"AR"},"sameAs":["https://www.instagram.com/phonespotsj"]}
     </script>
         <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
+    <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
 </head>
-<body>
+<body class="home-page">
     
     <div class="top-banner">
         <div class="scrolling-text">
@@ -61,7 +63,7 @@
         <div class="header-icons">
             <a href="login.html" title="Mi Cuenta" id="user-icon-link"><i class="fa-solid fa-user"></i></a>
             <a href="#" onclick="event.preventDefault(); toggleFavSidebar();" title="Mis Favoritos" style="margin-right: 15px; font-size: 1.2rem; color: var(--text-color);"><i class="fa-regular fa-heart"></i></a>
-            <a href="carrito.html" class="cart-icon">
+            <a href="carrito.html" class="cart-icon" aria-label="Ver carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span id="cart-count-badge" style="font-size: 0.8rem; font-weight: bold; margin-left: 2px;"></span>
             </a>
@@ -93,8 +95,8 @@
                 <!-- Se llena con JavaScript desde el archivo settings.json -->
             </div>
             
-            <button class="carousel-prev"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="carousel-prev" type="button" aria-label="Colección anterior"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+            <button class="carousel-next" type="button" aria-label="Colección siguiente"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
             
             
         </section>
@@ -135,7 +137,6 @@
         <!-- Asesor de compra -->
         <section id="asesor" class="advisor-section" aria-labelledby="advisor-title">
             <div class="advisor-intro">
-                <span class="advisor-eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Recomendaciones reales</span>
                 <h2 id="advisor-title">Encontrá la tecnología ideal para vos</h2>
                 <p>Contanos primero qué estás buscando: celulares, notebooks, tablets o accesorios. Después te mostramos las opciones disponibles que mejor se adaptan a vos.</p>
                 <button id="advisor-start" class="advisor-start" type="button">
@@ -154,39 +155,16 @@
             <div id="advisor-results" class="advisor-results" hidden aria-live="polite"></div>
         </section>
 
-        <!-- Featured Categories -->
-        <section class="featured-categories" style="padding: 0 5%; max-width: 1200px; margin: 0 auto 4rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                
-                <a href="catalogo.html?cat=apple" style="display: block; position: relative; height: 250px; border-radius: 16px; overflow: hidden; text-decoration: none;">
-                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=800&q=80') center/cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></div>
-                    <div style="position: absolute; bottom: 20px; left: 20px; z-index: 2;">
-                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Mundo Apple</h3>
-                        <span style="color: #555555; font-weight: bold; background: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Ver Equipos</span>
-                    </div>
-                </a>
-
-                <a href="catalogo.html?cat=samsung" style="display: block; position: relative; height: 250px; border-radius: 16px; overflow: hidden; text-decoration: none;">
-                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80') center/cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></div>
-                    <div style="position: absolute; bottom: 20px; left: 20px; z-index: 2;">
-                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Ecosistema Samsung</h3>
-                        <span style="color: #555555; font-weight: bold; background: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Descubrir</span>
-                    </div>
-                </a>
-
-                <a href="catalogo.html?cat=accesorios" style="display: block; position: relative; height: 250px; border-radius: 16px; overflow: hidden; text-decoration: none;">
-                    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80') center/cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></div>
-                    <div style="position: absolute; bottom: 20px; left: 20px; z-index: 2;">
-                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Accesorios Premium</h3>
-                        <span style="color: #555555; font-weight: bold; background: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Ver Fundas y Cargadores</span>
-                    </div>
-                </a>
-
+        <section class="home-categories" aria-label="Explorar por marca y categoría">
+            <div class="home-categories__grid">
+                <a class="home-category" href="catalogo.html?cat=apple"><h3>Mundo Apple</h3><span>Ver equipos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="home-category" href="catalogo.html?cat=samsung"><h3>Ecosistema Samsung</h3><span>Explorar catálogo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="home-category" href="catalogo.html?cat=accesorios"><h3>Accesorios</h3><span>Ver fundas y cargadores <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
             </div>
         </section>
 
 <!-- Brands Logo Carousel -->
-        <section id="marcas" class="brands-section" style="padding: 4rem 0; background: var(--gray-bg); overflow: hidden; border-bottom: 1px solid var(--border-color); border-top: 1px solid var(--border-color);">
+        <section id="marcas" class="brands-section" style="padding: 4rem 1rem; background: var(--gray-bg); overflow: hidden; border-bottom: 1px solid var(--border-color); border-top: 1px solid var(--border-color);">
             <h3 style="text-align: center; margin-bottom: 3rem; font-size: 2rem; color: var(--text-color);">Nuestras Marcas</h3>
             
             <div class="logo-slider">
@@ -226,7 +204,6 @@
         <!-- SECCIÓN DE OFERTAS MEJORADA -->
         <section id="ofertas" class="offers-section" style="padding: 5rem 5%; background: var(--bg-color);">
             <div style="text-align: center; margin-bottom: 3rem;">
-                <span style="background: #ff4757; color: white; padding: 0.3rem 1rem; border-radius: 20px; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Descuentos Exclusivos</span>
                 <h3 style="font-size: 2.5rem; color: var(--text-color); margin-top: 1rem; margin-bottom: 0.5rem;">Ofertas Relámpago</h3>
                 <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Equipos premium con precios imbatibles por tiempo limitado.</p>
                 
@@ -247,7 +224,7 @@
                         <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-family: sans-serif;">Min</span>
                     </div>
                     <div style="font-size: 2rem; font-weight: bold; color: var(--text-color); line-height: 80px;">:</div>
-                    <div style="background: #ff4757; color: white; padding: 1rem; border-radius: 12px; min-width: 80px; box-shadow: 0 4px 10px rgba(255,71,87,0.4);">
+                    <div style="background: #202428; color: white; padding: 1rem; border-radius: 12px; min-width: 80px;">
                         <span id="cd-secs" style="font-size: 2rem; display: block;">00</span>
                         <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-family: sans-serif;">Seg</span>
                     </div>
@@ -271,7 +248,6 @@
                 <span class="ecosystem-earbud ecosystem-earbud-right"></span>
             </div>
             <div class="ecosystem-content">
-                <span class="ecosystem-eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Todo conectado</span>
                 <h2 id="ecosystem-title">Armá tu ecosistema</h2>
                 <p>Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más.</p>
                 <a href="catalogo.html?cat=accesorios" class="ecosystem-cta">Ver accesorios <i class="fa-solid fa-arrow-right"></i></a>
@@ -296,16 +272,12 @@
         
 
     
-        <!-- Newsletter -->
-        <section class="newsletter" style="background: linear-gradient(135deg, #555555, #333333); padding: 4rem 5%; text-align: center; margin-top: 4rem;">
-            <div style="max-width: 600px; margin: 0 auto; color: white;">
-                <i class="fa-regular fa-envelope-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: white;">¡No te pierdas ninguna oferta!</h2>
-                <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">Suscribite a nuestro newsletter y recibí descuentos exclusivos antes que nadie.</p>
-                <form onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!'); this.reset();" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <input type="email" placeholder="Tu correo electrónico" required style="padding: 1rem; border-radius: 30px; border: none; flex: 1; min-width: 250px; font-size: 1rem; outline: none;">
-                    <button type="submit" class="btn" style="background: #111; color: white; border: none; padding: 1rem 2rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#111'">Suscribirme</button>
-                </form>
+        <section id="contacto" class="home-contact" aria-labelledby="home-contact-title">
+            <h2 id="home-contact-title">¿Necesitás ayuda para elegir?</h2>
+            <p>Consultanos por el equipo que buscás y coordiná tu compra con PhoneSpot.</p>
+            <div class="home-contact__actions">
+                <a class="business-hero__primary home-contact__whatsapp" href="https://wa.me/5493447416011?text=Hola%20PhoneSpot%2C%20quiero%20consultar%20por%20un%20equipo" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+                <a class="home-contact__email" href="mailto:boujonnacho@gmail.com?subject=Consulta%20PhoneSpot">Escribir por email</a>
             </div>
         </section>
 
@@ -366,7 +338,9 @@
         </div>
     </footer>
 
-    <script src="script.js?v=20260929-admin-social-catalog"></script>
+    <script src="home-ui.js?v=d6a0c594e59f"></script>
+    <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
+    <script src="script.js?v=3bde03338e65"></script>
 
 
     <!-- FAVORITES SIDEBAR -->

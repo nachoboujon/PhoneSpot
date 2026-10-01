@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi cuenta | PhoneSpot</title>
-    <link rel="stylesheet" href="style.css?v=20260929-admin-social-catalog">
+    <link rel="stylesheet" href="style.css?v=049402bcc48e">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
+    <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
 </head>
 <body>
     <header>
@@ -24,7 +25,8 @@
         <section class="account-orders-section"><div class="account-section-heading"><div><span>Historial</span><h2>Mis pedidos</h2><p>Seguí el estado de tus compras y revisá cada detalle.</p></div><i class="fa-solid fa-box-open"></i></div><div id="my-orders-container" class="account-orders" aria-live="polite"><div class="account-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando historial…</div></div></section>
     </main>
     <footer class="account-footer"><p>¿Necesitás ayuda? <a href="https://wa.me/5493447416011" target="_blank" rel="noopener noreferrer">Escribinos por WhatsApp</a> o seguinos en <a href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p></footer>
-    <script src="script.js?v=20260929-admin-social-catalog"></script>
+    <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
+    <script src="script.js?v=3bde03338e65"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -35,9 +37,10 @@
             const nameText = document.getElementById('profile-name'), emailText = document.getElementById('profile-email'), nameInput = document.getElementById('profile-name-input'), emailInput = document.getElementById('profile-email-input'), phoneInput = document.getElementById('profile-phone-input'), dniInput = document.getElementById('profile-dni-input'), addressInput = document.getElementById('profile-address-input'), provinceInput = document.getElementById('profile-province-input'), cityInput = document.getElementById('profile-city-input'), postalCodeInput = document.getElementById('profile-postal-code-input'), message = document.getElementById('profile-message'), ordersContainer = document.getElementById('my-orders-container');
             try {
                 const response = await fetch(window.API_URL + '/api/me', { headers: authHeaders }); const user = await response.json();
+                if (response.status === 401) { localStorage.removeItem('phoneSpotToken'); localStorage.removeItem('phoneSpotRole'); window.location.replace('login.html?redirect=perfil.html&reason=session-expired'); return; }
                 if (!response.ok) throw new Error(user.error || 'No pudimos cargar tu cuenta.');
                 nameText.textContent = user.name; emailText.textContent = user.email; nameInput.value = user.name; emailInput.value = user.email; phoneInput.value = user.phone || ''; dniInput.value = user.dni || ''; addressInput.value = user.address || ''; provinceInput.value = user.province || ''; cityInput.value = user.city || ''; postalCodeInput.value = user.postal_code || '';
-            } catch (_) { localStorage.removeItem('phoneSpotToken'); localStorage.removeItem('phoneSpotRole'); window.location.replace('login.html?redirect=perfil.html'); return; }
+            } catch (_) { emailText.textContent = 'No pudimos cargar tu cuenta.'; message.className = 'account-message is-error'; message.textContent = 'La conexión falló. Recargá la página para volver a intentarlo.'; return; }
             document.getElementById('profile-form').addEventListener('submit', async (event) => {
                 event.preventDefault(); const button = event.currentTarget.querySelector('button'); button.disabled = true; button.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Guardando…'; message.textContent = '';
                 const deliveryData = { phone: phoneInput.value.trim(), dni: dniInput.value.replace(/\D/g, ''), address: addressInput.value.trim(), province: provinceInput.value, city: cityInput.value.trim(), postal_code: postalCodeInput.value.trim().toUpperCase() };
@@ -57,7 +60,7 @@
                 ordersContainer.innerHTML = orders.map((order) => {
                     const [label, icon, tone] = statusInfo[order.status] || statusInfo.pending;
                     const items = (order.order_items || []).map((item) => `<li><img src="${escapeHtml(item.products?.image_url || 'uploads/PhoneSpot-trans.png')}" alt=""><span><strong>${escapeHtml(item.products?.name || 'Producto')}</strong>${item.variant_name ? `<small>${escapeHtml(item.variant_name)}</small>` : ''}</span><b>${item.quantity}×</b></li>`).join('');
-                    return `<article class="order-card"><div class="order-card-top"><div><span class="order-number">Pedido #${escapeHtml(order.id)}</span><time>${new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div><div class="order-total"><strong>$${Number(order.total).toLocaleString('es-AR')}</strong><span class="order-status ${tone}"><i class="fa-solid ${icon}"></i> ${label}</span></div></div><ul class="order-items">${items}</ul>${order.tracking_code ? `<div class="order-tracking"><i class="fa-solid fa-location-crosshairs"></i><span>Seguimiento <b>${escapeHtml(order.tracking_code)}</b></span></div>` : ''}</article>`;
+                    return `<article class="order-card"><div class="order-card-top"><div><span class="order-number">Pedido #${escapeHtml(order.id)}</span><time>${new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div><div class="order-total"><strong>USD ${Number(order.total).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong><span class="order-status ${tone}"><i class="fa-solid ${icon}"></i> ${label}</span></div></div><ul class="order-items">${items}</ul>${order.tracking_code ? `<div class="order-tracking"><i class="fa-solid fa-location-crosshairs"></i><span>Seguimiento <b>${escapeHtml(order.tracking_code)}</b></span></div>` : ''}</article>`;
                 }).join('');
             } catch (error) { ordersContainer.innerHTML = `<div class="account-empty is-error"><i class="fa-solid fa-triangle-exclamation"></i><h3>No pudimos cargar tus pedidos</h3><p>${escapeHtml(error.message)}</p></div>`; }
         });

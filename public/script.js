@@ -55,26 +55,37 @@ window.variantNameFor = (variant) => [
     variant.batt ? `Bat: ${variant.batt}` : '',
     variant.condition ? `Cond: ${variant.condition}` : ''
 ].filter(Boolean).join(' - ');
-window.productGalleryImages = (product) => [...new Set([
-    product.image_url,
-    ...(Array.isArray(product.images) ? product.images : []),
-    ...(Array.isArray(product.variants) ? product.variants.map(variant => variant.image_url) : [])
-].filter(Boolean))].map(window.getFullImageUrl);
+window.productGalleryImages = (product) => {
+    const variants = Array.isArray(product.variants) ? product.variants : [];
+    const keys = new Map(variants.filter(v => v.image_url).map(v => [window.getFullImageUrl(v.image_url), v.photo_key || window.getFullImageUrl(v.image_url)]));
+    const seen = new Set();
+    return [product.image_url, ...(Array.isArray(product.images) ? product.images : []), ...variants.map(v => v.image_url)]
+        .filter(Boolean).map(window.getFullImageUrl).filter(url => {
+            const key = keys.get(url) || url;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+};
 window.galleryForColor = (product, color) => {
     const variants = Array.isArray(product.variants) ? product.variants : [];
+    const matchingVariants = color ? variants.filter(variant => variant.color === color) : variants;
     const seen = new Set();
-    const ordered = [...variants].sort((a, b) => Number(b.color === color) - Number(a.color === color));
-    const photos = ordered.filter(v => {
+    const photos = matchingVariants.filter(v => {
         const key = v.photo_key || v.image_url;
         return v.image_url && !seen.has(key) && seen.add(key);
     });
-    return photos.length ? photos.map(v => ({url: window.getFullImageUrl(v.image_url), color: v.color}))
-        : window.productGalleryImages(product).map(url => ({url, color: ''}));
+    if (photos.length) return photos.map(v => ({url: window.getFullImageUrl(v.image_url), color: v.color}));
+    if (color && variants.length) {
+        return product.image_url ? [{url: window.getFullImageUrl(product.image_url), color: ''}] : [];
+    }
+    return window.productGalleryImages(product).map(url => ({url, color: ''}));
 };
 window.renderProductGallery = (product, color) => {
     const holder = document.querySelector('.gallery-thumbnails');
     if (!holder) return;
     const photos = window.galleryForColor(product, color);
+    holder.hidden = photos.length < 2;
     holder.replaceChildren(...photos.map((photo, index) => {
         const button = document.createElement('button');
         button.type = 'button';
@@ -205,7 +216,10 @@ function showToast(message, icon = 'fa-circle-check') {
     }
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `<i class="fa-solid ${icon}"></i> ${message}`;
+    const iconElement = document.createElement('i');
+    iconElement.className = `fa-solid ${icon}`;
+    iconElement.setAttribute('aria-hidden', 'true');
+    toast.append(iconElement, document.createTextNode(` ${message}`));
     container.appendChild(toast);
     setTimeout(() => toast.remove(), 3300);
 }
@@ -220,6 +234,7 @@ const cartReservationNotice = () => {
     const label = firstExpiry.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
     return `<div class="cart-reservation-notice" role="note"><i class="fa-regular fa-clock" aria-hidden="true"></i><p><strong>Reserva por 24 horas.</strong> Si no finalizás la compra, los productos se quitarán automáticamente del carrito. La primera reserva vence el <time datetime="${firstExpiry.toISOString()}">${label}</time></p></div>`;
 };
+let cartNeedsSync = true;
 let cartId = localStorage.getItem('phoneSpotCartId');
 let legacyCart = [];
 try { legacyCart = JSON.parse(localStorage.getItem('phoneSpotCart') || '[]'); } catch (_) { /* Carrito antiguo inválido. */ }
@@ -248,6 +263,7 @@ async function refreshCart() {
     const response = await fetch(`${window.API_URL}/api/cart/${cartId}`);
     if (!response.ok) throw new Error('No se pudo cargar el carrito');
     cart = await response.json();
+    cartNeedsSync = false;
     clearTimeout(cartExpiryTimer);
     const nextExpiry = Math.min(...cart.map(item => Date.parse(item.expires_at)).filter(Number.isFinite));
     if (Number.isFinite(nextExpiry)) {
@@ -324,41 +340,62 @@ function animateProductToCart(sourceElement) {
 }
 
 async function setCartQuantity(id, variantName, quantity) {
+    return window.PhoneSpotCartActions.enqueue(() => mutateCartQuantity(id, variantName, quantity));
+}
+
+async function mutateCartQuantity(id, variantName, quantity) {
     await cartReady;
-    const response = await fetch(`${window.API_URL}/api/cart/${cartId}/items`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product_id: Number(id), variant_name: variantName || '', quantity })
-    });
-    const result = await response.json();
+    if (cartNeedsSync) await refreshCart();
+    const current = cart.find(item => String(item.id) === String(id) && (item.variant_name || '') === (variantName || ''));
+    const requestedQuantity = typeof quantity === 'function' ? quantity(current?.quantity || 0) : quantity;
+    cartNeedsSync = true;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    let response;
+    let result;
+    try {
+        response = await fetch(`${window.API_URL}/api/cart/${cartId}/items`, {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, signal: controller.signal,
+            body: JSON.stringify({ product_id: Number(id), variant_name: variantName || '', quantity: requestedQuantity })
+        });
+        result = await response.json();
+    } catch (_) {
+        // A lost response does not imply that the server rejected the reservation.
+        try {
+            await refreshCart();
+            const confirmed = cart.find(item => String(item.id) === String(id) && (item.variant_name || '') === (variantName || ''));
+            if ((confirmed?.quantity || 0) === requestedQuantity) return {syncPending: false};
+        } catch (_) { /* Keep the recovery message when confirmation is unavailable. */ }
+        throw new Error('No pudimos confirmar el cambio. Revisá tu carrito antes de volver a intentarlo.');
+    } finally { clearTimeout(timeout); }
     if (!response.ok) throw new Error(result.error || 'No pudimos actualizar el carrito.');
-    await refreshCart();
+    cartNeedsSync = true;
+    let syncPending = false;
+    try { await refreshCart(); }
+    catch (error) {
+        syncPending = true;
+        console.error('Reserva confirmada; pendiente actualizar el carrito:', error);
+    }
     if (typeof window.refreshVisibleStock === 'function') {
         await window.refreshVisibleStock(id).catch(error => console.error('No se pudo actualizar el stock visible:', error));
     }
-    return result;
+    return {...result, syncPending};
 }
 
 async function addToCart(product, sourceElement = null) {
-    try {
-        await cartReady;
-        const existingItem = cart.find(item => String(item.id) === String(product.id) && item.variant_name === product.variant_name);
-        await setCartQuantity(product.id, product.variant_name, (existingItem?.quantity || 0) + 1);
-    } catch (error) {
-        showToast(error.message, 'fa-triangle-exclamation');
-        return false;
-    }
+    const result = await setCartQuantity(product.id, product.variant_name, current => current + 1);
     window.trackStoreEvent('add_to_cart', { productId: product.id });
 
     const finishCartFeedback = () => {
         window.pulseCartFeedback?.();
         showToast(`¡${product.name} añadido al carrito!`);
-        if (window.openSideCart && !window.location.pathname.includes('carrito.html') && !window.location.pathname.includes('checkout.html')) {
+        if (!result.syncPending && window.openSideCart && !window.location.pathname.includes('carrito.html') && !window.location.pathname.includes('checkout.html')) {
             window.openSideCart();
         }
     };
-    if (sourceElement) animateProductToCart(sourceElement).then(finishCartFeedback);
-    else finishCartFeedback();
-    return true;
+    finishCartFeedback();
+    if (sourceElement) animateProductToCart(sourceElement).catch(() => {});
+    return result;
 }
 
 async function removeFromCart(id, variant_name = '') {
@@ -728,19 +765,21 @@ async function renderCheckout() { await window.dolarPromise;
     
     if (window.currentCoupon) {
         if (window.currentCoupon.type === 'percent') {
-            const discount = finalDisplayTotal * (window.currentCoupon.value / 100);
+            const percent = Math.min(100, Math.max(0, Number(window.currentCoupon.value) || 0));
+            const discount = finalDisplayTotal * percent / 100;
             finalDisplayTotal -= discount;
             checkoutItems.innerHTML += `
                 <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; color: #2ecc71; font-weight: bold; font-size: 0.9rem;">
-                    <span>Descuento (${window.currentCoupon.value}%)</span>
+                    <span>Descuento (${percent}%)</span>
                     <span>-${window.formatPrice(discount)}</span>
                 </div>`;
         } else if (window.currentCoupon.type === 'fixed') {
-            finalDisplayTotal -= window.currentCoupon.value;
+            const discount = Math.min(finalDisplayTotal, Math.max(0, Number(window.currentCoupon.value) || 0));
+            finalDisplayTotal -= discount;
             checkoutItems.innerHTML += `
                 <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; color: #2ecc71; font-weight: bold; font-size: 0.9rem;">
                     <span>Descuento Fijo</span>
-                    <span>-${window.formatPrice(window.currentCoupon.value)}</span>
+                    <span>-${window.formatPrice(discount)}</span>
                 </div>`;
         } else if (window.currentCoupon.type === 'shipping') {
             finalShipping = 0;
@@ -757,6 +796,8 @@ async function renderCheckout() { await window.dolarPromise;
     const checkoutTotalLabel = document.getElementById('checkout-total-label');
     if (checkoutTotalLabel) checkoutTotalLabel.textContent = shippingToArrange ? 'Subtotal (envío a confirmar)' : 'Total';
     checkoutTotal.innerText = window.formatArs(finalTotalArs);
+    const reviewTotal = document.getElementById('checkout-review-total');
+    if (reviewTotal) reviewTotal.textContent = `${checkoutTotalLabel?.textContent || 'Total'}: ${checkoutTotal.textContent}`;
 
 }
 
@@ -1100,10 +1141,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             if(btn.disabled) return;
             e.preventDefault();
             const card = btn.closest('.product-card') || btn.closest('.product-details') || btn.closest('.hero-content');
+            if (!card || window.PhoneSpotCartActions.isPending(card)) return;
             
             const id = card.dataset.id;
             const category = (card.dataset.category || '').toLowerCase();
-            let name = card.querySelector('h4, h2').innerText.split('.')[0]; 
+            let name = card.querySelector('h4, h2').textContent.trim();
             const price = parseFloat(card.dataset.price);
 
             // Resolver la selección antes de reservar, incluso si la tarjeta acaba de renderizarse.
@@ -1177,16 +1219,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Error parsing stock info', e);
             }
 
-            if (await addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card)) {
-                const originalLabel = btn.innerHTML;
-                btn.classList.add('is-added');
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado';
-                window.setTimeout(() => {
-                    if (!btn.isConnected) return;
-                    btn.classList.remove('is-added');
-                    btn.innerHTML = originalLabel;
-                }, 1500);
-            }
+            await window.PhoneSpotCartActions.run(card, btn, async () => {
+                if (!Number.isFinite(finalPrice) || maxStock <= 0) throw new Error('Esta variante no tiene stock. Elegí otra opción.');
+                return addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card);
+            });
         }
     });
 
@@ -1210,7 +1246,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (selector) window.updateCardVariant(selector);
                 else {
                     const button = card.querySelector('.add-to-cart-btn');
-                    if (button) button.disabled = product.stock <= 0;
+                    if (button) {
+                        card.dataset.variantStock = String(Number(product.stock || 0));
+                        button.disabled = product.stock <= 0 || window.PhoneSpotCartActions.isPending(card);
+                    }
                 }
             });
         };
@@ -1579,7 +1618,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                             ` : ''}
                             
-                            <p id="variant-stock-msg" class="product-stock-status" aria-live="polite"></p>
                         </div>
                     `;
                 }
@@ -1618,7 +1656,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                                     <img id="main-product-img" src="${image}" alt="${prod.name}">
                                 </div>
-                                <div class="gallery-thumbnails">
+                                <div class="gallery-thumbnails" ${galleryPhotos.length < 2 ? 'hidden' : ''}>
                                     ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb ${i===0?'active':''}" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
                                 </div>
                             </div>
@@ -1635,20 +1673,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
                                 </p>
 
-                                <div class="product-price-panel">
-                                    <span class="product-price-label">Precio del equipo</span>
-                                    <p class="price" id="dynamic-price">${window.formatPrice(Number(prod.price))} <span>ARS</span></p>
+                                <div class="product-purchase-panel">
+                                    <div class="product-price-panel">
+                                        <span class="product-price-label">Precio del equipo</span>
+                                        <p class="price" id="dynamic-price">${window.formatPrice(Number(prod.price))} <span>ARS</span></p>
+                                    </div>
+                                    <p id="variant-stock-msg" class="product-stock-status" aria-live="polite">${hasVariants ? '' : (prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock')}</p>
+                                    <div class="product-purchase-actions">
+                                        <button type="button" class="btn add-to-cart-btn" ${isOutOfStock ? 'disabled' : ''}>
+                                            <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}" aria-hidden="true"></i> ${isOutOfStock ? 'Sin stock' : 'Agregar al carrito'}
+                                        </button>
+                                    </div>
                                 </div>
-
-                                ${!hasVariants ? `<p class="product-stock-status">${prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock'}</p>` : ''}
 
                                 ${variantsHTML}
-
-                                <div class="product-purchase-actions">
-                                    <button type="button" class="btn add-to-cart-btn" ${isOutOfStock ? 'disabled' : ''}>
-                                        <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}" aria-hidden="true"></i> ${isOutOfStock ? 'Sin stock' : 'Agregar al carrito'}
-                                    </button>
-                                </div>
 
                                 <div class="product-shipping-calculator">
                                     <label for="calc-zip"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i> Consultar envío</label>
@@ -1768,6 +1806,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const container = document.querySelector('.product-details');
                         if (container) container.dataset.selectedVariant = variant ? window.variantNameFor(variant) : '';
                         const stock = Number(variant?.stock || 0);
+                        if (container) container.dataset.variantStock = String(stock);
                         const button = document.querySelector('.product-details .add-to-cart-btn');
                         if (button) {
                             button.disabled = stock <= 0;
@@ -1779,7 +1818,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                             container.dataset.price = variant.price || prodArg.price;
                             const priceEl = document.getElementById('dynamic-price');
                             if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span>ARS</span>`;
-                            if (variant.image_url) window.setProductImage(variant.image_url);
+                            if (variant.image_url) {
+                                const galleryVariant = prodArg.variants.find(v => v.color === variant.color && (v.photo_key || v.image_url) === (variant.photo_key || variant.image_url));
+                                window.setProductImage(galleryVariant?.image_url || variant.image_url);
+                            }
                         }
                     };
 
@@ -1826,8 +1868,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             });
                             const data = await response.json();
                             if (!response.ok || !data.success || !Array.isArray(data.options)) throw new Error(data.error || 'No pudimos calcular el envío');
-                            const freeThreshold = (window.phoneSpotSettings && window.phoneSpotSettings.free_shipping_threshold) || 1500000;
-                            if (Number(prod.price) * window.dolarValue >= freeThreshold) {
+                            const freeThreshold = window.phoneSpotSettings?.free_shipping_threshold ?? 1500000;
+                            const selectedPrice = Number(document.querySelector('.product-details')?.dataset.price || prod.price);
+                            if (freeThreshold > 0 && selectedPrice * window.dolarValue >= freeThreshold) {
                                 zipMsg.innerHTML = '<i class="fa-solid fa-check-circle" style="color:#555555;"></i> ¡Envío GRATIS a tu código postal!';
                             } else {
                                 zipMsg.innerHTML = data.options.map((option) => `<i class="fa-solid fa-truck"></i> ${escapeText(option.name)}: <strong>${option.cost === 0 ? 'Gratis' : window.formatArs(option.cost)}</strong> (${escapeText(option.time)})`).join('<br>');
@@ -1869,28 +1912,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     related.forEach(prod => {
                         const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                         
-    // Estrellas aleatorias entre 4 y 5
-    const rating = (4 + Math.random()).toFixed(1);
-    const starHTML = `
-        <div class="stars">
-            
-            
-            
-            
-            
-            <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 5px;">(${rating})</span>
-        </div>
-    `;
-
                     const cardHTML = `
                         <div class="product-card" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
                                 ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
                                 <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
                                 <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
-                                <div class="product-rating">
-                                    
-                                    <span>(4.8)</span>
-                                </div>
                                 <p class="price">${window.formatPrice(Number(prod.price))}</p>
                             </div>
                         `;
@@ -1920,6 +1946,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (btnNext && btnPrev) {
         btnNext.addEventListener('click', () => {
+            if (!window.PhoneSpotCheckout.validate()) return;
             // Validar requeridos de parte 1 antes de avanzar
             const email = document.getElementById('chk-email').value;
             const name = document.getElementById('chk-name').value;
@@ -1950,6 +1977,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             part2.style.display = 'block';
             step1Ind.classList.remove('active');
             step2Ind.classList.add('active');
+            window.PhoneSpotCheckout.review(cart);
         });
 
         btnPrev.addEventListener('click', () => {
@@ -1957,6 +1985,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             part1.style.display = 'block';
             step2Ind.classList.remove('active');
             step1Ind.classList.add('active');
+            window.PhoneSpotCheckout.step(1);
         });
     }
 
@@ -2061,7 +2090,14 @@ const checkoutForm = document.getElementById('checkout-form');
         const checkoutToken = localStorage.getItem('phoneSpotToken');
         if (checkoutEmail && checkoutToken) {
             fetch(window.API_URL + '/api/me', { headers: { Authorization: `Bearer ${checkoutToken}` } })
-                .then((response) => response.ok ? response.json() : Promise.reject())
+                .then((response) => {
+                    if (response.status === 401) {
+                        localStorage.removeItem('phoneSpotToken');
+                        localStorage.removeItem('phoneSpotRole');
+                        window.location.replace('login.html?redirect=checkout.html&reason=session-expired');
+                    }
+                    return response.ok ? response.json() : Promise.reject();
+                })
                 .then((user) => {
                     checkoutEmail.value = user.email;
                     checkoutEmail.readOnly = true;
@@ -2075,6 +2111,7 @@ const checkoutForm = document.getElementById('checkout-form');
                     fill('chk-province', user.province);
                     fill('chk-city', user.city);
                     fill('chk-zip', user.postal_code);
+                    document.getElementById('chk-zip').dispatchEvent(new Event('input', {bubbles: true}));
                 })
                 .catch(() => {});
         }
@@ -2091,11 +2128,18 @@ const checkoutForm = document.getElementById('checkout-form');
 
         checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (window.PhoneSpotCheckout.isLocked()) return;
+            if (part2.style.display === 'none') { btnNext.click(); return; }
+            if (!window.PhoneSpotCheckout.validate() || !window.PhoneSpotCheckout.begin()) return;
+            try {
             try { await cartReady; await refreshCart(); }
-            catch (error) { showToast('No pudimos verificar tu reserva. Intentá de nuevo.', 'fa-triangle-exclamation'); return; }
+            catch (error) { window.PhoneSpotCheckout.message('No pudimos verificar tu reserva. Intentá nuevamente.'); return; }
+            await window.dolarPromise;
+            if (!window.PhoneSpotCheckout.matchesReview(cart)) { await renderCheckout(); return; }
             
             if (cart.length === 0) {
                 showToast('No hay productos en el carrito.', 'fa-cart-shopping');
+                window.PhoneSpotCheckout.message('Tu reserva ya no tiene productos. Volvé al carrito para elegir un equipo.');
                 return;
             }
 
@@ -2178,19 +2222,30 @@ const checkoutForm = document.getElementById('checkout-form');
                 
                 showToast('Procesando orden...', 'fa-spinner fa-spin');
 
+                const orderController = new AbortController();
+                const orderTimeout = setTimeout(() => orderController.abort(), 30000);
                 const response = await fetch(window.API_URL + '/api/orders', {
                     method: 'POST',
+                    signal: orderController.signal,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
                     },
                     body: JSON.stringify({ cart_id: cartId, items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
-                });
+                }).finally(() => clearTimeout(orderTimeout));
 
                 const data = await response.json();
+                if (response.status === 401) {
+                    localStorage.removeItem('phoneSpotToken');
+                    localStorage.removeItem('phoneSpotRole');
+                    window.location.replace('login.html?redirect=checkout.html&reason=session-expired');
+                    return;
+                }
                 
                 if (response.ok) {
-                    const confirmedTotalArs = Number(data.total_ars) || finalTotalArs;
+                    if (!/^\d+$/.test(String(data.orderId || ''))) throw new Error('Respuesta de pedido incompleta');
+                    const serverTotal = Number(data.total_ars);
+                    const confirmedTotalArs = Number.isFinite(serverTotal) && serverTotal >= 0 ? serverTotal : finalTotalArs;
                     
                     // Generar mensaje de WhatsApp con precios en pesos argentinos
                     let wpMsg = `¡Hola PhoneSpot! Acabo de hacer el pedido #${data.orderId}.\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* $${confirmedTotalArs.toLocaleString('es-AR')} ARS\n`;
@@ -2206,38 +2261,39 @@ const checkoutForm = document.getElementById('checkout-form');
                     });
                     wpMsg += `\nQuiero coordinar el pago en pesos (Transferencia/Efectivo) con ustedes.`;
                     
-                    const wpPhone = window.phoneSpotSettings?.whatsapp_number || '5493447416011';
+                    const configuredPhone = String(window.phoneSpotSettings?.whatsapp_number || '').replace(/\D/g, '');
+                    const wpPhone = /^\d{10,15}$/.test(configuredPhone) ? configuredPhone : '5493447416011';
                     const wpUrl = `https://wa.me/${wpPhone}?text=${encodeURIComponent(wpMsg)}`;
                     
                     cart = [];
                     saveCart();
                     if (typeof updateCartUI === 'function') updateCartUI();
 
-                    // Intentar abrir WhatsApp en una pestaña nueva para que el usuario no pierda el sitio
+                    window.PhoneSpotCheckout.confirmed = true;
                     try {
-                        window.open(wpUrl, '_blank');
-                    } catch (_) {}
-
-                    showToast('¡Compra registrada con éxito!', 'fa-check');
-
-                    // Redirigir siempre a la página de compra exitosa dentro del sitio web
-                    const targetUrl = `compra-exitosa.html?orderId=${encodeURIComponent(data.orderId)}&total=${encodeURIComponent(confirmedTotalArs)}&wpUrl=${encodeURIComponent(wpUrl)}`;
-                    setTimeout(() => {
-                        window.location.href = targetUrl;
-                    }, 800);
+                        sessionStorage.setItem('phoneSpotOrderConfirmation', JSON.stringify({orderId: String(data.orderId), total: confirmedTotalArs, wpUrl, createdAt: Date.now()}));
+                    } catch (_) { /* Account history and manual contact remain available. */ }
+                    window.location.assign(`compra-exitosa.html?orderId=${encodeURIComponent(data.orderId)}`);
                 } else {
                     showToast(data.error || 'Error procesando la compra', 'fa-triangle-exclamation');
+                    if (response.status >= 500) window.PhoneSpotCheckout.markUncertain();
+                    else window.PhoneSpotCheckout.message(data.error || 'No pudimos registrar el pedido. Revisá los datos e intentá nuevamente.');
                 }
             } catch (error) {
                 console.error(error);
                 showToast('Error de conexión', 'fa-wifi');
+                window.PhoneSpotCheckout.markUncertain();
             }
+            } finally { window.PhoneSpotCheckout.finish(); }
         });
     }
 
     // La lógica del carrusel se inicializará después de cargar los settings
     initHeroCarousel = () => {
         const slides = document.querySelectorAll('.carousel-slide');
+        const carouselSection = document.getElementById('inicio');
+        if (window.heroVisibilityObserver) window.heroVisibilityObserver.disconnect();
+        let carouselVisible = !('IntersectionObserver' in window);
         const isSpotlightCarousel = document.querySelector('.spotlight-carousel') !== null;
         if(slides.length > 0) {
             const prevBtn = document.querySelector('.carousel-prev');
@@ -2248,7 +2304,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
             const initCarousel = () => {
                 const activeSlide = slides[currentSlide];
-                if (activeSlide?.dataset.image && !activeSlide.dataset.imageLoaded) {
+                if (carouselVisible && activeSlide?.dataset.image && !activeSlide.dataset.imageLoaded) {
                     activeSlide.style.backgroundImage = `linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.58)), url("${activeSlide.dataset.image}")`;
                     activeSlide.dataset.imageLoaded = 'true';
                 }
@@ -2285,7 +2341,10 @@ const checkoutForm = document.getElementById('checkout-form');
                 initCarousel();
             };
 
-            const startAutoPlay = () => { window.slideInterval = setInterval(nextSlide, 5000); };
+            const startAutoPlay = () => {
+                clearInterval(window.slideInterval);
+                if (carouselVisible && slides.length > 1) window.slideInterval = setInterval(nextSlide, 5000);
+            };
             const resetAutoPlay = () => { clearInterval(window.slideInterval); startAutoPlay(); };
 
             // En celulares y tablets el carrusel responde al gesto horizontal.
@@ -2341,6 +2400,14 @@ const checkoutForm = document.getElementById('checkout-form');
 
             initCarousel();
             startAutoPlay();
+            if ('IntersectionObserver' in window && carouselSection) {
+                window.heroVisibilityObserver = new IntersectionObserver(([entry]) => {
+                    carouselVisible = entry.isIntersecting;
+                    if (carouselVisible) initCarousel();
+                    startAutoPlay();
+                }, { rootMargin: '200px' });
+                window.heroVisibilityObserver.observe(carouselSection);
+            }
         }
     };
 
@@ -2370,8 +2437,8 @@ const checkoutForm = document.getElementById('checkout-form');
                         formWrapper.innerHTML = `
                             <div style="text-align: center; padding: 2rem 0; animation: fadeUp 0.5s ease;">
                                 <i class="fa-solid fa-envelope-circle-check" style="font-size: 5rem; color: #00a650; margin-bottom: 1.5rem;"></i>
-                                <h2 style="margin-bottom: 1rem; font-size: 2rem;">¡Casi listo, ${name}!</h2>
-                                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; margin-bottom: 1rem;">Te hemos enviado un enlace de confirmación a <b style="color: var(--text-color);">${email}</b>.</p>
+                                <h2 style="margin-bottom: 1rem; font-size: 2rem;">¡Casi listo, ${escapeText(name)}!</h2>
+                                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; margin-bottom: 1rem;">Te hemos enviado un enlace de confirmación a <b style="color: var(--text-color);">${escapeText(email)}</b>.</p>
                                 <p style="color: var(--text-muted); font-size: 1rem;">Haz clic en el enlace seguro dentro del correo para activar tu cuenta.</p>
                                 <p style="font-size: 0.85rem; color: #888; margin-top: 2rem;"><i class="fa-solid fa-triangle-exclamation"></i> ¿No lo encuentras? Revisa tu carpeta de Spam o Correo No Deseado.</p>
                             </div>
@@ -3068,7 +3135,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
         waForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             currentSettings.whatsapp_number = document.getElementById('set-whatsapp-num').value.replace(/[^0-9]/g, '');
-            await saveSettings(currentSettings);
+            await window.saveSettingsFunc();
             showToast('Número de WhatsApp guardado', 'fa-check');
         });
     }
@@ -3090,7 +3157,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
 
         window.deleteCoupon = async (index) => {
             currentSettings.coupons.splice(index, 1);
-            await saveSettings(currentSettings);
+            await window.saveSettingsFunc();
             window.renderAdminCoupons();
         };
 
@@ -3102,7 +3169,7 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                 type: document.getElementById('add-coupon-type').value,
                 value: Number(document.getElementById('add-coupon-value').value)
             });
-            await saveSettings(currentSettings);
+            await window.saveSettingsFunc();
             couponForm.reset();
             window.renderAdminCoupons();
             showToast('Cupón agregado', 'fa-check');
@@ -3131,13 +3198,13 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
                         document.getElementById('set-brands-list').value = currentSettings.brands_list || '';
                     }
                     if(document.getElementById('set-ship-correo')) {
-                        document.getElementById('set-ship-correo').value = currentSettings.shipping_correo || 8500;
+                        document.getElementById('set-ship-correo').value = currentSettings.shipping_correo ?? 8500;
                     }
                     if(document.getElementById('set-ship-andreani')) {
-                        document.getElementById('set-ship-andreani').value = currentSettings.shipping_andreani || 12000;
+                        document.getElementById('set-ship-andreani').value = currentSettings.shipping_andreani ?? 12000;
                     }
                     if(document.getElementById('set-free-shipping')) {
-                        document.getElementById('set-free-shipping').value = currentSettings.free_shipping_threshold || 1500000;
+                        document.getElementById('set-free-shipping').value = currentSettings.free_shipping_threshold ?? 1500000;
 
     const waInput = document.getElementById('set-whatsapp-num');
     if (waInput && currentSettings.whatsapp_number) waInput.value = currentSettings.whatsapp_number;
@@ -3252,9 +3319,9 @@ if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
             if(shippingForm) {
                 shippingForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    currentSettings.shipping_correo = Number(document.getElementById('set-ship-correo').value) || 8500;
-                    currentSettings.shipping_andreani = Number(document.getElementById('set-ship-andreani').value) || 12000;
-                    currentSettings.free_shipping_threshold = Number(document.getElementById('set-free-shipping').value) || 1500000;
+                    currentSettings.shipping_correo = Number(document.getElementById('set-ship-correo').value);
+                    currentSettings.shipping_andreani = Number(document.getElementById('set-ship-andreani').value);
+                    currentSettings.free_shipping_threshold = Number(document.getElementById('set-free-shipping').value);
                     saveSettings();
                 });
             }
@@ -3395,23 +3462,23 @@ async function applyFrontendSettings() {
         const costCorreoEl = document.getElementById('cost-correo');
         const costAndreaniEl = document.getElementById('cost-andreani');
         if (costCorreoEl) {
-            costCorreoEl.innerText = `$${(data.shipping_correo || 8500).toLocaleString('es-AR')}`;
-            costCorreoEl.dataset.cost = data.shipping_correo || 8500;
+            costCorreoEl.innerText = `$${(data.shipping_correo ?? 8500).toLocaleString('es-AR')}`;
+            costCorreoEl.dataset.cost = data.shipping_correo ?? 8500;
         }
         if (costAndreaniEl) {
-            costAndreaniEl.innerText = `$${(data.shipping_andreani || 12000).toLocaleString('es-AR')}`;
-            costAndreaniEl.dataset.cost = data.shipping_andreani || 12000;
+            costAndreaniEl.innerText = `$${(data.shipping_andreani ?? 12000).toLocaleString('es-AR')}`;
+            costAndreaniEl.dataset.cost = data.shipping_andreani ?? 12000;
         }
         
         const costCorreoSucursalEl = document.getElementById('cost-correo-sucursal');
         const costAndreaniSucursalEl = document.getElementById('cost-andreani-sucursal');
         if (costCorreoSucursalEl) {
-            const cost = Math.max(0, (data.shipping_correo || 8500) - 2000);
+            const cost = Math.max(0, (data.shipping_correo ?? 8500) - 2000);
             costCorreoSucursalEl.innerText = '$' + cost.toLocaleString('es-AR');
             costCorreoSucursalEl.dataset.cost = cost;
         }
         if (costAndreaniSucursalEl) {
-            const cost = Math.max(0, (data.shipping_andreani || 12000) - 3000);
+            const cost = Math.max(0, (data.shipping_andreani ?? 12000) - 3000);
             costAndreaniSucursalEl.innerText = '$' + cost.toLocaleString('es-AR');
             costAndreaniSucursalEl.dataset.cost = cost;
         }
@@ -3507,7 +3574,7 @@ async function applyFrontendSettings() {
                     carouselContainer.innerHTML = '';
                     data.carousel.forEach((slide, index) => {
                         carouselContainer.insertAdjacentHTML('beforeend', `
-                            <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-image="${slide.image}">
+                            <div class="carousel-slide ${index === 0 ? 'active' : ''}">
                                 <div class="hero-content">
                                     <h2 class="carousel-title">${slide.title}</h2>
                                     <p class="carousel-subtitle">${slide.subtitle}</p>
@@ -3515,6 +3582,16 @@ async function applyFrontendSettings() {
                                 </div>
                             </div>
                         `);
+                        // Only substitute known local banners; custom remote images stay intact.
+                        let imageUrl = slide.image || '';
+                        try {
+                            const parsed = new URL(imageUrl, window.location.href);
+                            if (parsed.origin === window.location.origin && /^\/uploads\/hero-graphite-(phone|laptop|accessories)-v1\.png$/.test(parsed.pathname)) {
+                                parsed.pathname = parsed.pathname.replace('-v1.png', '-v2.jpg');
+                                imageUrl = parsed.href;
+                            }
+                        } catch (_) { /* Preserve the original URL if it cannot be parsed. */ }
+                        carouselContainer.lastElementChild.dataset.image = imageUrl;
                     });
 
                     // Inicializar el nuevo carrusel
@@ -3612,9 +3689,7 @@ window.loadFavoritesUI = async () => {
 
                     <!-- Botones -->
                     <div style="display: flex; gap: 1rem; align-items: center;">
-                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
-                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
-                        </button>
+                        <a class="btn btn-block" href="producto.html?id=${prod.id}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
                         
                         <button onclick="window.toggleFavorite('${prod.id}', event); window.loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
                             <i class="fa-solid fa-trash"></i>
@@ -3689,9 +3764,7 @@ window.loadSidebarFavorites = async () => {
                         <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
                         <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">${window.formatPrice(Number(prod.price))}</p>
                         
-                        <button class="btn btn-block add-to-cart-btn" ${prod.stock <= 0 ? 'disabled style="background:#ccc; cursor:not-allowed;"' : 'style="background: #555555; color: white; border: none; padding: 0.8rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background=\'#111\'" onmouseout="this.style.background=\'#555555\'"'}>
-                            <i class="fa-solid fa-cart-shopping"></i> ${prod.stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito'}
-                        </button>
+                        <a class="btn btn-block" href="producto.html?id=${prod.id}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
                     </div>
                 </div>
             `;
@@ -3787,6 +3860,7 @@ window.applyCoupon = () => {
 
 
 window.initFadeObserver = () => {
+    if (document.body.classList.contains('home-page')) return;
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if(entry.isIntersecting) {
@@ -3801,6 +3875,7 @@ window.initFadeObserver = () => {
 // Microinteracciones de interfaz: dan respuesta a cada recorrido sin forzar
 // animaciones continuas ni esconder contenido a quien prefiera reducir movimiento.
 window.initMotionDesign = () => {
+    if (document.body.classList.contains('home-page')) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const selector = [
@@ -4211,6 +4286,7 @@ window.updateCardVariant = function(el) {
         }
         const variant = matches[0];
         if (!variant) return;
+        card.dataset.variantStock = String(Number(variant.stock || 0));
         card.dataset.selectedVariant = window.variantNameFor(variant);
         const priceEl = card.querySelector('.card-price');
         if (priceEl) priceEl.innerHTML = window.formatPrice(Number(variant.price || card.dataset.price));
@@ -4219,7 +4295,7 @@ window.updateCardVariant = function(el) {
         const stockMsg = card.querySelector('.card-variant-stock');
         const button = card.querySelector('.add-to-cart-btn');
         if (stockMsg) stockMsg.textContent = variant.stock > 0 ? `Stock: ${variant.stock}` : 'Sin stock';
-        if (button) button.disabled = variant.stock <= 0;
+        if (button) button.disabled = variant.stock <= 0 || window.PhoneSpotCartActions.isPending(card);
     } catch (error) {
         console.error('Error al seleccionar variante', error);
     }

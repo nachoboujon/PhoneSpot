@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcrypt');
@@ -9,10 +10,17 @@ const { OAuth2Client } = require('google-auth-library');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-const iphonePhotoFingerprints = require('./data/iphone-photo-fingerprints.json');
+const {normalizeProductImages} = require('./lib/product-images');
 require('dotenv').config();
 
 const app = express();
+// Negotiate gzip/Brotli without changing the response seen by the application.
+app.use(compression());
+app.use('/api', (_req, res, next) => {
+    // Prices, stock and account information must always come from the server.
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+});
 const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL || process.env.VERCEL_ENV || process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_SERVICE_NAME);
 const defaultPublicAppUrl = isProduction ? 'https://www.phonespot.site' : 'http://localhost:3000';
 let publicAppUrl = String(process.env.PUBLIC_APP_URL || defaultPublicAppUrl).trim().replace(/\/$/, '');
@@ -146,7 +154,16 @@ const parseVariants = (variants) => {
 };
 
 const normalizeVariants = (variants) => {
-    const list = parseVariants(variants);
+    let list = variants ?? [];
+    try {
+        while (typeof list === 'string') list = list.trim() ? JSON.parse(list) : [];
+    } catch (_) { return null; }
+    if (!Array.isArray(list) || list.some(v => {
+        if (!v || typeof v !== 'object' || Array.isArray(v)) return true;
+        const stock = Number(v.stock ?? 0);
+        const hasPrice = v.price !== null && v.price !== undefined && String(v.price).trim() !== '';
+        return !Number.isSafeInteger(stock) || stock < 0 || (hasPrice && (!Number.isFinite(Number(v.price)) || Number(v.price) < 0));
+    })) return null;
     return list.map((v) => {
         const rawPrice = v.price;
         const validPrice = rawPrice !== null && rawPrice !== undefined && String(rawPrice).trim() !== '' && !Number.isNaN(Number(rawPrice)) && Number(rawPrice) > 0 ? Number(rawPrice) : null;
@@ -173,14 +190,7 @@ const variantNameFor = (variant) => [
 ].filter(Boolean).join(' - ');
 
 const publicProduct = (product) => {
-    product.variants = parseVariants(product.variants).map((variant) => {
-        const url = variant.image_url || '';
-        const filename = path.basename(url.split('?')[0]);
-        return url.includes('/iphone-americano-2026-09-28/') && iphonePhotoFingerprints[filename]
-            ? { ...variant, photo_key: iphonePhotoFingerprints[filename] }
-            : variant;
-    });
-    return product;
+    return normalizeProductImages({...product, variants: parseVariants(product.variants)});
 };
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
@@ -231,7 +241,18 @@ app.get('/producto.html', async (req, res, next) => {
     }
 });
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public'), {
+    setHeaders(res, filePath) {
+        const extension = path.extname(filePath).toLowerCase();
+        if (/^\.(png|jpe?g|webp|avif|svg|ico|woff2?)$/.test(extension)) {
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+        } else if (['.css', '.js'].includes(extension) && res.req.query.v) {
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+    }
+}));
 
 // Crear carpeta uploads si no existe
 const uploadDir = path.join(__dirname, 'public', 'uploads');
@@ -292,7 +313,7 @@ app.get('/sitemap.xml', async (_req, res) => {
     const baseUrl = 'https://www.phonespot.site';
     const fixedPages = ['/', '/catalogo.html', '/garantias.html', '/terminos.html'];
     try {
-        const { data: products, error } = await supabase.from('products').select('id, created_at');
+        const { data: products, error } = await supabase.from('products').select('id, created_at').is('archived_at', null);
         if (error) throw error;
         const urls = [
             ...fixedPages.map((page) => `<url><loc>${baseUrl}${page}</loc><changefreq>weekly</changefreq><priority>${page === '/' ? '1.0' : '0.8'}</priority></url>`),
@@ -604,7 +625,7 @@ app.post('/api/register', limitByClient('register', 5, 60 * 60 * 1000), async (r
                     
                     <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eeeeee;">
                         <p style="font-size: 12px; color: #999999; line-height: 1.5; margin: 0;">Si el botón no funciona, copia y pega este enlace en tu navegador:<br><span style="color:#0071e3">${escapeHtml(verifyLink)}</span></p>
-                        <p style="font-size: 12px; color: #999999; margin-top: 15px;">Si tú no solicitaste este registro, puedes ignorar o eliminar este correo de forma segura. El enlace expirará automáticamente en 24 horas.</p>
+                        <p style="font-size: 12px; color: #999999; margin-top: 15px;">Si tú no solicitaste este registro, puedes ignorar o eliminar este correo de forma segura. El enlace expirará automáticamente en 1 hora.</p>
                     </div>
                 </div>
                 <div style="background-color: #f9f9f9; padding: 20px; text-align: center;">
@@ -862,7 +883,10 @@ app.get('/api/products/:id', async (req, res) => {
         const { error: expiryError } = await supabase.rpc('expire_cart_reservations');
         if (expiryError) throw expiryError;
         const { id } = req.params;
-        const { data, error } = await supabase.from('products').select('*').eq('id', id).is('archived_at', null).single();
+        if (!/^\d+$/.test(id) || !Number.isSafeInteger(Number(id)) || Number(id) <= 0) {
+            return res.status(400).json({ error: 'ID de producto inválido' });
+        }
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).is('archived_at', null).maybeSingle();
         if (error) throw error;
         if (!data) return res.status(404).json({ error: 'Producto no encontrado' });
         
@@ -927,19 +951,19 @@ app.post('/api/products', authenticate, isAdmin, upload.fields([{ name: 'image',
     try {
         const { name, description, price, brand, stock, is_offer, category, variants } = req.body;
         const parsedPrice = Number(price);
-        const parsedStock = Number.parseInt(stock, 10);
+        const parsedStock = Number(stock);
         if (!String(name || '').trim() || !String(brand || '').trim() || !Number.isFinite(parsedPrice) || parsedPrice < 0 || !Number.isInteger(parsedStock) || parsedStock < 0) {
             return res.status(400).json({ error: 'Verifica nombre, marca, precio y stock.' });
         }
         
+        const parsedVariants = normalizeVariants(variants);
+        if (!parsedVariants) return res.status(400).json({ error: 'Variantes inválidas' });
         const files = [...(req.files?.image || []), ...(req.files?.images || [])];
         if (files.some(file => !hasValidImageSignature(file))) return res.status(400).json({ error: 'La imagen no tiene un formato válido.' });
         const images = [];
         for (const file of files) images.push(await storeProductImage(file));
         const image_url = images[0] || '';
         
-        const parsedVariants = normalizeVariants(variants);
-
         const { data, error } = await supabase
             .from('products')
             .insert([{ 
@@ -1093,8 +1117,8 @@ app.post('/api/orders', authenticate, async (req, res) => {
         const cartId = req.body.cart_id;
         if (!validCartId(cartId)) return res.status(400).json({ error: 'El carrito no tiene una reserva válida.' });
         for (const item of rawItems) {
-            const productId = Number.parseInt(item.product_id, 10);
-            const quantity = Number.parseInt(item.quantity, 10);
+            const productId = Number(item.product_id);
+            const quantity = Number(item.quantity);
             const variantName = item.variant_name ? String(item.variant_name).trim() : null;
             if (!Number.isInteger(productId) || productId <= 0 || !Number.isInteger(quantity) || quantity <= 0 || quantity > 20) {
                 return res.status(400).json({ error: 'Hay un producto o una cantidad inválida.' });
@@ -1229,7 +1253,10 @@ app.post('/api/orders', authenticate, async (req, res) => {
             return `• ${item.quantity}x <strong>${escapeHtml(item.product.name)}</strong>${variantStr} — $${itemPriceArs.toLocaleString('es-AR')} ARS c/u${discountNote}`;
         }).join('<br>');
 
-        const shippingInfo = extraShipping > 0
+        const shippingToArrange = /coordinar/i.test(shippingMethod);
+        const shippingInfo = shippingToArrange
+            ? `<p style="margin: 4px 0; color: #555;">Envío (${escapeHtml(shippingMethod)}): <strong>Costo a confirmar</strong></p>`
+            : extraShipping > 0
             ? `<p style="margin: 4px 0; color: #555;">Envío (${escapeHtml(shippingMethod)}): <strong>$${Math.round(extraShipping).toLocaleString('es-AR')} ARS</strong></p>`
             : `<p style="margin: 4px 0; color: #2ecc71;">Envío (${escapeHtml(shippingMethod)}): <strong>Gratis</strong></p>`;
 
@@ -1558,7 +1585,7 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         const updateData = {};
         if (description !== undefined) updateData.description = description;
         if (stock !== undefined) {
-            const parsedStock = Number.parseInt(stock, 10);
+            const parsedStock = Number(stock);
             if (!Number.isInteger(parsedStock) || parsedStock < 0) return res.status(400).json({ error: 'Stock inválido' });
             updateData.stock = parsedStock;
         }
@@ -1570,7 +1597,7 @@ app.put('/api/products/:id', authenticate, isAdmin, async (req, res) => {
         
         if (variants !== undefined) {
             const parsedVariants = normalizeVariants(variants);
-            if (typeof variants === 'string' && variants.trim() && parsedVariants.length === 0) return res.status(400).json({ error: 'Variantes inválidas' });
+            if (!parsedVariants) return res.status(400).json({ error: 'Variantes inválidas' });
             updateData.variants = parsedVariants;
         }
         if (Object.keys(updateData).length === 0) return res.status(400).json({ error: 'No hay datos para actualizar' });
@@ -1612,8 +1639,8 @@ app.post('/api/shipping/quote', async (req, res) => {
         if (zipCode.startsWith('9')) modifier = 1.6; // Patagonia (60% más caro)
         else if (zipCode.startsWith('4') || zipCode.startsWith('5')) modifier = 1.3; // Norte/Cuyo (30% más)
         
-        const costCorreo = Math.round((adminSettings.shipping_correo || 8500) * modifier);
-        const costAndreani = Math.round((adminSettings.shipping_andreani || 12000) * modifier);
+        const costCorreo = Math.round((adminSettings.shipping_correo ?? 8500) * modifier);
+        const costAndreani = Math.round((adminSettings.shipping_andreani ?? 12000) * modifier);
         
         res.json({
             success: true,
@@ -1674,6 +1701,8 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
 });
 
 app.use((error, _req, res, _next) => {
+    if (error.type === 'entity.parse.failed') return res.status(400).json({ error: 'El cuerpo de la solicitud no es JSON válido.' });
+    if (error.type === 'entity.too.large') return res.status(413).json({ error: 'La solicitud supera el tamaño permitido.' });
     if (error instanceof multer.MulterError || error.message === 'Solo se permiten imágenes.') {
         return res.status(400).json({ error: error.message });
     }

@@ -5,5 +5,103 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/admin.html"
+        ],
+        "createdAt": "2026-10-01T12:30:07.041Z",
+        "reason": "Agent: root overflow clips intentionally closed fixed sidebars; desktop and mobile admin controls and all five tabs verified without overflow or missing controls."
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "server.js"
+        ],
+        "createdAt": "2026-10-01T12:32:40.473Z",
+        "reason": "Agent: system font in transactional and marketing email templates for email client compatibility."
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "server.js"
+        ],
+        "createdAt": "2026-10-01T12:32:40.562Z",
+        "reason": "Agent: system fallback in email templates for email client compatibility."
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "public/admin.html",
+          "public/compra-exitosa.html",
+          "public/producto.html"
+        ],
+        "createdAt": "2026-10-01T12:32:40.649Z",
+        "reason": "Agent: existing shared site typography retained to satisfy user request that product purchase UI match the site."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/producto.html"
+        ],
+        "createdAt": "2026-10-01T12:32:40.733Z",
+        "reason": "Agent: root clips closed fixed cart and favorites sidebars; product gallery and purchase controls checked at desktop and mobile widths."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/checkout.html"
+        ],
+        "createdAt": "2026-10-01T13:49:09.694Z",
+        "reason": "Agent verified: root horizontal clipping contains the existing off-canvas favorites panel; this checkout introduces no positioned popup, and native validation remains outside that clipping context."
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "public/checkout.html"
+        ],
+        "createdAt": "2026-10-01T13:59:49.749Z",
+        "reason": "Agent retained the existing PhoneSpot typography under the user instruction to preserve the current minimal visual identity; this phase refines checkout rather than redesigning the brand."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "public/checkout.html"
+        ],
+        "createdAt": "2026-10-01T13:59:49.816Z",
+        "reason": "Agent verified desktop/mobile screenshots and scoped CSS: the checkout title is 2rem, review headings 1.3rem and body approximately 1rem. Detector role analysis uses the smaller header brand h1 instead of the actual checkout h2 title."
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-01T14:10:14.303Z",
+        "reason": "Agent preserves the incumbent typography per the user request to maintain PhoneSpot minimal visual identity; this iteration refines the home, not the brand."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-01T14:10:14.373Z",
+        "reason": "Agent checked desktop/mobile and menu operation: only root horizontal clipping contains the existing off-canvas sidebars; navigation remains outside any vertically clipped container."
+      }
+    ]
   }
 }

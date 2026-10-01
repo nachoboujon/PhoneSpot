@@ -1,0 +1,23 @@
+/* Purchase feedback shares PhoneSpot's neutral palette and existing controls. */
+.cart-action-status {
+    margin: .6rem 0 0;
+    min-height: 1.4em;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: #4b4b4b;
+    overflow-wrap: anywhere;
+}
+.cart-action-status a { color: #171717; font-weight: 600; text-decoration: underline; text-underline-offset: .18em; }
+.cart-action-status a:focus-visible { outline: 2px solid #171717; outline-offset: 4px; }
+[data-cart-state="pending"] .add-to-cart-btn { cursor: progress; opacity: .75; }
+[data-cart-state="pending"] :is(.var-btn, .var-select, .gallery-thumb) { pointer-events: none; }
+[data-cart-state="success"] .add-to-cart-btn { background: #252525; color: #fff; }
+[data-cart-state="error"] .cart-action-status { color: #a12525; }
+.product-purchase-panel .cart-action-status { color: #e0e4e8; }
+.product-purchase-panel .cart-action-status a { color: #fff; }
+.product-purchase-panel .cart-action-status a:focus-visible { outline-color: #fff; }
+[data-cart-state="error"] .product-purchase-panel .cart-action-status { color: #ffb4ab; }
+.add-to-cart-btn:focus-visible { outline: 2px solid #171717; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+    .add-to-cart-btn { transition: none; }
+}
