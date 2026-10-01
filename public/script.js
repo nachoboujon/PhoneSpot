@@ -835,6 +835,7 @@ async function loadProductsFromDB() {
         let products = await response.json();
 
         if (!response.ok) throw new Error(products.error || 'Error al cargar productos');
+        products = window.expandCommercialProducts(products);
 
         // Mezclar aleatoriamente los productos para que no siempre salgan en el mismo orden
         products = products.sort(() => Math.random() - 0.5);
@@ -901,12 +902,12 @@ async function loadProductsFromDB() {
                 }
 
                 const cardHTML = `
-                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-favorite-key="${prod.favorite_key || prod.id}" data-commercial-type="${prod.commercial_type || "standard"}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
                         ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
-                        <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
+                        <a href="${window.productPageUrl(prod)}" class="product-img-wrapper">
                             <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
@@ -924,7 +925,7 @@ async function loadProductsFromDB() {
                             }
                             return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
                         })()}
-                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
                             ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
@@ -1246,17 +1247,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch(`${window.API_URL}/api/products/${productId}`, { cache: 'no-store' });
             if (!response.ok) return;
             const product = await response.json();
-            const index = allCatalogProducts.findIndex(entry => String(entry.id) === String(productId));
-            if (index >= 0) allCatalogProducts[index] = product;
+            const options = window.splitCommercialProduct(product);
+            allCatalogProducts = allCatalogProducts.filter(entry => String(entry.id) !== String(productId)).concat(options);
             document.querySelectorAll(`.product-card[data-id="${productId}"]`).forEach(card => {
-                card.dataset.stockInfo = escape(JSON.stringify({stock: product.stock, variants: product.variants || []}));
+                const option = options.find(entry => entry.commercial_type === card.dataset.commercialType);
+                if (!option) {card.remove(); return;}
+                card.dataset.stockInfo = escape(JSON.stringify({stock: option.stock, variants: option.variants || []}));
                 const selector = card.querySelector('.var-select');
                 if (selector) window.updateCardVariant(selector);
                 else {
                     const button = card.querySelector('.add-to-cart-btn');
                     if (button) {
-                        card.dataset.variantStock = String(Number(product.stock || 0));
-                        button.disabled = product.stock <= 0 || window.PhoneSpotCartActions.isPending(card);
+                        card.dataset.variantStock = String(Number(option.stock || 0));
+                        button.disabled = option.stock <= 0 || window.PhoneSpotCartActions.isPending(card);
                     }
                 }
             });
@@ -1297,6 +1300,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const conditions = Array.isArray(p.variants) && p.variants.length
                         ? p.variants.map(v => String(v.condition || fallback).toLowerCase()) : [fallback];
                     const matchesCond = conditions.some(condition => {
+                        if (p.commercial_type === 'apple_warranty') return selectedConditions.includes('apple_warranty');
+                        if (p.commercial_type === 'americano') return selectedConditions.includes('swap_americano');
                         const category = /reacondicionado|refurbished|\bcpo\b/.test(condition) ? 'reacondicionado'
                             : /swap|americano|usado|seminuevo/.test(condition) ? 'swap_americano' : 'nuevo';
                         return selectedConditions.includes(category);
@@ -1357,8 +1362,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 // Build Fav Icon
                 const favs = (function(){ try { return JSON.parse(localStorage.getItem('phoneSpotFavs') || '[]'); } catch(e) { return []; } })();
-                const isActive = favs.includes(prod.id.toString()) ? 'active' : '';
-                const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="window.toggleFavorite('${prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
+                const isActive = favs.includes(prod.favorite_key || prod.id.toString()) ? 'active' : '';
+                const favIcon = `<button class="fav-btn ${isActive}" data-id="${prod.id}" onclick="window.toggleFavorite('${prod.favorite_key || prod.id}', event)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; width:35px; height:35px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); cursor:pointer; color: ${isActive ? '#ff4757' : '#ccc'}; transition: 0.3s; z-index:10;"><i class="fa-solid fa-heart"></i></button>`;
 
                 
                 const hasVariants = prod.variants && prod.variants.length > 0;
@@ -1400,12 +1405,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 const cardHTML = `
-                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
+                    <div class="product-card ${prod.is_offer ? 'offer-card' : ''}" data-id="${prod.id}" data-favorite-key="${prod.favorite_key || prod.id}" data-commercial-type="${prod.commercial_type || "standard"}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" style="position:relative; display:flex; flex-direction:column; background: var(--card-bg); border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
                         ${prod.stock <= 0 ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#333; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">AGOTADO</span>` : (typeof hasOffer !== 'undefined' && hasOffer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">-${typeof discount !== 'undefined' ? discount : 0}%</span>` : (prod.is_offer ? `<span class="badge card-main-badge" style="position:absolute; top:10px; left:10px; background:#ff4757; color:white; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem; z-index:10;">OFERTA 🔥</span>` : ''))}
                         
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
-                        <a href="producto.html?id=${prod.id}" class="product-img-wrapper">
+                        <a href="${window.productPageUrl(prod)}" class="product-img-wrapper">
                             <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
@@ -1423,7 +1428,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             }
                             return `<span class="card-condition">${c}</span>`;
                         })()}
-                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
                         
                         <div class="card-price-wrap" style="margin-bottom: 1.5rem;">
                             ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
@@ -1448,6 +1453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products')]).then(([, res]) => res.json())
             .then(products => {
+                products = window.expandCommercialProducts(products);
                 allCatalogProducts = products;
 
                 // Build dynamic brands
@@ -1560,6 +1566,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return;
                 }
                 
+                const commercialProducts = window.splitCommercialProduct(prod);
+                const requestedType = urlParams.get('tipo');
+                prod = commercialProducts.find(product => product.commercial_type === requestedType) || commercialProducts[0];
+                if (requestedType && !commercialProducts.some(product => product.commercial_type === requestedType)) {
+                    singleProductContainer.textContent = 'Esta opción de venta no está disponible para el equipo.';
+                    return;
+                }
                 document.title = `${prod.name} | PhoneSpot`;
                 window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
@@ -1654,7 +1667,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 singleProductContainer.innerHTML = `
                     <div class="product-detail-surface">
-                        <div class="product-details" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
+                        <div class="product-details" data-id="${prod.id}" data-favorite-key="${prod.favorite_key || prod.id}" data-commercial-type="${prod.commercial_type || "standard"}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}" >
                             <div class="product-gallery">
                                 <div class="product-gallery-main">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
@@ -1673,6 +1686,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 </div>
                                 
                                 <h2>${prod.name}</h2>
+ ${commercialProducts.length > 1 ? `<nav class="product-option-group" aria-label="Otras opciones de este modelo"><h3>Opciones de venta separadas</h3>${commercialProducts.map(option => option.commercial_type === prod.commercial_type ? `<span aria-current="page">${option.commercial_label || "Equipo"}</span>` : `<a class="btn" href="${window.productPageUrl(option)}">Ver ${option.commercial_label || "equipo"}</a>`).join(" ")}</nav>` : ""}
                                 
                                 <p class="product-condition-tag">
                                     <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
@@ -1894,6 +1908,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function loadRelatedProducts(currentId, category) {
         Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products').then(res => res.json())])
             .then(([_, prods]) => {
+                prods = window.expandCommercialProducts(prods);
                 const section = document.getElementById('related-products-section');
                 const container = document.getElementById('related-products-container');
                 if (!section || !container) return;
@@ -1916,10 +1931,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                         
                     const cardHTML = `
-                        <div class="product-card" data-id="${prod.id}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
+                        <div class="product-card" data-id="${prod.id}" data-favorite-key="${prod.favorite_key || prod.id}" data-commercial-type="${prod.commercial_type || "standard"}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
                                 ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                <a href="producto.html?id=${prod.id}"><img src="${image}" alt="${prod.name}"></a>
-                                <h4><a href="producto.html?id=${prod.id}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
+                                <a href="${window.productPageUrl(prod)}"><img src="${image}" alt="${prod.name}"></a>
+                                <h4><a href="${window.productPageUrl(prod)}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
                                 <p class="price">${window.formatPrice(Number(prod.price))}</p>
                             </div>
                         `;
@@ -2514,7 +2529,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
                 if (matches.length > 0) {
                     searchResults.innerHTML = matches.map(m => `
-                        <a href="producto.html?id=${encodeURIComponent(m.id)}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
+                        <a href="${window.productPageUrl(m)}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
                             <img src="${escapeText(m.image_url || 'uploads/PhoneSpot-trans.png')}" alt="" loading="lazy" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                             <div style="flex:1;">
                                 <div style="font-size:0.9rem; font-weight:bold;">${escapeText(m.name)}</div>
@@ -2538,7 +2553,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         return res.json();
                     })
                     .then(products => {
-                        cachedProductsForSearch = Array.isArray(products) ? products : [];
+                        cachedProductsForSearch = Array.isArray(products) ? window.expandCommercialProducts(products) : [];
                         showSearchResults();
                     })
                     .catch(() => {
@@ -3655,8 +3670,8 @@ window.loadFavoritesUI = async () => {
 
     try {
         const res = await fetch(window.API_URL + '/api/products');
-        const allProds = await res.json();
-        const favProds = allProds.filter(p => favs.includes(p.id.toString()));
+        const allProds = window.expandCommercialProducts(await res.json());
+        const favProds = allProds.filter(p => favs.includes(p.favorite_key || p.id.toString()));
 
         if (favProds.length === 0) {
             container.innerHTML = '<p style="color: var(--text-muted); grid-column:1/-1;">Los productos guardados ya no están disponibles.</p>';
@@ -3670,21 +3685,21 @@ window.loadFavoritesUI = async () => {
                 <div class="favorite-item" data-id="${prod.id}" style="display: flex; align-items: center; gap: 1.5rem; background: var(--card-bg); padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 1rem; flex-wrap: wrap;">
                     
                     <!-- Imagen -->
-                    <a href="producto.html?id=${prod.id}" style="width: 100px; height: 100px; flex-shrink: 0; display: block;">
+                    <a href="${window.productPageUrl(prod)}" style="width: 100px; height: 100px; flex-shrink: 0; display: block;">
                         <img src="${image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: white; padding: 5px; border: 1px solid var(--border-color);">
                     </a>
                     
                     <!-- Info -->
                     <div style="flex: 1; min-width: 200px;">
-                        <h4 style="margin: 0 0 0.5rem; font-size: 1.2rem;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 0.5rem; font-size: 1.2rem;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
                         <p style="margin: 0; font-weight: 900; color: var(--text-color); font-size: 1.3rem;">${window.formatPrice(Number(prod.price))}</p>
                     </div>
 
                     <!-- Botones -->
                     <div style="display: flex; gap: 1rem; align-items: center;">
-                        <a class="btn btn-block" href="producto.html?id=${prod.id}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
+                        <a class="btn btn-block" href="${window.productPageUrl(prod)}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
                         
-                        <button onclick="window.toggleFavorite('${prod.id}', event); window.loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
+                        <button onclick="window.toggleFavorite('${prod.favorite_key || prod.id}', event); window.loadFavoritesUI();" style="background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 1.2rem;" title="Eliminar de favoritos" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -3731,8 +3746,8 @@ window.loadSidebarFavorites = async () => {
 
     try {
         const res = await fetch(window.API_URL + '/api/products');
-        const allProds = await res.json();
-        const favProds = allProds.filter(p => favs.includes(p.id.toString()));
+        const allProds = window.expandCommercialProducts(await res.json());
+        const favProds = allProds.filter(p => favs.includes(p.favorite_key || p.id.toString()));
 
         if (favProds.length === 0) {
             container.innerHTML = '<p style="color: var(--text-muted); text-align:center;">Los productos guardados ya no están disponibles.</p>';
@@ -3745,19 +3760,19 @@ window.loadSidebarFavorites = async () => {
             container.innerHTML += `
                 <div class="favorite-sidebar-item" style="display: flex; gap: 1rem; background: var(--card-bg); padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); position: relative;">
                     <!-- Borrar absoluto -->
-                    <button onclick="window.toggleFavorite('${prod.id}', event); window.loadSidebarFavorites();" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;" title="Eliminar" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';"><i class="fa-solid fa-trash" style="font-size: 0.8rem;"></i></button>
+                    <button onclick="window.toggleFavorite('${prod.favorite_key || prod.id}', event); window.loadSidebarFavorites();" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 71, 87, 0.1); color: #ff4757; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;" title="Eliminar" onmouseover="this.style.background='#ff4757'; this.style.color='white';" onmouseout="this.style.background='rgba(255, 71, 87, 0.1)'; this.style.color='#ff4757';"><i class="fa-solid fa-trash" style="font-size: 0.8rem;"></i></button>
 
                     <!-- Imagen -->
-                    <a href="producto.html?id=${prod.id}" style="width: 80px; height: 80px; flex-shrink: 0; display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+                    <a href="${window.productPageUrl(prod)}" style="width: 80px; height: 80px; flex-shrink: 0; display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
                         <img src="${image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: contain; background: white;">
                     </a>
                     
                     <!-- Info -->
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="producto.html?id=${prod.id}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
+                        <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
                         <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">${window.formatPrice(Number(prod.price))}</p>
                         
-                        <a class="btn btn-block" href="producto.html?id=${prod.id}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
+                        <a class="btn btn-block" href="${window.productPageUrl(prod)}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
                     </div>
                 </div>
             `;
@@ -4544,7 +4559,7 @@ window.addEventListener('DOMContentLoaded', () => {
         try {
             await window.dolarPromise;
             const response = await fetch(window.API_URL + '/api/products');
-            const products = await response.json();
+            const products = window.expandCommercialProducts(await response.json());
             if (!response.ok) throw new Error(products.error || 'No se pudo consultar el catálogo');
 
             const filteredProducts = products
@@ -4582,7 +4597,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                 <span class="advisor-product-brand">${escapeAdvisorHtml(product.brand || 'PhoneSpot')}</span>
                                 <h4>${escapeAdvisorHtml(product.name)}</h4>
                                 <p class="advisor-product-price">${window.formatPrice(productPrice(product))}</p>
-                                <a href="producto.html?id=${encodeURIComponent(product.id)}">Ver equipo <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="${window.productPageUrl(product)}">Ver equipo <i class="fa-solid fa-arrow-right"></i></a>
                             </article>
                         `;
                     }).join('')}
@@ -4629,7 +4644,7 @@ document.addEventListener('click', (event) => {
     }
     const productId = card.dataset.id;
     if (productId) {
-        window.location.href = `producto.html?id=${encodeURIComponent(productId)}`;
+        window.location.href = window.productPageUrl({id: productId, commercial_type: card.dataset.commercialType});
     }
 });
 
@@ -4692,7 +4707,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (card.querySelector('[data-compare-product]')) return;
                 const addToCartButton = card.querySelector('.add-to-cart-btn');
                 if (!addToCartButton) return;
-                const productId = String(card.dataset.id || '');
+                const productId = String(card.dataset.favoriteKey || card.dataset.id || '');
                 if (!productId) return;
                 const button = document.createElement('button');
                 button.type = 'button';
@@ -4769,12 +4784,12 @@ window.addEventListener('DOMContentLoaded', () => {
         try {
             await window.dolarPromise;
             const response = await fetch(window.API_URL + '/api/products');
-            const products = await response.json();
+            const products = window.expandCommercialProducts(await response.json());
             if (!response.ok) throw new Error(products.error || 'No se pudieron cargar los productos');
 
             const selectedIds = getCompareIds();
-            const selectedProducts = selectedIds.map(id => products.find(product => String(product.id) === id)).filter(Boolean);
-            const availableProducts = products.filter(product => !selectedIds.includes(String(product.id)) && Number(product.stock) > 0);
+            const selectedProducts = selectedIds.map(id => products.find(product => String(product.favorite_key || product.id) === id)).filter(Boolean);
+            const availableProducts = products.filter(product => !selectedIds.includes(String(product.favorite_key || product.id)) && Number(product.stock) > 0);
 
             if (!selectedProducts.length) {
                 comparePage.innerHTML = `
@@ -4793,7 +4808,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         <span class="compare-picker-row">
                             <select id="compare-picker" ${selectedProducts.length >= maxComparedProducts ? 'disabled' : ''}>
                                 <option value="">Seleccionar equipo disponible</option>
-                                ${availableProducts.map(product => `<option value="${product.id}">${escapeCompareHtml(product.name)} — ${window.formatPrice(productPrice(product))}</option>`).join('')}
+                                ${availableProducts.map(product => `<option value="${product.favorite_key || product.id}">${escapeCompareHtml(product.name)} — ${window.formatPrice(productPrice(product))}</option>`).join('')}
                             </select>
                             <button id="compare-add" type="button" ${selectedProducts.length >= maxComparedProducts ? 'disabled' : ''}>Agregar</button>
                         </span>
@@ -4807,11 +4822,11 @@ window.addEventListener('DOMContentLoaded', () => {
                             ${selectedProducts.map(product => {
                                 const image = window.getFullImageUrl(product.image_url) || 'uploads/PhoneSpot-trans.png';
                                 return `<th><div class="compare-product-head">
-                                    <button class="compare-remove" type="button" data-compare-remove="${product.id}" aria-label="Quitar ${escapeCompareHtml(product.name)}"><i class="fa-solid fa-xmark"></i></button>
+                                    <button class="compare-remove" type="button" data-compare-remove="${product.favorite_key || product.id}" aria-label="Quitar ${escapeCompareHtml(product.name)}"><i class="fa-solid fa-xmark"></i></button>
                                     <img src="${escapeCompareHtml(image)}" alt="${escapeCompareHtml(product.name)}">
                                     <small>${escapeCompareHtml(product.brand || 'PhoneSpot')}</small>
                                     <h3>${escapeCompareHtml(product.name)}</h3>
-                                    <a href="producto.html?id=${encodeURIComponent(product.id)}">Ver ficha <i class="fa-solid fa-arrow-right"></i></a>
+                                    <a href="${window.productPageUrl(product)}">Ver ficha <i class="fa-solid fa-arrow-right"></i></a>
                                 </div></th>`;
                             }).join('')}
                         </tr></thead>

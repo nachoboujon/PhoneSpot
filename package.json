@@ -19,6 +19,7 @@
     "test:admin-offers-api": "node scripts/tests/test-admin-offers-api.js",
     "test:admin-offers-ui": "node scripts/tests/test-admin-offers-ui.js",
     "test:admin-favorites-ui": "node scripts/tests/test-admin-favorites-framing.js",
+    "test:commercial-types": "node scripts/tests/test-commercial-types.js",
     "test:api": "node scripts/tests/test-api-validation.js",
     "test:storefront": "node scripts/tests/test-storefront-readonly.js",
     "test:purchase-flow": "node scripts/tests/test-purchase-flow.js",

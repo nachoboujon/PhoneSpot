@@ -16,7 +16,7 @@
     window.syncFavoritesUI = () => {
         const ids = new Set(window.readFavoriteIds());
         document.querySelectorAll('.product-card[data-id], .product-details[data-id]').forEach(product => {
-            const id = product.dataset.id, saved = ids.has(id);
+            const id = product.dataset.favoriteKey || product.dataset.id, saved = ids.has(id);
             let button = product.querySelector('.fav-btn');
             if (!button) {
                 button = document.createElement('button'); button.type = 'button'; button.dataset.id = id;

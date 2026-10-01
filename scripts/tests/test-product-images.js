@@ -4,6 +4,7 @@ const path = require('node:path');
 const puppeteer = require('puppeteer');
 const {normalizeProductImages, photoKey} = require('../../lib/product-images');
 const {officialImage} = require('../../lib/official-product-images');
+const {splitCommercialProduct, productPageUrl} = require('../../public/product-commercial-types');
 const source = require('../../artifacts/iphone-import-preview.json');
 const base = process.argv[2] || process.env.AUDIT_URL || 'http://localhost:3000';
 const storage = 'https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/iphone-americano-2026-09-28/';
@@ -21,6 +22,7 @@ async function main() {
         const variants = entries.map(card => ({color: card.color, capacity: card.capacity, batt: card.battery,
             condition: card.condition || 'Americano', price: card.price, stock: 10, image_url: storage + card.image}));
         const original = {id: fixtures.length + 10000, name, brand: 'Apple', category: 'celulares', price: entries[0].price,
+            description: `[Condición: Americano] ${name} americano.`,
             stock: variants.length * 10, image_url: variants[0].image_url, images: variants.map(v => v.image_url), variants};
         const normalized = normalizeProductImages(original);
         const admin = normalizeProductImages(original, {official: false});
@@ -59,9 +61,9 @@ async function main() {
             else if (url.pathname === '/api/settings') body = {carousel: []};
             return request.respond({status: 200, contentType: 'application/json', body: JSON.stringify(body || {})});
         });
-        for (const product of fixtures) {
+        for (const product of fixtures.flatMap(splitCommercialProduct)) {
             await page.setViewport({width: 390, height: 844});
-            await page.goto(`${base}/producto.html?id=${product.id}`, {waitUntil: 'domcontentloaded'});
+            await page.goto(`${base}/${productPageUrl(product)}`, {waitUntil: 'domcontentloaded'});
             await page.waitForSelector('.product-details');
             const colors = [...new Set(product.variants.map(v => v.color))];
             for (const color of colors) {
