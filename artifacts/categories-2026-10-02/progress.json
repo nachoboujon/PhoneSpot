@@ -1,0 +1,25 @@
+{
+  "stage": "Source extraction and price preparation; not published",
+  "categories": {
+    "tablets": {
+      "sourceCards": 96,
+      "provisionalModels": 50,
+      "generic": 3
+    },
+    "speakers": {
+      "sourceCards": 96,
+      "provisionalModels": 61,
+      "generic": 18
+    },
+    "watches": {
+      "sourceCards": 88,
+      "provisionalModels": 58,
+      "generic": 5
+    },
+    "consoles": {
+      "sourceCards": 40,
+      "provisionalModels": 33,
+      "generic": 0
+    }
+  }
+}

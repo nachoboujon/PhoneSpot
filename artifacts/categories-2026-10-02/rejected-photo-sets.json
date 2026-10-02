@@ -1,0 +1,109 @@
+{
+  "reasons": [
+    {
+      "model": "Blackview X30",
+      "reason": "Incorrect product: supplier model X30 was matched to a power station with a similar catalog name."
+    },
+    {
+      "model": "Mibro Watch GS Pro",
+      "reason": "Review exact generation: catalog substring matching may select GS Pro 2."
+    },
+    {
+      "model": "Mibro Watch GS Explorer",
+      "reason": "Review exact edition: catalog includes GS Explorer S; case/strap finish must match."
+    },
+    {
+      "model": "Xiaomi Smart Band 10",
+      "reason": "Review image order and accessories: the initial source included a necklace accessory."
+    },
+    {
+      "model": "POCO PAD M1",
+      "reason": "Obsolete draft capitalization; re-map to grouped POCO Pad M1."
+    }
+  ],
+  "sets": [
+    {
+      "model": "POCO PAD M1",
+      "color": "Gris",
+      "officialColor": "Grey",
+      "rgb": "#AAAAAA",
+      "page": "https://www.mi.com/sg/product/poco-pad-m1/",
+      "sourceType": "manufacturer",
+      "sources": [
+        "https://i02.appmifile.com/168_item_sg/21/11/2025/a788c599c17e8312bf326702e36f8857.png",
+        "https://i02.appmifile.com/241_item_sg/21/11/2025/a0bcd523c98f305e632d1bf35b62a5c4.png",
+        "https://i02.appmifile.com/203_item_sg/21/11/2025/dff500498fd88c9892cf913a2ed79ccc.png"
+      ]
+    },
+    {
+      "model": "Xiaomi Smart Band 10",
+      "color": "Rosa",
+      "officialColor": "Rosa",
+      "rgb": "#FBC0C0",
+      "page": "https://www.mi.com/es/product/xiaomi-smart-band-10/",
+      "sourceType": "manufacturer",
+      "sources": [
+        "https://i05.appmifile.com/125_item_es/23/06/2025/ff19476edac6a65f5ad217372277d2a0.png",
+        "https://i05.appmifile.com/425_item_es/23/06/2025/96a7264803e3d3e9ee4f0728c7695296.png",
+        "https://i05.appmifile.com/340_item_es/23/06/2025/5a44e3f2bc18c26a17acc703ee14e9e8.png",
+        "https://i05.appmifile.com/834_item_es/23/06/2025/c2bd2c1963754b4898131b6f01f459b4.png",
+        "//i05.appmifile.com/513_item_es/27/06/2025/f2ff487e6ef762d93987b8ad8bfb613d.png"
+      ]
+    },
+    {
+      "model": "Xiaomi Smart Band 10",
+      "color": "Blanco",
+      "officialColor": "Blanco cerámico",
+      "rgb": "#ebebeb",
+      "page": "https://www.mi.com/es/product/xiaomi-smart-band-10/",
+      "sourceType": "manufacturer",
+      "sources": [
+        "https://i05.appmifile.com/487_item_es/23/06/2025/0c77a2ed33995c67592476d8e18abece.png",
+        "https://i05.appmifile.com/847_item_es/23/06/2025/cc7e24a5883e62b6eb6b989ad3ed220a.png",
+        "https://i05.appmifile.com/574_item_es/23/06/2025/bec420c3eb805f779f20f7eb7caed7e3.png",
+        "https://i05.appmifile.com/301_item_es/23/06/2025/c14c3a4fd4055a09d5605bc5e26c358a.png",
+        "//i05.appmifile.com/513_item_es/27/06/2025/f2ff487e6ef762d93987b8ad8bfb613d.png"
+      ]
+    },
+    {
+      "model": "Blackview X30",
+      "color": "Negro",
+      "page": "https://store.blackview.hk/products/oscal-powermax-300-price",
+      "sourceType": "manufacturer",
+      "officialColor": "Negro",
+      "sources": [
+        "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/Powermax300_01.jpg?v=1695461082"
+      ]
+    },
+    {
+      "model": "Blackview X30",
+      "color": "Plata",
+      "page": "https://store.blackview.hk/products/oscal-powermax-300-price",
+      "sourceType": "manufacturer",
+      "officialColor": "Plata",
+      "sources": [
+        "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/Powermax300_01.jpg?v=1695461082"
+      ]
+    },
+    {
+      "model": "Mibro Watch GS Explorer",
+      "color": "Negro",
+      "page": "https://www.mibrofit.com/products/mibro-gs-explorer-s-ti-premium",
+      "sourceType": "manufacturer",
+      "officialColor": "Negro",
+      "sources": [
+        "https://cdn.shopify.com/s/files/1/0651/4992/7604/files/MibroWatchGSExplorerSTiSet.png?v=1759139827"
+      ]
+    },
+    {
+      "model": "Mibro Watch GS Pro",
+      "color": "Negro",
+      "page": "https://www.mibrofit.com/products/mibro-gs-pro2",
+      "sourceType": "manufacturer",
+      "officialColor": "Dark Gray",
+      "sources": [
+        "https://cdn.shopify.com/s/files/1/0651/4992/7604/files/MibroSmartWatchGSPro2_4.jpg?v=1750040065"
+      ]
+    }
+  ]
+}

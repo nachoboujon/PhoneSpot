@@ -36,3 +36,7 @@ artifacts/earphones-2026-10-01/*
 !artifacts/earphones-2026-10-01/before-import.json
 !artifacts/earphones-2026-10-01/verification.json
 !artifacts/earphones-2026-10-01/README.md
+artifacts/categories-2026-10-02/research/
+artifacts/categories-2026-10-02/originals/
+artifacts/categories-2026-10-02/images/
+artifacts/categories-2026-10-02/gallery-sheet-*.jpg
