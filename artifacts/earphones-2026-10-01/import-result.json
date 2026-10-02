@@ -1,0 +1,146 @@
+[
+  {
+    "id": 351,
+    "model": "Samsung Type-C",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 352,
+    "model": "JBL Endurance Pace",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 353,
+    "model": "JBL Endurance Peak 4",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 354,
+    "model": "JBL Live Buds 3",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 355,
+    "model": "JBL Sense Lite",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 356,
+    "model": "JBL Sense Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 357,
+    "model": "JBL Soundgear Clips",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 358,
+    "model": "JBL Tune 110",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 359,
+    "model": "JBL Tune 510BT",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 360,
+    "model": "JBL Tune 520BT",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 361,
+    "model": "JBL Tune 520C",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 362,
+    "model": "JBL Tune 530BT",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 363,
+    "model": "JBL Tune 720BT",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 364,
+    "model": "JBL Tune 730BT",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 365,
+    "model": "JBL Tune 770NC",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 366,
+    "model": "JBL Tune 780NC",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 367,
+    "model": "JBL Tune Buds 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 368,
+    "model": "JBL Tune Flex 2",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 369,
+    "model": "JBL Wave Buds 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 370,
+    "model": "Redmi Buds 6 Play",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 371,
+    "model": "Redmi Buds 8 Active",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 372,
+    "model": "Redmi Buds 8 Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 373,
+    "model": "Redmi Buds 8 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 374,
+    "model": "Sony PULSE Explore",
+    "added": 2,
+    "created": true
+  }
+]

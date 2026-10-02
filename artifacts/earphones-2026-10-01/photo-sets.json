@@ -1,0 +1,588 @@
+[
+  {
+    "model": "JBL Endurance Pace",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/ENDURANCE-PACE.html?dwvar_ENDURANCE-PACE_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8b11ba4c/01.LS_JBL_Endurance_Pace_Product_Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw72484c7e/02.LS_JBL_Endurance_Pace_Product_Image_Back_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1605e256/03.LS_JBL_Endurance_Pace_Product_Image_Controls_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw4e0ea2e4/04.LS_JBL_Endurance_Pace_Product_Image_Detail_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw349e7dd3/05.LS_JBL_Endurance_Pace_Product_Image_Right_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Endurance Peak 4",
+    "color": "Blanco",
+    "page": "https://id.jbl.com/ENDURANCE-PEAK-4.html?dwvar_ENDURANCE-PEAK-4_color=White-GLOBAL-Current",
+    "officialColor": "White-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw35447d96/01.LS_JBL_Endurance_Peak_4_Product_Image_Hero_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwba86e906/02.LS_JBL_Endurance_Peak_4_Product_Image_Earbuds_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw13691bcb/04.LS_JBL_Endurance_Peak_4_Product_Image_Front_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc3968ab8/05.LS_JBL_Endurance_Peak_4_Product_Image_Back_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8b8b9fb2/LS_JBL_Endurance_Peak_4_Product_Image_Case_Front_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Live Buds 3",
+    "color": "Negro",
+    "page": "https://www.jbl.com.ar/LIVEBUDS3.html?dwvar_LIVEBUDS3_color=Black-AM-Current",
+    "officialColor": "Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw68ed82ed/02.JBL_Live Buds 3_Product Image_Hero_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw70181fc4/04.JBL_Live Buds 3_Product Image_Earbuds_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw0d38d445/05.JBL_Live Buds 3_Product Image_Back_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1be23eb1/06.JBL_Live Buds 3_Product Image_Case Open_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw077cfc56/07.JBL_Live Buds 3_Product Image_Case Front_Black.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "JBL Sense Lite",
+    "color": "Celeste",
+    "page": "https://www.jbl.com.ar/SENSELITE.html?dwvar_SENSELITE_color=Blue-AM-Current",
+    "officialColor": "Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd42b738d/01.LS_JBL_Sense-Lite_Product-Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw159102fb/2a.LS_JBL_Sense_Lite_Product_Image_OpenSound_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw834ae17f/06.LS_JBL_Sense-Lite_Product-Image_Front- Case_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw013b5a55/LS_JBL_Sense-Lite_Product-Image_Hero-2_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc0d9eff1/LS_JBL_Sense-Lite_Product-Image_Detail_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#92bdcc"
+  },
+  {
+    "model": "JBL Sense Lite",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/SENSELITE.html?dwvar_SENSELITE_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc238c956/01.LS_JBL_Sense-Lite_Product-Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw5a62d54a/2a.LS_JBL_Sense_Lite_Product_Image_OpenSound_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2cd6e67f/06.LS_JBL_Sense-Lite_Product-Image_Front- Case_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2e3a0c2c/LS_JBL_Sense-Lite_Product-Image_Hero-2_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc8a0f82f/LS_JBL_Sense-Lite_Product-Image_Detail_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Sense Pro",
+    "color": "Azul",
+    "page": "https://www.jbl.com.ar/SENSEPRO.html?dwvar_SENSEPRO_color=Blue-AM-Current",
+    "officialColor": "Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8c272bbb/01.LS_JBL_Sense-Pro_Product_Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwccad18cc/02.LS_JBL_SENSE_PRO_Product_Image_OpenSound_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw68882614/03.LS_JBL_SENSE_PRO_Product_Image_Open_Case_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwbb026622/04.LS_JBL_SENSE_PRO_Product_Image_Front_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3939fcbd/05.LS_JBL_SENSE_PRO_Product_Image_Back_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#334f8b"
+  },
+  {
+    "model": "JBL Soundgear Clips",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/SOUNDGEAR-CLIPS.html?dwvar_SOUNDGEAR-CLIPS_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd355bd6b/01.LS_JBL_Soundgear_Clips_Product-Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw242425dc/LS_JBL_Soundgear_Clips_Product_Image_Detail_02_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3585ed58/03.LS_JBL_Soundgear_Clips_Product_Image_Back_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa080705b/05.LS_JBL_Soundgear_Clips_Product_Image_Case_Closed_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3e224035/LS_JBL_SOUNDGEAR_CLIPS_WHITE_CASE_TOP__0086_x2.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Soundgear Clips",
+    "color": "Azul",
+    "page": "https://www.jbl.com.ar/SOUNDGEAR-CLIPS.html?dwvar_SOUNDGEAR-CLIPS_color=Blue-AM-Current",
+    "officialColor": "Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw29bc6e19/01.LS_JBL_Soundgear_Clips_Product-Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3de4d96d/LS_JBL_Soundgear_Clips_Product_Image_Detail_02_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9616ca0d/03.LS_JBL_Soundgear_Clips_Product_Image_Back_Blue_.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw33e9a59e/05.LS_JBL_Soundgear_Clips_Product_Image_Case_Closed_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#39429c"
+  },
+  {
+    "model": "JBL Tune 110",
+    "color": "Rojo",
+    "page": "https://id.jbl.com/JBL%20T110.html?dwvar_JBL%20T110_color=Red-GLOBAL-Current",
+    "officialColor": "Red-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9b9be618/T110_Red-1605x1605px.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#c7434b"
+  },
+  {
+    "model": "JBL Tune 110",
+    "color": "Azul",
+    "page": "https://id.jbl.com/JBL%20T110.html?dwvar_JBL%20T110_color=Blue-GLOBAL-Current",
+    "officialColor": "Blue-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw936d48f1/T110_Blue_Hero-1606x1606px.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2c427092/T110_Blue_Right_Detailshot_01_1606x1606px.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw79a1e19c/T110_Blue_remote_Detailshot_02_1606x1606px.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwba928023/T110_Blue_jack_Detailshot_03_1606x1606px.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#334f8b"
+  },
+  {
+    "model": "JBL Tune 510BT",
+    "color": "Blanco",
+    "page": "https://id.jbl.com/TUNE510BT-.html?dwvar_TUNE510BT-_color=White-GLOBAL-Current",
+    "officialColor": "White-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw724fccd7/JBL_TUNE_510BT_Product Image_Hero_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwef071f62/JBL_TUNE_510BT_Product Image_Front_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa3934e18/JBL_TUNE_510BT_Product Image_Cushion_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6e02c02b/JBL_TUNE_510BT_Product Image_Detail_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2db8d0e8/JBL_TUNE_510BT_Product Image_Folded 2_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 520BT",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE520BT.html?dwvar_TUNE520BT_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwfecd0c7f/01.JBL_Tune_520BT_ProductImage_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw0dc6494a/02.JBL_Tune 520BT_Product Image_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw61d3f33c/04.JBL_Tune 520BT_Product Image_Left_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw94abd7fc/05.JBL_Tune 520BT_Product Image_Right_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 110",
+    "color": "Negro",
+    "page": "https://id.jbl.com/JBL%20T110.html?dwvar_JBL%20T110_color=Black-GLOBAL-Current",
+    "officialColor": "Black-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe79e57a8/T110_black_Left_blur-1606x1606px.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw317b0c19/T110_black_RIGH_NOL-1606x1606px.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "JBL Tune 110",
+    "color": "Blanco",
+    "page": "https://id.jbl.com/JBL%20T110.html?dwvar_JBL%20T110_color=White-GLOBAL-Current",
+    "officialColor": "White-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe1c4a19f/T110_white_left_blur-1606x1606px.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9818e895/T110_white_Right_NOL-1606x1606px.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 520C",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE520C-USB-C.html?dwvar_TUNE520C-USB-C_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwee68279a/JBL_Tune_520C USB-C_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3d36d8a4/JBL_Tune_520C USB-C_Left_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb9514c33/JBL_Tune_520C USB-C_Right_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw64426297/JBL_Tune_520C USB-C_Front_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 530BT",
+    "color": "Azul",
+    "page": "https://www.jbl.com.ar/TUNE530BT.html?dwvar_TUNE530BT_color=Blue-AM-Current",
+    "officialColor": "Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcc964af5/01.LS_JBL_Tune_530BT_Product-Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw69a2e19c/02.LS_JBL_Tune_530BT_Product_Image_Front_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe94b968d/03.LS_JBL_Tune_530BT_Product_Image_Folded_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb897bf91/04.LS_JBL_Tune_530BT_Product_Image_Cushions_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwfd6f0351/05.LS_JBL_Tune_530BT_Product_Image_Buttons_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#334f8b"
+  },
+  {
+    "model": "JBL Tune 530BT",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE530BT.html?dwvar_TUNE530BT_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw80215f36/01.LS_JBL_Tune_530BT_Product-Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa162f392/02.LS_JBL_Tune_530BT_Product_Image_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2d002d6c/03.LS_JBL_Tune_530BT_Product_Image_Folded_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8934c898/04.LS_JBL_Tune_530BT_Product_Image_Cushions_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3fb245c3/05.LS_JBL_Tune_530BT_Product_Image_Buttons_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 530BT",
+    "color": "Negro",
+    "page": "https://www.jbl.com.ar/TUNE530BT.html?dwvar_TUNE530BT_color=Black-AM-Current",
+    "officialColor": "Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8abfd8b7/01.LS_JBL_Tune_530BT_Product-Image_Hero_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw38546b38/02.LS_JBL_Tune_530BT_Product_Image_Front_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwbfeaf740/03.LS_JBL_Tune_530BT_Product_Image_Folded_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3813f076/04.LS_JBL_Tune_530BT_Product_Image_Cushions_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw0924c106/05.LS_JBL_Tune_530BT_Product_Image_Buttons_Black.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "JBL Tune 530BT",
+    "color": "Lavanda",
+    "page": "https://www.jbl.com.ar/TUNE530BT.html?dwvar_TUNE530BT_color=Digital%20Lavender-AM-Current",
+    "officialColor": "Digital Lavender-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8e0f7da3/01.LS_JBL_Tune_530BT_Product-Image_Hero_Purple.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw12d3d9e9/02.LS_JBL_Tune_530BT_Product_Image_Front_Lavender.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw0ba8492e/03.LS_JBL_Tune_530BT_Product_Image_Folded_Lavender.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb47352b6/04.LS_JBL_Tune_530BT_Product_Image_Cushions_Lavender.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw11c25068/05.LS_JBL_Tune_530BT_Product_Image_Buttons_Lavender.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#8d7ab9"
+  },
+  {
+    "model": "JBL Tune 720BT",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE720BT.html?dwvar_TUNE720BT_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9cfece54/01.JBL_Tune_720BT_ProductImage_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa6343145/02.JBL_Tune_720BT_ProductImage_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw886f0967/05.JBL_Tune_720BT_ProductImage_Left_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcea65c7d/06.JBL_Tune_720BT_ProductImage_Right_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 720BT",
+    "color": "Lavanda",
+    "page": "https://www.jbl.com.ar/TUNE720BT.html?dwvar_TUNE720BT_color=Purple-AM-Current",
+    "officialColor": "Purple-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3d9b0484/01.JBL_Tune_720BT_ProductImage_Hero_Purple.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw901df655/02.JBL_Tune_720BT_ProductImage_Front_Purple.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9f34a092/05.JBL_Tune_720BT_ProductImage_Left_Purple.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6141c0e2/06.JBL_Tune_720BT_ProductImage_Right_Purple.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#8d7ab9"
+  },
+  {
+    "model": "JBL Tune 730BT",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE730BT.html?dwvar_TUNE730BT_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw50525f1a/01.LS_JBL_Tune_730BT_Product_Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd3d6e631/02.LS_JBL_Tune_730BT_Product_Image_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa44d53ca/03.LS_JBL_Tune_730BT_Product_Image_Fold_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw24552f74/04.LS_JBL_Tune_730BT_Product_Image_Cushions_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw08ad869d/05.LS_JBL_Tune_730BT_Product_Image_Buttons_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 770NC",
+    "color": "Morado",
+    "page": "https://id.jbl.com/TUNE770NC.html?dwvar_TUNE770NC_color=Purple-GLOBAL-Current",
+    "officialColor": "Purple-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8ff8fa3d/1.JBL_Tune_770NC_Product Image_Hero_Purple.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw4b264382/2.JBL_Tune_770NC_Product Image_Front_Purple.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw544ce0c1/4.JBL_Tune_770NC_Product Image_Left_Purple.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcf8e7a21/5.JBL_Tune_770NC_Product Image_Right_Purple.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#9780bc"
+  },
+  {
+    "model": "JBL Tune 770NC",
+    "color": "Blanco",
+    "page": "https://id.jbl.com/TUNE770NC.html?dwvar_TUNE770NC_color=White-GLOBAL-Current",
+    "officialColor": "White-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd0307616/1.JBL_Tune_770NC_Product Image_Hero_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw19b4ebed/2.JBL_Tune_770NC_Product Image_Front_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw710a7a6e/4.JBL_Tune_770NC_Product Image_Left_White.png?sw=1200&sh=1200",
+      "https://id.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa8bd3d06/5.JBL_Tune_770NC_Product Image_Right_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune 780NC",
+    "color": "Azul",
+    "page": "https://www.jbl.com.ar/TUNE780NC.html?dwvar_TUNE780NC_color=Blue-AM-Current",
+    "officialColor": "Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw35f68351/01.LS_JBL_Tune_780NC_Product_Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw4491e176/02.LS_JBL_Tune_780NC_Product_Image_Front_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb1cd447c/03.LS_JBL_Tune_780NC_Product_Image_Fold_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwec478aa4/04.LS_JBL_Tune_780NC_Product_Image_Cushions_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe946e8a7/05.LS_JBL_Tune_780NC_Product_Image_Detail_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#334f8b"
+  },
+  {
+    "model": "JBL Tune 780NC",
+    "color": "Negro",
+    "page": "https://www.jbl.com.ar/TUNE780NC.html?dwvar_TUNE780NC_color=Black-AM-Current",
+    "officialColor": "Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9ae0dbb5/01.LS_JBL_Tune_780NC_Product_Image_Hero_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw018e6bb7/02.LS_JBL_Tune_780NC_Product_Image_Front_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwf2e00f07/03.LS_JBL_Tune_780NC_Product_Image_Fold_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8e6f73c5/04.LS_JBL_Tune_780NC_Product_Image_Cushions_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8a142ab7/05.LS_JBL_Tune_780NC_Product_Image_Detail_Black.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "JBL Tune 780NC",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE780NC.html?dwvar_TUNE780NC_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwecfbb2d2/01.LS_JBL_Tune_780NC_Product_Image_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwfb581470/02.LS_JBL_Tune_780NC_Product_Image_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc344287e/03.LS_JBL_Tune_780NC_Product_Image_Fold_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6f696a14/04.LS_JBL_Tune_780NC_Product_Image_Cushions_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb8063904/05.LS_JBL_Tune_780NC_Product_Image_Detail_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune Buds 2",
+    "color": "Blanco",
+    "page": "https://www.jbl.com.ar/TUNE-BUDS-2.html?dwvar_TUNE-BUDS-2_color=White-AM-Current",
+    "officialColor": "White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwafa87ac7/01.LS_JBL_Tune_Buds_2_ProductImage_Hero_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw63d79cda/02.LS_JBL_Tune_Buds_2_ProductImage_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb22c35a7/03.LS_JBL_Tune_Buds_2_ProductImage_Back_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwaf9c0768/04.LS_JBL_Tune_Buds_2_ProductImage_Case_Front_White.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb25f121a/05.LS_JBL_Tune_Buds_2_ProductImage_Case_Back_White.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "JBL Tune Flex 2",
+    "color": "Turquesa",
+    "page": "https://www.jbl.com.ar/TUNE-FLEX-2.html?dwvar_TUNE-FLEX-2_color=Turquoise-AM-Current",
+    "officialColor": "Turquoise-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb4a26aa8/01.JBL_Tune-Flex-2_Product-Image_Hero_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw83f1dd66/02.LS_JBL_Tune-Flex-2_Product-Image_Front_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcaf6a456/03.LS_JBL_Tune-Flex-2_Product-Image_Back_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw46f27e72/05.LS_JBL_Tune-Flex-2_Product-Image_Case-Front_Blue.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw84e6d235/06.LS_JBL_Tune-Flex-2_Product-Image_Case-Back_Blue.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#256e83"
+  },
+  {
+    "model": "JBL Tune Flex 2",
+    "color": "Negro",
+    "page": "https://www.jbl.com.ar/TUNE-FLEX-2.html?dwvar_TUNE-FLEX-2_color=Black-AM-Current",
+    "officialColor": "Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw08f49f77/01.JBL_Tune-Flex-2_Product-Image_Hero_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw551a59cf/02.LS_JBL_Tune-Flex-2_Product-Image_Front_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwf1e326b4/03.LS_JBL_Tune-Flex-2_Product-Image_Back_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw20e71702/04.LS_JBL_Tune-Flex-2_Product-Image_Case-Front_Black.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd398877e/06.LS_JBL_Tune-Flex-2_Product-Image_Case-Back_Black.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "JBL Wave Buds 2",
+    "color": "Rosa",
+    "page": "https://www.jbl.com.ar/WAVE-BUDS-2.html?dwvar_WAVE-BUDS-2_color=Pink-GLOBAL-Current",
+    "officialColor": "Pink-GLOBAL-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw91492b14/01.LS_JBL_Wave Buds 2_Product Image_Hero_Pink.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwef580f77/02.LS_JBL_Wave Buds 2_Product Image_Front_Pink.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1d20c933/03.LS_JBL_Wave Buds 2_Product Image_Back_Pink.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2d8d453f/04.LS_JBL_Wave Buds 2_Product Image_Case Front_Pink.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe14c47a2/05.LS_JBL_Wave Buds 2_Product Image_Case Top_Pink.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#d9a3b2"
+  },
+  {
+    "model": "Redmi Buds 6 Play",
+    "color": "Rosa",
+    "page": "https://www.mi.com/es/product/redmi-buds-6-play/buy/",
+    "officialColor": "Rosa",
+    "rgb": "#f5ecec",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/974_item_es/22/11/2024/5b29167167c544985742c0c158e4f459.png",
+      "https://i05.appmifile.com/449_item_es/22/11/2024/fbb07e3b872f14196ff65f5b0748c7a2.png",
+      "https://i05.appmifile.com/115_item_es/22/11/2024/e52ea9981de1d29edca55e947ea78871.png"
+    ]
+  },
+  {
+    "model": "Redmi Buds 8 Active",
+    "color": "Negro",
+    "page": "https://www.mi.com/es/product/redmi-buds-8-active/buy/",
+    "officialColor": "Negro",
+    "rgb": "#000000",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/563_item_es/04/03/2026/1ae9a19b10b9a35527036b7d9df97ec6.png",
+      "https://i05.appmifile.com/665_item_es/04/03/2026/db0732b2ba6bf42f863fe58c9ad84173.png",
+      "https://i05.appmifile.com/568_item_es/04/03/2026/f1a48e646ee75e6ce2faf50961c2e46e.png",
+      "https://i05.appmifile.com/404_item_es/04/03/2026/f9ee6b04f2c46896e1f1a5347e0b0cd8.png",
+      "https://i05.appmifile.com/84_item_es/04/03/2026/184a835354ab49bdfbd32a4d4cf29ed1.png"
+    ]
+  },
+  {
+    "model": "Redmi Buds 8 Active",
+    "color": "Celeste",
+    "page": "https://www.mi.com/es/product/redmi-buds-8-active/buy/",
+    "officialColor": "Azul",
+    "rgb": "#cbeff2",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/452_item_es/04/03/2026/289254c795382dd667a996c1d2df6e1c.png",
+      "https://i05.appmifile.com/17_item_es/04/03/2026/78242d5c9ff65560582b01b1d1945994.png",
+      "https://i05.appmifile.com/233_item_es/04/03/2026/08f014684466df38c2e9b7c0d1a1ccbb.png",
+      "https://i05.appmifile.com/995_item_es/04/03/2026/197421537b7e91e638b48f12aed17c55.png",
+      "https://i05.appmifile.com/715_item_es/04/03/2026/d30e39c3d63352ffd6595a419e728459.png"
+    ]
+  },
+  {
+    "model": "Redmi Buds 8 Lite",
+    "color": "Blanco",
+    "page": "https://www.mi.com/es/product/redmi-buds-8-lite/buy/",
+    "officialColor": "Blanco",
+    "rgb": "#FFFFFF",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/551_item_es/23/12/2025/d85870eb3cd2b96ac493a2a31980a9a9.png",
+      "https://i05.appmifile.com/714_item_es/23/12/2025/f7ca847a96dde2c6130fc1dfe6589dab.png",
+      "https://i05.appmifile.com/569_item_es/23/12/2025/c562eefe3cde7db1050cdd880186dfb2.png",
+      "https://i05.appmifile.com/587_item_es/23/12/2025/73b3140a6fbf26199bff8ac53ff2e2cd.png",
+      "https://i05.appmifile.com/46_item_es/23/12/2025/9c2cdb24ad500242c5a2dc2f096312a9.png"
+    ]
+  },
+  {
+    "model": "Redmi Buds 8 Pro",
+    "color": "Blanco",
+    "page": "https://www.mi.com/es/product/redmi-buds-8-pro/buy/",
+    "officialColor": "Blanco",
+    "rgb": "#FFFFFF",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/504_item_es/03/02/2026/8611edf4af03d3ee6cb64749e21d6379.png",
+      "https://i05.appmifile.com/488_item_es/03/02/2026/8517a4b83e8b7b54611bd6b45555a83d.png",
+      "https://i05.appmifile.com/833_item_es/03/02/2026/151d9454f7410db0be461ac7c2148d12.png",
+      "https://i05.appmifile.com/889_item_es/03/02/2026/e2fdbbe955018174aa4a28e9425bc8b9.png",
+      "https://i05.appmifile.com/86_item_es/03/02/2026/b4429394144b215228a60e9eb19ab391.png"
+    ]
+  },
+  {
+    "model": "Redmi Buds 8 Pro",
+    "color": "Celeste",
+    "page": "https://www.mi.com/es/product/redmi-buds-8-pro/buy/",
+    "officialColor": "Azul",
+    "rgb": "#d8e6eb",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/454_item_es/03/02/2026/205c2ccd64c4a26a058f7c0d41d87879.png",
+      "https://i05.appmifile.com/190_item_es/03/02/2026/1710d35219373b6f1beb73c97725f555.png",
+      "https://i05.appmifile.com/197_item_es/03/02/2026/73acf773a2c2205263af50c1d6aa3e10.png",
+      "https://i05.appmifile.com/904_item_es/03/02/2026/6360f5f88ab938d7abe75abbf020324e.png",
+      "https://i05.appmifile.com/85_item_es/03/02/2026/ffe72e8520c51c57a58ab9e799558397.png"
+    ]
+  },
+  {
+    "model": "JBL Endurance Peak 4",
+    "color": "Negro",
+    "page": "https://www.jbl.com.au/true-wireless/ENDURANCE-PEAK-4.html?dwvar_ENDURANCE-PEAK-4_color=Black%20%2F%20Lime-GLOBAL-Current",
+    "officialColor": "Black / Lime",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw55d88ca5/01.LS_JBL_Endurance_Peak_4_Product_Image_Hero_Black_Lime.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3479fc39/LS_JBL_Endurance_Peak_4_Product_Image_Earbuds_Black%26Lime.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1eead6a3/LS_JBL_Endurance_Peak_4_Product_Image_Case_Front_Black%26Lime.png?sw=1200&sh=1200"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "Samsung Type-C",
+    "color": "Negro",
+    "page": "https://shop.samsung.com/latin/cac/sv/type-c-earphones-eo-ic100bbegww-1.html",
+    "officialColor": "Negro",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://shop.samsung.com/latin/cac/pub/media/catalog/product/e/o/eo-ic100_001_dynamic_black_thumb_2.png",
+      "https://shop.samsung.com/latin/cac/pub/media/catalog/product/e/o/eo-ic100_006_dynamic4_black_4.png"
+    ],
+    "rgb": "#25262a"
+  },
+  {
+    "model": "Sony PULSE Explore",
+    "color": "Blanco",
+    "page": "https://www.playstation.com/en-gb/accessories/pulse-explore-wireless-earbuds/product/midnight-black/",
+    "officialColor": "White",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-White-01-1x1-01-28feb26$en?wid=1200&fmt=png-alpha",
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-White-03-28x9-01-28feb26$en?wid=1200&fmt=png-alpha",
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-White-04-28x9-01-28feb26$en?wid=1200&fmt=png-alpha"
+    ],
+    "rgb": "#eeeeeb"
+  },
+  {
+    "model": "Sony PULSE Explore",
+    "color": "Negro",
+    "page": "https://www.playstation.com/en-gb/accessories/pulse-explore-wireless-earbuds/product/midnight-black/",
+    "officialColor": "MidnightBlack",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-MidnightBlack-01-1x1-01-28feb26$en?wid=1200&fmt=png-alpha",
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-MidnightBlack-03-28x9-01-28feb26$en?wid=1200&fmt=png-alpha",
+      "https://gmedia.playstation.com/is/image/SIEPDC/Pulse-Explore-Earbuds-MidnightBlack-04-28x9-01-28feb26$en?wid=1200&fmt=png-alpha"
+    ],
+    "rgb": "#25262a"
+  }
+]
