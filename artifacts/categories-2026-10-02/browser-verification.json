@@ -1,0 +1,25 @@
+{
+  "url": "http://localhost:3102",
+  "findings": [
+    {
+      "name": "Sony PlayStation 5",
+      "variants": 2,
+      "errors": []
+    },
+    {
+      "name": "Redmi Pad 2",
+      "variants": 5,
+      "errors": []
+    },
+    {
+      "name": "Apple Watch Series 11",
+      "variants": 4,
+      "errors": []
+    },
+    {
+      "name": "Redmi Watch 6 Active",
+      "variants": 3,
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,914 @@
+[
+  {
+    "id": 375,
+    "model": "Amazon Kindle 11",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 376,
+    "model": "Black Shark Pad 7",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 377,
+    "model": "Doogee Tab A9",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 378,
+    "model": "Samsung Galaxy Tab A11+",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 379,
+    "model": "Hotwav Tab R10 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 380,
+    "model": "Hotwav Tab R9 Pro Max",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 381,
+    "model": "Keen KN90",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 382,
+    "model": "Lenovo Tab K9",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 383,
+    "model": "POCO Pad C1",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 384,
+    "model": "POCO Pad M1",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 385,
+    "model": "POCO Pad X1",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 386,
+    "model": "Redmi Pad 2",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 387,
+    "model": "Redmi Pad 2 4G LTE",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 388,
+    "model": "Redmi Pad 2 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 389,
+    "model": "Samsung Galaxy Tab A11",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 390,
+    "model": "Samsung Galaxy Tab S10 Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 391,
+    "model": "Samsung Galaxy Tab S6 Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 392,
+    "model": "Cidea CM78",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 393,
+    "model": "Blackview Link 8",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 394,
+    "model": "Blackview Tab 20 Kids",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 395,
+    "model": "Blackview Tab 20 WiFi",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 396,
+    "model": "Blackview Tab 60 WiFi",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 397,
+    "model": "Cidea CM516",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 398,
+    "model": "Cidea CM936",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 399,
+    "model": "Cidea CM10000 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 400,
+    "model": "Cidea CM817 Air 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 401,
+    "model": "Cidea CM824 Ultra 5G",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 402,
+    "model": "Cidea CM86",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 403,
+    "model": "Cidea CM88",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 404,
+    "model": "Cidea CM89",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 405,
+    "model": "Doogee T10W",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 406,
+    "model": "Doogee Tab A9 Vip Edition",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 407,
+    "model": "Doogee U11",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 408,
+    "model": "Lenovo Idea Tab",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 409,
+    "model": "MOX pro MO-TP1082",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 410,
+    "model": "Oukitel RT3 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 411,
+    "model": "Atouch WE6 5G WiFi",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 412,
+    "model": "Xiaomi Pad 7",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 413,
+    "model": "Xiaomi Pad 8",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 414,
+    "model": "Xiaomi Pad 8 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 415,
+    "model": "Xiaomi Pad Mini",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 416,
+    "model": "Aiwa AWSBH15",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 417,
+    "model": "JBL Go 5",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 418,
+    "model": "JBL PartyBox 720",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 419,
+    "model": "JBL CINEMA SB510",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 420,
+    "model": "JBL Boombox 3",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 421,
+    "model": "JBL Boombox 4",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 422,
+    "model": "JBL Charge 6",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 423,
+    "model": "JBL Boombox 3 Wi-Fi",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 424,
+    "model": "JBL Flip 7",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 425,
+    "model": "JBL Encore Essentials 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 426,
+    "model": "JBL Go 4",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 427,
+    "model": "JBL Grip",
+    "added": 6,
+    "created": true
+  },
+  {
+    "id": 428,
+    "model": "JBL PartyBox 120",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 429,
+    "model": "JBL PartyBox 130",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 430,
+    "model": "JBL PartyBox 320",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 431,
+    "model": "JBL PartyBox 330",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 432,
+    "model": "JBL PartyBox 520",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 433,
+    "model": "JBL PartyBox 710",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 434,
+    "model": "JBL PartyBox On the Go 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 435,
+    "model": "JBL PartyBox Encore",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 436,
+    "model": "JBL PartyBox Encore 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 437,
+    "model": "JBL PartyBox Encore 2 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 438,
+    "model": "JBL PartyBox On the Go 2 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 439,
+    "model": "JBL PartyBox On the Go Essential",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 440,
+    "model": "JBL Bar 500 MK2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 441,
+    "model": "JBL Bar 800 MK2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 442,
+    "model": "JBL Xtreme 4",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 443,
+    "model": "JBL Xtreme 5",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 444,
+    "model": "Ecopower EP-6118",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 445,
+    "model": "Ecopower EP-3800",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 446,
+    "model": "Aiwa AWF215BT",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 447,
+    "model": "Aiwa AWPOH4D",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 448,
+    "model": "Aiwa AWPOK68",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 449,
+    "model": "Aiwa AWPOH35PLUS",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 450,
+    "model": "Audisat X10",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 451,
+    "model": "Audisat X5 Play",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 452,
+    "model": "Audisat X5 Power",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 453,
+    "model": "Audisat X80 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 454,
+    "model": "Audisat X88 Boom",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 455,
+    "model": "Ecopower EP-1805",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 456,
+    "model": "Ecopower EP-2110",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 457,
+    "model": "Ecopower EP-S103",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 458,
+    "model": "Ecopower EP-S106",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 459,
+    "model": "Ecopower EP-S111",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 460,
+    "model": "Ecopower EP-S121",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 461,
+    "model": "Aiwa AWSBC800WW",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 462,
+    "model": "Ecopower EP-6108",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 463,
+    "model": "Ecopower EP-6106",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 464,
+    "model": "Ecopower EP-S110",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 465,
+    "model": "Aiwa AWSBH21WW",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 466,
+    "model": "UR Karaoke US-03",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 467,
+    "model": "UR Speaker US-05",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 468,
+    "model": "UR Speaker US-07",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 469,
+    "model": "Xiaomi Mi Compact Bluetooth Speaker 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 470,
+    "model": "Amazfit Active 3 Premium",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 471,
+    "model": "Amazfit Bip Max",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 472,
+    "model": "Apple Watch Series 10",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 473,
+    "model": "Apple Watch SE 3",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 474,
+    "model": "Apple Watch SE 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 475,
+    "model": "Apple Watch Series 11",
+    "added": 4,
+    "created": true
+  },
+  {
+    "id": 476,
+    "model": "Black Shark GS3 Sport",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 477,
+    "model": "Black Shark GS3 Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 478,
+    "model": "Blackview W50 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 479,
+    "model": "Apple Watch Ultra 3",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 480,
+    "model": "Blackview W70 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 481,
+    "model": "Blackview X30",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 482,
+    "model": "Samsung Galaxy Watch 7",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 483,
+    "model": "Samsung Galaxy Watch 9",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 484,
+    "model": "Samsung Galaxy Fit3",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 485,
+    "model": "Samsung Galaxy Watch Ultra",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 486,
+    "model": "Garmin Forerunner 165 Music",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 487,
+    "model": "Garmin Forerunner 255",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 488,
+    "model": "Garmin Forerunner 55",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 489,
+    "model": "Garmin Vivoactive 5",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 490,
+    "model": "Haylou Vibe Smart Watch",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 491,
+    "model": "Itel Fit 020",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 492,
+    "model": "Mibro Watch C4",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 493,
+    "model": "Mibro Watch GS Active 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 494,
+    "model": "Mibro Watch GS Explorer",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 495,
+    "model": "Mibro Watch GS Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 496,
+    "model": "Mibro Watch GS Pro 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 497,
+    "model": "Mibro Watch GT",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 498,
+    "model": "Mibro Watch Lite 3",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 499,
+    "model": "Mibro Watch Lite 3 Pro",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 500,
+    "model": "Redmi Watch 5 Active",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 501,
+    "model": "Redmi Watch 5 Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 502,
+    "model": "Redmi Watch 6",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 503,
+    "model": "Redmi Watch 6 Active",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 504,
+    "model": "Redmi Watch 6 Lite",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 505,
+    "model": "Blackview W90 Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 506,
+    "model": "G-Tide R5 Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 507,
+    "model": "G-Tide R6 Pro",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 508,
+    "model": "G-Tide Power",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 509,
+    "model": "Mibro Watch Fit",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 510,
+    "model": "Blulory RTS",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 511,
+    "model": "Xiaomi Smart Band 10",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 512,
+    "model": "Xiaomi Smart Band 11 Active",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 513,
+    "model": "Xiaomi Watch 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 514,
+    "model": "Xiaomi Watch S4",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 515,
+    "model": "Xiaomi Watch S5",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 516,
+    "model": "Game Stick Blulory RS5",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 517,
+    "model": "Keen Game Stick Pro",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 518,
+    "model": "Game Stick 2.4G A3086-M15 Plus",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 519,
+    "model": "PICO 4",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 520,
+    "model": "Meta Quest 3S",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 521,
+    "model": "Nintendo Switch 2",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 522,
+    "model": "Nintendo Switch Lite",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 523,
+    "model": "Nintendo Switch OLED",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 524,
+    "model": "Sony PlayStation 5",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 525,
+    "model": "Xbox One X",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 386,
+    "model": "Redmi Pad 2",
+    "added": 1,
+    "created": false
+  }
+]

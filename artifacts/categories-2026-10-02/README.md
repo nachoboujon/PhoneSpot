@@ -1,39 +1,29 @@
-# Nueva tanda: tablets, parlantes, smartwatch y consolas
+# Importación de tablets, parlantes, smartwatch y consolas
 
-Estado: preparación en curso; estos archivos no acreditan publicación en el sitio.
+Carga realizada: 151 modelos, 229 variantes nuevas. Stock inicial: 10 por variante.
 
-## Precios
+## Precios en USD
 
-- Tablets: precio mayorista + USD 30, redondeado a la decena más cercana.
-- iPad: precio mayorista + USD 35, redondeado a la decena más cercana.
-- Parlantes: precio mayorista multiplicado por 1,5, redondeado hacia arriba a la decena para mantener como mínimo el aumento del 50%.
-- Smartwatch: precio mayorista + USD 25, redondeado a la decena más cercana.
-- Consolas: precio mayorista + USD 55, redondeado a la decena más cercana.
-- En todos los casos: stock inicial previsto de 10 por variante. No se reinicia el stock de productos existentes.
+- Tablets: mayorista +30; iPad +35.
+- Smartwatch: mayorista +25.
+- Consolas, Game Stick y realidad virtual: mayorista +55.
+- Aumentos fijos redondeados a la decena más cercana; empates hacia arriba.
+- Parlantes: mayorista ×1,5, redondeado hacia arriba a la decena para garantizar el aumento mínimo del 50%.
 
-## Fuentes y preparación
+## Datos y fotos
 
-Se extrajeron 96 tarjetas de TABLETS MAYORISTA.pdf, 96 de PARLANTES MAYORISTA.pdf, 88 de SMARTWATCH MAYORISTA.pdf y 40 de PRODUCTOS GAMER MAYORISTA.pdf. Este último contiene accesorios que no corresponden a la selección de consolas.
+- Un producto por modelo; capacidad, RAM, color y edición en variantes.
+- Condición Nuevo. No se afirmó que estén sellados sin confirmación para esta tanda.
+- Fotos de fabricantes y comercios, revisadas por modelo y acabado; ninguna imagen extraída del PDF se utiliza en el sitio.
+- WebP de hasta 1200px; imágenes duplicadas eliminadas dentro de cada galería.
+- Galerías separadas por variante, incluso para ediciones y tamaños del mismo color.
+- Se conservaron precios, stock y variantes previas. before-import.json contiene el respaldo y verification.json la comprobación posterior.
 
-Los archivos `*-source.json` conservan página, columna y texto del proveedor. Los archivos `*-draft.json` son borradores: los modelos, atributos y galerías requieren revisión antes de una importación. Los precios y stock previstos se calcularon para las 320 tarjetas; ello no implica que se vaya a publicar todo su contenido.
+## Decisiones y pendientes
 
-`photo-sets.json` registra páginas y URLs de fabricantes encontradas durante la investigación. Las imágenes descargadas deben pasar revisión visual por modelo y color; encontrar una URL no valida por sí solo una galería.
+- 20 variantes sin fotos verificadas, pendientes por decisión del usuario; detalle en PENDIENTES.md.
+- 3 Smart Band 6/7/9 pendientes de identificación original, según confirmación del usuario.
+- 68 filas excluidas por alcance, genéricos o modelos descartados expresamente.
+- Redmi Watch 6 Active Rosa se sustituyó por Naranja; Smart Band 11 Active Blanco por Gris, con autorización del usuario.
 
-## Decisiones pendientes solicitadas al usuario
-
-1. Incluir o excluir referencias NSG/genéricas, distinguiéndolas de los productos originales.
-2. Alcance de consolas: Nintendo Switch, PlayStation 5 y Xbox, o también Game Stick y realidad virtual. PlayStation Portal es un reproductor remoto.
-
-Hay tres iPad NSG, dieciocho parlantes NSG y cinco Apple Watch marcados genéricos. Además, las Smart Band 6/7/9 con precios de USD 3,60/4,60/5,30 requieren confirmar la identificación antes de utilizar fotos oficiales o presentarlas como Xiaomi.
-
-La foto de la tarjeta Xbox corresponde a Xbox One X, tal como indica su texto. No debe reemplazarse por una Xbox Series X.
-
-## Reproducir la preparación
-
-1. `extract-category-lists.py`: extracción de tarjetas.
-2. `prepare-category-lists.js`: nombres provisionales, variantes y precios.
-3. `research-category-photos.js`: investigación de galerías oficiales.
-4. `download-category-photos.js`: descarga con validación de contenido y rechazo de archivos vacíos.
-5. `prepare-category-photos.py`: conversión a WebP sin alterar colores del producto.
-
-Antes de publicar: revisar cada referencia y galería, resolver decisiones pendientes, agrupar todas las variantes de un mismo modelo y comprobar que no falten colores, fotos o datos de identificación.
+Fuentes: *-source.json y photo-sets.json. Precios seleccionados: selected.json. Resultado aplicado: import-result.json.

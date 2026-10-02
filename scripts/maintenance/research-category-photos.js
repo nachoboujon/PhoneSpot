@@ -22,13 +22,13 @@ async function shopify(host,brand){try{const products=JSON.parse(await get(`http
  const modelText=row.model.replace(brand+' ','').replace(/^Watch /,'');
  const escaped=modelText.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*');
  const exactModel=new RegExp('\\b'+escaped+'\\b','i');
- const model=norm(modelText);const p=products.find(p=>exactModel.test(p.title)&&!(/pro/.test(norm(p.title))&&!/pro/.test(model)));if(!p)continue;
+ const model=norm(modelText);const p=products.filter(p=>exactModel.test(p.title)&&!(/pro/.test(norm(p.title))&&!/pro/.test(model))).sort((a,b)=>a.title.length-b.title.length)[0];if(!p)continue;
  const option=p.options.find(o=>/colou?r/i.test(o.name));const v=p.variants.find(v=>!option||(aliases[row.color]||[]).some(a=>v['option'+option.position]?.toLowerCase().includes(a)));if(!v)continue;
  const main=v.featured_image?.src||(!option?p.images[0]?.src:null);if(!main)continue;
  const sources=[main,...p.images.filter(i=>i.variant_ids?.includes(v.id)).map(i=>i.src)];save({model:row.model,color:row.color,page:`https://${host}/products/${p.handle}`,sourceType:'manufacturer',officialColor:option?v['option'+option.position]:row.color,sources:[...new Set(sources)].slice(0,5)});
  }}catch(e){console.log(host,e.message);}}
 async function main(){const q=[...new Map(rows.filter(r=>r.brand==='JBL').map(r=>[r.model+'|'+r.color,r])).values()].filter(r=>!sets.some(s=>s.model===r.model&&s.color===r.color));await Promise.all(Array.from({length:4},async()=>{while(q.length)await jbl(q.shift());}));
  const models=[...new Set(rows.filter(r=>['Xiaomi','Redmi','POCO'].includes(r.brand)&&!r.flags.includes('authenticity-unconfirmed')).map(r=>r.model))];const mq=[...models];await Promise.all(Array.from({length:3},async()=>{while(mq.length)await mi(mq.shift());}));
- await Promise.all([['store.blackview.hk','Blackview'],['www.doogee.cc','Doogee'],['www.hotwav.com','Hotwav'],['oukitel.com','Oukitel'],['www.mibrofit.com','Mibro'],['us.amazfit.com','Amazfit'],['global.blackshark.com','Black Shark']].map(([host,brand])=>shopify(host,brand)));
+ await Promise.all([['store.blackview.hk','Blackview'],['www.doogee.cc','Doogee'],['www.doogee.com','Doogee'],['www.hotwav.com','Hotwav'],['oukitel.com','Oukitel'],['www.mibrofit.com','Mibro'],['us.amazfit.com','Amazfit'],['global.blackshark.com','Black Shark']].map(([host,brand])=>shopify(host,brand)));
  const pending=rows.filter(r=>!sets.some(s=>s.model===r.model&&s.color===r.color));fs.writeFileSync(`${base}/pending-photos.json`,JSON.stringify(pending,null,2)+'\n');console.log('Photo sets',sets.length,'pending variants',pending.length);
-}main().catch(e=>{console.error(e);process.exitCode=1});
+}(process.argv.includes('--doogee-only')?shopify('www.doogee.com','Doogee'):main()).catch(e=>{console.error(e);process.exitCode=1});

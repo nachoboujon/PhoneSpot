@@ -1,0 +1,71 @@
+[
+  {
+    "sourceIndex": 82,
+    "model": "Xiaomi Smart Band 6 (Caja Negro)",
+    "brand": "Xiaomi",
+    "color": "Negro",
+    "capacity": "",
+    "ram": "",
+    "batt": "",
+    "configuration": "",
+    "condition": "Nuevo",
+    "stock": 10,
+    "wholesaleUsd": 3.6,
+    "price": 30,
+    "pricingRule": "plus-25-nearest-10",
+    "flags": [
+      "authenticity-unconfirmed"
+    ],
+    "sourcePage": 5,
+    "sourceText": "Xiaomi Smart Band 6 (Caja Negro)\n- Negro\nUSD 3,6",
+    "kind": "watches",
+    "category": "accesorios",
+    "reason": "Precio y edición Caja Negro/Blanca no permiten confirmar que sean Xiaomi originales"
+  },
+  {
+    "sourceIndex": 83,
+    "model": "Xiaomi Smart Band 7 (Caja Negro)",
+    "brand": "Xiaomi",
+    "color": "Negro",
+    "capacity": "",
+    "ram": "",
+    "batt": "",
+    "configuration": "",
+    "condition": "Nuevo",
+    "stock": 10,
+    "wholesaleUsd": 4.6,
+    "price": 30,
+    "pricingRule": "plus-25-nearest-10",
+    "flags": [
+      "authenticity-unconfirmed"
+    ],
+    "sourcePage": 5,
+    "sourceText": "Xiaomi Smart Band 7 (Caja Negro)\n- Negro\nUSD 4,6",
+    "kind": "watches",
+    "category": "accesorios",
+    "reason": "Precio y edición Caja Negro/Blanca no permiten confirmar que sean Xiaomi originales"
+  },
+  {
+    "sourceIndex": 84,
+    "model": "Xiaomi Smart Band 9 (Caja Blanca)",
+    "brand": "Xiaomi",
+    "color": "Negro",
+    "capacity": "",
+    "ram": "",
+    "batt": "",
+    "configuration": "",
+    "condition": "Nuevo",
+    "stock": 10,
+    "wholesaleUsd": 5.3,
+    "price": 30,
+    "pricingRule": "plus-25-nearest-10",
+    "flags": [
+      "authenticity-unconfirmed"
+    ],
+    "sourcePage": 5,
+    "sourceText": "Xiaomi Smart Band 9 (Caja Blan-\nca) - Negro\nUSD 5,3",
+    "kind": "watches",
+    "category": "accesorios",
+    "reason": "Precio y edición Caja Negro/Blanca no permiten confirmar que sean Xiaomi originales"
+  }
+]

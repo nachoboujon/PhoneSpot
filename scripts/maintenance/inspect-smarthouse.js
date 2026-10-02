@@ -1,0 +1,3 @@
+const fs=require('fs'),h=fs.readFileSync('artifacts/categories-2026-10-02/research/smarthouse.html','utf8'),seen=new Set();
+function walk(o){if(!o||typeof o!=='object')return;const a=o.attributes;if(a&&JSON.stringify(a).includes('15 Pro Max')&&a.nombre&&!seen.has(a.nombre)){seen.add(a.nombre);console.log(a.nombre,JSON.stringify(a).match(/https?[^" ]+|"url":"[^"]+/g)?.filter(s=>/upload/.test(s)).slice(0,5));}for(const v of Object.values(o))walk(v);}
+for(const m of h.matchAll(/self\.__next_f\.push\((.*?)\)<\/script>/gs)){try{const a=JSON.parse(m[1]);for(const line of String(a[1]||'').split('\n')){try{walk(JSON.parse(line.slice(line.indexOf(':')+1)));}catch{}}}catch{}}

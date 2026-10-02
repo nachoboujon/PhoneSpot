@@ -12,7 +12,8 @@ previous_by_file={a['file']:a for a in previous}
 def slug(s):
     return re.sub('[^a-z0-9]+','-',unicodedata.normalize('NFD',s.replace('+',' plus ')).encode('ascii','ignore').decode().lower()).strip('-')
 def prepare(asset):
-    name=f"{slug(asset['model'])}-{slug(asset['color'])}-{asset['index']+1}.webp"
+    config='-'+slug(asset['configuration']) if asset.get('configuration') else ''
+    name=f"{slug(asset['model'])}-{slug(asset['color'])}{config}-{asset['index']+1}.webp"
     cached=previous_by_file.get(name)
     if cached and cached['original']==asset['original'] and (out/name).exists():
         return {**asset,'file':name,'width':cached['width'],'height':cached['height'],'bytes':cached['bytes']}
@@ -37,6 +38,22 @@ def safe_prepare(asset):
         return None
 with ThreadPoolExecutor(max_workers=5) as pool:
     assets=[a for a in pool.map(safe_prepare,data['assets']) if a]
+# Keep distinct views only within the same model, finish and edition.
+groups={}
+for a in sorted(assets,key=lambda a:a['index']):
+    k=(a['model'],a['color'],a.get('configuration',''))
+    groups.setdefault(k,[]).append(a)
+assets=[]
+for group in groups.values():
+    hashes=set();previews=[]
+    for a in group:
+        if a['originalSha256'] in hashes: continue
+        im=Image.open(out/a['file']).convert('RGBA');im.thumbnail((128,128))
+        preview=Image.new('RGBA',(128,128),'white');preview.alpha_composite(im,((128-im.width)//2,(128-im.height)//2));preview=preview.convert('RGB')
+        from PIL import ImageStat
+        if any(sum(ImageStat.Stat(ImageChops.difference(preview,p)).mean)/3 < 1.3 for p in previews): continue
+        hashes.add(a['originalSha256']);previews.append(preview)
+        assets.append({**a,'index':len(previews)-1})
 manifest={'roundToUsd':10,'stockPerVariant':10,'assets':assets,'errors':data['errors']}
 (base/'image-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 masters=sorted([a for a in assets if a['index']==0],key=lambda a:(a['model'],a['color']))

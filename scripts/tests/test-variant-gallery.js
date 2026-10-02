@@ -1,0 +1,12 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const script=fs.readFileSync('public/script.js','utf8');
+const start=script.indexOf('window.productGalleryImages =');const end=script.indexOf('window.renderProductGallery =');
+const window={getFullImageUrl:u=>u};vm.runInNewContext(script.slice(start,end),{window});
+const disc={color:'Blanco',configuration:'Con lector',image_url:'disc-front.webp',images:['disc-front.webp','disc-back.webp']};
+const digital={color:'Blanco',configuration:'Digital',image_url:'digital-front.webp',images:['digital-front.webp','digital-side.webp']};
+const p={name:'PlayStation 5',variants:[disc,digital]};
+assert.deepEqual(Array.from(window.galleryForVariant(p,digital),p=>p.url),['digital-front.webp','digital-side.webp']);
+assert.deepEqual(Array.from(window.galleryForVariant(p,disc),p=>p.url),['disc-front.webp','disc-back.webp']);
+const legacy={variants:[{color:'Negro',image_url:'black-front.webp'},{color:'Negro',image_url:'black-back.webp'},{color:'Rosa',image_url:'pink-front.webp'}]};
+assert.deepEqual(Array.from(window.galleryForVariant(legacy,legacy.variants[0]),p=>p.url),['black-front.webp','black-back.webp']);
+console.log('Edition galleries stay separate; legacy color galleries preserved.');

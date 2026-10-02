@@ -87,10 +87,15 @@ window.galleryForColor = (product, color) => {
     }
     return window.productGalleryImages(product).map(url => ({url, color: ''}));
 };
-window.renderProductGallery = (product, color) => {
+window.galleryForVariant = (product, variant) => {
+    const images = variant && (variant.configuration || variant.images?.length) && [variant.image_url, ...(Array.isArray(variant.images) ? variant.images : [])].filter(Boolean);
+    if (images?.length) return [...new Set(images.map(window.getFullImageUrl))].map(url => ({url, color: variant.color || ''}));
+    return window.galleryForColor(product, variant?.color || '');
+};
+window.renderProductGallery = (product, color, variant) => {
     const holder = document.querySelector('.gallery-thumbnails');
     if (!holder) return;
-    const photos = window.galleryForColor(product, color);
+    const photos = variant ? window.galleryForVariant(product, variant) : window.galleryForColor(product, color);
     holder.hidden = photos.length < 2;
     holder.replaceChildren(...photos.map((photo, index) => {
         const button = document.createElement('button');
@@ -1836,7 +1841,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     note.hidden = sharedColors.length === 0;
                                     note.textContent = sharedColors.length ? `El proveedor comparte alguna foto de ${selected} con ${sharedColors.join(', ')}. Si necesitás confirmar el tono, consultanos antes de comprar.` : '';
                                 }
-                                window.renderProductGallery(prodArg, selected);
                             }
                         }
                         const variant = matches[0];
@@ -1855,7 +1859,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             container.dataset.price = variant.price || prodArg.price;
                             const priceEl = document.getElementById('dynamic-price');
                             if (priceEl) priceEl.innerHTML = `${window.formatPrice(Number(variant.price || prodArg.price))} <span>ARS</span>`;
-                            const photo = window.galleryForColor(prodArg, variant.color)[0];
+                            window.renderProductGallery(prodArg, variant.color, variant);
+                            const photo = window.galleryForVariant(prodArg, variant)[0];
                             if (photo) window.setProductImage(photo.url);
                         }
                     };
@@ -4322,7 +4327,7 @@ window.updateCardVariant = function(el) {
         const priceEl = card.querySelector('.card-price');
         if (priceEl) priceEl.innerHTML = window.formatPrice(Number(variant.price || card.dataset.price));
         const image = card.querySelector('.product-img');
-        const photo = window.galleryForColor({image_url: image?.src, variants: info.variants}, variant.color)[0];
+        const photo = window.galleryForVariant({image_url: image?.src, variants: info.variants}, variant)[0];
         if (image && photo) image.src = window.cardImageUrl(photo.url);
         const stockMsg = card.querySelector('.card-variant-stock');
         const button = card.querySelector('.add-to-cart-btn');

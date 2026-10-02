@@ -375,9 +375,9 @@
     "page": "https://www.mi.com/es/product/redmi-pad-2/",
     "sourceType": "manufacturer",
     "sources": [
-      "https://i05.appmifile.com/836_item_es/03/06/2025/dc09c6b272458747b5310a6095419381.png",
-      "//i05.appmifile.com/311_item_es/03/06/2025/173aa22a63c3b81245af5af1c65ecf85.png"
-    ]
+      "https://i05.appmifile.com/836_item_es/03/06/2025/dc09c6b272458747b5310a6095419381.png"
+    ],
+    "configuration": "11 pulgadas"
   },
   {
     "model": "Redmi Pad 2",
@@ -388,9 +388,9 @@
     "sourceType": "manufacturer",
     "sources": [
       "https://i05.appmifile.com/599_item_es/03/06/2025/0a35106ca05bb344e30a7c97c404dd31.png",
-      "https://i05.appmifile.com/293_item_es/23/06/2025/cfbd25aa8ef2d8bb23bd07b9d08ff382.png",
-      "//i05.appmifile.com/311_item_es/03/06/2025/173aa22a63c3b81245af5af1c65ecf85.png"
-    ]
+      "https://i05.appmifile.com/293_item_es/23/06/2025/cfbd25aa8ef2d8bb23bd07b9d08ff382.png"
+    ],
+    "configuration": "11 pulgadas"
   },
   {
     "model": "Redmi Pad 2 Pro",
@@ -833,26 +833,6 @@
     ]
   },
   {
-    "model": "Blackview W50 Pro",
-    "color": "Negro",
-    "page": "https://store.blackview.hk/products/w50-pro-price",
-    "sourceType": "manufacturer",
-    "officialColor": "Black",
-    "sources": [
-      "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/W50Pro-Black_01.jpg?v=1731575845"
-    ]
-  },
-  {
-    "model": "Blackview W70 Pro",
-    "color": "Negro",
-    "page": "https://store.blackview.hk/products/w70-pro-price",
-    "sourceType": "manufacturer",
-    "officialColor": "Black",
-    "sources": [
-      "https://cdn.shopify.com/s/files/1/0564/9652/1403/files/W70Pro-Black_001.png?v=1780455860"
-    ]
-  },
-  {
     "model": "Blackview W70 Pro",
     "color": "Verde",
     "page": "https://store.blackview.hk/products/w70-pro-price",
@@ -1026,16 +1006,6 @@
     ]
   },
   {
-    "model": "Amazfit Active 3 Premium",
-    "color": "Plata",
-    "page": "https://us.amazfit.com/products/active-3-premium-hyrox-giveaway",
-    "sourceType": "manufacturer",
-    "officialColor": "Apex Silver",
-    "sources": [
-      "https://cdn.shopify.com/s/files/1/0406/4500/1379/files/PP-Black.png?v=1786433395"
-    ]
-  },
-  {
     "model": "Amazfit Bip Max",
     "color": "Plata",
     "page": "https://us.amazfit.com/products/bip-max",
@@ -1163,6 +1133,1465 @@
     "officialColor": "Dark Gray",
     "sources": [
       "https://cdn.shopify.com/s/files/1/0651/4992/7604/files/MibroWatchFitDarkGreySet.jpg?v=1766112980"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Blanco",
+    "officialColor": "White-AM-Current",
+    "page": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=White-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwbfb9258b/LS_JBL_GRIP_WHITE_HERO__0026_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw08c1b280/LS_JBL_GRIP_WHITE_BACK_0043_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw0b7c4624/LS_JBL_GRIP_WHITE_TOP_0021_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd295a407/LS_JBL_GRIP_WHITE_BOTTOM_0101_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw121e5ec9/LS_JBL_GRIP_WHITE_LIGHT_0056_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw4ba6d928/LS_JBL_GRIP_WHITE_DETAIL_2_0083_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Celeste",
+    "officialColor": "Blue-AM-Current",
+    "page": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwacbe2397/LS_JBL_GRIP_BLUE_HERO__0026_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwfc6ec43e/LS_JBL_GRIP_BLUE_BACK_0043_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw30bd8191/LS_JBL_GRIP_BLUE_TOP_0021_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw578aea07/LS_JBL_GRIP_BLUE_BOTTOM_0101_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb63069c9/LS_JBL_GRIP_BLUE_LIGHT_0056_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe7e99899/LS_JBL_GRIP_BLUE_DETAIL_2_0083_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Naranja",
+    "officialColor": "Orange-AM-Current",
+    "page": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=Orange-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwb93806bf/LS_JBL_GRIP_ORANGE_HERO__0026_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw5c92f53e/LS_JBL_GRIP_ORANGE_BACK_0043_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw330658d9/LS_JBL_GRIP_ORANGE_TOP_0021_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw88895a92/LS_JBL_GRIP_ORANGE_BOTTOM_0101_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw05798d70/LS_JBL_GRIP_ORANGE_LIGHT_0056_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9a2fd5ab/LS_JBL_GRIP_ORANGE_DETAIL_2_0083_x2.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Morado",
+    "officialColor": "Purple-AM-Current",
+    "page": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=Purple-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcde00f67/LS_JBL_GRIP_PURPLE_HERO__0026_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw39028cab/LS_JBL_GRIP_PURPLE_BACK_0043_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw93d63fae/LS_JBL_GRIP_PURPLE_TOP_0021_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9def845e/LS_JBL_GRIP_PURPLE_BOTTOM_0101_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwab7e1a34/LS_JBL_GRIP_PURPLE_LIGHT_0056_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw95196688/LS_JBL_GRIP_PURPLE_DETAIL_2_0083_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Rosa",
+    "officialColor": "Pink-AM-Current",
+    "page": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=Pink-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe85d0858/LS_JBL_GRIP_PINK_HERO__0026_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw7fc419ae/LS_JBL_GRIP_PINK_BACK_0043_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcb4f7ae8/LS_JBL_GRIP_PINK_TOP_0021_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw25fcda48/LS_JBL_GRIP_PINK_BOTTOM_0101_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw83a01aa8/LS_JBL_GRIP_PINK_LIGHT_0056_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw235bd867/LS_JBL_GRIP_PINK_DETAIL_2_0083_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "Xiaomi Smart Band 10",
+    "color": "Rosa",
+    "officialColor": "Rosa",
+    "rgb": "#FBC0C0",
+    "page": "https://www.mi.com/es/product/xiaomi-smart-band-10/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/125_item_es/23/06/2025/ff19476edac6a65f5ad217372277d2a0.png",
+      "https://i05.appmifile.com/425_item_es/23/06/2025/96a7264803e3d3e9ee4f0728c7695296.png",
+      "https://i05.appmifile.com/340_item_es/23/06/2025/5a44e3f2bc18c26a17acc703ee14e9e8.png",
+      "https://i05.appmifile.com/834_item_es/23/06/2025/c2bd2c1963754b4898131b6f01f459b4.png"
+    ]
+  },
+  {
+    "model": "Xiaomi Smart Band 10",
+    "color": "Blanco",
+    "officialColor": "Blanco cerámico",
+    "rgb": "#ebebeb",
+    "page": "https://www.mi.com/es/product/xiaomi-smart-band-10/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/487_item_es/23/06/2025/0c77a2ed33995c67592476d8e18abece.png",
+      "https://i05.appmifile.com/847_item_es/23/06/2025/cc7e24a5883e62b6eb6b989ad3ed220a.png",
+      "https://i05.appmifile.com/574_item_es/23/06/2025/bec420c3eb805f779f20f7eb7caed7e3.png",
+      "https://i05.appmifile.com/301_item_es/23/06/2025/c14c3a4fd4055a09d5605bc5e26c358a.png"
+    ]
+  },
+  {
+    "model": "Mibro Watch GS Explorer",
+    "color": "Negro",
+    "page": "https://www.mibrofit.com/products/mibro-gs-explorer-s-ti-premium",
+    "sourceType": "manufacturer",
+    "officialColor": "Negro",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0651/4992/7604/files/MibroWatchGSExplorerSTiSet.png?v=1759139827"
+    ]
+  },
+  {
+    "model": "Mibro Watch GS Pro",
+    "color": "Negro",
+    "page": "https://www.mibrofit.com/products/mibro-watch-gs-pro",
+    "sourceType": "manufacturer",
+    "officialColor": "Black",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0651/4992/7604/files/MibroSmartWatchGSProL.jpg?v=1743064328"
+    ]
+  },
+  {
+    "model": "Black Shark Pad 7",
+    "color": "Gris",
+    "page": "https://global.blackshark.com/products/black-shark-pad-7",
+    "sourceType": "manufacturer",
+    "officialColor": "Gray",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0697/1090/5533/files/11_cef84a19-e318-44aa-b30d-2cd445940199.png?v=1757041313"
+    ]
+  },
+  {
+    "model": "Nintendo Switch 2",
+    "color": "Negro",
+    "page": "https://www.nintendo.com/us/store/products/nintendo-switch-2-system-123669/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%202/Hardware/123669-nintendo-switch-2-dock-joy-con-grip-2000x2000",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%202/Hardware/123669-nintendo-switch-2-handheld-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%202/Hardware/123669-nintendo-switch-2-back-2000x2000",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%202/Hardware/123669-nintendo-switch-2-docked-2000x2000",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%202/Hardware/123669-nintendo-switch-2-tabletop-2000x2000"
+    ]
+  },
+  {
+    "model": "Nintendo Switch Lite",
+    "color": "Rosa",
+    "page": "https://www.nintendo.com/us/store/products/nintendo-switch-lite-coral/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-lite-coral/112175-nintendo-switch-lite-coral-front-screen-on-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-lite-coral/112175-nintendo-switch-lite-coral-back-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-lite-coral/112175-nintendo-switch-lite-coral-top-bottom-1200x675"
+    ]
+  },
+  {
+    "model": "Nintendo Switch OLED",
+    "color": "Blanco",
+    "page": "https://www.nintendo.com/us/store/products/nintendo-switch-oled-model-white-set/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-oled-model-white-set/115461-switch-oled-white-console-front-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-oled-model-white-set/115461-switch-oled-white-console-dock-joy-con-grip-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-oled-model-white-set/115461-switch-oled-white-joy-con-straps-1200x675",
+      "https://assets.nintendo.com/image/upload/w_1200,q_auto:best,f_png/ncom/en_US/products/hardware/nintendo-switch-oled-model-white-set/115461-switch-oled-white-console_joy-con-detached-1200x675"
+    ]
+  },
+  {
+    "model": "Cidea CM78",
+    "color": "Rosa",
+    "page": "https://www.cideatablet.com/sale-53789741-c-idea-7-inch-android-15-educational-smart-tablet-for-students-cm78-pink.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl207689011-c_idea_7_inch_android_15_educational_smart_tablet_for_students_cm78_pink.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM78",
+    "color": "Verde",
+    "page": "https://www.cideatablet.com/sale-41173359-c-idea-portable-educational-tablet-for-students-8gb-ram-256gb-rom-long-battery-life-cm78-green.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl221924798-c_idea_portable_educational_tablet_for_students_8gb_ram_256gb_rom_long_battery_life_cm78_green.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM824 Ultra 5G",
+    "color": "Negro",
+    "page": "https://www.cideatablet.com/sale-55461137-c-idea-cm824-ultra-8-inch-android-16-business-tablet-quad-core-8gb-512gb-storage-fhd-touch-screen-du.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl221941318-c_idea_cm824_ultra_8_inch_android_16_business_tablet_quad_core_8gb_512gb_storage_fhd_touch_screen_dual_camera_tablet_black.jpg"
+    ]
+  },
+  {
+    "model": "Apple Watch Series 10",
+    "color": "Rosa",
+    "page": "https://www.apple.com/shop/product/fwwu3lw/a/refurbished-apple-watch-series-10-gps-46mm-rose-gold-aluminum-case-with-m-l-light-blush-sport-band",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s10-alum-rose-sport-band-blush?wid=1200&hei=1200&fmt=png-alpha",
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s10-alum-rose-sport-band-blush_AV4?wid=1200&hei=1200&fmt=png-alpha",
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s10-alum-rose-sport-band-blush_AV1?wid=1200&hei=1200&fmt=png-alpha",
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s10-alum-rose-sport-band-blush_AV2?wid=1200&hei=1200&fmt=png-alpha",
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s10-alum-rose-sport-band-blush_AV3?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Game Stick Blulory RS5",
+    "color": "Blanco",
+    "page": "https://megaeletronicos.com/producto/1544121/console-blulory-game-stick-rs5-4k-ultra-hd-com-2-controles-brancopreto",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/4/4/1/2/154412/1761835876_1761835876.webp"
+    ]
+  },
+  {
+    "model": "Ecopower EP-6118",
+    "color": "",
+    "page": "https://www.ecopower.com.py/automotivo/automotivo",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/tT2tQFC2/Ep6118.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-6108",
+    "color": "",
+    "page": "https://www.ecopower.com.py/automotivo/automotivo",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/Hf6npZdM/EP6108.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-6106",
+    "color": "",
+    "page": "https://www.ecopower.com.py/automotivo/automotivo",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/svH3fFL4/ep6106.jpg"
+    ]
+  },
+  {
+    "model": "Blackview W50 Pro",
+    "color": "Negro",
+    "page": "https://www.blackview.it/products/blackview-w50-pro-orologio-intelligente-robusto-con-torcia-led-impermeabile-ip68-da-1-45",
+    "officialColor": "Nero",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0548/6647/7278/files/W50Pro-Black_01.jpg?v=1742890333"
+    ]
+  },
+  {
+    "model": "Blackview W70 Pro",
+    "color": "Negro",
+    "page": "https://www.blackview.it/products/blackview-w70-pro-orologio-intelligente-per-sport-allaria-aperta-con-torcia-led-integrata-da-2-01-pollici-e-900-mah",
+    "officialColor": "Nero",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0548/6647/7278/files/W70Pro-Black_01.jpg?v=1770359481"
+    ]
+  },
+  {
+    "model": "Blackview X30",
+    "color": "Negro",
+    "page": "https://www.blackview.it/products/blackview-x30-smartwatch-sportivo-da-donna-con-schermo-rotondo-da-1-26-per-fitness-e-sport",
+    "officialColor": "Nero",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0548/6647/7278/files/X30-Black_01.jpg?v=1779699041"
+    ]
+  },
+  {
+    "model": "Blackview X30",
+    "color": "Plata",
+    "page": "https://www.blackview.it/products/blackview-x30-smartwatch-sportivo-da-donna-con-schermo-rotondo-da-1-26-per-fitness-e-sport",
+    "officialColor": "Argento",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0548/6647/7278/files/X30-Silver_01.jpg?v=1779699004"
+    ]
+  },
+  {
+    "model": "Ecopower EP-1805",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/SwMtNj3v/ep1805-negro.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-2110",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/qFVpqhRx/EP2110.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-S103",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/2Gb7f4T/EP-S103.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-S106",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/rGNmgfzz/EP-S106.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-S111",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/0ysJK7Y2/eps111.jpg"
+    ]
+  },
+  {
+    "model": "Ecopower EP-S110",
+    "color": "",
+    "page": "https://www.ecopower.com.py/audio-sonido/speaker",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i.ibb.co/5bXPx7n/EPS110.jpg"
+    ]
+  },
+  {
+    "model": "Aiwa AWSBH15",
+    "color": "",
+    "page": "https://aiwalatinoamerica.com/?s=AWSBH15&post_type=product",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWSBH15-01.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWSBH15-05.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWSBH15-04.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWSBH15-03.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWSBH15-02.png"
+    ]
+  },
+  {
+    "model": "Aiwa AWPOH4D",
+    "color": "",
+    "page": "https://aiwalatinoamerica.com/?s=AWPOH4D&post_type=product",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWPOH4D-01.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWPOH4D-03.png",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWPOH4D-04.png",
+      "https://pinterest.com/pin/create/button/?url=https://aiwalatinoamerica.com/product/sistema-de-audio-600w-awpoh4d/&media=https://aiwalatinoamerica.com/wp-content/uploads/2024/10/AWPOH4D-01.png"
+    ]
+  },
+  {
+    "model": "Aiwa AWSBH21WW",
+    "color": "",
+    "page": "https://aiwalatinoamerica.com/?s=AWSBH21WW&post_type=product",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://aiwalatinoamerica.com/wp-content/uploads/2023/11/AWSBH21WW-01.webp",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2023/11/AWSBH21WW-02.webp",
+      "https://aiwalatinoamerica.com/wp-content/uploads/2023/11/AWSBH21WW-03.webp",
+      "https://pinterest.com/pin/create/button/?url=https://aiwalatinoamerica.com/product/barra-de-sonido-wireless-120w-2/&media=https://aiwalatinoamerica.com/wp-content/uploads/2023/11/AWSBH21WW-01.webp"
+    ]
+  },
+  {
+    "model": "Keen KN90",
+    "color": "Verde",
+    "page": "https://misioneselectronica.com/catalogo/producto/keen-kn90-2gb-ram-64gb-verde",
+    "sourceType": "retailer",
+    "supplierName": "KEEN KN90 - 2GB RAM",
+    "supplierSlug": "keen-kn90-2gb-ram-64gb-verde",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1778065965168-gallery-Var---2026-05-06T081214.960.png?v=ed3b172e-24b8-476c-b90a-ea11e4e5b7fc"
+    ]
+  },
+  {
+    "model": "Cidea CM10000 Plus",
+    "color": "Verde",
+    "page": "https://misioneselectronica.com/catalogo/producto/tablet-cidea-cm10000-plus-10-8-gb-ram-1tb-verde",
+    "sourceType": "retailer",
+    "supplierName": "Tablet Cidea CM10000 Plus 10¨ - 8 GB RAM",
+    "supplierSlug": "tablet-cidea-cm10000-plus-10-8-gb-ram-1tb-verde",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1781620407317-gallery-Dise-o-sin-t-tulo---2026-06-16T113139.698.png?v=2b6c8a4a-a391-41a5-a2da-dc8830e96894"
+    ]
+  },
+  {
+    "model": "Cidea CM10000 Plus",
+    "color": "Azul",
+    "page": "https://misioneselectronica.com/catalogo/producto/tablet-cidea-cm10000-plus-10-8-gb-ram-1tb-azul",
+    "sourceType": "retailer",
+    "supplierName": "Tablet Cidea CM10000 Plus 10¨ - 8 GB RAM",
+    "supplierSlug": "tablet-cidea-cm10000-plus-10-8-gb-ram-1tb-azul",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1781619727319-gallery-Dise-o-sin-t-tulo---2026-06-16T112011.506.png?v=04d001f0-8603-419c-9571-d5cc627199b9"
+    ]
+  },
+  {
+    "model": "JBL Boombox 4",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/jbl-boombox-4-blanco",
+    "sourceType": "retailer",
+    "supplierName": "JBL Boombox 4",
+    "supplierSlug": "jbl-boombox-4-blanco",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776428120668-gallery-Dise-o-sin-t-tulo---2026-04-17T091428.163.png?v=de001df9-83fa-4d62-9adb-5680b022b8d5"
+    ]
+  },
+  {
+    "model": "JBL Grip",
+    "color": "Rojo",
+    "page": "https://misioneselectronica.com/catalogo/producto/jbl-grip-rojo",
+    "sourceType": "retailer",
+    "supplierName": "JBL Grip",
+    "supplierSlug": "jbl-grip-rojo",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776455542721-gallery-Dise-o-sin-t-tulo---2026-04-17T165125.048.png?v=244c85cd-8cdb-4ab7-8c20-16d6413bc206"
+    ]
+  },
+  {
+    "model": "JBL PartyBox Encore",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/jbl-partybox-encore-con-microfono",
+    "sourceType": "retailer",
+    "supplierName": "JBL PartyBox Encore (Con Microfono)",
+    "supplierSlug": "jbl-partybox-encore-con-microfono",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776453783390-gallery-Dise-o-sin-t-tulo---2026-04-17T162218.527.png?v=841ea602-30d0-41a1-b5de-3504fcbdf7a0"
+    ]
+  },
+  {
+    "model": "Aiwa AWF215BT",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/parlante-aiwa-awf215bt",
+    "sourceType": "retailer",
+    "supplierName": "Parlante Aiwa - AWF215BT",
+    "supplierSlug": "parlante-aiwa-awf215bt",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776792116072-gallery-Var---2026-04-21T142036.813.png?v=b5cef433-247e-4416-94cc-c07934d5f6ac"
+    ]
+  },
+  {
+    "model": "Aiwa AWPOK68",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/parlante-aiwa-awpok68",
+    "sourceType": "retailer",
+    "supplierName": "Parlante Aiwa - AWPOK68",
+    "supplierSlug": "parlante-aiwa-awpok68",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776792885244-gallery-Var---2026-04-21T143351.127.png?v=79972b2f-2482-4921-8b0f-eaa67cd7e083"
+    ]
+  },
+  {
+    "model": "Aiwa AWPOH35PLUS",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/parlante-aiwa-awpoh35plus",
+    "sourceType": "retailer",
+    "supplierName": "Parlante Aiwa AWPOH35PLUS",
+    "supplierSlug": "parlante-aiwa-awpoh35plus",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776794813717-gallery-1758800355_1758800355.webp?v=f77711c9-25cd-4498-9add-3741d72bd516"
+    ]
+  },
+  {
+    "model": "Audisat X80 Plus",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/parlante-audisat-x80-plus",
+    "sourceType": "retailer",
+    "supplierName": "Parlante AudiSat X80 Plus",
+    "supplierSlug": "parlante-audisat-x80-plus",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1777755350407-gallery-Var---2026-05-02T175515.057.png?v=4d416093-22aa-4d0c-b58f-73159448a7ac"
+    ]
+  },
+  {
+    "model": "Audisat X88 Boom",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/parlante-audisat-x88-boom",
+    "sourceType": "retailer",
+    "supplierName": "Parlante AudiSat X88 Boom",
+    "supplierSlug": "parlante-audisat-x88-boom",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1777755470362-gallery-Var---2026-05-02T175718.701.png?v=878ef7ab-f6b4-43ff-96b0-6114b80e909c"
+    ]
+  },
+  {
+    "model": "UR Karaoke US-03",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/ur-karaoke-us-03",
+    "sourceType": "retailer",
+    "supplierName": "UR Karaoke US-03",
+    "supplierSlug": "ur-karaoke-us-03",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776796704739-gallery-Var---2026-04-21T153743.986.png?v=e2887555-2629-4338-816b-d7c061b0b957"
+    ]
+  },
+  {
+    "model": "UR Speaker US-05",
+    "color": "Azul",
+    "page": "https://misioneselectronica.com/catalogo/producto/ur-speaker-us-05-azul",
+    "sourceType": "retailer",
+    "supplierName": "UR Speaker US-05",
+    "supplierSlug": "ur-speaker-us-05-azul",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776796723476-gallery-Var---2026-04-21T153755.705.png?v=dae84170-4fe1-46a2-99ad-4f989cc1eebd"
+    ]
+  },
+  {
+    "model": "UR Speaker US-07",
+    "color": "Negro",
+    "page": "https://misioneselectronica.com/catalogo/producto/ur-speaker-us-07-negro",
+    "sourceType": "retailer",
+    "supplierName": "UR Speaker US-07",
+    "supplierSlug": "ur-speaker-us-07-negro",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776796869513-gallery-Var---2026-04-21T154041.775.png?v=42ecb630-6cdb-420e-b6fb-81bf291a7fa7"
+    ]
+  },
+  {
+    "model": "Xiaomi Mi Compact Bluetooth Speaker 2",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/xiaomi-mi-compact-blutooth-speaker-2-blanco",
+    "sourceType": "retailer",
+    "supplierName": "Xiaomi Mi Compact Blutooth Speaker 2",
+    "supplierSlug": "xiaomi-mi-compact-blutooth-speaker-2-blanco",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1777754225699-gallery-Var---2026-05-02T173638.332.png?v=a47475c3-cfa9-4740-81e6-7c8be1538ef2"
+    ]
+  },
+  {
+    "model": "Apple Watch SE 2",
+    "color": "Negro",
+    "page": "https://misioneselectronica.com/catalogo/producto/apple-watch-se-gen-2-44mm-negro",
+    "sourceType": "retailer",
+    "supplierName": "Apple Watch SE (Gen 2) 44MM",
+    "supplierSlug": "apple-watch-se-gen-2-44mm-negro",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776857860501-gallery-Var---2026-04-22T083510.878.png?v=05eb1f6f-7bac-43ae-8d39-94bf610be189"
+    ]
+  },
+  {
+    "model": "Apple Watch Series 11",
+    "color": "Plata",
+    "page": "https://misioneselectronica.com/catalogo/producto/apple-watch-series-11-42-mm-plata",
+    "sourceType": "retailer",
+    "supplierName": "Apple Watch Series 11 42 MM",
+    "supplierSlug": "apple-watch-series-11-42-mm-plata",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776859195899-gallery-Var---2026-04-22T085917.497.png?v=dd94abd7-5fe7-4c46-8efe-3885987189b5"
+    ],
+    "configuration": "42 mm"
+  },
+  {
+    "model": "Black Shark GS3 Ultra",
+    "color": "Plata",
+    "page": "https://misioneselectronica.com/catalogo/producto/black-shark-gs3-ultra-plata",
+    "sourceType": "retailer",
+    "supplierName": "Black Shark GS3 Ultra",
+    "supplierSlug": "black-shark-gs3-ultra-plata",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1779115579019-gallery-Var---2026-05-18T114544.558.png?v=f1f9e33b-76bb-4b0f-ac54-4727fc4753ea"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Watch 7",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/galaxy-watch-7-44mm-samsung",
+    "sourceType": "retailer",
+    "supplierName": "Galaxy Watch 7 44MM (Samsung)",
+    "supplierSlug": "galaxy-watch-7-44mm-samsung",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1777746103788-gallery-Var---2026-05-02T152111.386.png?v=0b680893-6546-4eb3-a8b6-d3e4bcb793e1"
+    ]
+  },
+  {
+    "model": "Garmin Forerunner 255",
+    "color": "Negro",
+    "page": "https://misioneselectronica.com/catalogo/producto/garmin-forerunner-255-negro",
+    "sourceType": "retailer",
+    "supplierName": "Garmin Forerunner 255",
+    "supplierSlug": "garmin-forerunner-255-negro",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776685614051-gallery-Dise-o-sin-t-tulo---2026-04-20T084606.692.png?v=2924096c-41e2-43fe-8bf8-c63c61d2b0ab"
+    ]
+  },
+  {
+    "model": "Garmin Vivoactive 5",
+    "color": "Azul",
+    "page": "https://misioneselectronica.com/catalogo/producto/garmin-vivoactive-5-azul",
+    "sourceType": "retailer",
+    "supplierName": "Garmin VivoActive 5",
+    "supplierSlug": "garmin-vivoactive-5-azul",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776869441295-gallery-Var---2026-04-22T115009.080.png?v=02c4fb63-0d40-4491-a8df-326136bb83ea"
+    ]
+  },
+  {
+    "model": "Garmin Vivoactive 5",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/garmin-vivoactive-5-blanco",
+    "sourceType": "retailer",
+    "supplierName": "Garmin VivoActive 5",
+    "supplierSlug": "garmin-vivoactive-5-blanco",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776869106259-gallery-Var---2026-04-22T114430.184.png?v=13ec7e56-1d39-43a3-ad8c-c5b675700b0f"
+    ]
+  },
+  {
+    "model": "Garmin Vivoactive 5",
+    "color": "Negro",
+    "page": "https://misioneselectronica.com/catalogo/producto/garmin-vivoactive-5-negro",
+    "sourceType": "retailer",
+    "supplierName": "Garmin VivoActive 5",
+    "supplierSlug": "garmin-vivoactive-5-negro",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776869304262-gallery-Var---2026-04-22T114752.956.png?v=5db73592-07bb-451c-be13-4c68b3016bb2"
+    ]
+  },
+  {
+    "model": "Itel Fit 020",
+    "color": "Plata",
+    "page": "https://misioneselectronica.com/catalogo/producto/itel-fit-020-plata",
+    "sourceType": "retailer",
+    "supplierName": "Itel Fit 020",
+    "supplierSlug": "itel-fit-020-plata",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776871380284-gallery-Var---2026-04-22T122226.256.png?v=63d98120-6e9b-4851-aeca-7830f680f6bb"
+    ]
+  },
+  {
+    "model": "Keen Game Stick Pro",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/keen-game-stick-pro-blanco",
+    "sourceType": "retailer",
+    "supplierName": "Keen Game Stick Pro",
+    "supplierSlug": "keen-game-stick-pro-blanco",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776547075272-gallery-Dise-o-sin-t-tulo---2026-04-18T181728.816.png?v=8cdf38c4-fdac-4083-9623-328d654e3259"
+    ]
+  },
+  {
+    "model": "Meta Quest 3S",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/lente-de-realidad-virtual-meta-quest-3s-batman-256gb-blanco",
+    "sourceType": "retailer",
+    "supplierName": "Lente de Realidad Virtual Meta Quest 3S BATMAN",
+    "supplierSlug": "lente-de-realidad-virtual-meta-quest-3s-batman-256gb-blanco",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1779819688935-gallery-Dise-o-sin-t-tulo---2026-05-26T152054.417.png?v=914d442b-1aab-4d28-8f38-c0aad8b84e0d"
+    ]
+  },
+  {
+    "model": "Xbox One X",
+    "color": "Negro",
+    "page": "https://misioneselectronica.com/catalogo/producto/xbox-one-x-1tb-negro",
+    "sourceType": "retailer",
+    "supplierName": "Xbox ONE X",
+    "supplierSlug": "xbox-one-x-1tb-negro",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776546918279-gallery-Dise-o-sin-t-tulo---2026-04-18T181351.537.png?v=e70ba0e1-5d18-4aa2-b64b-9283631a83fa"
+    ]
+  },
+  {
+    "model": "PICO 4",
+    "color": "Blanco",
+    "page": "https://misioneselectronica.com/catalogo/producto/kit-lente-virtual-con-control-pico-4",
+    "sourceType": "retailer",
+    "supplierName": "Kit Lente Virtual + Con Control Pico 4",
+    "supplierSlug": "kit-lente-virtual-con-control-pico-4",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1776543010443-gallery-Dise-o-sin-t-tulo---2026-04-18T170939.947.png?v=1e0e38a2-889e-42f6-b64f-52bf9b911954"
+    ]
+  },
+  {
+    "model": "Aiwa AWSBC800WW",
+    "color": "",
+    "page": "https://misioneselectronica.com/catalogo/producto/sound-bar-awsbc800ww",
+    "sourceType": "retailer",
+    "supplierName": "SOUND BAR - AWSBC800WW",
+    "supplierSlug": "sound-bar-awsbc800ww",
+    "sources": [
+      "https://misioneselectronica.com/api/v1/admin/serve-image/products/1781619102397-gallery-Dise-o-sin-t-tulo---2026-06-16T110947.854.png?v=dbac5939-de9a-4e2a-aa28-07b7b18f6c93"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Watch 9",
+    "color": "Blanco",
+    "page": "https://www.samsung.com/uk/watches/galaxy-watch/galaxy-watch9-40mm-cream-bluetooth-sm-l340nzedweu/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/uk/f2607/gallery/uk-galaxy-watch9-l340-598767-sm-l340nzedweu-thumb-553943933?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Doogee U11",
+    "color": "Gris",
+    "page": "https://www.doogee.com/products/u11",
+    "sourceType": "manufacturer",
+    "officialColor": "Gray",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_U11_SKU_Gray.jpg?v=1786087227"
+    ]
+  },
+  {
+    "model": "Doogee U11",
+    "color": "Negro",
+    "page": "https://www.doogee.com/products/u11",
+    "sourceType": "manufacturer",
+    "officialColor": "Black",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/DOOGEE_U11_Main_Black.jpg?v=1786087227"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Watch 9",
+    "color": "Blanco",
+    "page": "https://www.samsung.com/uk/watches/galaxy-watch/galaxy-watch9-40mm-cream-bluetooth-sm-l340nzedweu/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/uk/f2607/gallery/uk-galaxy-watch9-l340-598767-sm-l340nzedweu-thumb-553943933?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Apple Watch SE 3",
+    "color": "Blanco",
+    "configuration": "40 mm",
+    "page": "https://www.apple.com/shop/refurbished/watch",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-40-se-3-nc-alum-starlight-sport-band-starlight?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Apple Watch SE 3",
+    "color": "Blanco",
+    "configuration": "44 mm",
+    "page": "https://www.apple.com/shop/refurbished/watch",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-44-se-3-nc-alum-starlight-sport-band-starlight?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Apple Watch Series 11",
+    "color": "Negro",
+    "configuration": "42 mm",
+    "page": "https://www.apple.com/shop/refurbished/watch",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-42-s11-alum-jet-sport-band-black?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Apple Watch Series 11",
+    "color": "Gris",
+    "configuration": "46 mm",
+    "page": "https://www.apple.com/shop/refurbished/watch",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s11-alum-space-sport-band-black?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Apple Watch Series 11",
+    "color": "Plata",
+    "configuration": "46 mm",
+    "page": "https://www.apple.com/shop/refurbished/watch",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-46-s11-alum-silver-sport-band-fog?wid=1200&hei=1200&fmt=png-alpha"
+    ]
+  },
+  {
+    "model": "Amazfit Active 3 Premium",
+    "color": "Plata",
+    "officialColor": "Aero White",
+    "page": "https://us.amazfit.com/products/active-3-premium",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0406/4500/1379/files/PP-white.png?v=1786433393"
+    ]
+  },
+  {
+    "model": "Amazfit Active 3 Premium",
+    "color": "Azul",
+    "officialColor": "Atlas Blue",
+    "page": "https://us.amazfit.com/products/active-3-premium",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0406/4500/1379/files/PP-Blue.png?v=1786433396"
+    ]
+  },
+  {
+    "model": "Black Shark GS3 Sport",
+    "color": "Negro",
+    "officialColor": "Mist Black",
+    "page": "https://global.blackshark.com/products/black-shark-gs3-sport",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0697/1090/5533/files/IDPhotos-GS3Sport-MistBlack6.png?v=1749192481"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Tab A11+",
+    "color": "Gris",
+    "page": "https://www.samsung.com/in/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x230nzaains/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/in/sm-x230nzaains/gallery/in-galaxy-tab-a11-plus-sm-x230-sm-x230nzaains-thumb-550033755?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Tab A11",
+    "color": "Gris",
+    "page": "https://www.samsung.com/in/tablets/galaxy-tab-a/galaxy-tab-a11-gray-128gb-sm-x133nzaeins/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/in/sm-x133nzaeins/gallery/in-galaxy-tab-a11-sm-x130-565447-sm-x133nzaeins-thumb-549174561?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Tab S10 Lite",
+    "color": "Gris",
+    "page": "https://www.samsung.com/au/tablets/galaxy-tab-s/galaxy-tab-s10-lite-gray-128gb-sm-x400nzaaxsa/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/au/sm-x400nzaaxsa/gallery/au-galaxy-tab-s10-lite-sm-x406-sm-x400nzaaxsa-thumb-548808583?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Watch 9",
+    "color": "Blanco",
+    "page": "https://www.samsung.com/uk/watches/galaxy-watch/galaxy-watch9-40mm-cream-bluetooth-sm-l340nzedweu/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/uk/f2607/gallery/uk-galaxy-watch9-l340-598767-sm-l340nzedweu-thumb-553943933?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Fit3",
+    "color": "Blanco",
+    "page": "https://www.samsung.com/sg/watches/galaxy-fit/galaxy-fit3-silver-ble-sm-r390nzsaasa/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-r390nzsaasa/gallery/sg-galaxy-fit3-r390-sm-r390nzsaasa-thumb-543712159?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Garmin Forerunner 165 Music",
+    "color": "Negro",
+    "page": "https://www.garmin.co.jp/products/intosports/forerunner-165-music-black/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.garmin.co.jp/m/jp/g/products/Forerunner165_black_left_watchface_2.jpg"
+    ]
+  },
+  {
+    "model": "Sony PlayStation 5",
+    "color": "Blanco",
+    "configuration": "Digital",
+    "page": "https://www.playstation.com/en-gb/ps5/digital-edition-825-gb/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://gmedia.playstation.com/is/image/SIEPDC/PlayStation5-Digital-CFI2100-06-16x9-01-09apr26$en?$native--t$"
+    ]
+  },
+  {
+    "model": "JBL Charge 6",
+    "color": "Rojo",
+    "page": "https://www.jbl.com.ar/parlantes-portatiles-bluetooth/CHARGE-6.html?dwvar_CHARGE-6_color=Red-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw634efeaf/JBL_CHARGE_6_RED_HERO_070_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6dbafad9/JBL_CHARGE_6_RED_FRONT_016_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwce016dc2/JBL_CHARGE_6_RED_BACK_029_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw4c4e0940/JBL_CHARGE_6_RED_LEFT_122_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw424f6a27/JBL_CHARGE_6_RED_RIGHT_156_x1.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw010c5f1d/JBL_CHARGE_6_RED_TOP_182_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL Charge 6",
+    "color": "Camuflajeado",
+    "page": "https://ca.jbl.com/en_CA/CHARGE-6.html?dwvar_CHARGE-6_color=Squad-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwe973d940/JBL_CHARGE_6_SQUAD_HERO_074_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwa6638264/JBL_CHARGE_6_SQUAD_FRONT_004_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8b6ce440/JBL_CHARGE_6_SQUAD_BACK_036_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw267deaef/JBL_CHARGE_6_SQUAD_LEFT_109_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwfc8e5802/JBL_CHARGE_6_SQUAD_RIGHT_147_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6a35387c/JBL_CHARGE_6_SQUAD_TOP_174_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL PartyBox On the Go 2 Plus",
+    "color": "Negro",
+    "page": "https://ca.jbl.com/en_CA/PARTYBOX-ON-THE-GO-2-PLUS.html?dwvar_PARTYBOX-ON-THE-GO-2-PLUS_color=Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw104c7a1a/JBL_PartyBox_On-the-Go_2_Plus_Box_Image_Black_1-Mic_SKU.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Watch Ultra",
+    "color": "Gris",
+    "page": "https://www.samsung.com/ae/watches/galaxy-watch/galaxy-watch-ultra-titanium-gray-lte-sm-l705fdaaxsg/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/ae/2407/gallery/ae-galaxy-watch-ultra-l705-sm-l705fdaaxsg-thumb-542154803?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Cidea CM936",
+    "color": "Azul",
+    "page": "https://www.cideatablet.com/sale-54870498-c-idea-9-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm936.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl215447573-c_idea_9_inch_android_16_tablet_8gb_ram_512gb_rom_model_cm936.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM936",
+    "color": "Gris",
+    "page": "https://www.cideatablet.com/sale-54870632-c-idea-9-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm936.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl215448062-c_idea_9_inch_android_16_tablet_8gb_ram_512gb_rom_model_cm936.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM936",
+    "color": "Negro",
+    "page": "https://www.cideatablet.com/sale-54869457-c-idea-9-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm936.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl215440967-c_idea_9_inch_android_16_tablet_8gb_ram_512gb_rom_model_cm936.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM817 Air 5G",
+    "color": "Naranja",
+    "page": "https://www.cideatablet.com/sale-54836543-c-idea-8-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm817-air.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl215123855-c_idea_8_inch_android_16_tablet_8gb_ram_512gb_rom_model_cm817_air.jpg",
+      "https://www.cideatablet.com/photo/pl215123862-c_idea_8_inch_android_16_tablet_8gb_ram_512gb_rom_model_cm817_air.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM89",
+    "color": "Morado",
+    "page": "https://www.cideatablet.com/sale-54475245-c-idea-youth-7-inch-tablet-android-16-with-tf-card-slot-wifi-8gb-256gb-1024-600-cm89.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl212252559-c_idea_youth_7_inch_tablet_android_16_with_tf_card_slot_wifi_8gb_256gb_1024_600_cm89.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM88",
+    "color": "Verde",
+    "page": "https://www.cideatablet.com/sale-47417846-c-idea-kids-tablet-2024-educational-fun-with-hd-display-and-protective-case-tablet-cm88.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.cideatablet.com/photo/pl182587395-c_idea_kids_tablet_2024_educational_fun_with_hd_display_and_protective_case_tablet_cm88.jpg"
+    ]
+  },
+  {
+    "model": "JBL PartyBox On the Go 2 Plus",
+    "color": "",
+    "page": "https://ca.jbl.com/en_CA/PARTYBOX-ON-THE-GO-2-PLUS.html?dwvar_PARTYBOX-ON-THE-GO-2-PLUS_color=Black-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd4cd341e/LS_JBL_PARTYBOX_OTG_2_PLUS_FRONT_0038_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6e142d8b/LS_JBL_PARTYBOX_OTG_2_PLUS_BACK_0051_x3.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw42d83490/LS_JBL_PARTYBOX_OTG_2_PLUS_LEFT_0058_x2.png?sw=1200&sh=1200",
+      "https://www.jbl.com.ar/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw9636ff38/LS_JBL_PARTYBOX_OTG_2_PLUS_TOP_0100_x4.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw104c7a1a/JBL_PartyBox_On-the-Go_2_Plus_Box_Image_Black_1-Mic_SKU.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL PartyBox 330",
+    "color": "Negro",
+    "page": "https://www.jbl.com/PARTYBOX-330.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com.ar/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd53223cc/LS_JBL_PARTYBOX_330_HERO_1_BLACK_0009_x6.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "MOX pro MO-TP1082",
+    "color": "Gris",
+    "page": "https://www.megaeletronicos.com/producto/1665369/tablet-mox-mo-tp1082-101-8gb512gb-cinza-capa-cinzakit",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/6/6/5/3/6/166536/1787684698_1787684698.webp"
+    ]
+  },
+  {
+    "model": "Atouch WE6 5G WiFi",
+    "color": "Lavanda",
+    "page": "https://atacadoconnect.com/produto/tablets-e-readers/tablet-atouch-we6-kids-tela-7-wifi-256gb-8gb-ram-lilas/1316216",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.atacadoconnect.com/produtos/1316216/tablet-atouch-we6-kids-tela-7-wifi-256gb-8gb-ram-lilas-1316216-qg1vx.webp"
+    ]
+  },
+  {
+    "model": "Audisat X5 Play",
+    "color": "Negro",
+    "page": "https://megaeletronicos.com/producto/1521795/speaker-audisat-x5-play-10-watts-pmpo-com-bluetooth-preto-3-meses-de-garantia",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/2/1/7/9/152179/1758620915_1758620915.webp"
+    ]
+  },
+  {
+    "model": "Audisat X5 Power",
+    "color": "Negro",
+    "page": "https://megaelectronicos.com.py/producto/1521818/speaker-audisat-x5-power-10-watts-pmpo-con-bluetooth-negro-3-meses-de-garantia",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/2/1/8/1/152181/1758621305_1758621305.webp"
+    ]
+  },
+  {
+    "model": "Audisat X10",
+    "color": "Negro",
+    "page": "https://comprasparaguay.com.ar/speaker-audisat-x10-tws-bt-20w-negro__5525778/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/produtos/thumbs/big/584277fe4ab42aa61504d4faf688f598d398348e.webp"
+    ]
+  },
+  {
+    "model": "Ecopower EP-3800",
+    "color": "",
+    "page": "https://mobile.comprasparaguai.com.br/speaker-ecopower-ep-3800-bluetoot-300ws__4583381/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/produtos/thumbs/big/a0bda06cd6bdd94bc91a90645b1eb2e90658f517.webp"
+    ]
+  },
+  {
+    "model": "Lenovo Tab K9",
+    "color": "Gris",
+    "page": "https://www.lenovo.com/gb/en/p/tablets/android-tablets/lenovo-tab-series/lenovo-tab-k9/zaf20041gb",
+    "sourceType": "retailer",
+    "sources": [
+      "//p2-ofp.static.pub//fes/cms/2025/01/31/asgi10xpkoo5y0guokyb6xb9rnkjg4203535.png"
+    ]
+  },
+  {
+    "model": "Haylou Vibe Smart Watch",
+    "color": "Negro",
+    "page": "https://haylou.com/products/haylou-vibe",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0685/8322/7676/files/LS30-_3.jpg?v=1780479889"
+    ]
+  },
+  {
+    "model": "Hotwav Tab R10 Pro",
+    "color": "Naranja",
+    "page": "https://yumietcie.com/products/hotwav-tab-r10-pro-tablette-durcie-orange",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/1090/5531/2221/files/hotwav-tab-r10-pro-tablette-durcie-orange-hotwav-tab-r10-pro-orange-face.jpg?v=1785019546"
+    ]
+  },
+  {
+    "model": "Blackview W50 Pro",
+    "color": "Khaki",
+    "page": "https://www.megaeletronicos.com/producto/1461275/relogio-blackview-w50-pro-bluetooth-khaki-pulseira",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/6/1/2/7/146127/1738596099_1738596099.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/6/1/2/7/146127/1738596104_1738596104.webp"
+    ]
+  },
+  {
+    "model": "JBL PartyBox 710",
+    "color": "",
+    "page": "https://ca.jbl.com/en_CA/PARTYBOX-710-.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1d027050/1_JBL_PARTYBOX_710_HERO_0031_x8.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1bf11a0f/2_JBL_PARTYBOX_710_FRONT_0035_x8.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwc2c039c4/JBL_PARTYBOX_710_BACK_0041_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw1066cc18/JBL_PARTYBOX_710_LEFT_0044_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw65199922/5_JBL_PARTYBOX_710_RIGHT_0047_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3bf18dd1/4_JBL_PARTYBOX_710_TOP_0049_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "JBL PartyBox On the Go Essential",
+    "color": "",
+    "page": "https://ca.jbl.com/en_CA/PARTYBOX-ON-THE-GO-ESSENTIAL.html",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw24692cd3/JBL_PARTYBOX_OTG_ESSENTIAL_3_4_RIGHT_2_MICS_46573_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw470b77ae/JBL_PARTYBOX_OTG_ESSENTIAL_FRONT_46503_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwec53bb23/JBL_PARTYBOX_OTG_ESSENTIAL_BACK_46513_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw74b0c5a8/JBL_PARTYBOX_OTG_ESSENTIAL_LEFT_46528_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw63f93ef1/JBL_PARTYBOX_OTG_ESSENTIAL_RIGHT_46523_x1.png?sw=1200&sh=1200",
+      "https://ca.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw598f90bb/JBL_PARTYBOX_OTG_ESSENTIAL_TOP_46621_x1.png?sw=1200&sh=1200"
+    ]
+  },
+  {
+    "model": "Sony PlayStation 5",
+    "color": "Blanco",
+    "configuration": "Con lector de discos · Fortnite",
+    "page": "https://www.playstation.com/de-de/ps5/1-tb-disc/product/fortnite-flowering-chaos-bundle/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://gmedia.playstation.com/is/image/SIEPDC/Fortnite_PlayStation5Console-3D-16x9-01-11sep26_en?$native--t$",
+      "https://gmedia.playstation.com/is/image/SIEPDC/PS5Console-CFI2100-04-16x9-01-28feb26$en?$native--t$",
+      "https://gmedia.playstation.com/is/image/SIEPDC/PS5Console-CFI2100-05-16x9-01-28feb26$en?$native--t$",
+      "https://gmedia.playstation.com/is/image/SIEPDC/PS5Console-CFI2100-01-16x9-01-28feb26$en?$native--t$",
+      "https://gmedia.playstation.com/is/image/SIEPDC/PS5Console-CFI2100-06-1x1-01-09apr26$en?$native--t$"
+    ]
+  },
+  {
+    "model": "Garmin Forerunner 55",
+    "color": "Negro",
+    "page": "https://www.garmin.com.sg/products/wearables/forerunner-55-black/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.garmin.com.sg/m/sg/g/products/forerunner-55-black-cf-lg.jpg"
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Tab S6 Lite",
+    "color": "Azul",
+    "page": "https://www.samsung.com/pt/tablets/galaxy-tab-s/galaxy-tab-s6-lite-blue-64gb-sm-p619nzbaphe/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://images.samsung.com/is/image/samsung/p6pim/pt/sm-p619nzbaphe/gallery/pt-galaxy-tab-s6-lite-p615-433139-sm-p619nzbaphe-thumb-533400216?$1200_1200_PNG$"
+    ]
+  },
+  {
+    "model": "Game Stick 2.4G A3086-M15 Plus",
+    "color": "Blanco",
+    "page": "https://mobile.comprasparaguai.com.br/console-game-stick-abc-game-a3086-m15-plus-24ghz-4k-128gb-com-2-controles-branco__5139434/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/produtos/thumbs/big/dc8538fb9d2e4b45b6af4271c375cc16fe34b505.webp"
+    ]
+  },
+  {
+    "model": "Xiaomi Watch S4",
+    "color": "Blanco",
+    "configuration": "41 mm",
+    "officialColor": "Blanco",
+    "rgb": "#FFFFFF",
+    "page": "https://www.mi.com/es/product/xiaomi-watch-s4-41mm/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/16_item_es/17/09/2025/29650b936bee55f23a4868bdc9d179c3.png",
+      "https://i05.appmifile.com/701_item_es/17/09/2025/fe792f95bee71c9372e9759ff13e9d75.png",
+      "https://i05.appmifile.com/223_item_es/17/09/2025/107c3ffd1bfce61640d7285f018af94b.png",
+      "https://i05.appmifile.com/541_item_es/17/09/2025/30e3716b0d1d3d6a27d336444afc53b0.png",
+      "https://i05.appmifile.com/781_item_es/17/09/2025/dc7517352ad59b21683dc21ffe57ea82.png"
+    ]
+  },
+  {
+    "model": "Xiaomi Watch S5",
+    "color": "Verde",
+    "configuration": "",
+    "officialColor": "Verde jungla",
+    "rgb": "#586A52",
+    "page": "https://www.mi.com/es/product/xiaomi-watch-s5-46mm/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/187_item_es/19/05/2026/a09587828235fefa575efef54d888cdc.png",
+      "https://i05.appmifile.com/366_item_es/19/05/2026/e8c0755a79e069e15b0923dde1b049aa.png"
+    ]
+  },
+  {
+    "model": "Xiaomi Watch S5",
+    "color": "Plata",
+    "configuration": "46 mm",
+    "officialColor": "Plata",
+    "rgb": "#F3F3F3",
+    "page": "https://www.mi.com/es/product/xiaomi-watch-s5-46mm/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/291_item_es/19/05/2026/00573523ac4fade25eda107e73b12c40.png",
+      "https://i05.appmifile.com/987_item_es/19/05/2026/b0ca5d73a32495a245f1902467275c07.png"
+    ]
+  },
+  {
+    "model": "Xiaomi Smart Band 11 Active",
+    "color": "Gris",
+    "configuration": "",
+    "officialColor": "Gris",
+    "rgb": "#b0b3ba",
+    "page": "https://www.mi.com/es/product/xiaomi-smart-band-11-active/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i02.appmifile.com/298_operatorx_operatorx_xm/13/08/2026/d36a7f5ca414e847585cb4a76a7b0452.png",
+      "https://i02.appmifile.com/378_operatorx_operatorx_xm/13/08/2026/4b84ddd6728c45ced638d9d7aaaba86c.png",
+      "https://i05.appmifile.com/552_item_es/28/08/2026/f5d45daaaf0c7d17fc4478285c03d3d5.png",
+      "https://i05.appmifile.com/810_item_es/28/08/2026/2914709f6766d591283736f53f00116d.png"
+    ]
+  },
+  {
+    "model": "Redmi Watch 6 Active",
+    "color": "Naranja",
+    "configuration": "",
+    "officialColor": "Naranja atardecer",
+    "rgb": "#FEC0A5",
+    "page": "https://www.mi.com/es/product/redmi-watch-6-active/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/645_item_es/28/08/2026/7ee55b0cb8fbc4a5da8468f6dc0bba37.png",
+      "https://i05.appmifile.com/339_item_es/28/08/2026/f837836cca90d00bf4bfc00fc29f61cb.png",
+      "https://i05.appmifile.com/618_item_es/28/08/2026/707e97d95bb2107e39d7d34ebdcc9530.png",
+      "https://i05.appmifile.com/709_item_es/28/08/2026/51203a34c8b8c4643ff630d0e7b41534.png"
+    ]
+  },
+  {
+    "model": "Redmi Pad 2 4G LTE",
+    "color": "Verde",
+    "configuration": "",
+    "officialColor": "Mint Green",
+    "rgb": "#b8cbaf",
+    "page": "https://www.mi.com/sg/product/redmi-pad-2-4g/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i02.appmifile.com/78_item_sg/05/06/2025/f5b6a6a2ee392bafeca10a06e374812d.png",
+      "https://i02.appmifile.com/608_item_sg/03/06/2025/b359d37d8d96659ad2bb18789be62e2a.png"
+    ]
+  },
+  {
+    "model": "G-Tide Power",
+    "color": "Plata",
+    "configuration": "Perfume Collection · perfume 30 ml",
+    "page": "https://megaeletronicos.com/producto/1577099/kit-relogio-g-tide-power-com-bluetooth-prata-perfume-tkacka-30-ml",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/7/7/0/9/157709/1769697540_1769697540.webp"
+    ]
+  },
+  {
+    "model": "G-Tide Power",
+    "color": "Negro",
+    "configuration": "Perfume Collection · perfume 30 ml",
+    "page": "https://megaeletronicos.com/producto/1577082/kit-relogio-g-tide-power-com-bluetooth-preto-perfume-tkacka-30-ml",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/7/7/0/8/157708/1769697751_1769697751.webp"
+    ]
+  },
+  {
+    "model": "Cidea CM516",
+    "color": "Negro",
+    "page": "https://atacadoconnect.com/produto/tablets-e-readers/tablet-c-idea-cm516-tela-7-5g-256gb-8gb-ram-preto/1281804",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.atacadoconnect.com/produtos/1281804/tablet-c-idea-cm516-tela-7-5g-256gb-8gb-ram-preto-1281804-85166.webp",
+      "https://cdn.atacadoconnect.com/produtos/1281804/tablet-c-idea-cm516-tela-7-5g-256gb-8gb-ram-preto-1281804-45572.webp",
+      "https://cdn.atacadoconnect.com/produtos/1281804/tablet-c-idea-cm516-tela-7-5g-256gb-8gb-ram-preto-1281804-14500.webp"
+    ]
+  },
+  {
+    "model": "Ecopower EP-S121",
+    "color": "",
+    "page": "https://www.tcheloco.com.py/es/parlantes-grandes/551229-speaker-ecopower-ep-s121-bluetooth-2v.html",
+    "sourceType": "retailer",
+    "sources": [
+      "https://img.tcheloco.com.py/82633-large_default/speaker-ecopower-ep-s121-bluetooth-2v.jpg"
+    ]
+  },
+  {
+    "model": "JBL Xtreme 5",
+    "color": "Azul",
+    "page": "https://www.jbl.com/XTREME-5.html?dwvar_XTREME-5_color=Blue-AM-Current",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://www.jbl.com/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwcb2415b4/LS_JBL_XTREME_5_3_4_RIGHT_BLUE_0060_x3.png?sh=1200&sw=1200",
+      "https://www.jbl.com/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw2bf3ce9d/LS_JBL_XTREME_5_FRONT_BLUE_0019_x3.png?sh=1200&sw=1200",
+      "https://www.jbl.com/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw72ddabb0/LS_JBL_XTREME_5_HERO_BLUE_0023_x5.png?sh=1200&sw=1200",
+      "https://www.jbl.com/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw730246b5/LS_JBL_XTREME_5_SIDE_BLUE_0115_x2.png?sh=1200&sw=1200"
+    ]
+  },
+  {
+    "model": "Lenovo Idea Tab",
+    "color": "Gris",
+    "page": "https://www.lenovo.com/ie/en/p/tablets/android-tablets/idea-tab-series/lenovo-idea-tab/zafr0384gb",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://p4-ofp.static.pub/ShareResource/we/Idea_Tab/Lenovo-Idea-Tab--400x300.png"
+    ]
+  },
+  {
+    "model": "Apple Watch Ultra 3",
+    "color": "Titanio Negro",
+    "configuration": "49 mm",
+    "page": "https://ao.com/product/mf0j4dha-apple-ultra-3-smart-watch-black-108788-322.aspx",
+    "sourceType": "retailer",
+    "sources": [
+      "https://assets.products-live.ao.com/Images/70e6c32d-4d33-4ccf-8f0c-fe617587ca86/520x520/WatchUltra3_49_Black_Ocean_Black_01.jpg?quality=90",
+      "https://assets.products-live.ao.com/Images/08bcf18e-ebff-45b3-afd7-377a66a2120f/520x520/WatchUltra3_49_Black_Ocean_Black_02.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM86",
+    "color": "Azul",
+    "page": "https://www.visaovip.com/prod/tablets/tablet-cidea-cm86-kids-6gb-de-ram-128gb-tela-7-azul/54631/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.visaovip.com/img/prod/tablet-cidea-cm86-kids-6gb-de-ram-128gb-tela-7-azul/54631/720131.jpg",
+      "https://cdn.visaovip.com/img/prod/tablet-cidea-cm86-kids-6gb-de-ram-128gb-tela-7-azul/54631/720130.jpg"
+    ]
+  },
+  {
+    "model": "Cidea CM86",
+    "color": "Verde",
+    "page": "https://www.visaovip.com/es/prod/tablets/tablet-cidea-cm86-kids-8gb-de-ram-256gb-pantalla-7-wi-fi-verde/57743/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.visaovip.com/img/prod/tablet-cidea-cm86-kids-8gb-de-ram-256gb-pantalla-7-wi-fi-verde/57743/732830.jpg",
+      "https://cdn.visaovip.com/img/prod/tablet-cidea-cm86-kids-8gb-de-ram-256gb-pantalla-7-wi-fi-verde/57743/732829.jpg"
+    ]
+  },
+  {
+    "model": "G-Tide R5 Lite",
+    "color": "Plata",
+    "page": "https://atlanticoshop.com.py/index.php?product_id=47966&route=product%2Fproduct",
+    "sourceType": "retailer",
+    "sources": [
+      "https://atlanticoshop.com.py/image/cache/catalog/g-tide-r5-lite-silver-800x800.webp"
+    ]
+  },
+  {
+    "model": "Amazon Kindle 11",
+    "color": "Negro",
+    "page": "https://www.xcite.com/amazon-kindle-e-reader-16gb-6-b09sww583j-black/p",
+    "sourceType": "retailer",
+    "sources": [
+      "https://cdn.media.amplience.net/i/xcite/659115-01?w=1200&qlt=90&fmt=png",
+      "https://cdn.media.amplience.net/i/xcite/659115-06?w=1200&qlt=90&fmt=png",
+      "https://cdn.media.amplience.net/i/xcite/659115-07?w=1200&qlt=90&fmt=png"
+    ]
+  },
+  {
+    "model": "Doogee Tab A9 Vip Edition",
+    "color": "Gris",
+    "page": "https://www.doogee.com/products/tab-a9",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/13_3e7cc57e-9032-4f05-a812-32bbaf1af5be.png?v=1757579933"
+    ]
+  },
+  {
+    "model": "Doogee Tab A9 Vip Edition",
+    "color": "Azul",
+    "page": "https://www.doogee.com/products/tab-a9",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0640/9197/9971/files/13_0114cc4a-3d65-4ec2-969c-30ede9e1b16a.png?v=1757579941"
+    ]
+  },
+  {
+    "model": "Blackview W70 Pro",
+    "color": "Khaki",
+    "page": "https://www.megaeletronicos.com/producto/1482805/relogio-blackview-w70-pro-com-bluetooth-bege-pulseira",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/8/2/8/0/148280/1749146759_1749146759.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/8/2/8/0/148280/6841e1887a527.webp"
+    ]
+  },
+  {
+    "model": "Blulory RTS",
+    "color": "",
+    "page": "https://www.alegio.com.ar/productos/reloj-smartwatch-blulory-rts-malla-blanco-marron/",
+    "sourceType": "retailer",
+    "sources": [
+      "https://acdn-us.mitiendanube.com/stores/003/428/232/products/426184-aselectronica_produccion-00145kkp-a743b1a013202a50b517849500064504-480-0.webp"
+    ]
+  },
+  {
+    "model": "Hotwav Tab R10 Pro",
+    "color": "Negro",
+    "sourceType": "manufacturer",
+    "page": "hotwav-r10-pro-rugged-tablet",
+    "sources": [
+      "https://cdn.shopify.com/s/files/1/0738/0533/2769/files/R10_Black.jpg?v=1746692462"
+    ]
+  },
+  {
+    "model": "G-Tide R6 Pro",
+    "color": "Negro",
+    "page": "https://megaeletronicos.com/producto/1479430/relogio-g-tide-r6-pro-com-gpsbluetooth-preto-2-pulseiras",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/7/9/4/3/147943/1746817235_1746817235.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/7/9/4/3/147943/681e503a7bc84.webp"
+    ]
+  },
+  {
+    "model": "G-Tide R6 Pro",
+    "color": "Gris",
+    "page": "https://megaeletronicos.com/producto/1479447/relogio-g-tide-r6-pro-com-gpsbluetooth-cinzaazul-2-pulseiras",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/7/9/4/4/147944/1746815883_1746815883.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/4/7/9/4/4/147944/681e4b9020a1c.webp"
+    ]
+  },
+  {
+    "model": "Blackview W90 Pro",
+    "color": "Plata",
+    "page": "https://megaeletronicos.com/producto/1580778/relogio-blackview-w90-pro-com-gpsbluetooth-platadorado",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/8/0/7/7/158077/1770732983_1770732983.webp",
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/5/8/0/7/7/158077/6989ecf7c6e18.webp"
+    ]
+  },
+  {
+    "model": "MOX pro MO-TP1082",
+    "color": "Azul",
+    "page": "https://megaeletronicos.com/producto/1665345/tablet-mox-mo-tp1082-dual-sim-512gb8gb-ram-de-101-13mp8mp-azul-teclado-portugues-funda",
+    "sourceType": "retailer",
+    "sources": [
+      "https://resource.megaeletronicos.com/uploads/Product/new/1/6/6/5/3/4/166534/1787684476_1787684476.webp"
+    ]
+  },
+  {
+    "model": "Redmi Pad 2",
+    "color": "Gris",
+    "configuration": "9,7 pulgadas",
+    "officialColor": "Gris Grafito",
+    "rgb": "#51545a",
+    "page": "https://www.mi.com/es/product/redmi-pad-2-9-7-inch/",
+    "sourceType": "manufacturer",
+    "sources": [
+      "https://i05.appmifile.com/706_item_es/08/05/2026/88fabe8af2123fad18c4fb8916000133.png",
+      "https://i05.appmifile.com/945_item_es/08/05/2026/0b7455644286582e54632e24f3bd2f14.png",
+      "https://i05.appmifile.com/343_item_es/08/05/2026/1b18c9aadde6d29a285e04fdb615b3d7.png",
+      "https://i05.appmifile.com/966_item_es/08/05/2026/7f886f5389d361029a8b5a820a0ccc9d.png",
+      "https://i05.appmifile.com/977_item_es/08/05/2026/c77c1d7e7553e1407fb3c17602dc2b93.png"
     ]
   }
 ]
