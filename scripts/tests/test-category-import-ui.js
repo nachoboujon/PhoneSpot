@@ -18,6 +18,7 @@ async function main(){
    }
    const gallery=await page.$$eval('.gallery-thumbnails img',images=>images.map(i=>i.src));
    assert.deepEqual(gallery,[...new Set([variant.image_url,...variant.images])],name+' exact variant gallery');
+   await page.waitForFunction(url=>{const img=document.getElementById('main-product-img');return img?.src===url&&img.complete&&img.naturalWidth>0;},{timeout:30000},variant.image_url);
    assert.ok(await page.$eval('#dynamic-price',el=>el.textContent.trim()),name+' price visible');
   }
   assert.deepEqual(errors,[],name+' JS errors');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,name+' mobile overflow');

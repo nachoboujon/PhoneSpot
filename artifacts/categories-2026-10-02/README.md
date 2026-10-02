@@ -27,3 +27,9 @@ Carga realizada: 151 modelos, 229 variantes nuevas. Stock inicial: 10 por varian
 - Redmi Watch 6 Active Rosa se sustituyó por Naranja; Smart Band 11 Active Blanco por Gris, con autorización del usuario.
 
 Fuentes: *-source.json y photo-sets.json. Precios seleccionados: selected.json. Resultado aplicado: import-result.json.
+
+## Verificación final
+
+Se verificaron 558 imágenes almacenadas por tipo y tamaño, todos los precios y stocks nuevos, y las variantes anteriores de 207 productos. La prueba en móvil pasó en producción para PS5, Redmi Pad 2, Apple Watch Series 11 y Redmi Watch 6 Active, incluidas las cargas de imágenes y los cambios de galería.
+
+Durante el cierre, otro trabajo archivó 21 modelos de esta tanda (Ecopower, Aiwa y UR). Se respetó ese cambio: quedan visibles 130 modelos y 208 variantes de la tanda. La importación evita recrear modelos archivados al volver a ejecutarse.

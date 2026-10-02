@@ -1,5 +1,5 @@
 {
-  "stage": "Imported; storefront gallery update verified locally",
+  "stage": "Published and verified on production",
   "models": 151,
   "variants": 229,
   "pendingPhotos": 20,
@@ -22,5 +22,8 @@
       "models": 10,
       "variants": 12
     }
-  }
+  },
+  "visibleModels": 130,
+  "visibleVariants": 208,
+  "archivedAfterImport": 21
 }
