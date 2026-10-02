@@ -799,6 +799,16 @@ details[open] {
     box-sizing: border-box;
 }
 
+.product-card .card-variants select[data-type="configuration"] {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font: inherit;
+    font-size: 0.85rem;
+    background: #f9f9f9;
+    color: #333;
+}
+
 .product-card:hover {
     transform: translateY(-15px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.08);

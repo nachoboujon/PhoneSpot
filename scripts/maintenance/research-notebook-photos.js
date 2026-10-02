@@ -1,6 +1,6 @@
 const fs=require('node:fs');
 const base='artifacts/notebooks-2026-10-01';
-const pages=JSON.parse(fs.readFileSync(`${base}/photo-pages.json`));
+const pages=JSON.parse(fs.readFileSync(`${base}/photo-pages.json`)).filter(p=>!process.argv.slice(2).length||process.argv.slice(2).includes(p.key));
 async function main(){
 const result=await Promise.all(pages.map(async p=>{
  const file=`${base}/page-${p.key}.html`;

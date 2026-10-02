@@ -1,0 +1,338 @@
+[
+  {
+    "id": 295,
+    "model": "Acer Aspire 15 A15-51M",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 296,
+    "model": "Acer Aspire 3 A315-24PT",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 297,
+    "model": "Acer Aspire Go 15 AG15-42P",
+    "added": 3,
+    "created": true
+  },
+  {
+    "id": 298,
+    "model": "Acer Aspire Go 15 AG15-72P",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 299,
+    "model": "Acer Aspire Lite AL15-43P",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 300,
+    "model": "Acer EtBook Yoga CWI557",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 301,
+    "model": "Acer Nitro V 15 ANV15-41",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 302,
+    "model": "Acer Nitro V 15 ANV15-52",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 303,
+    "model": "ASUS Vivobook 15 F1502V",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 304,
+    "model": "ASUS ROG Strix G16 G615J",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 305,
+    "model": "ASUS ROG Strix G16 G614F",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 306,
+    "model": "ASUS TUF Gaming F16 FX607VU",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 307,
+    "model": "ASUS Vivobook Go 15 E1504F",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 308,
+    "model": "ASUS Vivobook Go 15 E1504GA",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 309,
+    "model": "ASUS Vivobook 15 X1504VA",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 310,
+    "model": "ASUS Zenbook 14 UX3405C",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 311,
+    "model": "Audisat X99",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 312,
+    "model": "Dell 15 DC15250",
+    "added": 5,
+    "created": true
+  },
+  {
+    "id": 313,
+    "model": "Dell 16 DC16250",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 314,
+    "model": "Dell 15 DC15255",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 315,
+    "model": "Dell Inspiron 16 5640",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 316,
+    "model": "Dell Latitude 7430",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 317,
+    "model": "Dell Latitude 7455",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 318,
+    "model": "Dell 15 D15260",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 319,
+    "model": "Dell Alienware 15 DA15265",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 320,
+    "model": "HP Laptop 14-dq6105dx",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 321,
+    "model": "HP Laptop 14-ep0355cl",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 322,
+    "model": "HP Laptop 15-dy5009la",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 323,
+    "model": "HP Laptop 15-fc0146dx",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 324,
+    "model": "HP Laptop 15-fd0084wm",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 325,
+    "model": "HP Laptop 15-fd0133wm",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 326,
+    "model": "HP Laptop 15-fd0150wn",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 327,
+    "model": "HP Laptop 15-fd0153wm",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 328,
+    "model": "HP Laptop 15-fd0173wm",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 329,
+    "model": "HP Laptop 15-fd0182wn",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 330,
+    "model": "HP Laptop 15-fd2050wm",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 331,
+    "model": "HP Laptop 15t-fd000",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 332,
+    "model": "HP Laptop 15t-fd200",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 333,
+    "model": "HP Laptop 17t-cn300",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 334,
+    "model": "HP EliteBook 840 G8",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 335,
+    "model": "HP EliteBook 850 G7",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 336,
+    "model": "HP Victus 15-fb3113dx",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 337,
+    "model": "HP OmniBook 3 15-fn0505nr",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 338,
+    "model": "HP Victus 15-fa2013dx",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 339,
+    "model": "HP Victus 15-fb3093dx",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 340,
+    "model": "Lenovo IdeaPad Slim 3 15IAN8",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 341,
+    "model": "Lenovo IdeaPad 1 15AMN7",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 342,
+    "model": "Lenovo IdeaPad Slim 3 15AMN8",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 343,
+    "model": "Lenovo IdeaPad Flex 5 15ITL05",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 344,
+    "model": "Lenovo IdeaPad Pro 5 16IAH10",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 345,
+    "model": "Lenovo IdeaPad Slim 3 15IRU8",
+    "added": 2,
+    "created": true
+  },
+  {
+    "id": 346,
+    "model": "MSI Cyborg 15 A12VF",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 347,
+    "model": "MSI Cyborg 15 B2RWFKG",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 348,
+    "model": "MSI Cyborg A15 AI B2HWEKG",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 349,
+    "model": "MSI Thin A15 B7VE",
+    "added": 1,
+    "created": true
+  },
+  {
+    "id": 350,
+    "model": "Samsung Galaxy Book4 NP750XGJ",
+    "added": 1,
+    "created": true
+  }
+]

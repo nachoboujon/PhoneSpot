@@ -16,3 +16,13 @@ artifacts/wholesale-2026-10-01/*
 !artifacts/wholesale-2026-10-01/README.md
 !artifacts/wholesale-2026-10-01/PENDIENTES.md
 .tmp/
+artifacts/notebooks-2026-10-01/*
+!artifacts/notebooks-2026-10-01/source-cards.json
+!artifacts/notebooks-2026-10-01/notebooks.json
+!artifacts/notebooks-2026-10-01/photo-pages.json
+!artifacts/notebooks-2026-10-01/photo-sets.json
+!artifacts/notebooks-2026-10-01/image-manifest.json
+!artifacts/notebooks-2026-10-01/import-result.json
+!artifacts/notebooks-2026-10-01/before-import.json
+!artifacts/notebooks-2026-10-01/verification.json
+!artifacts/notebooks-2026-10-01/README.md

@@ -1,5 +1,11 @@
 const fs=require('fs');const base='artifacts/notebooks-2026-10-01';
 const extra=[
+['dell-5640-minh','https://minhtuanmobile.com/laptop-dell-inspiron-16-5640-n5640-c7u161w11ibu/'],
+['dell-5640-de','https://www.dell.com/de-de/shop/dell-laptops/inspiron-16-laptop/spd/inspiron-16-5640-laptop/cn56514'],
+['hp-dy5009-cyber','https://www.cyberpuerta.mx/Nuevos-articulos/Laptop-HP-15-dy5009la-15-6-HD-Intel-Core-i7-1255U-3-50GHz-8GB-512GB-SSD-Windows-11-Home-64-bit-Espanol-Plata.html'],
+['dell-5640-uk','https://www.dell.com/en-uk/shop/laptops-2-in-1-pcs/inspiron-16-laptop/spd/inspiron-16-5640-laptop'],
+['asus-f1502-us','https://www.asus.com/us/laptops/for-home/vivobook/vivobook-15-laptop-f1502/'],
+['hp-dy5009-soriana','https://www.soriana.com/laptop-hp-15-dy5009la-core-i7-8gb-ram-512gb-ssd-15.6-pulg/11695043.html'],
 ['hp-fd-jp','https://jp.ext.hp.com/notebooks/personal/hp_15_fd/'],
 ['hp-dy5009-shop','https://www.hp.com/pe-es/shop/laptop-hp-15-dy5009la-6h9f1la.html'],
 ['hp-840g8-adorama','https://www.adorama.com/ihp359z6taba.html'],

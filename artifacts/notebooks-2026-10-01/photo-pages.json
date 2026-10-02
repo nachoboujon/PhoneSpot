@@ -418,5 +418,35 @@
     "key": "hp-dy5009-shop",
     "page": "https://www.hp.com/pe-es/shop/laptop-hp-15-dy5009la-6h9f1la.html",
     "type": "manufacturer"
+  },
+  {
+    "key": "asus-f1502-us",
+    "page": "https://www.asus.com/us/laptops/for-home/vivobook/vivobook-15-laptop-f1502/",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009-soriana",
+    "page": "https://www.soriana.com/laptop-hp-15-dy5009la-core-i7-8gb-ram-512gb-ssd-15.6-pulg/11695043.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "hp-dy5009-cyber",
+    "page": "https://www.cyberpuerta.mx/Nuevos-articulos/Laptop-HP-15-dy5009la-15-6-HD-Intel-Core-i7-1255U-3-50GHz-8GB-512GB-SSD-Windows-11-Home-64-bit-Espanol-Plata.html",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-5640-uk",
+    "page": "https://www.dell.com/en-uk/shop/laptops-2-in-1-pcs/inspiron-16-laptop/spd/inspiron-16-5640-laptop",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-5640-de",
+    "page": "https://www.dell.com/de-de/shop/dell-laptops/inspiron-16-laptop/spd/inspiron-16-5640-laptop/cn56514",
+    "type": "manufacturer"
+  },
+  {
+    "key": "dell-5640-minh",
+    "page": "https://minhtuanmobile.com/laptop-dell-inspiron-16-5640-n5640-c7u161w11ibu/",
+    "type": "manufacturer"
   }
 ]
