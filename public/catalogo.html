@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
+<link rel="stylesheet" href="store-improvements.css?v=d16c81555c7b">
 </head>
 <body>
     
@@ -26,6 +27,7 @@
                         <li><a href="catalogo.html?cat=celulares">Celulares</a></li>
                         <li><a href="catalogo.html?cat=notebooks">Notebooks</a></li>
                         <li><a href="catalogo.html?cat=tablets">Tablets</a></li>
+<li><a href="catalogo.html?cat=consolas">Consolas</a></li><li><a href="catalogo.html?cat=audio">Audio</a></li><li><a href="catalogo.html?cat=relojes">Relojes</a></li>
                         <li><a href="catalogo.html?cat=accesorios">Accesorios</a></li>
                     </ul>
                 </li>
@@ -50,7 +52,8 @@
         </div>
     </header>
 
-    <main>
+    <a href="#main-content" class="skip-content">Ir al contenido</a>
+    <main id="main-content">
         <!-- Banner del Catálogo -->
         <section style="height: 250px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #111;">
             <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=1920&q=80') center/cover; opacity: 0.8;"></div>
@@ -139,7 +142,16 @@
     <button type="button" id="catalog-filter-toggle" aria-expanded="false" aria-controls="filters-sidebar"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Filtrar productos</button>
     <div id="filters-sidebar" style="flex: 0 0 280px; position: sticky; top: 100px; background: var(--bg-color); padding: 0; border-radius: 0; display: flex; flex-direction: column; gap: 0;">
                 
-                <div class="filter-section">
+                <div class="catalog-extra-filters">
+<label for="catalog-query">Buscar en el catálogo<input type="search" id="catalog-query" placeholder="Modelo, marca o configuración"></label>
+<label for="price-min">Precio mínimo · ARS<input type="number" id="price-min" min="0" step="1000" inputmode="numeric"></label>
+<label for="price-max">Precio máximo · ARS<input type="number" id="price-max" min="0" step="1000" inputmode="numeric"></label>
+<label class="stock-filter" for="stock-only"><input type="checkbox" id="stock-only"> Solo con stock</label>
+<label for="capacity-filter">Almacenamiento<select id="capacity-filter"><option value="">Todos</option></select></label>
+<label for="ram-filter">Memoria RAM<select id="ram-filter"><option value="">Todas</option></select></label>
+<button type="button" class="catalog-reset" id="catalog-reset">Limpiar filtros</button>
+</div>
+<div class="filter-section">
                     <button type="button" class="filter-title active" aria-expanded="true" aria-controls="category-filters" onclick="toggleFilter(this)">
                         <span><i class="fa-solid fa-list" style="margin-right:8px;"></i> Categorías</span>
                         <i class="fa-solid fa-chevron-down"></i>
@@ -247,10 +259,10 @@
                 
                 <!-- Barra de Herramientas Superior -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--gray-bg); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
-                    <p style="margin: 0; color: var(--text-muted); font-weight: bold;" id="catalog-count-label">Mostrando todos los resultados</p>
+                    <p style="margin: 0; color: var(--text-muted); font-weight: bold;" id="catalog-count-label" role="status" aria-live="polite">Mostrando todos los resultados</p>
                     
                     <div style="display: flex; gap: 1rem; align-items: center;">
-                        <label style="font-weight: bold; color: var(--text-color); font-size: 0.9rem;">Ordenar:</label>
+                        <label for="sort-filter" style="font-weight: bold; color: var(--text-color); font-size: 0.9rem;">Ordenar:</label>
                         <select id="sort-filter" style="padding: 0.6rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); outline: none; font-family: inherit; font-weight: bold; cursor: pointer; background: var(--bg-color);">
                             <option value="">Destacados</option>
                             <option value="price-asc">Precio: Menor a Mayor</option>
@@ -281,7 +293,7 @@
 
             <!-- Contacto -->
             <div class="footer-contact">
-                <h4 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Contacto<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h4>
+                <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Contacto<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h3>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; color: #aaa;">
                     <li style="display: flex; gap: 1rem; align-items: flex-start;">
                         <i class="fa-solid fa-location-dot" style="color: #555555; margin-top: 0.3rem;"></i>
@@ -304,7 +316,7 @@
 
             <!-- Enlaces -->
             <div class="footer-links">
-                <h4 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Información<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h4>
+                <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.5rem;">Información<span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #555555;"></span></h3>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.8rem;">
                     <li><a href="index.html" style="color: #aaa; text-decoration: none; transition: 0.3s;">Inicio</a></li>
                     <li><a href="catalogo.html?cat=all" style="color: #aaa; text-decoration: none; transition: 0.3s;">Catálogo de Productos</a></li>
@@ -326,7 +338,9 @@
     <script src="favorites-ui.js?v=4dde1928270a"></script>
     <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
-    <script src="script.js?v=fb43b0f361db"></script>
+    <script src="store-business.js?v=a153b6ddffb1"></script>
+    <script src="script.js?v=11d2ffc87ea3"></script>
+    <script src="store-improvements.js?v=ebf681bc667d"></script>
 
     <!-- WhatsApp Flotante -->
     
@@ -336,7 +350,7 @@
     <div id="fav-sidebar" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--bg-color); z-index: 1100; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
         <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg);">
             <h3 style="margin: 0; color: var(--text-color); font-size: 1.5rem;"><i class="fa-solid fa-heart" style="color: #ff4757; margin-right: 10px;"></i> Mis Favoritos</h3>
-            <button onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" aria-label="Cerrar favoritos" onclick="toggleFavSidebar()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-color); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div id="fav-sidebar-items" style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
             <!-- Renderizado por JS -->

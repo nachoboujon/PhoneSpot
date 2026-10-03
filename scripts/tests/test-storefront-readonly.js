@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const puppeteer = require('puppeteer');
 const base = process.env.AUDIT_URL || 'http://localhost:3000';
-const output = path.resolve(__dirname, '../../artifacts/audit/storefront-2026-10-01');
+const output = process.env.AUDIT_OUTPUT || path.resolve(__dirname, '../../artifacts/audit/storefront-2026-10-01');
 
 async function main() {
     const [products, settings, rate] = await Promise.all(['/api/products', '/api/settings', '/api/dollar-rate'].map(async route => {
@@ -115,7 +115,7 @@ async function main() {
             if (route === 'index.html') {
                 await page.evaluate(id => {localStorage.setItem('phoneSpotFavs', JSON.stringify([id])); return window.loadSidebarFavorites();}, String(phone.id));
                 assert.equal(await page.$('#fav-sidebar-items .add-to-cart-btn'), null, 'Favorites must open the product to select a variant');
-                assert.equal(await page.$eval('#fav-sidebar-items a.btn', el => el.getAttribute('href')), `producto.html?id=${phone.id}`);
+                assert.equal(new URL(await page.$eval('#fav-sidebar-items a.btn', el => el.getAttribute('href')), base).searchParams.get('id'), String(phone.id));
                 await page.evaluate(() => showToast('<img id="audit-toast-injected" src="x">'));
                 assert.equal(await page.$('#audit-toast-injected'), null, 'Toast messages must remain text');
             }

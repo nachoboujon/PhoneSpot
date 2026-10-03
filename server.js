@@ -11,6 +11,8 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const {normalizeProductImages} = require('./lib/product-images');
+const business = require('./public/store-business');
+const {productSeo} = require('./lib/product-seo');
 require('dotenv').config();
 
 const app = express();
@@ -123,7 +125,7 @@ const argentinaProvinces = new Set([
 ]);
 
 const createAccessToken = (user) => jwt.sign(
-    { id: user.id, role: user.role, name: user.name },
+    { id: user.id, role: user.role, name: user.name, sessionVersion: Number(user.session_version || 0) },
     jwtSecret,
     { algorithm: 'HS256', expiresIn: accessTokenLifetime, issuer: jwtIssuer, audience: 'phonespot-web' }
 );
@@ -206,26 +208,12 @@ app.get('/producto.html', async (req, res, next) => {
         
         let html = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
         
-        const baseUrl = 'https://www.phonespot.site';
-        const imageUrl = new URL(data.image_url || '/uploads/PhoneSpot-trans.png', baseUrl).toString();
-        const productUrl = `${baseUrl}/producto.html?id=${encodeURIComponent(data.id)}`;
-        const productSchema = JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Product',
-            name: data.name,
-            image: [imageUrl],
-            description: String(data.description || '').replace(/^\[Condición:.*?\]\s*/, ''),
-            brand: { '@type': 'Brand', name: data.brand || 'PhoneSpot' },
-            offers: {
-                '@type': 'Offer',
-                url: productUrl,
-                priceCurrency: 'USD',
-                price: Number(data.price || 0).toFixed(2),
-                availability: Number(data.stock) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-                itemCondition: 'https://schema.org/NewCondition'
-            }
-        }).replace(/</g, '\\u003c');
-        
+        data.variants = parseVariants(data.variants);
+        if (data.archived_at) return res.status(404).send('Producto no disponible');
+        const seo=productSeo(data,req.query.tipo,req.query.variant);
+        const imageUrl=seo.image;
+        const productUrl=seo.pageUrl;
+        const productSchema=JSON.stringify(seo.schema).replace(/</g,'\\u003c');
         const metaTags = `
             <link rel="canonical" href="${escapeHtml(productUrl)}">
             <meta property="og:title" content="${escapeHtml(data.name)} | PhoneSpot">
@@ -456,7 +444,7 @@ app.get('/api/dollar-rate', async (_req, res) => {
     }
 });
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
     if (!jwtSecret) return res.status(503).json({ error: 'Autenticación no configurada en el servidor' });
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
@@ -466,7 +454,10 @@ const authenticate = (req, res, next) => {
             issuer: jwtIssuer,
             audience: 'phonespot-web'
         });
-        req.user = verified;
+        const {data: account,error: sessionError}=await supabase.from('users').select('id,role,name,session_version').eq('id',verified.id).single();
+        if (sessionError) return res.status(503).json({error:'No pudimos comprobar la sesión. Intentá nuevamente.'});
+        if (!account || Number(account.session_version || 0)!==Number(verified.sessionVersion || 0)) return res.status(401).json({code:'SESSION_INVALID',error:'La sesión venció. Iniciá sesión nuevamente.'});
+        req.user = {...verified,role:account.role || verified.role,name:account.name || verified.name};
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
@@ -562,6 +553,8 @@ const sendOrderStatusEmail = async (order) => {
 
 // Métricas anónimas y acotadas: no se almacenan IP, email ni identificadores del visitante.
 const analyticsRateBuckets = new Map();
+const rateCleanup=setInterval(()=>{const now=Date.now();for(const [key,bucket] of rateLimitBuckets) if(bucket.resetAt<=now) rateLimitBuckets.delete(key);for(const [key,bucket] of analyticsRateBuckets) if(now-bucket.startedAt>60000) analyticsRateBuckets.delete(key);},60000);
+rateCleanup.unref();
 const canRecordEvent = (req) => {
     const key = String(req.ip || req.headers['x-forwarded-for'] || 'unknown').split(',')[0].trim();
     const now = Date.now();
@@ -815,11 +808,11 @@ app.post('/api/request-password-reset', limitByClient('password-reset-request', 
         const genericResponse = { message: 'Si existe una cuenta con ese correo, te enviamos un enlace para restablecer la contraseña.' };
         if (!jwtSecret || !/^\S+@\S+\.\S+$/.test(email)) return res.json(genericResponse);
 
-        const { data: user } = await supabase.from('users').select('id, name, email').eq('email', email).single();
+        const { data: user } = await supabase.from('users').select('id, name, email, session_version').eq('email', email).single();
         if (!user) return res.json(genericResponse);
 
         const resetToken = jwt.sign(
-            { purpose: 'password-reset', userId: user.id, email: user.email },
+            { purpose: 'password-reset', userId: user.id, email: user.email, sessionVersion: Number(user.session_version || 0) },
             jwtSecret,
             { algorithm: 'HS256', expiresIn: '1h', issuer: jwtIssuer, audience: 'phonespot-password-reset' }
         );
@@ -854,13 +847,9 @@ app.post('/api/reset-password', limitByClient('password-reset', 8, 60 * 60 * 100
         if (decoded.purpose !== 'password-reset' || !decoded.userId || !decoded.email) throw new Error('Token inválido');
 
         const passwordHash = await bcrypt.hash(password, 10);
-        const { data, error } = await supabase
-            .from('users')
-            .update({ password: passwordHash })
-            .eq('id', decoded.userId)
-            .eq('email', decoded.email)
-            .select('id');
-        if (error || !data?.length) throw error || new Error('Usuario no encontrado');
+        if (!Number.isInteger(decoded.sessionVersion)) return res.status(400).json({error:'Solicitá un nuevo enlace de recuperación.'});
+        const {data,error}=await supabase.rpc('reset_store_password',{p_user:decoded.userId,p_version:decoded.sessionVersion,p_password:passwordHash});
+        if(error || !data) return res.status(400).json({error:'El enlace ya fue utilizado o venció. Solicitá uno nuevo.'});
         res.json({ message: 'Contraseña actualizada. Ya podés iniciar sesión.' });
     } catch (error) {
         res.status(400).json({ error: 'El enlace es inválido o venció. Solicitá uno nuevo.' });
@@ -901,7 +890,7 @@ app.get('/api/products/:id', async (req, res) => {
 app.post('/api/events', async (req, res) => {
     try {
         if (!canRecordEvent(req)) return res.status(429).json({ error: 'Demasiados eventos.' });
-        const allowedEvents = new Set(['page_view', 'product_view', 'add_to_cart', 'checkout_started', 'order_created', 'search']);
+        const allowedEvents = new Set(['page_view', 'product_view', 'add_to_cart', 'checkout_started', 'order_created', 'search', 'search_empty', 'contact_click', 'web_vital']);
         const eventType = String(req.body.event_type || '');
         const productId = req.body.product_id == null ? null : Number.parseInt(req.body.product_id, 10);
         const pagePath = String(req.body.page_path || '').slice(0, 180);
@@ -909,9 +898,10 @@ app.post('/api/events', async (req, res) => {
             return res.status(400).json({ error: 'Evento inválido.' });
         }
         // Solo se permiten metadatos operativos mínimos, nunca información personal.
-        const metadata = eventType === 'search' && typeof req.body.query_length === 'number'
+        let metadata = eventType === 'search' && typeof req.body.query_length === 'number'
             ? { query_length: Math.max(0, Math.min(100, Math.floor(req.body.query_length))) }
             : {};
+        if (eventType === 'web_vital' && ['LCP','INP','CLS'].includes(req.body.metric) && Number.isFinite(req.body.value)) metadata={metric:req.body.metric,value:Math.max(0,Math.min(60000,req.body.value)),device:req.body.device==='mobile'?'mobile':'desktop'};
         const { error } = await supabase.from('site_events').insert([{
             event_type: eventType,
             product_id: productId,
@@ -1089,7 +1079,16 @@ app.post('/api/settings', authenticate, isAdmin, async (req, res) => {
 
 
 // --- RUTAS DE ORDENES ---
-app.post('/api/orders', authenticate, async (req, res) => {
+// Two independent unguessable UUIDs are required; no customer data is returned.
+app.get('/api/orders/result',limitByClient('order-result',30,60*1000),async(req,res)=>{
+    if(!validCartId(req.query.key)||!validCartId(req.query.cart)) return res.status(400).json({error:'Identificador inválido'});
+    const {data,error}=await supabase.from('orders').select('id,total,total_ars,dollar_rate').eq('request_key',req.query.key).eq('cart_id',req.query.cart).maybeSingle();
+    if(error) return res.status(503).json({error:'No pudimos consultar el pedido.'});
+    if(!data) return res.status(404).json({error:'El pedido aún no está registrado.'});
+    res.json({orderId:data.id,total:data.total,total_ars:data.total_ars,dollar_rate:data.dollar_rate});
+});
+const optionalAccount = (req,res,next) => req.header('Authorization') ? authenticate(req,res,next) : (req.user=null,next());
+app.post('/api/orders', limitByClient('order-create',12,15*60*1000), optionalAccount, async (req, res) => {
     try {
         const rawItems = req.body.items;
         const customerEmail = String(req.body.customer_email || '').trim().toLowerCase();
@@ -1105,15 +1104,18 @@ app.post('/api/orders', authenticate, async (req, res) => {
             return res.status(400).json({ error: 'Los datos de la orden son inválidos.' });
         }
 
-        // El checkout requiere sesión: el correo de la orden debe pertenecer a esa
-        // cuenta ya validada (por enlace de email o por Google email_verified).
-        const { data: account, error: accountError } = await supabase
-            .from('users')
-            .select('email')
-            .eq('id', req.user.id)
-            .single();
-        if (accountError || !account || String(account.email).toLowerCase() !== customerEmail) {
-            return res.status(400).json({ error: 'Usá el email verificado de tu cuenta para confirmar la compra.' });
+        if (req.user) {
+            const {data:account,error:accountError}=await supabase.from('users').select('email').eq('id',req.user.id).single();
+            if(accountError || !account || String(account.email).toLowerCase()!==customerEmail) return res.status(400).json({error:'Usá el email de tu cuenta para confirmar el pedido.'});
+        }
+        const requestKey=req.body.idempotency_key;
+        if (!validCartId(requestKey)) return res.status(400).json({error:'El pedido necesita un identificador válido. Actualizá la página.'});
+        const requestHash=crypto.createHash('sha256').update(JSON.stringify({owner:req.user?.id || null,cart:req.body.cart_id,items:rawItems,name:customerName,email:customerEmail,phone:customerPhone,address:shippingAddress,method:shippingMethod,payment:paymentMethod,coupon:req.body.discount_code || null})).digest('hex');
+        const {data:previous,error:previousError}=await supabase.from('orders').select('id,total,total_ars,dollar_rate,cart_id,user_id,request_hash').eq('request_key',requestKey).maybeSingle();
+        if(previousError) throw previousError;
+        if(previous) {
+            if(previous.cart_id!==req.body.cart_id || previous.user_id!== (req.user?.id || null) || previous.request_hash!==requestHash) return res.status(409).json({error:'Este identificador corresponde a otro pedido. Revisá los datos.'});
+            return res.json({orderId:previous.id,total:previous.total,total_ars:previous.total_ars,dollar_rate:previous.dollar_rate,replayed:true});
         }
         const requestedItems = new Map();
         const cartId = req.body.cart_id;
@@ -1163,24 +1165,11 @@ app.post('/api/orders', authenticate, async (req, res) => {
             secureItems.push({ ...item, product, variants, unitPrice });
         }
 
-        const isWholesaleProduct = (prod) => {
-            if (!prod) return false;
-            const cat = String(prod.category || '').toLowerCase().trim();
-            if (cat === 'accesorios') return false;
-            if (cat === 'celulares' || cat === 'tablets' || cat === 'notebooks') return true;
-            const name = String(prod.name || '').toLowerCase();
-            const accessoryKeywords = [
-                'funda', 'case', 'cable', 'cargador', 'charger', 'auricular', 'auriculares',
-                'earphones', 'airpod', 'airpods', 'vidrio', 'templado', 'protector',
-                'hidrogel', 'adaptador', 'powerbank', 'magsafe', 'correa', 'malla', 'accesorio', 'accesorios'
-            ];
-            return !accessoryKeywords.some((kw) => name.includes(kw));
-        };
-
+        const isWholesaleProduct=business.eligible;
         const wholesaleEligibleQuantity = secureItems
             .filter((item) => isWholesaleProduct(item.product))
             .reduce((sum, item) => sum + item.quantity, 0);
-        const wholesaleDiscount = wholesaleEligibleQuantity >= 10 ? 10 : wholesaleEligibleQuantity >= 5 ? 7 : wholesaleEligibleQuantity >= 3 ? 5 : 0;
+        const wholesaleDiscount = business.discount(wholesaleEligibleQuantity);
         const productsSubtotal = secureItems.reduce((sum, item) => {
             const isEligible = isWholesaleProduct(item.product);
             const discount = isEligible ? wholesaleDiscount : 0;
@@ -1199,53 +1188,32 @@ app.post('/api/orders', authenticate, async (req, res) => {
         }
 
         const dollarRate = await getDollarRate();
+        const option = String(req.body.shipping_option || 'coordinar');
+        const zip = String(req.body.zip_code || '').trim().replace(/^[a-z](\d{4})[a-z]{3}$/i,'$1');
+        if (!['coordinar','arrange','local','correo_sucursal','correo_domicilio','andreani_sucursal','andreani_domicilio'].includes(option)) return res.status(400).json({error:'Elegí una modalidad de envío válida.'});
+        extraShipping=0;
+        if (!['coordinar','arrange'].includes(option)) {
+            if (!/^\d{4,5}$/.test(zip)) return res.status(400).json({error:'Ingresá un código postal válido para cotizar el envío.'});
+            const local=['3280','3283','3265','3260'].includes(zip);
+            if(option==='local' && !local) return res.status(400).json({error:'El envío local no está disponible para ese código postal.'});
+            const modifier=zip.startsWith('9') ? 1.6 : /^[45]/.test(zip) ? 1.3 : 1;
+            const correo=Math.round(Number(settings.shipping_correo ?? 8500)*modifier);
+            const andreani=Math.round(Number(settings.shipping_andreani ?? 12000)*modifier);
+            const prices={local:0,correo_sucursal:Math.max(0,correo-2000),correo_domicilio:correo,andreani_sucursal:Math.max(0,andreani-3000),andreani_domicilio:andreani};
+            extraShipping=local ? 0 : prices[option];
+            if(Number(settings.free_shipping_threshold)>0 && productsSubtotal*dollarRate>=Number(settings.free_shipping_threshold)) extraShipping=0;
+        }
+        if(couponCode && settings.coupons.find(entry=>String(entry.code).toUpperCase()===couponCode)?.type==='shipping') extraShipping=0;
         const total = Math.max(0, productsSubtotal - discountUsd + extraShipping / dollarRate);
-        const { data: orderData, error: orderError } = await supabase
-            .from('orders')
-            .insert([{
-                user_id: req.user.id,
-                total,
-                shipping_address: shippingAddress,
-                customer_name: customerName,
-                customer_email: customerEmail,
-                customer_phone: customerPhone,
-                payment_method: paymentMethod,
-                shipping_method: shippingMethod,
-                status: 'pending'
-            }])
-            .select('id')
-            .single();
-        if (orderError) throw orderError;
-
-        const orderItems = secureItems.map((item) => {
-            const isEligible = isWholesaleProduct(item.product);
-            const effectivePrice = Math.max(1, item.unitPrice - (isEligible ? wholesaleDiscount : 0));
-            return {
-                order_id: orderData.id,
-                product_id: item.product.id,
-                quantity: item.quantity,
-                price: effectivePrice,
-                variant_name: item.variantName
-            };
+        const totalArs=Math.round((productsSubtotal-discountUsd)*dollarRate+extraShipping);
+        const orderItems=secureItems.map(item=>({product_id:item.product.id,quantity:item.quantity,price:business.unitPrice(item.unitPrice,wholesaleEligibleQuantity,item.product),base_price:item.unitPrice,variant_name:item.variantName || ''}));
+        const {data:created,error:createError}=await supabase.rpc('create_store_order',{
+            p_key:requestKey,p_cart:cartId,p_owner:req.user?.id || null,
+            p_order:{total,total_ars:totalArs,dollar_rate:dollarRate,shipping_cost_ars:extraShipping,shipping_address:shippingAddress,customer_name:customerName,customer_email:customerEmail,customer_phone:customerPhone,payment_method:paymentMethod,shipping_method:shippingMethod,request_hash:requestHash},p_items:orderItems
         });
-        const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
-        if (itemsError) {
-            await supabase.from('orders').delete().eq('id', orderData.id);
-            throw itemsError;
-        }
-
-        const { data: consumed, error: consumeError } = await supabase.rpc('consume_cart_reservations', {
-            p_cart_id: cartId, p_items: [...requestedItems.values()].map((item) => ({
-                product_id: item.productId, variant_name: item.variantName || '', quantity: item.quantity
-            }))
-        });
-        if (consumeError || !consumed) {
-            await supabase.from('orders').delete().eq('id', orderData.id);
-            if (consumeError) throw consumeError;
-            return res.status(409).json({ error: 'La reserva del carrito venció o cambió. Actualizá el carrito.' });
-        }
-
-        const totalArs = Math.round((productsSubtotal - discountUsd) * dollarRate + extraShipping);
+        if(createError) return res.status(createError.code==='P0001' ? 409 : 503).json({error:createError.code==='P0001' ? createError.message : 'No pudimos registrar el pedido. Intentá nuevamente con el mismo identificador.'});
+        const orderData=created.order;
+        if(created.replayed) return res.json({orderId:orderData.id,total:orderData.total,total_ars:orderData.total_ars,dollar_rate:orderData.dollar_rate,replayed:true});
         const itemList = secureItems.map((item) => {
             const isEligible = isWholesaleProduct(item.product);
             const effectiveUnitPrice = Math.max(1, item.unitPrice - (isEligible ? wholesaleDiscount : 0));
@@ -1321,7 +1289,7 @@ app.post('/api/orders', authenticate, async (req, res) => {
 
         const customerEmailHtml = `
             <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 24px; color: #222; line-height: 1.6;">
-                <h1 style="color: #111; margin-bottom: 0.5rem;">¡Compra confirmada!</h1>
+                <h1 style="color: #111; margin-bottom: 0.5rem;">Pedido registrado</h1>
                 <p>Hola <strong>${escapeHtml(customerName)}</strong>, recibimos tu orden <strong>#${escapeHtml(orderData.id)}</strong> correctamente.</p>
                 <div style="background: #f8f9fa; border: 1px solid #e5e5ea; border-radius: 8px; padding: 16px; margin: 16px 0;">
                     <p style="margin: 0 0 8px; font-weight: bold;">Productos seleccionados:</p>
@@ -1447,15 +1415,10 @@ app.put('/api/orders/:id/status', authenticate, isAdmin, async (req, res) => {
         const status = String(req.body.status || '');
         const trackingCode = req.body.tracking_code == null ? null : String(req.body.tracking_code).trim().slice(0, 100);
         if (!allowedStatuses.has(status)) return res.status(400).json({ error: 'Estado de orden inválido' });
-        const { data, error } = await supabase.from('orders').update({
-            status,
-            tracking_code: trackingCode || null,
-            updated_at: new Date().toISOString()
-        }).eq('id', req.params.id).select();
-        if (error) throw error;
-        if (!data?.length) return res.status(404).json({ error: 'Orden no encontrada' });
-        void sendOrderStatusEmail(data[0]);
-        res.json({ message: 'Orden actualizada', order: data[0] });
+        const {data,error}=await supabase.rpc('transition_store_order',{p_id:Number(req.params.id),p_status:status,p_tracking:trackingCode || ''});
+        if(error) return res.status(error.message.includes('no encontrado') ? 404 : 409).json({error:error.message});
+        if(data.changed) void sendOrderStatusEmail(data.order);
+        res.json({message:'Orden actualizada',order:data.order});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -1556,7 +1519,19 @@ app.get('/api/admin/analytics', authenticate, isAdmin, async (_req, res) => {
             if (event.product_id) totals[event.product_id] = (totals[event.product_id] || 0) + 1;
             return totals;
         }, {});
-        res.json({ period_days: 30, page_views: views || 0, add_to_cart: carts || 0, checkout_started: checkouts || 0, product_views: productViews });
+        const {data:orders,error:ordersError}=await supabase.from('orders').select('status,total,total_ars').gte('created_at',since);
+        if(ordersError) throw ordersError;
+        const confirmed=(orders || []).filter(order=>['confirmed','preparing','shipped','delivered','completed'].includes(order.status));
+        const {data:events,error:eventsError}=await supabase.from('site_events').select('event_type,metadata').in('event_type',['web_vital','search_empty','contact_click']).gte('created_at',since).order('created_at',{ascending:false}).limit(10000);
+        if(eventsError) throw eventsError;
+        const performance={};
+        for(const device of ['mobile','desktop']) {
+            performance[device]={};for(const metric of ['LCP','INP','CLS']) {
+                const values=(events || []).filter(event=>event.event_type==='web_vital' && event.metadata?.metric===metric && event.metadata?.device===device).map(event=>Number(event.metadata.value)).filter(Number.isFinite).sort((a,b)=>a-b);
+                performance[device][metric]={samples:values.length,p75:values.length ? values[Math.max(0,Math.ceil(values.length*.75)-1)]:null};
+            }
+        }
+        res.json({performance,searches_empty:(events || []).filter(event=>event.event_type==='search_empty').length,contacts:(events || []).filter(event=>event.event_type==='contact_click').length,orders_created:(orders || []).length,orders_confirmed:confirmed.length,revenue_usd:confirmed.reduce((sum,order)=>sum+Number(order.total || 0),0),period_days: 30, page_views: views || 0, add_to_cart: carts || 0, checkout_started: checkouts || 0, product_views: productViews });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

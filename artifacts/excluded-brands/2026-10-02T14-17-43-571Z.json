@@ -1,0 +1,766 @@
+{
+  "archivedAt": "2026-10-02T14:17:43.571Z",
+  "brands": [
+    "ecopower",
+    "aiwa",
+    "ur"
+  ],
+  "beforeCount": 358,
+  "products": [
+    {
+      "id": 293,
+      "name": "UR UM-05",
+      "description": "[Condición: Nuevo sellado] UR UM-05. Equipo nuevo y sellado. Elegí el color entre las opciones disponibles. Imágenes de referencia de cada color.",
+      "price": 40,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-05-negro-1.webp",
+      "brand": "UR",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-01T23:08:33.338477+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "Negro",
+          "price": 40,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-05-negro-1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo sellado",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-05-negro-1.webp"
+        }
+      ],
+      "category": "celulares",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-05-negro-1.webp"
+      ]
+    },
+    {
+      "id": 294,
+      "name": "UR UM-06",
+      "description": "[Condición: Nuevo sellado] UR UM-06. Equipo nuevo y sellado. Elegí el color entre las opciones disponibles. Imágenes de referencia de cada color.",
+      "price": 40,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-1.webp",
+      "brand": "UR",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-01T23:08:33.58562+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "Negro",
+          "price": 40,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-1.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-2.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo sellado",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-1.webp"
+        }
+      ],
+      "category": "celulares",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-1.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-phones-2026-10-01/ur-um-06-negro-2.webp"
+      ]
+    },
+    {
+      "id": 416,
+      "name": "Aiwa AWSBH15",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 70,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:03.13183+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 70,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--1.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--2.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--3.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--4.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--5.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--1.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--2.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--3.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--4.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh15--5.webp"
+      ]
+    },
+    {
+      "id": 444,
+      "name": "Ecopower EP-6118",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 40,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6118--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:09.549746+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 40,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6118--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6118--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6118--1.webp"
+      ]
+    },
+    {
+      "id": 445,
+      "name": "Ecopower EP-3800",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 300,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-3800--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:09.777381+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 300,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-3800--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-3800--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-3800--1.webp"
+      ]
+    },
+    {
+      "id": 446,
+      "name": "Aiwa AWF215BT",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 160,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awf215bt--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:10.002808+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 160,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awf215bt--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awf215bt--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awf215bt--1.webp"
+      ]
+    },
+    {
+      "id": 447,
+      "name": "Aiwa AWPOH4D",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 140,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:10.224585+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 140,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--1.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--2.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--3.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--1.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--2.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh4d--3.webp"
+      ]
+    },
+    {
+      "id": 448,
+      "name": "Aiwa AWPOK68",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 110,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpok68--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:10.452+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 110,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpok68--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpok68--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpok68--1.webp"
+      ]
+    },
+    {
+      "id": 449,
+      "name": "Aiwa AWPOH35PLUS",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 150,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh35plus--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:10.672497+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 150,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh35plus--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh35plus--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awpoh35plus--1.webp"
+      ]
+    },
+    {
+      "id": 455,
+      "name": "Ecopower EP-1805",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 50,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-1805--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:12.005344+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 50,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-1805--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-1805--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-1805--1.webp"
+      ]
+    },
+    {
+      "id": 456,
+      "name": "Ecopower EP-2110",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 20,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-2110--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:12.22535+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 20,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-2110--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-2110--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-2110--1.webp"
+      ]
+    },
+    {
+      "id": 457,
+      "name": "Ecopower EP-S103",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 30,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s103--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:12.445186+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 30,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s103--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s103--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s103--1.webp"
+      ]
+    },
+    {
+      "id": 458,
+      "name": "Ecopower EP-S106",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 30,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s106--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:12.663169+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 30,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s106--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s106--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s106--1.webp"
+      ]
+    },
+    {
+      "id": 459,
+      "name": "Ecopower EP-S111",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 20,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s111--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:12.889505+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 20,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s111--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s111--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s111--1.webp"
+      ]
+    },
+    {
+      "id": 460,
+      "name": "Ecopower EP-S121",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 90,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s121--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:13.109128+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 90,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s121--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s121--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s121--1.webp"
+      ]
+    },
+    {
+      "id": 461,
+      "name": "Aiwa AWSBC800WW",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 110,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbc800ww--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:13.339849+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 110,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbc800ww--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbc800ww--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbc800ww--1.webp"
+      ]
+    },
+    {
+      "id": 462,
+      "name": "Ecopower EP-6108",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 30,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6108--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:13.569168+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 30,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6108--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6108--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6108--1.webp"
+      ]
+    },
+    {
+      "id": 463,
+      "name": "Ecopower EP-6106",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 30,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6106--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:13.790852+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 30,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6106--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6106--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-6106--1.webp"
+      ]
+    },
+    {
+      "id": 464,
+      "name": "Ecopower EP-S110",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 30,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s110--1.webp",
+      "brand": "Ecopower",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:14.010491+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 30,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s110--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s110--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ecopower-ep-s110--1.webp"
+      ]
+    },
+    {
+      "id": 465,
+      "name": "Aiwa AWSBH21WW",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 160,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--1.webp",
+      "brand": "Aiwa",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:14.254422+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 160,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--1.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--2.webp",
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--3.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--1.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--2.webp",
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/aiwa-awsbh21ww--3.webp"
+      ]
+    },
+    {
+      "id": 466,
+      "name": "UR Karaoke US-03",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 20,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-karaoke-us-03--1.webp",
+      "brand": "UR",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:14.485817+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "",
+          "price": 20,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-karaoke-us-03--1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-karaoke-us-03--1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-karaoke-us-03--1.webp"
+      ]
+    },
+    {
+      "id": 467,
+      "name": "UR Speaker US-05",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 10,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-05-azul-1.webp",
+      "brand": "UR",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:14.716052+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "Azul",
+          "price": 10,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-05-azul-1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-05-azul-1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-05-azul-1.webp"
+      ]
+    },
+    {
+      "id": 468,
+      "name": "UR Speaker US-07",
+      "description": "[Condición: Nuevo] Equipo de audio. Consultá el modelo y la configuración elegida para coordinar tu pedido. Elegí la variante para ver color, capacidad, configuración, precio y stock. Fotos de referencia del modelo y acabado; el empaque puede variar según la región.",
+      "price": 20,
+      "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-07-negro-1.webp",
+      "brand": "UR",
+      "stock": 10,
+      "is_offer": false,
+      "created_at": "2026-10-02T14:10:14.938057+00:00",
+      "variants": [
+        {
+          "ram": "",
+          "batt": "",
+          "color": "Negro",
+          "price": 20,
+          "stock": 10,
+          "images": [
+            "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-07-negro-1.webp"
+          ],
+          "capacity": "",
+          "condition": "Nuevo",
+          "image_url": "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-07-negro-1.webp",
+          "configuration": ""
+        }
+      ],
+      "category": "accesorios",
+      "archived_at": null,
+      "images": [
+        "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/wholesale-categories-2026-10-02/ur-speaker-us-07-negro-1.webp"
+      ]
+    }
+  ],
+  "verifiedAt": "2026-10-02T14:17:44.454Z",
+  "afterCount": 335,
+  "archivedCount": 23
+}

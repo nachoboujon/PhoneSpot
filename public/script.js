@@ -3,6 +3,13 @@ window.phoneSpotSettings = window.phoneSpotSettings || {};
 // ==================== CONFIGURACIÓN DE API ====================
 // Cambia 'http://localhost:3000' por la URL de tu servidor en producción (ej. 'https://tu-backend.onrender.com')
 window.API_URL = '';
+let publicCatalogRequest;
+window.getCatalogProducts = () => {
+    if (!publicCatalogRequest) publicCatalogRequest = fetch(window.API_URL + '/api/products')
+        .then(async response => { if (!response.ok) throw new Error('No pudimos cargar el catálogo'); return response.json(); })
+        .catch(error => { publicCatalogRequest = null; throw error; });
+    return publicCatalogRequest.then(products => JSON.parse(JSON.stringify(products)));
+};
 window.updateSocialDock = (rawPhone) => {
     if (!document.body || window.location.pathname.endsWith('/admin.html')) return;
     const phone = String(rawPhone || window.phoneSpotSettings?.whatsapp_number || '5493447416011').replace(/\D/g, '') || '5493447416011';
@@ -185,19 +192,8 @@ const adminSessionPromise = window.location.pathname.endsWith('/admin.html') ? (
     return false;
 })() : null;
 
-if (window.location.pathname.includes('checkout.html') && !localStorage.getItem('phoneSpotToken')) {
-    window.location.href = 'login.html?redirect=checkout.html';
-}
-window.goToCheckout = (e) => {
-    if (e) e.preventDefault();
-    if (!localStorage.getItem('phoneSpotToken')) {
-        showToast('Debes iniciar sesión para comprar', 'fa-lock');
-        setTimeout(() => window.location.href = 'login.html?redirect=checkout.html', 1500);
-    } else {
-        window.trackStoreEvent('checkout_started');
-        window.location.href = 'checkout.html';
-    }
-};
+
+window.goToCheckout = () => {window.trackStoreEvent('checkout_started'); window.location.href='checkout.html';};
 // ====================================================
 
 window.formatPrice = (usdPrice) => {
@@ -304,21 +300,7 @@ function updateCartCount() {
     }
 }
 
-window.isWholesaleEligible = function(item) {
-    if (!item) return false;
-    const cat = String(item.category || '').toLowerCase().trim();
-    if (cat === 'accesorios') return false;
-    if (cat === 'celulares' || cat === 'tablets' || cat === 'notebooks') return true;
-
-    // Fallback if item does not have category property
-    const name = String(item.name || '').toLowerCase();
-    const accessoryKeywords = [
-        'funda', 'case', 'cable', 'cargador', 'charger', 'auricular', 'auriculares',
-        'earphones', 'airpod', 'airpods', 'vidrio', 'templado', 'protector',
-        'hidrogel', 'adaptador', 'powerbank', 'magsafe', 'correa', 'malla', 'accesorio', 'accesorios'
-    ];
-    return !accessoryKeywords.some(kw => name.includes(kw));
-};
+window.isWholesaleEligible = window.PhoneSpotBusiness.eligible;
 
 function animateProductToCart(sourceElement) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return Promise.resolve();
@@ -396,7 +378,7 @@ async function mutateCartQuantity(id, variantName, quantity) {
 }
 
 async function addToCart(product, sourceElement = null) {
-    const result = await setCartQuantity(product.id, product.variant_name, current => current + 1);
+    const result = await setCartQuantity(product.id, product.variant_name, current => current + (product.quantity || 1));
     window.trackStoreEvent('add_to_cart', { productId: product.id });
 
     const finishCartFeedback = () => {
@@ -439,10 +421,7 @@ async function renderSideCart() {
             eligibleQuantity += item.quantity;
         }
     });
-    let wholesaleDiscount = 0;
-    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
-    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
-    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    let wholesaleDiscount = window.PhoneSpotBusiness.discount(eligibleQuantity);
     const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
@@ -473,20 +452,20 @@ async function renderSideCart() {
         
         sideContainer.innerHTML += `
             <article class="side-cart-item">
-                <div class="side-cart-item__media"><img src="${item.img || item.image || item.image_url}" alt="${item.name}"></div>
+                <div class="side-cart-item__media"><img src="${item.img || item.image || item.image_url}" alt="${escapeText(item.name)}"></div>
                 <div class="side-cart-item-info">
-                    <h4>${item.name}</h4>
+                    <h4>${escapeText(item.name)}</h4>
                     ${item.variant_name ? `<p class="side-cart-item__variant">${item.variant_name}</p>` : ''}
                     ${isWholesale && itemIsEligible ? `<p class="side-cart-item__old-price">${window.formatPrice(item.price)}</p>` : ''}
                     <p class="side-cart-item__price">${window.formatPrice(finalPrice)}</p>
                 </div>
                 <div class="side-cart-item__actions">
-                    <div class="side-cart-quantity" role="group" aria-label="Cantidad de ${item.name}">
+                    <div class="side-cart-quantity" role="group" aria-label="Cantidad de ${escapeText(item.name)}">
                         <button type="button" aria-label="Quitar una unidad" onclick="changeQuantity('${item.id}', ${item.quantity - 1}, '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-minus"></i></button>
                         <span aria-label="${item.quantity} unidades">${item.quantity}</span>
                         <button type="button" aria-label="Agregar una unidad" onclick="changeQuantity('${item.id}', ${item.quantity + 1}, '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <button type="button" class="side-cart-remove" aria-label="Quitar ${item.name} del carrito" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-trash-can"></i><span>Quitar</span></button>
+                    <button type="button" class="side-cart-remove" aria-label="Quitar ${escapeText(item.name)} del carrito" onclick="removeFromCart('${item.id}', '${encodeURIComponent(item.variant_name || String())}')"><i class="fa-solid fa-trash-can"></i><span>Quitar</span></button>
                 </div>
             </article>
         `;
@@ -564,10 +543,7 @@ async function renderCart() { await window.dolarPromise;
             eligibleQuantity += item.quantity;
         }
     });
-    let wholesaleDiscount = 0;
-    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
-    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
-    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    let wholesaleDiscount = window.PhoneSpotBusiness.discount(eligibleQuantity);
     const isWholesale = wholesaleDiscount > 0;
 
     if (cart.length === 0) {
@@ -614,9 +590,9 @@ async function renderCart() { await window.dolarPromise;
         const itemDiv = document.createElement('div');
         itemDiv.className = 'cart-item';
         itemDiv.innerHTML = `
-            <img src="${item.img || item.image || item.image_url}" alt="${item.name}">
+            <img src="${item.img || item.image || item.image_url}" alt="${escapeText(item.name)}">
             <div class="item-details">
-                <h4>${item.name}</h4>
+                <h4>${escapeText(item.name)}</h4>
                 ${item.variant_name ? `<p>${item.variant_name}</p>` : ''}
                 <small>Reservado hasta ${new Date(item.expires_at).toLocaleString('es-AR')}</small>
                 ${isWholesale && itemIsEligible ? `<p style="color: #ff4757; text-decoration:line-through; font-size: 0.8rem; margin: 0;">Precio Base: ${window.formatPrice(item.price * item.quantity)}</p>` : ''}
@@ -679,10 +655,7 @@ async function renderCheckout() { await window.dolarPromise;
             eligibleQuantity += item.quantity;
         }
     });
-    let wholesaleDiscount = 0;
-    if (eligibleQuantity >= 10) wholesaleDiscount = 10;
-    else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
-    else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+    let wholesaleDiscount = window.PhoneSpotBusiness.discount(eligibleQuantity);
     const isWholesale = wholesaleDiscount > 0;
     
     if (isWholesale) {
@@ -700,7 +673,7 @@ async function renderCheckout() { await window.dolarPromise;
         checkoutItems.innerHTML += `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-color); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
                 <div style="display:flex; flex-direction:column;">
-                    <strong>${item.quantity}x ${item.name}</strong>
+                    <strong>${item.quantity}x ${escapeText(item.name)}</strong>
                     ${item.variant_name ? `<span style="color:var(--text-muted); font-size:0.8rem;">${item.variant_name}</span>` : ''}
                 </div>
                 <div style="text-align: right;">
@@ -837,14 +810,14 @@ async function loadProductsFromDB() {
     if (offersContainer) drawSkeletons(offersContainer, 4);
     
     try {
-        const [, response] = await Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products')]);
+        const [, response] = await Promise.all([window.dolarPromise, window.getCatalogProducts().then(products => ({ok: true, json: async () => products}))]);
         let products = await response.json();
 
         if (!response.ok) throw new Error(products.error || 'Error al cargar productos');
         products = window.expandCommercialProducts(products);
 
         // Mezclar aleatoriamente los productos para que no siempre salgan en el mismo orden
-        products = products.sort(() => Math.random() - 0.5);
+        products.sort((a,b) => Number(Number(b.stock)>0)-Number(Number(a.stock)>0) || Date.parse(b.created_at || 0)-Date.parse(a.created_at || 0));
 
         if (catalogContainer) catalogContainer.innerHTML = '';
         if (offersContainer) offersContainer.innerHTML = '';
@@ -881,31 +854,31 @@ async function loadProductsFromDB() {
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     const configurations = [...new Set(prod.variants.map(v => v.configuration).filter(Boolean))];
                     if (configurations.length) {
-                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
+                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${escapeText(c)}">${escapeText(c)}</option>`).join('')}</select>`;
                     }
                     if (uniqueColors.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
+                        uniqueColors.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Color: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueCaps.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="capacity" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueCaps.forEach(c => variantsHTML += `<option value="${c}">Cap: ${c}</option>`);
+                        uniqueCaps.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cap: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueRams.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        uniqueRams.forEach(c => variantsHTML += `<option value="${escapeText(c)}">RAM: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueBatts.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
+                        uniqueBatts.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Bat: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueConditions.length > 1) {
                         variantsHTML += `<select class="var-select" data-type="condition" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueConditions.forEach(c => variantsHTML += `<option value="${c}">Cond: ${c}</option>`);
+                        uniqueConditions.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cond: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -918,7 +891,7 @@ async function loadProductsFromDB() {
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="${window.productPageUrl(prod)}" class="product-img-wrapper">
-                            <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" style="max-width:100%;">
+                            <img src="${window.cardImageUrl(image)}" alt="${escapeText(prod.name)}" class="product-img" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
                         ${(() => {
@@ -934,9 +907,9 @@ async function loadProductsFromDB() {
                                     c += ' | Batería: ' + batts.join('/');
                                 }
                             }
-                            return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${c}</span>`;
+                            return `<span style="background: ${c.toLowerCase().includes('nuevo') ? '#e8f5e9' : '#fff3e0'}; color: ${c.toLowerCase().includes('nuevo') ? '#2e7d32' : '#e65100'}; border: 1px solid ${c.toLowerCase().includes('nuevo') ? '#a5d6a7' : '#ffcc80'}; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">${escapeText(c)}</span>`;
                         })()}
-                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${escapeText(prod.name)}</a></h4>
                         
                         <div style="margin-bottom: 1.5rem;">
                             ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
@@ -953,11 +926,13 @@ async function loadProductsFromDB() {
 
             if (prod.is_offer && offersContainer) {
                 offersContainer.insertAdjacentHTML('beforeend', cardHTML);
-                if (hasVariants) window.updateCardVariant(offersContainer.lastElementChild.querySelector('.var-select'));
+                const selector = offersContainer.lastElementChild.querySelector('.var-select');
+                if (selector) window.updateCardVariant(selector);
                 offersCount++;
             } else if (catalogContainer) {
                 catalogContainer.insertAdjacentHTML('beforeend', cardHTML);
-                if (hasVariants) window.updateCardVariant(catalogContainer.lastElementChild.querySelector('.var-select'));
+                const selector = catalogContainer.lastElementChild.querySelector('.var-select');
+                if (selector) window.updateCardVariant(selector);
                 catalogCount++;
             }
         });
@@ -969,7 +944,10 @@ async function loadProductsFromDB() {
         }
     } catch (err) {
         console.error("Error cargando productos:", err);
-        if (catalogContainer) catalogContainer.innerHTML = '<p style="color:red; text-align:center; grid-column:1/-1;"><b>ERROR DE CONEXIÓN AL SERVIDOR</b><br>Si ves esto en VIVO (phonespot.site), tienes un error en tus DNS (están apuntando a Cloudflare 1.1.1.1 en vez de a Railway).<br>Si ves esto en LOCAL, asegúrate de haber ejecutado <code>node server.js</code> y estar accediendo desde <code>localhost:3000</code> y NO desde un archivo local (file:///).</p>';
+        for (const container of [catalogContainer, offersContainer].filter(Boolean)) {
+            container.innerHTML = '<div role="status" style="text-align:center; grid-column:1/-1;"><p>No pudimos cargar los productos. Intentá nuevamente.</p><button type="button" class="btn retry-products">Reintentar</button></div>';
+            container.querySelector('.retry-products').addEventListener('click', loadProductsFromDB);
+        }
         showToast('Error de conexión a la API', 'fa-triangle-exclamation');
     }
 }
@@ -1241,7 +1219,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             await window.PhoneSpotCartActions.run(card, btn, async () => {
                 if (!Number.isFinite(finalPrice) || maxStock <= 0) throw new Error('Esta variante no tiene stock. Elegí otra opción.');
-                return addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category}, card);
+                const quantityInput = card.querySelector('#product-quantity');
+                const quantity = quantityInput ? Number(quantityInput.value) : 1;
+                if (!Number.isInteger(quantity) || quantity < 1 || quantity > 20 || quantity > maxStock) { showToast('Elegí una cantidad disponible entre 1 y 20.', 'fa-circle-exclamation'); return; }
+                return addToCart({id, name, price: finalPrice, img, variant_name: selectedVariant || null, maxStock, category, quantity}, card);
             });
         }
     });
@@ -1275,12 +1256,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
         };
-        let selectedConditions = []; let selectedColors = [];
+        let selectedConditions = (urlParams.get('condition') || '').split(',').filter(Boolean); let selectedColors = [];
         let selectedBrands = initialCat !== 'all' && ['apple','samsung','motorola','xiaomi'].includes(initialCat) ? [initialCat] : [];
-        let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios'].includes(initialCat) ? [initialCat] : [];
+        let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios','consolas','audio','relojes'].includes(initialCat) ? [initialCat] : [];
                 
-        let onlyOffers = false;
-        let currentSort = '';
+        let onlyOffers = urlParams.get('offer') === '1';
+        let currentSort = urlParams.get('sort') || '';
+        let catalogQuery = urlParams.get('q') || '';
+        let visibleLimit=Math.max(24,Math.min(1000,Number(urlParams.get('limit')) || 24));
+        selectedBrands = urlParams.has('brand') ? urlParams.get('brand').split(',').filter(Boolean) : selectedBrands;
+        selectedCategories = urlParams.has('categories') ? urlParams.get('categories').split(',').filter(Boolean) : selectedCategories;
 
         // UI Elements
                         const sortFilter = document.getElementById('sort-filter');
@@ -1288,13 +1273,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const countLabel = document.getElementById('catalog-count-label');
 
         const renderFilteredCatalog = () => {
-            if(!allCatalogProducts.length) return;
+            const params = new URLSearchParams();
+            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, stock: document.getElementById('stock-only').checked ? '1' : '', capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
+            Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
+            history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
+            if (!allCatalogProducts.length) { fullCatalogContainer.textContent = 'Aún no hay productos disponibles.'; return; }
 
             let filtered = allCatalogProducts.filter(p => {
                 // Category Filter
                 if (selectedCategories.length > 0) {
-                    const str = (p.name + " " + p.description + " " + p.category).toLowerCase();
-                    const matchesCat = selectedCategories.some(cat => str.includes(cat));
+                    const matchesCat = selectedCategories.includes(window.PhoneSpotBusiness.catalogCategory(p));
                     if (!matchesCat) return false;
                 }
 
@@ -1338,6 +1326,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (!matchesColor) return false;
                 }
 
+                const min = Number(document.getElementById('price-min').value || 0);
+                const max = document.getElementById('price-max').value ? Number(document.getElementById('price-max').value) : Infinity;
+                const capacity = document.getElementById('capacity-filter').value;
+                const ram = document.getElementById('ram-filter').value;
+                const variants = Array.isArray(p.variants) ? p.variants : [];
+                const candidates = variants.length ? variants : [{price: p.price, stock: p.stock}];
+                if (!window.PhoneSpotBusiness.matches(p, catalogQuery)) return false;
+                if (!candidates.some(v => {
+                    const price = Number(v.price || p.price) * window.dolarValue;
+                    return price >= min && price <= max && (!capacity || v.capacity === capacity) && (!ram || v.ram === ram) && (!document.getElementById('stock-only').checked || Number(v.stock)>0);
+                })) return false;
                 // Price Filter
                 
                 // Offers Filter
@@ -1361,12 +1360,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             fullCatalogContainer.innerHTML = '';
             if (filtered.length === 0) {
+                window.trackStoreEvent('search_empty');
                 fullCatalogContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-top: 2rem;">No se encontraron productos con estos filtros.</p>';
                 return;
             }
 
             const cardMarkup = [];
-            filtered.forEach((prod, index) => {
+            filtered.slice(0,visibleLimit).forEach((prod, index) => {
                 const image = window.getFullImageUrl(prod.image_url) || 'https://via.placeholder.com/400x400?text=Sin+Imagen';
                 const hasOffer = Boolean(prod.is_offer && Number(prod.old_price) > Number(prod.price));
                 const discount = hasOffer ? Math.round((1 - (Number(prod.price)/Number(prod.old_price))) * 100) : 0;
@@ -1389,31 +1389,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                     variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
                     const configurations = [...new Set(prod.variants.map(v => v.configuration).filter(Boolean))];
                     if (configurations.length) {
-                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
+                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${escapeText(c)}">${escapeText(c)}</option>`).join('')}</select>`;
                     }
                     if (uniqueColors.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueColors.forEach(c => variantsHTML += `<option value="${c}">Color: ${c}</option>`);
+                        uniqueColors.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Color: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueCaps.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="capacity" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueCaps.forEach(c => variantsHTML += `<option value="${c}">Cap: ${c}</option>`);
+                        uniqueCaps.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cap: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueRams.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueRams.forEach(c => variantsHTML += `<option value="${c}">RAM: ${c}</option>`);
+                        uniqueRams.forEach(c => variantsHTML += `<option value="${escapeText(c)}">RAM: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueBatts.length > 0) {
                         variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueBatts.forEach(c => variantsHTML += `<option value="${c}">Bat: ${c}</option>`);
+                        uniqueBatts.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Bat: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     if (uniqueConditions.length > 1) {
                         variantsHTML += `<select class="var-select" data-type="condition" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueConditions.forEach(c => variantsHTML += `<option value="${c}">Cond: ${c}</option>`);
+                        uniqueConditions.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cond: ${escapeText(c)}</option>`);
                         variantsHTML += `</select>`;
                     }
                     variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
@@ -1426,7 +1426,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ${typeof favIcon !== 'undefined' ? favIcon : ''}
 
                         <a href="${window.productPageUrl(prod)}" class="product-img-wrapper">
-                            <img src="${window.cardImageUrl(image)}" alt="${prod.name}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
+                            <img src="${window.cardImageUrl(image)}" alt="${escapeText(prod.name)}" class="product-img" loading="${index < 6 ? 'eager' : 'lazy'}" decoding="async" style="max-width:100%;">
                         </a>
                         <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 0.3rem;">${prod.brand || 'PhoneSpot'}</p>
                         ${(() => {
@@ -1442,9 +1442,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     c += ' | Batería: ' + batts.join('/');
                                 }
                             }
-                            return `<span class="card-condition">${c}</span>`;
+                            return `<span class="card-condition">${escapeText(c)}</span>`;
                         })()}
-                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 1rem; font-size: 1.1rem; flex:1;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none;">${escapeText(prod.name)}</a></h4>
                         
                         <div class="card-price-wrap" style="margin-bottom: 1.5rem;">
                             ${hasOffer ? `<p style="color: var(--text-muted); text-decoration: line-through; font-size: 0.9rem; margin: 0;">${window.formatPrice(Number(prod.old_price))}</p>` : ''}
@@ -1461,17 +1461,46 @@ document.addEventListener('DOMContentLoaded', async () => {
                 cardMarkup.push(cardHTML);
             });
             fullCatalogContainer.innerHTML = cardMarkup.join('');
+            let more=document.getElementById('catalog-load-more');
+            if(!more){more=document.createElement('button');more.id='catalog-load-more';more.type='button';more.className='catalog-reset';fullCatalogContainer.insertAdjacentElement('afterend',more);more.addEventListener('click',()=>{visibleLimit+=24;renderFilteredCatalog();});}
+            more.hidden=filtered.length<=visibleLimit;more.textContent='Ver más productos ('+Math.min(visibleLimit,filtered.length)+' de '+filtered.length+')';
             fullCatalogContainer.querySelectorAll('.product-card').forEach(card => {
                 const selector = card.querySelector('.var-select');
                 if (selector) window.updateCardVariant(selector);
             });
         };
 
-        Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products')]).then(([, res]) => res.json())
+        Promise.all([window.dolarPromise, window.getCatalogProducts().then(products => ({ok: true, json: async () => products}))]).then(([, res]) => res.json())
             .then(products => {
                 products = window.expandCommercialProducts(products);
                 allCatalogProducts = products;
+                const initInput = (id,key) => {document.getElementById(id).value = urlParams.get(key) || '';};
+                initInput('catalog-query','q'); initInput('price-min','min'); initInput('price-max','max');
+                document.getElementById('stock-only').checked = urlParams.get('stock') === '1';
+                for (const [id,key] of [['capacity-filter','capacity'],['ram-filter','ram']]) {
+                    const select = document.getElementById(id);
+                    const entries = [...new Set(products.flatMap(p => (p.variants || []).map(v => v[key])).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es', {numeric:true}));
+                    for (const value of entries) {const option = document.createElement('option'); option.value=value; option.textContent=value; select.append(option);}
+                    initInput(id,key);
+                }
+                sortFilter.value = currentSort;
+                document.getElementById('offer-filter').checked = onlyOffers;
+                document.querySelectorAll('.cond-checkbox').forEach(el => {el.checked = selectedConditions.includes(el.value);});
+                for (const id of ['catalog-query','price-min','price-max','stock-only','capacity-filter','ram-filter']) {
+                    document.getElementById(id).addEventListener(id === 'catalog-query' || id.startsWith('price-') ? 'input' : 'change', () => {catalogQuery = document.getElementById('catalog-query').value; visibleLimit=24; clearTimeout(window.catalogFilterTimer); window.catalogFilterTimer=setTimeout(renderFilteredCatalog,150);});
+                }
+                document.getElementById('catalog-reset').addEventListener('click', () => {
+                    selectedBrands=[]; selectedCategories=[]; selectedConditions=[]; selectedColors=[]; onlyOffers=false; currentSort=''; catalogQuery='';
+                    document.querySelectorAll('#filters-sidebar input[type=checkbox]').forEach(el => {el.checked=false;});
+                    for (const id of ['catalog-query','price-min','price-max','capacity-filter','ram-filter','sort-filter']) document.getElementById(id).value='';
+                    renderFilteredCatalog();
+                });
 
+                const categoryLabels={celulares:'Celulares',notebooks:'Notebooks',tablets:'Tablets',accesorios:'Accesorios',consolas:'Consolas',audio:'Audio',relojes:'Relojes'};
+                const categoryContainer=document.getElementById('category-filters');categoryContainer.replaceChildren();
+                for(const category of [...new Set(products.map(window.PhoneSpotBusiness.catalogCategory))]) {
+                    const label=document.createElement('label');label.className='filter-label';const input=document.createElement('input');input.type='checkbox';input.value=category;input.className='cat-checkbox';label.append(input,document.createTextNode(categoryLabels[category] || category));categoryContainer.append(label);
+                }
                 // Build dynamic brands
                 let availableBrands = [];
                 if (window.phoneSpotSettings && window.phoneSpotSettings.brands_list) {
@@ -1559,7 +1588,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 renderFilteredCatalog();
             })
             .catch(err => {
-                fullCatalogContainer.innerHTML = '<p>Error al cargar el catálogo.</p>';
+                fullCatalogContainer.innerHTML = '<div role="status"><p>No pudimos cargar el catálogo. Revisá tu conexión.</p><button type="button" class="catalog-reset" onclick="location.reload()">Reintentar</button></div>';
             });
     }
 
@@ -1589,7 +1618,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     singleProductContainer.textContent = 'Esta opción de venta no está disponible para el equipo.';
                     return;
                 }
-                document.title = `${prod.name} | PhoneSpot`;
+                document.title = `${escapeText(prod.name)} | PhoneSpot`;
                 window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const galleryPhotos = window.galleryForColor(prod, prod.variants?.[0]?.color || '');
@@ -1610,7 +1639,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Color <span id="selected-color-name">${uniqueColors[0]}</span></h3>
                                 <div class="product-option-list" id="color-opts">
-                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="color" data-val="${c}" title="${c}" aria-label="Color ${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${uniqueColors.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="color" data-val="${escapeText(c)}" title="${escapeText(c)}" aria-label="Color ${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                                 <p id="photo-color-note" class="photo-color-note" hidden></p>
                             </div>
@@ -1620,14 +1649,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Configuración</h3>
                                 <div class="product-option-list" id="configuration-opts">
-                                    ${[...new Set(prod.variants.map(v => v.configuration).filter(Boolean))].map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="configuration" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${[...new Set(prod.variants.map(v => v.configuration).filter(Boolean))].map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="configuration" data-val="${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                             </div>` : ''}
                             ${uniqueCaps.length > 0 ? `
                             <div class="product-option-group">
                                 <h3>Almacenamiento</h3>
                                 <div class="product-option-list" id="cap-opts">
-                                    ${uniqueCaps.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${uniqueCaps.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="capacity" data-val="${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1636,7 +1665,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Memoria RAM</h3>
                                 <div class="product-option-list" id="ram-opts">
-                                    ${uniqueRams.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${uniqueRams.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="ram" data-val="${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1645,7 +1674,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Condición de batería</h3>
                                 <div class="product-option-list" id="batt-opts">
-                                    ${uniqueBatts.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${uniqueBatts.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="batt" data-val="${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1653,7 +1682,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-option-group">
                                 <h3>Condición y tipo</h3>
                                 <div class="product-option-list" id="condition-opts">
-                                    ${uniqueConditions.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${c}" aria-pressed="${i===0}">${c}</button>`).join('')}
+                                    ${uniqueConditions.map((c,i) => `<button type="button" class="var-btn ${i===0?'active':''}" data-type="condition" data-val="${escapeText(c)}" aria-pressed="${i===0}">${escapeText(c)}</button>`).join('')}
                                 </div>
                             </div>
                             ` : ''}
@@ -1695,32 +1724,35 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <div class="product-gallery">
                                 <div class="product-gallery-main">
                                     ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                    <img id="main-product-img" src="${image}" alt="${prod.name}" fetchpriority="high" decoding="async">
+                                    <img id="main-product-img" src="${escapeText(image)}" alt="${escapeText(prod.name)}" fetchpriority="high" decoding="async">
                                 </div>
                                 <p id="product-image-caption" class="photo-color-note" ${image.includes('/uploads/official-products/') ? '' : 'hidden'}>Imagen oficial de referencia. El estado del equipo se indica en su descripción.</p>
                                 <div class="gallery-thumbnails" ${galleryPhotos.length < 2 ? 'hidden' : ''}>
-                                    ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb ${i===0?'active':''}" aria-label="Ver foto ${i + 1} de ${photo.color || prod.name}" data-image="${photo.url}" data-color="${photo.color}"><img src="${photo.url}" alt="" loading="${i<4?'eager':'lazy'}"><span>${photo.color}</span></button>`).join('')}
+                                    ${(galleryPhotos.length ? galleryPhotos : [{url:image,color:''}]).map((photo, i) => `<button type="button" class="gallery-thumb ${i===0?'active':''}" aria-label="Ver foto ${i + 1} de ${escapeText(photo.color || prod.name)}" data-image="${escapeText(photo.url)}" data-color="${escapeText(photo.color)}"><img src="${escapeText(photo.url)}" alt="" loading="${i<4?'eager':'lazy'}"><span>${escapeText(photo.color)}</span></button>`).join('')}
                                 </div>
                             </div>
                             
                             <div class="product-info">
                                 <div class="product-meta">
-                                    <span>${prod.brand}</span>
+                                    <span>${escapeText(prod.brand)}</span>
                                     <span>${prod.category}</span>
                                 </div>
                                 
                                 <p class="product-condition-tag">
                                     <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
                                 </p>
-                                <h2>${prod.name}</h2>
+                                <h2>${escapeText(prod.name)}</h2>
                                 ${commercialProducts.length > 1 ? `<div class="product-commercial-options" role="navigation" aria-label="Otras opciones de este modelo">${commercialProducts.filter(option => option.commercial_type !== prod.commercial_type).map(option => `<a class="product-commercial-link" href="${window.productPageUrl(option)}"><span>Ver ${option.commercial_label || 'equipo'}</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>`).join('')}</div>` : ''}
 
+                                ${variantsHTML}
                                 <div class="product-purchase-panel">
                                     <div class="product-price-panel">
                                         <span class="product-price-label">Precio del equipo</span>
                                         <p class="price" id="dynamic-price">${window.formatPrice(Number(prod.price))} <span>ARS</span></p>
                                     </div>
                                     <p id="variant-stock-msg" class="product-stock-status" aria-live="polite">${hasVariants ? '' : (prod.stock > 0 ? 'Stock disponible: ' + prod.stock + ' unidades' : 'Sin stock')}</p>
+                                    <p class="selected-variant-summary" id="selected-variant-summary" aria-live="polite"></p>
+                                    <label class="product-quantity" for="product-quantity">Cantidad<input type="number" id="product-quantity" min="1" max="20" value="1" step="1" inputmode="numeric"></label>
                                     <div class="product-purchase-actions">
                                         <button type="button" class="btn add-to-cart-btn" ${isOutOfStock ? 'disabled' : ''}>
                                             <i class="fa-solid ${isOutOfStock ? 'fa-box-open' : 'fa-cart-plus'}" aria-hidden="true"></i> ${isOutOfStock ? 'Sin stock' : 'Agregar al carrito'}
@@ -1728,8 +1760,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     </div>
                                 </div>
 
-                                ${variantsHTML}
-
+                                <section class="wholesale-info" aria-label="Precios y condiciones">
+                                    <h3>Precio por cantidad</h3>
+                                    <div id="product-volume-prices"></div>
+                                    <p>Podés combinar equipos elegibles en el carrito. No incluye accesorios.</p>
+                                    <p>Importes en pesos calculados con la cotización vigente. Al registrar el pedido guardamos el importe y la cotización; el pago y el envío se coordinan por WhatsApp.</p>
+                                </section>
                                 <div class="product-shipping-calculator">
                                     <label for="calc-zip"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i> Consultar envío</label>
                                     <div class="product-shipping-form">
@@ -1752,7 +1788,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
                                     <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
-                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${displayDesc.replace(/\n/g, '<br>')}</p>
+                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${escapeText(displayDesc).replace(/\n/g, '<br>')}</p>
                                 </div>
 
                                 <section style="padding-top:1.5rem; margin-top:1.5rem; border-top:1px solid #eee;">
@@ -1776,7 +1812,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <div style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 12px; display:flex; flex-direction:column; gap:0.8rem;">
                                     <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
                                         <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-truck-fast" style="color:#0071e3;"></i></div>
-                                        <span><strong>Envío inmediato</strong> a todo el país</span>
+                                        <span><strong>Envío a coordinar</strong> según tu destino</span>
                                     </div>
                                     <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; color: #333;">
                                         <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.05);"><i class="fa-solid fa-headset" style="color:#0071e3;"></i></div>
@@ -1788,6 +1824,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 `;
 
+                window.refreshVisibleStock=async(id)=>{
+                    if(String(id)!==String(prod.id)) return;
+                    const response=await fetch(window.API_URL+'/api/products/'+id,{cache:'no-store'});if(!response.ok) return;
+                    const fresh=await response.json();const option=window.splitCommercialProduct(fresh).find(entry=>entry.commercial_type===prod.commercial_type);
+                    if(!option) return;
+                    Object.assign(prod,option);const container=document.querySelector('.product-details');
+                    container.dataset.stockInfo=escape(JSON.stringify({stock:prod.stock,variants:prod.variants || []}));
+                    if(prod.variants?.length) window.checkVariantStock(prod);
+                    else {container.dataset.variantStock=String(prod.stock);container.querySelector('.add-to-cart-btn').disabled=prod.stock<=0;document.getElementById('variant-stock-msg').textContent='Stock disponible: '+prod.stock+' unidades';}
+                };
                 const reviewForm = document.getElementById('review-form');
                 if (reviewForm) {
                     reviewForm.addEventListener('submit', async (event) => {
@@ -1846,6 +1892,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const variant = matches[0];
                         const container = document.querySelector('.product-details');
                         if (container) container.dataset.selectedVariant = variant ? window.variantNameFor(variant) : '';
+                        document.getElementById('selected-variant-summary').textContent = variant ? window.variantNameFor(variant) : 'Seleccioná una combinación disponible';
+                        const quantity = document.getElementById('product-quantity');
+                        if (quantity) {quantity.max = String(Math.min(20, Number(variant?.stock || 0))); quantity.disabled = Number(variant?.stock || 0) <= 0;}
+                        window.updateProductPriceReference?.(container);
                         const stock = Number(variant?.stock || 0);
                         if (container) container.dataset.variantStock = String(stock);
                         const button = document.querySelector('.product-details .add-to-cart-btn');
@@ -1882,6 +1932,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         });
                     });
                     
+                    const deepVariant=(prod.variants || []).find(variant=>window.variantNameFor(variant)===urlParams.get('variant'));
+                    if(deepVariant) document.querySelectorAll('.var-btn').forEach(button=>button.classList.toggle('active',button.dataset.val===deepVariant[button.dataset.type]));
                     window.checkVariantStock(prod);
                 }
 
@@ -1929,7 +1981,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
     function loadRelatedProducts(currentId, category) {
-        Promise.all([window.dolarPromise, fetch(window.API_URL + '/api/products').then(res => res.json())])
+        Promise.all([window.dolarPromise, window.getCatalogProducts().then(products => ({ok: true, json: async () => products})).then(res => res.json())])
             .then(([_, prods]) => {
                 prods = window.expandCommercialProducts(prods);
                 const section = document.getElementById('related-products-section');
@@ -1956,8 +2008,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const cardHTML = `
                         <div class="product-card" data-id="${prod.id}" data-favorite-key="${prod.favorite_key || prod.id}" data-commercial-type="${prod.commercial_type || "standard"}" data-category="${prod.category || ''}" data-price="${prod.price}" data-stock-info="${escape(JSON.stringify({stock: prod.stock, variants: prod.variants || []}))}">
                                 ${prod.stock <= 0 ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#333; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">AGOTADO</div>` : (prod.is_offer ? `<div class="badge" style="position:absolute; top: 15px; left: 15px; background:#ff4757; color:white; padding:0.4rem 0.8rem; font-size:0.8rem; font-weight:bold; border-radius:8px; z-index:10;">OFERTA 🔥</div>` : '')}
-                                <a href="${window.productPageUrl(prod)}"><img src="${image}" alt="${prod.name}"></a>
-                                <h4><a href="${window.productPageUrl(prod)}" style="color:inherit; text-decoration:none;">${prod.name}</a></h4>
+                                <a href="${window.productPageUrl(prod)}"><img src="${escapeText(image)}" alt="${escapeText(prod.name)}"></a>
+                                <h4><a href="${window.productPageUrl(prod)}" style="color:inherit; text-decoration:none;">${escapeText(prod.name)}</a></h4>
                                 <p class="price">${window.formatPrice(Number(prod.price))}</p>
                             </div>
                         `;
@@ -2173,6 +2225,7 @@ const checkoutForm = document.getElementById('checkout-form');
             if (part2.style.display === 'none') { btnNext.click(); return; }
             if (!window.PhoneSpotCheckout.validate() || !window.PhoneSpotCheckout.begin()) return;
             try {
+            if(await window.PhoneSpotCheckout.recoverPending()) return;
             try { await cartReady; await refreshCart(); }
             catch (error) { window.PhoneSpotCheckout.message('No pudimos verificar tu reserva. Intentá nuevamente.'); return; }
             await window.dolarPromise;
@@ -2206,7 +2259,8 @@ const checkoutForm = document.getElementById('checkout-form');
             const threshold = settings_ml.free_shipping_threshold;
             
             // Calcular total del carrito para saber si aplica envío gratis
-            const cartTotalArs = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * window.dolarValue;
+            const eligibleQuantity=cart.reduce((sum,item)=>sum+(window.PhoneSpotBusiness.eligible(item)?item.quantity:0),0);
+            const cartTotalArs = cart.reduce((sum, item) => sum + window.PhoneSpotBusiness.unitPrice(item.price,eligibleQuantity,item)*item.quantity, 0) * window.dolarValue;
             const isFreeShipping = threshold > 0 && cartTotalArs >= threshold;
 
 
@@ -2241,10 +2295,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         eligibleQuantity += item.quantity;
                     }
                 });
-                let wholesaleDiscount = 0;
-                if (eligibleQuantity >= 10) wholesaleDiscount = 10;
-                else if (eligibleQuantity >= 5) wholesaleDiscount = 7;
-                else if (eligibleQuantity >= 3) wholesaleDiscount = 5;
+                let wholesaleDiscount = window.PhoneSpotBusiness.discount(eligibleQuantity);
                 const isWholesale = wholesaleDiscount > 0;
 
                 const total = cart.reduce((acc, item) => {
@@ -2263,6 +2314,7 @@ const checkoutForm = document.getElementById('checkout-form');
                 
                 showToast('Procesando orden...', 'fa-spinner fa-spin');
 
+                sessionStorage.setItem('phoneSpotCheckoutPending',JSON.stringify({key:window.PhoneSpotCheckout.requestKey(items),cart:cartId}));
                 const orderController = new AbortController();
                 const orderTimeout = setTimeout(() => orderController.abort(), 30000);
                 const response = await fetch(window.API_URL + '/api/orders', {
@@ -2270,9 +2322,9 @@ const checkoutForm = document.getElementById('checkout-form');
                     signal: orderController.signal,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`
+                        ...(localStorage.getItem('phoneSpotToken') ? {'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`} : {})
                     },
-                    body: JSON.stringify({ cart_id: cartId, items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
+                    body: JSON.stringify({ idempotency_key: window.PhoneSpotCheckout.requestKey(items), zip_code: document.getElementById('chk-zip').value.trim(), shipping_option: selShip?.value || 'arrange', cart_id: cartId, items, shipping_address, customer_email, customer_name, customer_phone: phone, province, shipping_method: shippingMethod, payment_method: paymentMethod, shipping_cost: finalShippingCost, discount_code: window.currentCoupon ? window.currentCoupon.code : null })
                 }).finally(() => clearTimeout(orderTimeout));
 
                 const data = await response.json();
@@ -2298,7 +2350,7 @@ const checkoutForm = document.getElementById('checkout-form');
                         let finalPrice = item.price;
                         if (isWholesale && itemIsEligible) finalPrice = Math.max(1, finalPrice - wholesaleDiscount);
                         const finalArs = Math.round(finalPrice * window.dolarValue);
-                        wpMsg += `- ${item.quantity}x ${item.name} ($${finalArs.toLocaleString('es-AR')} ARS)\n`;
+                        wpMsg += `- ${item.quantity}x ${escapeText(item.name)} ($${finalArs.toLocaleString('es-AR')} ARS)\n`;
                     });
                     wpMsg += `\nQuiero coordinar el pago en pesos (Transferencia/Efectivo) con ustedes.`;
                     
@@ -2311,6 +2363,7 @@ const checkoutForm = document.getElementById('checkout-form');
                     if (typeof updateCartUI === 'function') updateCartUI();
 
                     window.PhoneSpotCheckout.confirmed = true;
+                    sessionStorage.removeItem('phoneSpotCheckoutPending'); sessionStorage.removeItem('phoneSpotCheckoutDraft'); sessionStorage.removeItem('phoneSpotCheckoutKey');
                     try {
                         sessionStorage.setItem('phoneSpotOrderConfirmation', JSON.stringify({orderId: String(data.orderId), total: confirmedTotalArs, wpUrl, createdAt: Date.now()}));
                     } catch (_) { /* Account history and manual contact remain available. */ }
@@ -2536,42 +2589,63 @@ const checkoutForm = document.getElementById('checkout-form');
         let cachedProductsForSearch = null;
 
         if (searchInput && searchResults) {
+            searchInput.setAttribute('role','combobox'); searchInput.setAttribute('aria-controls','search-results'); searchInput.setAttribute('aria-expanded','false'); searchInput.setAttribute('aria-autocomplete','list');
+            searchResults.setAttribute('role','listbox');
+            searchInput.addEventListener('keydown', event => {
+                const options = [...searchResults.querySelectorAll('.search-result')];
+                let index = options.findIndex(el => el.getAttribute('aria-selected') === 'true');
+                if (event.key === 'Escape') {searchResults.style.display='none'; searchInput.setAttribute('aria-expanded','false'); searchInput.removeAttribute('aria-activedescendant');}
+                if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    event.preventDefault(); index = Math.max(0,Math.min(options.length-1,index + (event.key === 'ArrowDown' ? 1 : -1)));
+                    options.forEach((el,i) => {el.id='search-option-'+i; el.setAttribute('aria-selected',String(i===index));});
+                    if(options[index]) {searchInput.setAttribute('aria-activedescendant',options[index].id); options[index].scrollIntoView({block:'nearest'});}
+                }
+                if (event.key === 'Enter' && searchInput.value.trim()) {
+                    event.preventDefault(); window.trackStoreEvent('search',{queryLength:searchInput.value.length});
+                    location.assign(options[index]?.href || 'catalogo.html?q='+encodeURIComponent(searchInput.value.trim()));
+                }
+            });
             const showSearchResults = () => {
                 const query = searchInput.value.toLowerCase().trim();
                 if (!query || !cachedProductsForSearch) {
+                    searchInput.setAttribute('aria-expanded','false');searchInput.removeAttribute('aria-activedescendant');
                     searchResults.style.display = 'none';
                     return;
                 }
 
                 // Buscar por nombre, marca o categoría
                 const matches = cachedProductsForSearch.filter(p =>
-                    (p.name && p.name.toLowerCase().includes(query)) ||
-                    (p.brand && p.brand.toLowerCase().includes(query)) ||
-                    (p.category && p.category.toLowerCase().includes(query))
-                ).slice(0, 5); // Mostrar solo los 5 mejores resultados
+                    window.PhoneSpotBusiness.matches(p, query)
+                );
+                searchInput.removeAttribute('aria-activedescendant');
+                const totalMatches = matches.length;
+                matches.splice(5);
 
                 if (matches.length > 0) {
                     searchResults.innerHTML = matches.map(m => `
-                        <a href="${window.productPageUrl(m)}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
+                        <a class="search-result" role="option" aria-selected="false" href="${window.productPageUrl(m)}" style="padding:0.8rem; display:flex; align-items:center; gap:1rem; text-decoration:none; color: var(--text-color); border-bottom: 1px solid var(--border-color); transition:background 0.2s;">
                             <img src="${escapeText(m.image_url || 'uploads/PhoneSpot-trans.png')}" alt="" loading="lazy" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                             <div style="flex:1;">
                                 <div style="font-size:0.9rem; font-weight:bold;">${escapeText(m.name)}</div>
-                                <div style="font-size:0.8rem; color: var(--text-muted);">$${escapeText(m.price)} | ${escapeText(m.brand)}</div>
+                                <div style="font-size:0.8rem; color: var(--text-muted);">${escapeText(window.formatPrice(m.price))} | ${escapeText(m.brand)}</div>
                             </div>
                         </a>
                     `).join('');
                 } else {
                     searchResults.innerHTML = '<div style="padding:0.8rem; font-size:0.9rem; color: var(--text-muted); text-align:center;">No encontramos productos con ese nombre.</div>';
                 }
-                searchResults.style.display = 'flex';
+                const all = document.createElement('a');
+                all.className = 'search-result-all'; all.href = 'catalogo.html?q=' + encodeURIComponent(query);
+                all.textContent = totalMatches ? `Ver los ${totalMatches} resultados` : 'Explorar catálogo'; searchResults.append(all);
+                searchResults.style.display = 'flex'; searchInput.setAttribute('aria-expanded','true');
             };
 
             // Cargar una sola vez y mostrar también la consulta escrita durante la descarga.
             let searchLoad = null;
             searchInput.addEventListener('focus', () => {
                 if (cachedProductsForSearch || searchLoad) return;
-                searchLoad = fetch(window.API_URL + '/api/products')
-                    .then(res => {
+                searchLoad = Promise.all([window.dolarPromise, window.getCatalogProducts().then(products => ({ok: true, json: async () => products}))])
+                    .then(([, res]) => {
                         if (!res.ok) throw new Error('No se pudo cargar el catálogo');
                         return res.json();
                     })
@@ -2592,908 +2666,13 @@ const checkoutForm = document.getElementById('checkout-form');
             // Ocultar resultados si se hace click fuera de la barra
             document.addEventListener('click', (e) => {
                 if(!e.target.closest('.search-bar')) {
-                    searchResults.style.display = 'none';
+                    searchResults.style.display = 'none';searchInput.setAttribute('aria-expanded','false');searchInput.removeAttribute('aria-activedescendant');
                 }
             });
         }
 
-    // Admin Panel - Crear Producto
-    const adminForm = document.getElementById('admin-product-form');
-    if (adminForm) {
-        // Lógica de añadir variantes
-        const btnAddVariant = document.getElementById('btn-add-variant');
-        const variantsContainer = document.getElementById('variants-container');
-        if (btnAddVariant && variantsContainer) {
-            btnAddVariant.addEventListener('click', () => {
-                const row = document.createElement('div');
-                row.className = 'variant-row';
-                row.style.cssText = 'display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap;';
-                row.innerHTML = `
-                    <input type="text" class="var-color" placeholder="Color (Ej: Blanco o Único)" required style="flex:1; min-width:120px;">
-                    <input type="text" class="var-cap" placeholder="Almacen. (Opcional)" style="flex:1; min-width:120px;">
-                    <input type="text" class="var-configuration" placeholder="Configuración (CPU / pantalla)" aria-label="Configuración" style="flex:1; min-width:180px;">
-                    <input type="text" class="var-ram" placeholder="RAM (Opc. Ej: 8GB)" style="flex:1; min-width:100px;">
-                    <input type="text" class="var-batt" placeholder="Batería (Opc. Ej: 100%)" style="flex:1; min-width:110px;">
-                    <input type="text" class="var-condition" placeholder="Condición / tipo (Opc.)" style="flex:1; min-width:130px;">
-                    <input type="file" class="var-image" accept="image/*" title="Foto de esta variante" style="max-width:160px;">
-                    <input type="number" class="var-price" placeholder="Precio" min="0" style="width:110px;" title="Deja vacío para precio base">
-                    <input type="number" class="var-stock" placeholder="Stock" required min="0" style="width:80px;">
-                    <button type="button" class="btn-danger btn-remove-var" style="padding:0 0.8rem;"><i class="fa-solid fa-xmark"></i></button>
-                `;
-                variantsContainer.appendChild(row);
+    if (window.initAdminCore) await window.initAdminCore();
 
-                row.querySelector('.btn-remove-var').addEventListener('click', () => row.remove());
-            });
-
-            const prodCategoryEl = document.getElementById('prod-category');
-            if (prodCategoryEl) {
-                prodCategoryEl.addEventListener('change', () => {
-                    const isAccessory = prodCategoryEl.value === 'accesorios';
-                    document.querySelectorAll('.var-cap').forEach(input => {
-                        input.placeholder = isAccessory ? 'Almacen. (No aplica / Opcional)' : 'Almacen. (Opcional)';
-                    });
-                });
-            }
-        }
-
-        adminForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const token = localStorage.getItem('phoneSpotToken');
-            
-            // Recopilar variantes y stock
-            let totalStock = 0;
-            const variantsArray = [];
-            document.querySelectorAll('.variant-row').forEach(row => {
-                const color = row.querySelector('.var-color').value.trim();
-                const capacity = row.querySelector('.var-cap').value.trim();
-                const ram = row.querySelector('.var-ram').value.trim();
-                const configuration = row.querySelector('.var-configuration')?.value.trim() || '';
-                const battEl = row.querySelector('.var-batt');
-                const batt = battEl ? battEl.value.trim() : '';
-                const variantCondition = row.querySelector('.var-condition')?.value.trim() || '';
-                const priceEl = row.querySelector('.var-price');
-                const price = priceEl && priceEl.value && Number(priceEl.value) > 0 ? parseFloat(priceEl.value) : null;
-                const stock = parseInt(row.querySelector('.var-stock').value) || 0;
-                if(color || capacity || stock > 0) {
-                    variantsArray.push({
-                        color: color || (capacity ? '' : 'Único'),
-                        capacity: capacity || '',
-                        ram,
-                        batt,
-                        condition: variantCondition,
-                        configuration,
-                        price,
-                        stock
-                    });
-                    totalStock += stock;
-                }
-            });
-
-            const formData = new FormData();
-            formData.append('name', document.getElementById('prod-name').value);
-            const baseDesc = document.getElementById('prod-desc').value;
-            const conditionEl = document.getElementById('prod-condition');
-            const condition = conditionEl ? conditionEl.value : 'Nuevo, Caja Sellada';
-            
-            // Si es Americano o Usado, lo agregamos a la descripción para que el buscador y el filtro lo detecten
-            const finalDesc = condition !== 'Nuevo, Caja Sellada' ? `[Condición: ${condition}] ${baseDesc}` : baseDesc;
-            formData.append('description', finalDesc);
-            formData.append('price', document.getElementById('prod-price').value);
-            formData.append('stock', totalStock); // El stock total es la suma de las variantes
-            formData.append('brand', document.getElementById('prod-brand').value);
-            formData.append('category', document.getElementById('prod-category').value);
-            formData.append('is_offer', document.getElementById('prod-offer').value);
-            formData.append('variants', JSON.stringify(variantsArray)); // Pasamos las variantes como JSON
-            
-            const fileInput = document.getElementById('prod-img');
-            if (fileInput.files[0]) {
-                formData.append('image', fileInput.files[0]);
-            }
-            for (const file of document.getElementById('prod-images')?.files || []) {
-                formData.append('images', file);
-            }
-
-            showToast('Subiendo a la tienda...', 'fa-spinner fa-spin');
-            try {
-                const res = await fetch(window.API_URL + '/api/products', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                        // No poner 'Content-Type': 'application/json' porque fetch lo pone solo para FormData
-                    },
-                    body: formData
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    const rows = [...document.querySelectorAll('.variant-row')];
-                    for (const [index, row] of rows.entries()) {
-                        const file = row.querySelector('.var-image')?.files?.[0];
-                        if (!file) continue;
-                        const imageBody = new FormData();
-                        imageBody.append('image', file);
-                        const imageResponse = await fetch(`${window.API_URL}/api/products/${data.productId}/variants/${index}/image`, {
-                            method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: imageBody
-                        });
-                        if (!imageResponse.ok) throw new Error('El producto se creó, pero una foto de variante no se pudo subir.');
-                    }
-                    showToast('¡Producto subido y visible en la tienda!', 'fa-check');
-                    adminForm.reset();
-                    if(typeof loadAdminProducts === 'function') loadAdminProducts();
-                } else {
-                    showToast(data.error || 'Error al subir', 'fa-triangle-exclamation');
-                }
-            } catch (err) { showToast(err.message || 'Error de conexión', 'fa-triangle-exclamation'); }
-        });
-
-        // ==================== LISTAR Y GESTIONAR PRODUCTOS EN ADMIN ====================
-        const productListContainer = document.getElementById('admin-product-list');
-        if (productListContainer) {
-            window.loadAdminProducts = async () => {
-                try {
-                    const res = await fetch(window.API_URL + '/api/products?images=original');
-                    const prods = await res.json();
-                    productListContainer.innerHTML = '';
-                    if(prods.length === 0) {
-                        productListContainer.innerHTML = '<p>No hay productos subidos.</p>';
-                        return;
-                    }
-
-                    
-                    const productMarkup = [];
-                    prods.forEach(p => {
-                        window[`adminProduct_${p.id}`] = p; // save product data globally for easy access
-                        productMarkup.push(`
-                            <div class="slide-item" style="display:flex; flex-direction:column; gap:1rem;">
-                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-                                    <div style="flex:2;">
-                                        <h5 style="margin:0;">${p.name}</h5>
-                                        <p style="margin:0; font-size:0.8rem; color: var(--text-muted);">Cat: ${p.category} | Marca: ${p.brand}</p>
-                                        <textarea id="desc-${p.id}" rows="2" style="width:100%; margin-top:0.5rem; font-size:0.8rem; padding:0.3rem;" placeholder="Descripción">${p.description || ''}</textarea>
-                                    </div>
-                                    <div class="admin-product-actions" style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-                                        <label for="price-${p.id}" style="font-size:0.8rem;">Precio (USD):</label>
-                                        <input type="number" id="price-${p.id}" value="${p.price}" style="width:80px; padding:0.2rem;">
-                                        
-                                        <label for="stock-${p.id}" style="font-size:0.8rem;">Stock:</label>
-                                        <input type="number" id="stock-${p.id}" value="${p.stock}" style="width:70px; padding:0.2rem;" ${(p.variants && p.variants.length > 0) ? 'disabled title="El stock se edita desde Variantes/Colores" style="background:#eee; width:70px; padding:0.2rem;"' : ''}>
-                                        
-                                        <button onclick="updateProductBasic(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#333;">Guardar Info</button>
-                                        <button onclick="toggleVariantsEdit(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:var(--text-color);">Variantes/Colores</button>
-                                        <label style="font-size:0.8rem;">Más fotos <input type="file" id="more-images-${p.id}" accept="image/*" multiple style="max-width:150px;"></label>
-                                        <button onclick="uploadProductImages(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem;">Subir fotos</button>
-                                        <button onclick="deleteProduct(${p.id})" class="btn-danger" aria-label="Eliminar producto" title="Eliminar producto" style="padding:0.3rem 0.5rem;"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                                <div class="admin-offer-controls">
-                                    <span class="admin-offer-state">${p.is_offer ? 'Publicado en Ofertas del Día' : 'No está en oferta'}</span>
-                                    <button type="button" class="admin-offer-button" aria-pressed="${Boolean(p.is_offer)}" onclick="toggleProductOffer(this, ${p.id})">${p.is_offer ? 'Quitar oferta' : 'Poner en oferta'}</button>
-                                    <span class="admin-offer-status" role="status" aria-live="polite"></span>
-                                </div>
-                                <div id="variants-edit-${p.id}" style="display:none; padding:1rem; background:var(--bg-color); border-radius:8px; border:1px dashed var(--border-color);">
-                                    <h6 style="margin-bottom:0.5rem;">Variantes (Colores/Capacidad)</h6>
-                                    <div id="variants-list-${p.id}" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;"></div>
-                                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-                                        <input type="text" id="new-color-${p.id}" placeholder="Color (ej. Azul o Único)" style="padding:0.2rem; width:120px;">
-                                        <input type="text" id="new-cap-${p.id}" placeholder="Capacidad (Opcional)" style="padding:0.2rem; width:120px;">
-                                        <input type="text" id="new-configuration-${p.id}" placeholder="Configuración (CPU / pantalla)" aria-label="Configuración" style="padding:0.2rem; width:200px;">
-                                        <input type="text" id="new-ram-${p.id}" placeholder="RAM (ej. 8GB)" style="padding:0.2rem; width:80px;">
-                                        <input type="text" id="new-batt-${p.id}" placeholder="Batería (Opc)" style="padding:0.2rem; width:90px;">
-                                        <input type="text" id="new-condition-${p.id}" placeholder="Condición (Opc)" style="padding:0.2rem; width:130px;">
-                                        <input type="number" id="new-vprice-${p.id}" placeholder="Precio USD (Opc)" style="padding:0.2rem; width:110px;">
-                                        <input type="number" id="new-vstock-${p.id}" placeholder="Stock" style="padding:0.2rem; width:70px;">
-                                        <button onclick="addVariantToProduct(${p.id})" class="btn" style="padding:0.3rem 0.5rem; font-size:0.8rem; background:#2ecc71; color:#fff;">+ Agregar Variante</button>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-                    productListContainer.innerHTML = productMarkup.join('');
-
-                } catch(e) { productListContainer.innerHTML = 'Error cargando productos'; }
-            };
-
-            
-            window.updateProductBasic = async (id) => {
-                const p = window[`adminProduct_${id}`];
-                const price = document.getElementById(`price-${id}`).value;
-                let stock = document.getElementById(`stock-${id}`).value;
-                const description = document.getElementById(`desc-${id}`) ? document.getElementById(`desc-${id}`).value : undefined;
-                
-                let hasVariants = p && p.variants && p.variants.length > 0;
-                
-                const token = localStorage.getItem('phoneSpotToken');
-                showToast('Guardando...', 'fa-spinner fa-spin');
-                try {
-                    const bodyData = { price, description };
-                    if (!hasVariants) {
-                        bodyData.stock = stock;
-                    }
-                    
-                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
-                        method: 'PUT',
-                        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify(bodyData)
-                    });
-                    
-                    if (res.ok) {
-                        showToast('Datos actualizados', 'fa-check');
-                        window.loadAdminProducts();
-                    }
-                } catch(e) { showToast('Error al actualizar', 'fa-times'); }
-            };
-
-            window.toggleVariantsEdit = (id) => {
-                const div = document.getElementById(`variants-edit-${id}`);
-                const isHidden = div.style.display === 'none';
-                div.style.display = isHidden ? 'block' : 'none';
-                if (isHidden) renderProductVariants(id);
-            };
-
-            window.renderProductVariants = (id) => {
-                const p = window[`adminProduct_${id}`];
-                const list = document.getElementById(`variants-list-${id}`);
-                if (!p || !list) return;
-                
-                let variants = [];
-                try { variants = typeof p.variants === 'string' ? JSON.parse(p.variants) : p.variants; } catch(e){}
-                if (!variants || !Array.isArray(variants)) variants = [];
-                
-                window[`adminProductVariants_${id}`] = variants; // keep track of parsed variants
-
-                list.innerHTML = variants.map((v, index) => {
-                    const variantDesc = window.variantNameFor(v) || 'Variante';
-                    return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f4f5f7; padding:0.5rem; border-radius:4px; flex-wrap:wrap; gap:0.5rem;">
-                        <span style="font-size:0.85rem;">${variantDesc} ${v.price ? ' - <strong style="color:#0071e3">US$ ' + v.price + '</strong>' : ''}</span>
-                        <label style="font-size:0.8rem;">Foto <input type="file" id="variant-image-${id}-${index}" accept="image/*" style="max-width:150px;"></label>
-                        <button onclick="uploadVariantImage(${id}, ${index})" class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;">Subir</button>
-                        <div style="display:flex; align-items:center; gap:0.5rem;">
-                            <label for="edit-vprice-${id}-${index}" style="font-size:0.8rem; margin:0;">Precio USD:</label>
-                            <input type="number" id="edit-vprice-${id}-${index}" value="${v.price ?? ''}" min="0.01" step="0.01" placeholder="Precio base" style="width:100px; padding:0.35rem; font-size:0.8rem;" title="Dejá vacío para usar el precio base">
-                            <label for="edit-vstock-${id}-${index}" style="font-size:0.8rem; margin:0;">Stock:</label>
-                            <input type="number" id="edit-vstock-${id}-${index}" value="${v.stock}" min="0" step="1" style="width:65px; padding:0.35rem; font-size:0.8rem;">
-                            <button type="button" onclick="updateVariantDetails(${id}, ${index})" style="background:#333; color:white; border:none; border-radius:4px; padding:0.45rem 0.7rem; font-size:0.8rem; cursor:pointer;">Guardar precio y stock</button>
-                            <button onclick="removeVariantFromProduct(${id}, ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer; margin-left:0.5rem;"><i class="fa-solid fa-times"></i></button>
-                        </div>
-                    </div>
-                `;
-                }).join('');
-            };
-
-            window.addVariantToProduct = async (id) => {
-                const color = document.getElementById(`new-color-${id}`).value.trim();
-                const cap = document.getElementById(`new-cap-${id}`).value.trim();
-                const ram = document.getElementById(`new-ram-${id}`).value.trim();
-                const configuration = document.getElementById(`new-configuration-${id}`)?.value.trim() || '';
-                const battEl = document.getElementById(`new-batt-${id}`);
-                const batt = battEl ? battEl.value.trim() : '';
-                const condition = document.getElementById(`new-condition-${id}`)?.value.trim() || '';
-                const stock = parseInt(document.getElementById(`new-vstock-${id}`).value) || 0;
-                const rawPrice = document.getElementById(`new-vprice-${id}`).value;
-                const price = rawPrice && Number(rawPrice) > 0 ? parseFloat(rawPrice) : null;
-                
-                if (!color && !cap) return showToast('Ingresa al menos un Color o Capacidad', 'fa-exclamation');
-
-                let variants = window[`adminProductVariants_${id}`] || [];
-                variants.push({ color: color || 'Único', capacity: cap || '', ram, batt, condition, configuration, stock, price });
-                
-                await saveVariantsToDB(id, variants);
-            };
-
-            window.updateVariantDetails = async (id, index) => {
-                const variants = (window[`adminProductVariants_${id}`] || []).map(variant => ({ ...variant }));
-                if (!variants[index]) return;
-                const rawPrice = document.getElementById(`edit-vprice-${id}-${index}`).value.trim();
-                const rawStock = document.getElementById(`edit-vstock-${id}-${index}`).value.trim();
-                const price = rawPrice === '' ? null : Number(rawPrice);
-                const stock = Number(rawStock);
-                if (rawPrice !== '' && (!Number.isFinite(price) || price <= 0)) return showToast('Ingresá un precio USD mayor a cero o dejalo vacío para usar el precio base.', 'fa-triangle-exclamation');
-                if (rawStock === '' || !Number.isInteger(stock) || stock < 0) return showToast('Ingresá un stock válido.', 'fa-triangle-exclamation');
-                variants[index].price = price;
-                variants[index].stock = stock;
-                await saveVariantsToDB(id, variants);
-            };
-
-            window.removeVariantFromProduct = async (id, index) => {
-                let variants = window[`adminProductVariants_${id}`] || [];
-                variants.splice(index, 1);
-                await saveVariantsToDB(id, variants);
-            };
-
-            const saveVariantsToDB = async (id, variants) => {
-                const token = localStorage.getItem('phoneSpotToken');
-                const totalStock = variants.reduce((acc, v) => acc + (parseInt(v.stock)||0), 0);
-                
-                showToast('Actualizando variantes...', 'fa-spinner fa-spin');
-                try {
-                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
-                        method: 'PUT',
-                        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ variants, stock: totalStock })
-                    });
-                    if(res.ok) {
-                        showToast('Variantes actualizadas', 'fa-check');
-                        window.loadAdminProducts(); // re-fetch products
-                    } else {
-                        const result = await res.json().catch(() => ({}));
-                        showToast(result.error || 'No se pudieron guardar las variantes.', 'fa-times');
-                    }
-                } catch(e) { showToast('Error al actualizar', 'fa-times'); }
-            };
-
-            window.uploadProductImages = async (id) => {
-                const files = document.getElementById(`more-images-${id}`)?.files;
-                if (!files?.length) return showToast('Selecciona fotos', 'fa-image');
-                const body = new FormData();
-                for (const file of files) body.append('images', file);
-                try {
-                    const response = await fetch(`${window.API_URL}/api/products/${id}/images`, {
-                        method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('phoneSpotToken')}` }, body
-                    });
-                    if (!response.ok) throw new Error((await response.json()).error || 'No se pudieron subir las fotos');
-                    showToast('Fotos agregadas', 'fa-check');
-                    window.loadAdminProducts();
-                } catch (error) { showToast(error.message, 'fa-triangle-exclamation'); }
-            };
-
-            window.uploadVariantImage = async (id, index) => {
-                const file = document.getElementById(`variant-image-${id}-${index}`)?.files?.[0];
-                if (!file) return showToast('Selecciona una foto', 'fa-image');
-                const body = new FormData();
-                body.append('image', file);
-                try {
-                    const response = await fetch(`${window.API_URL}/api/products/${id}/variants/${index}/image`, {
-                        method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('phoneSpotToken')}` }, body
-                    });
-                    if (!response.ok) throw new Error((await response.json()).error || 'No se pudo subir la foto');
-                    showToast('Foto de variante actualizada', 'fa-check');
-                    window.loadAdminProducts();
-                } catch (error) { showToast(error.message, 'fa-triangle-exclamation'); }
-            };
-
-            window.deleteProduct = async (id) => {
-                if(!confirm('¿Querés quitar este producto del catálogo?')) return;
-                const token = localStorage.getItem('phoneSpotToken');
-                try {
-                    const res = await fetch(`${window.API_URL}/api/products/${id}`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if(res.ok) {
-                        showToast('Producto eliminado', 'fa-check');
-                        window.loadAdminProducts();
-                    } else {
-                        if (res.status === 401 || res.status === 403) {
-                            localStorage.removeItem('phoneSpotToken');
-                            localStorage.removeItem('phoneSpotRole');
-                            window.location.href = 'login.html?redirect=admin.html&reason=session-expired';
-                            return;
-                        }
-                        const result = await res.json().catch(() => ({}));
-                        showToast(result.error || 'Error eliminando producto', 'fa-triangle-exclamation');
-                    }
-                } catch(e) { showToast('No se pudo conectar con el servidor', 'fa-triangle-exclamation'); }
-            };
-
-            window.loadAdminProducts();
-        }
-
-        // ==================== LISTAR ÓRDENES ====================
-        const ordersListContainer = document.getElementById('admin-orders-list');
-        if (ordersListContainer) {
-            window.updateOrderStatus = async (id) => {
-              const status = document.getElementById('status-'+id).value;
-              const tracking = document.getElementById('tracking-'+id).value;
-              const token = localStorage.getItem('phoneSpotToken');
-              try {
-                  const res = await fetch(window.API_URL + '/api/orders/'+id+'/status', {
-                      method: 'PUT',
-                      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                      body: JSON.stringify({ status, tracking_code: tracking })
-                  });
-                  if(res.ok) {
-                      alert('Orden actualizada correctamente.');
-                  } else {
-                      alert('Error al actualizar.');
-                  }
-              } catch(e) { alert(e.message); }
-          };
-
-          window.loadAdminOrders = async () => {
-              const token = localStorage.getItem('phoneSpotToken');
-              try {
-                  const res = await fetch(window.API_URL + '/api/orders', {
-                      headers: { 'Authorization': 'Bearer ' + token }
-                  });
-                  const orders = await res.json();
-                  
-                  let totalRevenue = 0;
-                  let totalItems = 0;
-                  const productSales = {};
-
-                  ordersListContainer.innerHTML = '';
-                  if(!orders || orders.length === 0) {
-                      ordersListContainer.innerHTML = '<p>No hay ventas registradas aún.</p>';
-                      return;
-                  }
-
-                  orders.forEach(o => {
-                      totalRevenue += parseFloat(o.total) || 0;
-                      
-                      let itemsHTML = '';
-                      if (o.order_items && o.order_items.length > 0) {
-                          itemsHTML = o.order_items.map(item => {
-                              const varText = item.variant_name ? ` <strong>(${item.variant_name})</strong>` : '';
-                              const prodName = item.products ? item.products.name : 'Producto Eliminado';
-                              totalItems += item.quantity;
-                              if (!productSales[prodName]) {
-                                  productSales[prodName] = 0;
-                              }
-                              productSales[prodName] += item.quantity;
-                              return `<li>${item.quantity}x ${prodName}${varText} - $${item.price}</li>`;
-                          }).join('');
-                      }
-
-                      ordersListContainer.innerHTML += `
-                          <div class="slide-item" style="display:flex; flex-direction:column; gap:0.5rem;">
-                              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-                                  <div style="flex:2;">
-                                      <h5 style="margin:0;">Orden #${String(o.id)} <span style="color:#555555;">($${o.total})</span></h5>
-                                      <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-calendar"></i> ${new Date(o.created_at).toLocaleString()}</p>
-                                      <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-user"></i> ${escapeText(o.customer_name || 'Cliente')} · ${escapeText(o.customer_email || 'Sin email')}</p>
-                                      <p style="margin:0; font-size:0.85rem; color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Envío: ${o.shipping_address}</p>
-                                  </div>
-                                  <div style="flex:2; display:flex; gap:1rem; align-items:center; background: var(--gray-bg); padding:0.5rem; border-radius:8px;">
-                                      <div>
-                                          <label style="font-size:0.8rem; display:block;">Estado:</label>
-                                          <select id="status-${o.id}" style="padding:0.2rem; border-radius:4px;">
-                                              <option value="pending" ${o.status==='pending'?'selected':''}>Pendiente</option>
-                                              <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmado</option>
-                                              <option value="preparing" ${o.status==='preparing'?'selected':''}>En preparación</option>
-                                              <option value="completed" ${o.status==='completed'?'selected':''}>Pago confirmado</option>
-                                              <option value="shipped" ${o.status==='shipped'?'selected':''}>Enviado</option>
-                                              <option value="delivered" ${o.status==='delivered'?'selected':''}>Entregado</option>
-                                              <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelado</option>
-                                          </select>
-                                      </div>
-                                      <div>
-                                          <label style="font-size:0.8rem; display:block;">Tracking:</label>
-                                          <input type="text" id="tracking-${o.id}" value="${o.tracking_code || ''}" placeholder="Cód. Correo" style="width:100px; padding:0.2rem; border-radius:4px; border: 1px solid var(--border-color);">
-                                      </div>
-                                      <button onclick="updateOrderStatus('${o.id}')" class="btn" style="padding:0.4rem 0.6rem; font-size:0.8rem; height:fit-content; background:#3498db; margin-top:1rem;">Guardar</button>
-                                  </div>
-                              </div>
-                              <ul style="margin:0; padding-left:1.5rem; font-size:0.85rem; color: var(--text-muted);">
-                                  ${itemsHTML}
-                              </ul>
-                          </div>
-                      `;
-                  });
-
-                  const totalRevEl = document.getElementById('stat-total-revenue');
-                  const totalVenEl = document.getElementById('stat-total-orders');
-                  const totalItemsEl = document.getElementById('stat-total-items');
-                  const topProdEl = document.getElementById('top-products-list');
-
-                  if(totalRevEl) totalRevEl.innerText = '$' + totalRevenue.toLocaleString('es-AR');
-                  if(totalVenEl) totalVenEl.innerText = orders.length;
-                  if(totalItemsEl) totalItemsEl.innerText = totalItems;
-                  
-                  if(topProdEl && Object.keys(productSales).length > 0) {
-                      const topProduct = Object.keys(productSales).reduce((a, b) => productSales[a] > productSales[b] ? a : b);
-                      topProdEl.innerHTML = `<strong>${escapeText(topProduct)}</strong> · ${productSales[topProduct]} unidades`;
-                  }
-
-              } catch(e) {
-                  console.error(e);
-              }
-          };
-          window.loadAdminOrders();
-        }
-
-        const reviewsAdminContainer = document.getElementById('admin-reviews-list');
-        if (reviewsAdminContainer) {
-            window.loadAdminReviews = async () => {
-                const token = localStorage.getItem('phoneSpotToken');
-                try {
-                    const response = await fetch(window.API_URL + '/api/admin/reviews', { headers: { 'Authorization': `Bearer ${token}` } });
-                    const reviews = await response.json();
-                    if (!response.ok) throw new Error(reviews.error || 'No se pudieron cargar las reseñas.');
-                    reviewsAdminContainer.innerHTML = reviews.length ? reviews.map((review) => `
-                        <article class="slide-item" style="display:flex;flex-direction:column;gap:.45rem;">
-                            <strong>${escapeText(review.products?.name || 'Producto eliminado')} · ${'★'.repeat(review.rating)}</strong>
-                            <span>${escapeText(review.user_name)}: ${escapeText(review.comment)}</span>
-                            <small style="color:var(--text-muted)">${review.approved ? 'Publicada' : 'Pendiente de publicación'}</small>
-                            <button class="btn" style="align-self:flex-start;padding:.45rem .7rem;" onclick="setReviewApproval(${Number(review.id)}, ${!review.approved})">${review.approved ? 'Ocultar' : 'Publicar'}</button>
-                        </article>`).join('') : '<p>No hay reseñas todavía.</p>';
-                } catch (error) {
-                    reviewsAdminContainer.innerHTML = `<p style="color:#c0392b;">${escapeText(error.message)}</p>`;
-                }
-            };
-            window.setReviewApproval = async (id, approved) => {
-                const token = localStorage.getItem('phoneSpotToken');
-                const response = await fetch(window.API_URL + `/api/admin/reviews/${id}`, {
-                    method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ approved })
-                });
-                const result = await response.json();
-                if (!response.ok) return showToast(result.error || 'No se pudo actualizar la reseña.', 'fa-triangle-exclamation');
-                showToast(result.message, 'fa-check');
-                window.loadAdminReviews();
-            };
-            window.loadAdminReviews();
-        }
-
-        const analyticsSummary = document.getElementById('analytics-summary');
-        if (analyticsSummary) {
-            fetch(window.API_URL + '/api/admin/analytics', { headers: { 'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}` } })
-                .then(response => response.json().then(data => ({ response, data })))
-                .then(({ response, data }) => {
-                    if (!response.ok) throw new Error(data.error || 'No se pudieron cargar las métricas.');
-                    analyticsSummary.textContent = `${data.page_views} visitas · ${data.add_to_cart} agregados al carrito · ${data.checkout_started} inicios de compra.`;
-                })
-                .catch(() => { analyticsSummary.textContent = 'Las métricas se mostrarán cuando haya actividad nueva.'; });
-        }
-
-        const logoutBtn = document.getElementById('btn-logout');
-if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('phoneSpotToken');
-            localStorage.removeItem('phoneSpotRole');
-            window.location.href = 'index.html';
-        });
-
-        // ==================== CONFIGURACIÓN VISUAL DEL ADMIN (Banners y Carrusel) ====================
-        const defaultEcosystemBanner = {
-            enabled: true,
-            title: 'Armá tu ecosistema',
-            description: 'Accesorios que acompañan tu equipo: auriculares, cargadores, fundas y mucho más.',
-            button: 'Ver accesorios',
-            link: 'catalogo.html?cat=accesorios',
-            image: ''
-        };
-        let currentSettings = { top_banner: '', carousel: [], shipping_correo: 8500, shipping_andreani: 12000, free_shipping_threshold: 1500000, ecosystem_banner: defaultEcosystemBanner };
-            window.renderBannerMessages = () => {
-                const list = document.getElementById('banner-messages-list');
-                if(!list) return;
-                let banners = currentSettings.top_banner;
-                if (!Array.isArray(banners)) {
-                    banners = typeof banners === 'string' && banners.trim() !== '' ? [banners] : [];
-                    currentSettings.top_banner = banners;
-                }
-                list.innerHTML = banners.map((b, i) => `
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" value="${b.replace(/"/g, '&quot;')}" onchange="updateBannerMessage(${i}, this.value)" style="flex:1;">
-                        <button type="button" onclick="removeBannerMessage(${i})" style="background:#ff4757; color:white; border:none; padding:0 15px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                `).join('');
-            };
-            window.addBannerMessage = () => {
-                if(!Array.isArray(currentSettings.top_banner)) currentSettings.top_banner = [];
-                currentSettings.top_banner.push('');
-                window.renderBannerMessages();
-            };
-            window.updateBannerMessage = (i, val) => {
-                currentSettings.top_banner[i] = val;
-            };
-            window.removeBannerMessage = async (i) => {
-                currentSettings.top_banner.splice(i, 1);
-                window.renderBannerMessages();
-                await window.saveSettingsFunc(); // auto save
-            };
-
-
-        
-    const waForm = document.getElementById('admin-whatsapp-form');
-    if (waForm) {
-        waForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            currentSettings.whatsapp_number = document.getElementById('set-whatsapp-num').value.replace(/[^0-9]/g, '');
-            await window.saveSettingsFunc();
-            showToast('Número de WhatsApp guardado', 'fa-check');
-        });
-    }
-
-    const couponForm = document.getElementById('admin-coupon-form');
-    if (couponForm) {
-        window.renderAdminCoupons = () => {
-            const list = document.getElementById('coupons-list');
-            if (!list) return;
-            const coupons = currentSettings.coupons || [];
-            list.innerHTML = coupons.map((c, i) => `
-                <div style="background: var(--gray-bg); padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.5rem;">
-                    <strong>${c.code}</strong> 
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">(${c.type === 'shipping' ? 'Envío' : c.value})</span>
-                    <i class="fa-solid fa-times" style="cursor: pointer; color: #ff4757;" onclick="deleteCoupon(${i})"></i>
-                </div>
-            `).join('');
-        };
-
-        window.deleteCoupon = async (index) => {
-            currentSettings.coupons.splice(index, 1);
-            await window.saveSettingsFunc();
-            window.renderAdminCoupons();
-        };
-
-        couponForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentSettings.coupons) currentSettings.coupons = [];
-            currentSettings.coupons.push({
-                code: document.getElementById('add-coupon-code').value.trim().toUpperCase(),
-                type: document.getElementById('add-coupon-type').value,
-                value: Number(document.getElementById('add-coupon-value').value)
-            });
-            await window.saveSettingsFunc();
-            couponForm.reset();
-            window.renderAdminCoupons();
-            showToast('Cupón agregado', 'fa-check');
-        });
-    }
-
-    const bannerForm = document.getElementById('admin-banner-form');
-        const carouselForm = document.getElementById('admin-carousel-form');
-        const shippingForm = document.getElementById('admin-shipping-form');
-        const ecosystemForm = document.getElementById('admin-ecosystem-form');
-        
-        if (bannerForm || carouselForm || shippingForm || ecosystemForm) {
-            // Cargar datos actuales
-            const loadAdminSettings = async () => {
-                try {
-                    const res = await fetch(window.API_URL + '/api/settings');
-                    const data = await res.json();
-                    currentSettings = { ...currentSettings, ...data };
-                    currentSettings.ecosystem_banner = { ...defaultEcosystemBanner, ...(currentSettings.ecosystem_banner || {}) };
-                    
-                    window.renderBannerMessages();
-                    if(document.getElementById('set-flash-date')) {
-                        document.getElementById('set-flash-date').value = currentSettings.flash_end_date || '';
-                    }
-                    if(document.getElementById('set-brands-list')) {
-                        document.getElementById('set-brands-list').value = currentSettings.brands_list || '';
-                    }
-                    if(document.getElementById('set-ship-correo')) {
-                        document.getElementById('set-ship-correo').value = currentSettings.shipping_correo ?? 8500;
-                    }
-                    if(document.getElementById('set-ship-andreani')) {
-                        document.getElementById('set-ship-andreani').value = currentSettings.shipping_andreani ?? 12000;
-                    }
-                    if(document.getElementById('set-free-shipping')) {
-                        document.getElementById('set-free-shipping').value = currentSettings.free_shipping_threshold ?? 1500000;
-
-    const waInput = document.getElementById('set-whatsapp-num');
-    if (waInput && currentSettings.whatsapp_number) waInput.value = currentSettings.whatsapp_number;
-    window.renderAdminCoupons();
-
-                    }
-                    if (document.getElementById('set-eco-enabled')) {
-                        const ecosystem = currentSettings.ecosystem_banner;
-                        document.getElementById('set-eco-enabled').checked = ecosystem.enabled !== false;
-                        document.getElementById('set-eco-title').value = ecosystem.title;
-                        document.getElementById('set-eco-description').value = ecosystem.description;
-                        document.getElementById('set-eco-button').value = ecosystem.button;
-                        document.getElementById('set-eco-link').value = ecosystem.link;
-                    }
-                    renderAdminCarouselList();
-                } catch(e) { console.error('Error', e); }
-            };
-
-            window.saveSettingsFunc = async () => {
-                const token = localStorage.getItem('phoneSpotToken');
-                showToast('Guardando...', 'fa-spinner fa-spin');
-                try {
-                    const res = await fetch(window.API_URL + '/api/settings', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                        body: JSON.stringify(currentSettings)
-                    });
-                    if (res.ok) showToast('Guardado correctamente', 'fa-check');
-                    else showToast('Error al guardar', 'fa-triangle-exclamation');
-                } catch(e) { showToast('Error de conexión', 'fa-triangle-exclamation'); }
-            };
-            const saveSettings = async () => { await window.saveSettingsFunc(); };
-
-            const renderAdminCarouselList = () => {
-                const list = document.getElementById('carousel-list');
-                if(!list) return;
-                list.innerHTML = '';
-                if(!currentSettings.carousel || currentSettings.carousel.length === 0) {
-                    list.innerHTML = '<p style="color: var(--text-muted);">No hay slides en el carrusel.</p>';
-                    return;
-                }
-                
-                currentSettings.carousel.forEach((slide, index) => {
-                    list.innerHTML += `
-                        <div class="slide-item">
-                            <div class="slide-info">
-                                <h5>${slide.title}</h5>
-                                <p>${slide.subtitle} | Link: ${slide.link}</p>
-                            </div>
-                            <div style="display:flex; gap:0.5rem;">
-                                <button type="button" class="btn" style="background:#0071e3; color:white; padding:0.4rem;" onclick="window.editSlide(${index})"><i class="fa-solid fa-pen"></i></button>
-                                <button type="button" class="btn-danger" onclick="deleteSlide(${index})"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </div>
-                    `;
-                });
-            };
-
-            window.deleteSlide = (index) => {
-                if(confirm('¿Seguro que deseas eliminar esta slide?')) {
-                    currentSettings.carousel.splice(index, 1);
-                    renderAdminCarouselList();
-                    saveSettings();
-                }
-            };
-            
-            window.editSlide = (index) => {
-                const slide = currentSettings.carousel[index];
-                document.getElementById('set-car-title').value = slide.title;
-                document.getElementById('set-car-subtitle').value = slide.subtitle;
-                document.getElementById('set-car-link').value = slide.link;
-                document.getElementById('set-car-edit-index').value = index;
-                
-                const btn = document.getElementById('car-submit-btn');
-                if(btn) btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Cambios';
-                const cancelBtn = document.getElementById('car-cancel-btn');
-                if(cancelBtn) cancelBtn.style.display = 'inline-block';
-                
-                document.getElementById('admin-carousel-form').scrollIntoView({behavior: 'smooth'});
-            };
-            
-            window.cancelEditCarousel = () => {
-                document.getElementById('admin-carousel-form').reset();
-                document.getElementById('set-car-edit-index').value = '';
-                const btn = document.getElementById('car-submit-btn');
-                if(btn) btn.innerHTML = '<i class="fa-solid fa-plus"></i> Añadir al Carrusel';
-                const cancelBtn = document.getElementById('car-cancel-btn');
-                if(cancelBtn) cancelBtn.style.display = 'none';
-            };
-
-            if(bannerForm) {
-                bannerForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    
-                    // Extraer los mensajes del banner en el momento del submit para evitar bugs de onchange
-                    const listContainer = document.getElementById('banner-messages-list');
-                    if (listContainer) {
-                        const inputs = listContainer.querySelectorAll('input[type="text"]');
-                        currentSettings.top_banner = Array.from(inputs).map(inp => inp.value);
-                    }
-
-                    if(document.getElementById('set-flash-date')) {
-                        currentSettings.flash_end_date = document.getElementById('set-flash-date').value;
-                    }
-                    if(document.getElementById('set-brands-list')) {
-                        currentSettings.brands_list = document.getElementById('set-brands-list').value;
-                    }
-                    window.saveSettingsFunc();
-                });
-            }
-
-            if(shippingForm) {
-                shippingForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    currentSettings.shipping_correo = Number(document.getElementById('set-ship-correo').value);
-                    currentSettings.shipping_andreani = Number(document.getElementById('set-ship-andreani').value);
-                    currentSettings.free_shipping_threshold = Number(document.getElementById('set-free-shipping').value);
-                    saveSettings();
-                });
-            }
-
-            if(carouselForm) {
-                
-                carouselForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
-                    const title = document.getElementById('set-car-title').value.trim();
-                    const subtitle = document.getElementById('set-car-subtitle').value.trim();
-                    const link = document.getElementById('set-car-link').value.trim();
-                    
-                    const fileInput = document.getElementById('set-car-img');
-                    const editIndex = document.getElementById('set-car-edit-index').value;
-                    const isEditing = editIndex !== '';
-                    
-                    if(!isEditing && fileInput.files.length === 0) {
-                        return showToast('Selecciona una imagen de fondo', 'fa-image');
-                    }
-                    
-                    const btn = carouselForm.querySelector('button[type="submit"]');
-                    const oldBtnHTML = btn.innerHTML;
-                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-                    btn.disabled = true;
-
-                    try {
-                        let imageUrl = '';
-                        if (fileInput.files.length > 0) {
-                            const formData = new FormData();
-                            formData.append('image', fileInput.files[0]);
-                            const token = localStorage.getItem('phoneSpotToken');
-                            const res = await fetch(window.API_URL + '/api/upload', {
-                                method: 'POST',
-                                headers: { 'Authorization': 'Bearer ' + token },
-                                body: formData
-                            });
-                            const data = await res.json();
-                            if (data.url) {
-                                imageUrl = data.url;
-                            } else {
-                                throw new Error('Error al subir imagen');
-                            }
-                        } else if (isEditing) {
-                            // Keep existing image
-                            imageUrl = currentSettings.carousel[parseInt(editIndex)].image;
-                        }
-
-                        if(!currentSettings.carousel) currentSettings.carousel = [];
-                        
-                        if (isEditing) {
-                            currentSettings.carousel[parseInt(editIndex)] = { title, subtitle, link, image: imageUrl };
-                        } else {
-                            currentSettings.carousel.push({ title, subtitle, link, image: imageUrl });
-                        }
-                        
-                        await saveSettings();
-                        window.cancelEditCarousel();
-                        renderAdminCarouselList();
-                        
-                    } catch(err) {
-                        showToast('Error al procesar el carrusel', 'fa-times');
-                    } finally {
-                        btn.innerHTML = oldBtnHTML;
-                        btn.disabled = false;
-                    }
-                });
-    
-            }
-
-            if (ecosystemForm) {
-                ecosystemForm.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    const submitButton = ecosystemForm.querySelector('button[type="submit"]');
-                    const originalButton = submitButton.innerHTML;
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-
-                    try {
-                        const previous = { ...defaultEcosystemBanner, ...(currentSettings.ecosystem_banner || {}) };
-                        const imageInput = document.getElementById('set-eco-image');
-                        let image = previous.image || '';
-
-                        if (imageInput.files.length > 0) {
-                            const formData = new FormData();
-                            formData.append('image', imageInput.files[0]);
-                            const response = await fetch(window.API_URL + '/api/upload', {
-                                method: 'POST',
-                                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('phoneSpotToken') },
-                                body: formData
-                            });
-                            const upload = await response.json();
-                            if (!upload.url) throw new Error('No se pudo subir la imagen');
-                            image = upload.url;
-                        }
-
-                        currentSettings.ecosystem_banner = {
-                            enabled: document.getElementById('set-eco-enabled').checked,
-                            title: document.getElementById('set-eco-title').value.trim(),
-                            description: document.getElementById('set-eco-description').value.trim(),
-                            button: document.getElementById('set-eco-button').value.trim(),
-                            link: document.getElementById('set-eco-link').value.trim(),
-                            image
-                        };
-                        await saveSettings();
-                        imageInput.value = '';
-                    } catch (error) {
-                        console.error('Error guardando banner de accesorios:', error);
-                        showToast('No se pudo guardar el banner', 'fa-triangle-exclamation');
-                    } finally {
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalButton;
-                    }
-                });
-            }
-
-            loadAdminSettings();
-        }
-    }
 });
 
 // Función para cargar ajustes en el frontend (index.html)
@@ -3697,7 +2876,7 @@ window.loadFavoritesUI = async () => {
     }
 
     try {
-        const res = await fetch(window.API_URL + '/api/products');
+        const res = await window.getCatalogProducts().then(products => ({ok: true, json: async () => products}));
         const allProds = window.expandCommercialProducts(await res.json());
         const favProds = allProds.filter(p => favs.includes(p.favorite_key || p.id.toString()));
 
@@ -3714,12 +2893,12 @@ window.loadFavoritesUI = async () => {
                     
                     <!-- Imagen -->
                     <a href="${window.productPageUrl(prod)}" style="width: 100px; height: 100px; flex-shrink: 0; display: block;">
-                        <img src="${image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: white; padding: 5px; border: 1px solid var(--border-color);">
+                        <img src="${escapeText(image)}" alt="${escapeText(prod.name)}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: white; padding: 5px; border: 1px solid var(--border-color);">
                     </a>
                     
                     <!-- Info -->
                     <div style="flex: 1; min-width: 200px;">
-                        <h4 style="margin: 0 0 0.5rem; font-size: 1.2rem;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
+                        <h4 style="margin: 0 0 0.5rem; font-size: 1.2rem;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${escapeText(prod.name)}</a></h4>
                         <p style="margin: 0; font-weight: 900; color: var(--text-color); font-size: 1.3rem;">${window.formatPrice(Number(prod.price))}</p>
                     </div>
 
@@ -3773,7 +2952,7 @@ window.loadSidebarFavorites = async () => {
     }
 
     try {
-        const res = await fetch(window.API_URL + '/api/products');
+        const res = await window.getCatalogProducts().then(products => ({ok: true, json: async () => products}));
         const allProds = window.expandCommercialProducts(await res.json());
         const favProds = allProds.filter(p => favs.includes(p.favorite_key || p.id.toString()));
 
@@ -3792,12 +2971,12 @@ window.loadSidebarFavorites = async () => {
 
                     <!-- Imagen -->
                     <a href="${window.productPageUrl(prod)}" style="width: 80px; height: 80px; flex-shrink: 0; display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
-                        <img src="${image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: contain; background: white;">
+                        <img src="${escapeText(image)}" alt="${escapeText(prod.name)}" style="width: 100%; height: 100%; object-fit: contain; background: white;">
                     </a>
                     
                     <!-- Info -->
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${prod.name}</a></h4>
+                        <h4 style="margin: 0 20px 0.5rem 0; font-size: 1rem; line-height: 1.2;"><a href="${window.productPageUrl(prod)}" style="color: var(--text-color); text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#ff4757'" onmouseout="this.style.color='var(--text-color)'">${escapeText(prod.name)}</a></h4>
                         <p style="margin: 0 0 0.5rem 0; font-weight: 900; color: var(--text-color); font-size: 1.1rem;">${window.formatPrice(Number(prod.price))}</p>
                         
                         <a class="btn btn-block" href="${window.productPageUrl(prod)}" style="background:#24282c;color:#fff;padding:.8rem;text-decoration:none;">Ver producto</a>
@@ -4061,7 +3240,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('cookies_accepted')) {
         const cookieBanner = document.createElement('div');
         cookieBanner.innerHTML = `
-            <div id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 600px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.15); padding: 20px; border-radius: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; font-size: 0.9rem; color: var(--text-color); transform: translateY(150%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <div id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 600px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.15); padding: 20px; border-radius: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; font-size: 0.9rem; color: var(--text-color); transform: translateY(150%); transition: transform 0.25s ease-out;">
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <i class="fa-solid fa-cookie-bite" style="font-size: 2rem; color: #d35400;"></i>
                     <div style="flex: 1;">
@@ -4586,7 +3765,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         try {
             await window.dolarPromise;
-            const response = await fetch(window.API_URL + '/api/products');
+            const response = await window.getCatalogProducts().then(products => ({ok: true, json: async () => products}));
             const products = window.expandCommercialProducts(await response.json());
             if (!response.ok) throw new Error(products.error || 'No se pudo consultar el catálogo');
 
@@ -4811,7 +3990,7 @@ window.addEventListener('DOMContentLoaded', () => {
         comparePage.innerHTML = '<p class="compare-loading">Cargando los equipos disponibles...</p>';
         try {
             await window.dolarPromise;
-            const response = await fetch(window.API_URL + '/api/products');
+            const response = await window.getCatalogProducts().then(products => ({ok: true, json: async () => products}));
             const products = window.expandCommercialProducts(await response.json());
             if (!response.ok) throw new Error(products.error || 'No se pudieron cargar los productos');
 
@@ -4929,3 +4108,5 @@ document.addEventListener('submit', async (event) => {
         showToast(error.message, 'fa-triangle-exclamation');
     }
 });
+
+window.addVariantQuantity=(id,variant,quantity)=>setCartQuantity(id,variant,current=>current+quantity);

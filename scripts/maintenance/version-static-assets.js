@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const publicDir = path.resolve(__dirname, '../../public');
-const versions = Object.fromEntries(['script.js', 'style.css', 'cart-actions.js', 'cart-actions.css', 'checkout-ui.js', 'checkout-ui.css', 'home-ui.js', 'home-ui.css', 'admin-offers.js', 'admin-offers.css', 'admin-ui.js', 'admin-ui.css', 'favorites-ui.js', 'product-image-framing.js'].map(file => [file,
+const versions = Object.fromEntries(['store-business.js','store-improvements.js','store-improvements.css','admin-core.js','script.js', 'style.css', 'cart-actions.js', 'cart-actions.css', 'checkout-ui.js', 'checkout-ui.css', 'home-ui.js', 'home-ui.css', 'admin-offers.js', 'admin-offers.css', 'admin-ui.js', 'admin-ui.css', 'favorites-ui.js', 'product-image-framing.js'].map(file => [file,
     crypto.createHash('sha256').update(fs.readFileSync(path.join(publicDir, file))).digest('hex').slice(0, 12)]));
 for (const file of fs.readdirSync(publicDir).filter(file => file.endsWith('.html'))) {
     const filePath = path.join(publicDir, file);
@@ -21,7 +21,7 @@ for (const file of fs.readdirSync(publicDir).filter(file => file.endsWith('.html
     }
     const commercialVersion = crypto.createHash('sha256').update(fs.readFileSync(path.join(publicDir, 'product-commercial-types.js'))).digest('hex').slice(0, 12);
     prepared = prepared.replace(/src="product-commercial-types\.js(?:\?[^"\s]*)?"/g, `src="product-commercial-types.js?v=${commercialVersion}"`);
-    const updated = prepared.replace(/((?:src|href)=")(script\.js|style\.css|cart-actions\.js|cart-actions\.css|checkout-ui\.js|checkout-ui\.css|home-ui\.js|home-ui\.css|admin-offers\.js|admin-offers\.css|admin-ui\.js|admin-ui\.css|favorites-ui\.js|product-image-framing\.js)(?:\?[^"\s]*)?(")/g,
+    const updated = prepared.replace(/((?:src|href)=")(store-business\.js|store-improvements\.js|store-improvements\.css|admin-core\.js|script\.js|style\.css|cart-actions\.js|cart-actions\.css|checkout-ui\.js|checkout-ui\.css|home-ui\.js|home-ui\.css|admin-offers\.js|admin-offers\.css|admin-ui\.js|admin-ui\.css|favorites-ui\.js|product-image-framing\.js)(?:\?[^"\s]*)?(")/g,
         (_, prefix, asset, suffix) => `${prefix}${asset}?v=${versions[asset]}${suffix}`);
     if (updated !== html) fs.writeFileSync(filePath, updated);
 }

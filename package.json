@@ -8,7 +8,10 @@
     "prestart": "npm run assets:version",
     "start": "node server.js",
     "test": "npm run test:syntax",
-    "test:syntax": "node --check server.js && node --check public/script.js",
+    "test:syntax": "node --check server.js && node --check public/script.js && node --check public/admin-core.js && node --check public/store-business.js && node --check public/store-improvements.js && node --check public/checkout-ui.js && node --check lib/product-seo.js",
+    "test:store-unit": "node scripts/tests/test-store-improvements-unit.js",
+    "test:store-api": "node scripts/tests/test-store-improvements-api.js",
+    "test:store-ui": "node scripts/tests/test-store-improvements-ui.js",
     "test:performance": "node scripts/tests/test-static-performance.js",
     "test:images": "node scripts/tests/test-product-images.js",
     "test:official-images": "node scripts/tests/test-official-image-assets.js",
@@ -38,7 +41,8 @@
     "google-auth-library": "^11.0.2",
     "jsonwebtoken": "^9.0.3",
     "multer": "2.4.0",
-    "nodemailer": "10.0.9"
+    "nodemailer": "10.0.9",
+    "web-vitals": "^6.2.2"
   },
   "devDependencies": {
     "puppeteer": "^25.8.0"

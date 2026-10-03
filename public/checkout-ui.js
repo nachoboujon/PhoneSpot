@@ -19,6 +19,25 @@
         input.setAttribute('aria-invalid', String(Boolean(message)));
     }
     window.PhoneSpotCheckout = {
+        requestKey(items) {
+            const current = signature(items);
+            let stored; try {stored = JSON.parse(sessionStorage.getItem('phoneSpotCheckoutKey') || 'null');} catch (_) {}
+            if (!stored || stored.signature !== current) {stored={signature:current, key:crypto.randomUUID()}; sessionStorage.setItem('phoneSpotCheckoutKey',JSON.stringify(stored));}
+            return stored.key;
+        },
+        async recoverPending() {
+            let stored;try {stored=JSON.parse(sessionStorage.getItem('phoneSpotCheckoutPending') || 'null');} catch (_) {return false;}
+            if(!stored) return false;
+            const response=await fetch('/api/orders/result?key='+encodeURIComponent(stored.key)+'&cart='+encodeURIComponent(stored.cart));
+            if(response.status===404) return false;
+            if(!response.ok) throw new Error('No pudimos comprobar tu pedido anterior. Intentá nuevamente.');
+            const data=await response.json();
+            const phone=String(window.phoneSpotSettings?.whatsapp_number || '5493447416011').replace(/\D/g,'') || '5493447416011';
+            const wpUrl='https://wa.me/'+phone+'?text='+encodeURIComponent('Hola PhoneSpot, quiero coordinar el pago y el envio de mi pedido #'+data.orderId+'.');
+            sessionStorage.setItem('phoneSpotOrderConfirmation',JSON.stringify({orderId:String(data.orderId),total:Number(data.total_ars),wpUrl,createdAt:Date.now()}));
+            sessionStorage.removeItem('phoneSpotCheckoutPending');sessionStorage.removeItem('phoneSpotCheckoutDraft');sessionStorage.removeItem('phoneSpotCheckoutKey');
+            this.confirmed=true;location.assign('compra-exitosa.html?orderId='+encodeURIComponent(data.orderId));return true;
+        },
         confirmed: false,
         uncertain: false,
         isLocked() { return busy || this.confirmed || this.uncertain; },
@@ -83,10 +102,9 @@
         },
         message(text) { field('checkout-status').textContent = text; },
         markUncertain() {
-            this.uncertain = true;
-            this.message('No pudimos confirmar el resultado. Revisá tus pedidos antes de volver a enviar. ');
-            const link = document.createElement('a'); link.href = 'perfil.html'; link.textContent = 'Ver mis pedidos';
-            field('checkout-status').append(link);
+            this.uncertain = false;
+            this.message('La conexión se interrumpió. Podés reintentar: usamos el mismo identificador para evitar pedidos duplicados. ');
+
         },
         begin() {
             if (busy || this.confirmed || this.uncertain) return false;
@@ -122,3 +140,12 @@
         }
     });
 })();
+
+// Save the form only for this browser session; never persist it across devices.
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('checkout-form'); if (!form) return;
+    window.PhoneSpotCheckout.recoverPending().catch(error=>window.PhoneSpotCheckout.message(error.message));
+    let draft; try {draft = JSON.parse(sessionStorage.getItem('phoneSpotCheckoutDraft') || '{}');} catch (_) {draft={};}
+    for (const field of form.querySelectorAll('input[id],select[id]')) if (draft[field.id] && !field.value) field.value=draft[field.id];
+    form.addEventListener('input', () => { const values={}; for (const field of form.querySelectorAll('input[id],select[id]')) values[field.id]=field.value; sessionStorage.setItem('phoneSpotCheckoutDraft',JSON.stringify(values)); });
+});

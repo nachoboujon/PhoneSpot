@@ -27,7 +27,7 @@ El sitio actual ofrece un catálogo público, búsqueda, filtros, variantes, car
 - El sitio es una aplicación web con frontend estático, API Node.js/Express y persistencia en Supabase.
 - El pago no se procesa dentro del sitio. Se crea el pedido y se coordina por WhatsApp.
 - Los precios se conservan en USD y se convierten a ARS según la cotización configurada.
-- El flujo actual solicita datos de una compra individual. Siguen sin definirse las reglas de compra mayorista, como cantidades mínimas, precios por volumen, acceso al catálogo y condiciones comerciales. No deben suponerse en futuras mejoras.
+- El sitio admite pedidos como invitado y con cuenta. Conserva las reglas existentes de descuento en equipos elegibles: desde 3 unidades USD 5 c/u, desde 5 USD 7 c/u y desde 10 USD 10 c/u. La elegibilidad y los tramos se comparten entre tienda y servidor; no se agregaron descuentos ni condiciones comerciales nuevas.
 - La claridad y el orden del contenido son prioridades para que los clientes encuentren y entiendan los productos.
 
 ## Brand Commitments

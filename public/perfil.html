@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=9e6e7b2a55cd">
+<link rel="stylesheet" href="store-improvements.css?v=d16c81555c7b">
 </head>
 <body>
     <header>
@@ -29,7 +30,9 @@
     <script src="favorites-ui.js?v=4dde1928270a"></script>
     <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
-    <script src="script.js?v=fb43b0f361db"></script>
+    <script src="store-business.js?v=a153b6ddffb1"></script>
+    <script src="script.js?v=11d2ffc87ea3"></script>
+    <script src="store-improvements.js?v=ebf681bc667d"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const token = localStorage.getItem('phoneSpotToken');
@@ -63,8 +66,14 @@
                 ordersContainer.innerHTML = orders.map((order) => {
                     const [label, icon, tone] = statusInfo[order.status] || statusInfo.pending;
                     const items = (order.order_items || []).map((item) => `<li><img src="${escapeHtml(item.products?.image_url || 'uploads/PhoneSpot-trans.png')}" alt=""><span><strong>${escapeHtml(item.products?.name || 'Producto')}</strong>${item.variant_name ? `<small>${escapeHtml(item.variant_name)}</small>` : ''}</span><b>${item.quantity}×</b></li>`).join('');
-                    return `<article class="order-card"><div class="order-card-top"><div><span class="order-number">Pedido #${escapeHtml(order.id)}</span><time>${new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div><div class="order-total"><strong>USD ${Number(order.total).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong><span class="order-status ${tone}"><i class="fa-solid ${icon}"></i> ${label}</span></div></div><ul class="order-items">${items}</ul>${order.tracking_code ? `<div class="order-tracking"><i class="fa-solid fa-location-crosshairs"></i><span>Seguimiento <b>${escapeHtml(order.tracking_code)}</b></span></div>` : ''}</article>`;
+                    return `<article class="order-card"><div class="order-card-top"><div><span class="order-number">Pedido #${escapeHtml(order.id)}</span><time>${new Date(order.created_at).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div><div class="order-total"><strong>USD ${Number(order.total).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong><span class="order-status ${tone}"><i class="fa-solid ${icon}"></i> ${label}</span></div></div><ul class="order-items">${items}</ul>${order.total_ars != null ? `<p>Importe al registrar: $${Number(order.total_ars).toLocaleString("es-AR")} ARS · Cotización: $${Number(order.dollar_rate).toLocaleString("es-AR")}/USD</p>` : ""}<button type="button" class="catalog-reset repeat-order" data-order="${Number(order.id)}">Volver a pedir estos productos</button>${order.tracking_code ? `<div class="order-tracking"><i class="fa-solid fa-location-crosshairs"></i><span>Seguimiento <b>${escapeHtml(order.tracking_code)}</b></span></div>` : ''}</article>`;
                 }).join('');
+                ordersContainer.querySelectorAll('.repeat-order').forEach(button=>button.addEventListener('click',async()=>{
+                    const order=orders.find(entry=>String(entry.id)===button.dataset.order);button.disabled=true;
+                    const status=document.createElement('p');status.setAttribute('role','status');button.insertAdjacentElement('afterend',status);let added=0;
+                    try {for(const item of order.order_items || []){if(!item.product_id) continue;await window.addVariantQuantity(item.product_id,item.variant_name || '',Math.min(20,item.quantity));added++;}status.textContent='Productos agregados con precio y disponibilidad actuales. Revisá el carrito.';}
+                    catch(error){status.textContent=`Se agregaron ${added} productos. ${error.message || 'Revisá el stock en el catálogo.'}`;}finally{button.disabled=false;}
+                }));
             } catch (error) { ordersContainer.innerHTML = `<div class="account-empty is-error"><i class="fa-solid fa-triangle-exclamation"></i><h3>No pudimos cargar tus pedidos</h3><p>${escapeHtml(error.message)}</p></div>`; }
         });
     </script>
