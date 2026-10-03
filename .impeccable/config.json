@@ -156,6 +156,15 @@
         ],
         "createdAt": "2026-10-01T22:27:04.250Z",
         "reason": "Agent: the detected img text is a regular expression for extracting real manufacturer image URLs, not rendered HTML."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "public/catalogo.html"
+        ],
+        "createdAt": "2026-10-03T12:37:16.402Z",
+        "reason": "Codex: false positive confirmed in desktop/mobile screenshots and source; dominant h2#catalog-title is 3.5rem desktop and 2rem mobile versus body text around 1rem. Detector reports h1 logo and footer h3 roles while omitting the dominant h2."
       }
     ]
   }

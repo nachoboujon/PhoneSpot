@@ -21,8 +21,6 @@ body:has(.social-dock) { padding-inline-end: var(--social-lane); }
 .catalog-extra-filters { display: grid; gap: 12px; padding: 16px 0; }
 .catalog-extra-filters label { display: grid; gap: 6px; font-size: .9rem; font-weight: 600; }
 .catalog-extra-filters input, .catalog-extra-filters select { width: 100%; min-height: 44px; border: 1px solid #c9cdd1; border-radius: 8px; padding: 8px; background: #fff; color: #202428; font: inherit; }
-.catalog-extra-filters .stock-filter { display: flex; align-items: center; gap: 8px; min-height: 44px; }
-.catalog-extra-filters input[type=checkbox] { width: 20px; min-height: 20px; }
 .catalog-reset { min-height: 44px; padding: 8px 16px; background: #fff; color: #202428; border: 1px solid #c9cdd1; border-radius: 8px; cursor: pointer; font: inherit; }
 .search-result-all { padding: 14px; color: #202428; font-weight: 700; border-top: 1px solid #ddd; text-decoration: underline; }
 .search-result[aria-selected=true] { background: #edf0f2; outline: 2px solid #202428; outline-offset: -2px; }
@@ -73,3 +71,148 @@ input, select, textarea { caret-color: #202428; }
 .bulk-order-rows { display: grid; gap: 12px; margin-block: 16px; }
 .bulk-order-rows label { display: grid; grid-template-columns: minmax(0,1fr) 72px; align-items: center; gap: 12px; font-size: .9rem; }
 .bulk-order-rows input { min-height: 44px; width: 100%; padding: 8px; border: 1px solid #c9cdd1; border-radius: 8px; color: #202428; background: #fff; font: inherit; }
+
+/* Feedback follows the shopper's actions; nothing waits for an entrance. */
+#full-catalog-container .catalog-variant-picker {
+    display: grid;
+    gap: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #e6e8ea;
+    text-align: left;
+}
+#full-catalog-container .catalog-variant-field { min-width: 0; margin: 0; padding: 0; border: 0; }
+#full-catalog-container .catalog-variant-field legend {
+    margin-bottom: 7px;
+    padding: 0;
+    color: #59616a;
+    font-size: .75rem;
+    font-weight: 650;
+    line-height: 1.4;
+}
+#full-catalog-container .catalog-variant-options { display: flex; flex-wrap: wrap; gap: 6px; }
+#full-catalog-container .catalog-variant-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 44px;
+    min-height: 44px;
+    max-width: 100%;
+    margin: 0;
+    padding: 8px 11px;
+    border: 1px solid #cbd1d6;
+    border-radius: 8px;
+    background: #fff;
+    color: #343a40;
+    box-shadow: none;
+    font: inherit;
+    font-size: .79rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.3;
+    text-transform: none;
+    cursor: pointer;
+    transform: none;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+#full-catalog-container .catalog-variant-option span:last-child { overflow-wrap: anywhere; }
+#full-catalog-container .catalog-variant-option:hover:not(:disabled) { border-color: #24282c; background: #f2f3f4; color: #24282c; transform: none; box-shadow: none; }
+#full-catalog-container .catalog-variant-option[aria-pressed="true"] { background: #24282c; color: #fff; border-color: #24282c; }
+#full-catalog-container .catalog-variant-option[aria-pressed="true"]:hover { background: #3e464d; color: #fff; }
+#full-catalog-container .catalog-variant-option:focus-visible,
+#full-catalog-container .catalog-variant-select:focus-visible { outline: 2px solid #2264a5; outline-offset: 3px; }
+#full-catalog-container .catalog-variant-option:disabled { opacity: .45; cursor: not-allowed; background: #f6f7f8; color: #59616a; border-color: #dce0e3; }
+#full-catalog-container .catalog-color-swatch { flex: 0 0 14px; width: 14px; height: 14px; border: 1px solid rgba(0,0,0,.2); border-radius: 50%; background: var(--swatch-color); }
+#full-catalog-container .catalog-variant-option[aria-pressed="true"] .catalog-color-swatch { border-color: rgba(255,255,255,.6); }
+#full-catalog-container .catalog-variant-select:not([hidden]) {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 32px 10px 11px;
+    border: 1px solid #cbd1d6;
+    border-radius: 8px;
+    background-color: #f6f7f8;
+    color: #24282c;
+    font: inherit;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2359616a' stroke-width='1.6' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+}
+#full-catalog-container .catalog-variant-select[hidden] { display: none !important; }
+#full-catalog-container .catalog-variant-picker .card-variant-stock { margin: 0; color: #59616a; font-size: .74rem; line-height: 1.4; text-align: left; }
+@media (max-width: 480px) {
+    #full-catalog-container .catalog-variant-picker { gap: 12px; }
+    #full-catalog-container .catalog-variant-option { flex: 1 1 auto; padding-inline: 8px; font-size: .73rem; }
+}
+
+.catalog-extra-filters :is(input, select), .product-card .var-select {
+    transition: border-color 160ms ease, background-color 160ms ease;
+    caret-color: #24282c;
+}
+.catalog-extra-filters :is(input, select):focus-visible, .product-card .var-select:focus-visible {
+    border-color: #24282c;
+    outline: 2px solid #24282c;
+    outline-offset: 3px;
+    background-color: #f6f7f8;
+}
+.catalog-reset { transition: background-color 160ms ease, border-color 160ms ease; }
+.catalog-reset:hover, .catalog-reset:focus-visible { background-color: #edf0f2; border-color: #59616a; color: #202428; }
+.catalog-reset:focus-visible { outline: 2px solid #24282c; outline-offset: 3px; }
+.product-card .product-img-wrapper { overflow: hidden; }
+.product-card .fav-btn i, .product-details .fav-btn i { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+    :is(.product-card, .product-details) .fav-btn i {
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms ease;
+    }
+    :is(.product-card, .product-details) .fav-btn[aria-pressed="true"] i { transform: scale(1.16); }
+    :is(.product-card, .product-details) .fav-btn:active i { transform: scale(.86); }
+    .catalog-container .filter-label input[type=checkbox] { transition: transform 120ms ease; }
+    .catalog-container .filter-label:active input[type=checkbox] { transform: scale(.88); }
+    :is(.catalog-reset, #catalog-filter-toggle, .product-option-list .var-btn) {
+        transition: transform 120ms ease, background-color 160ms ease, border-color 160ms ease;
+    }
+    :is(.catalog-reset, #catalog-filter-toggle, .product-option-list .var-btn):active:not(:disabled),
+    :is(.product-card, .product-details) .add-to-cart-btn:active:not(:disabled) { transform: scale(.98); }
+    #full-catalog-container .product-card .add-to-cart-btn {
+        transition: transform 120ms ease, background-color 160ms ease !important;
+    }
+    :is(.product-card, .product-details)[data-cart-state="success"] .add-to-cart-btn .fa-check {
+        display: inline-block;
+        animation: purchase-confirm 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    :is(.product-card, .product-details)[data-cart-state="success"] .cart-action-status {
+        animation: purchase-feedback 220ms ease-out both;
+    }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    #full-catalog-container.product-grid .product-card .product-img {
+        transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    #full-catalog-container.product-grid .product-card:is(:hover, :focus-within) .product-img {
+        transform: scale(1.035) !important;
+    }
+}
+@keyframes purchase-confirm {
+    from { clip-path: inset(0 100% 0 0); transform: scale(.9); }
+    to { clip-path: inset(0); transform: scale(1); }
+}
+@keyframes purchase-feedback {
+    from { opacity: .5; }
+    to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    :is(.product-card, .product-details) .add-to-cart-btn,
+    #full-catalog-container .product-card .add-to-cart-btn,
+    :is(.catalog-reset, #catalog-filter-toggle, .product-option-list .var-btn),
+    :is(.product-card, .product-details) .fav-btn i,
+    .catalog-container .filter-label input[type=checkbox] {
+        transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease !important;
+        animation: none;
+        transform: none;
+    }
+}

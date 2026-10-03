@@ -1274,7 +1274,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const renderFilteredCatalog = () => {
             const params = new URLSearchParams();
-            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, stock: document.getElementById('stock-only').checked ? '1' : '', capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
+            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
             Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
             history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
             if (!allCatalogProducts.length) { fullCatalogContainer.textContent = 'Aún no hay productos disponibles.'; return; }
@@ -1335,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (!window.PhoneSpotBusiness.matches(p, catalogQuery)) return false;
                 if (!candidates.some(v => {
                     const price = Number(v.price || p.price) * window.dolarValue;
-                    return price >= min && price <= max && (!capacity || v.capacity === capacity) && (!ram || v.ram === ram) && (!document.getElementById('stock-only').checked || Number(v.stock)>0);
+                    return price >= min && price <= max && (!capacity || v.capacity === capacity) && (!ram || v.ram === ram);
                 })) return false;
                 // Price Filter
                 
@@ -1380,43 +1380,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const hasVariants = prod.variants && prod.variants.length > 0;
                 let variantsHTML = '';
                 if (hasVariants) {
-                    const uniqueColors = [...new Set(prod.variants.map(v => v.color))].filter(Boolean);
-                    const uniqueCaps = [...new Set(prod.variants.map(v => v.capacity))].filter(Boolean);
-                    const uniqueRams = [...new Set(prod.variants.map(v => v.ram))].filter(Boolean);
-                    const uniqueBatts = [...new Set(prod.variants.map(v => v.batt))].filter(Boolean);
-                    const uniqueConditions = [...new Set(prod.variants.map(v => v.condition))].filter(Boolean);
-
-                    variantsHTML = `<div class="card-variants" style="margin-bottom:1rem; display:flex; flex-direction:column; gap:6px; text-align:left;">`;
-                    const configurations = [...new Set(prod.variants.map(v => v.configuration).filter(Boolean))];
-                    if (configurations.length) {
-                        variantsHTML += `<select class="var-select" data-type="configuration" aria-label="Configuración" onchange="window.updateCardVariant(this)">${configurations.map(c => `<option value="${escapeText(c)}">${escapeText(c)}</option>`).join('')}</select>`;
+                    const dimensions = [
+                        ['color', 'Color'], ['configuration', 'Configuración'],
+                        ['capacity', 'Almacenamiento'], ['ram', 'Memoria RAM'],
+                        ['batt', 'Batería'], ['condition', 'Condición']
+                    ];
+                    variantsHTML = '<div class="card-variants catalog-variant-picker">';
+                    for (const [key, label] of dimensions) {
+                        const values = [...new Set(prod.variants.map(v => v[key]).filter(Boolean))];
+                        if (!values.length || (key === 'condition' && values.length < 2)) continue;
+                        const useChips = key !== 'configuration' && values.length <= 8;
+                        variantsHTML += '<fieldset class="catalog-variant-field" data-dimension="' + key + '"><legend>' + label + '</legend>';
+                        variantsHTML += '<select class="var-select catalog-variant-select" data-type="' + key + '" aria-label="' + label + '" onchange="window.updateCardVariant(this)"' + (useChips ? ' hidden' : '') + '>';
+                        for (const value of values) variantsHTML += '<option value="' + escapeText(value) + '">' + escapeText(value) + '</option>';
+                        variantsHTML += '</select>';
+                        if (useChips) {
+                            variantsHTML += '<div class="catalog-variant-options" role="group" aria-label="' + label + '">';
+                            for (const value of values) {
+                                const swatch = key === 'color' ? '<span class="catalog-color-swatch" aria-hidden="true" style="--swatch-color:' + window.getColorHex(value) + '"></span>' : '';
+                                variantsHTML += '<button type="button" class="catalog-variant-option var-btn" data-type="' + key + '" data-value="' + escapeText(value) + '" aria-pressed="false" onclick="window.selectCatalogVariant(this)">' + swatch + '<span>' + escapeText(value) + '</span></button>';
+                            }
+                            variantsHTML += '</div>';
+                        }
+                        variantsHTML += '</fieldset>';
                     }
-                    if (uniqueColors.length > 0) {
-                        variantsHTML += `<select class="var-select" data-type="color" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueColors.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Color: ${escapeText(c)}</option>`);
-                        variantsHTML += `</select>`;
-                    }
-                    if (uniqueCaps.length > 0) {
-                        variantsHTML += `<select class="var-select" data-type="capacity" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueCaps.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cap: ${escapeText(c)}</option>`);
-                        variantsHTML += `</select>`;
-                    }
-                    if (uniqueRams.length > 0) {
-                        variantsHTML += `<select class="var-select" data-type="ram" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueRams.forEach(c => variantsHTML += `<option value="${escapeText(c)}">RAM: ${escapeText(c)}</option>`);
-                        variantsHTML += `</select>`;
-                    }
-                    if (uniqueBatts.length > 0) {
-                        variantsHTML += `<select class="var-select" data-type="batt" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueBatts.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Bat: ${escapeText(c)}</option>`);
-                        variantsHTML += `</select>`;
-                    }
-                    if (uniqueConditions.length > 1) {
-                        variantsHTML += `<select class="var-select" data-type="condition" style="padding:6px; border-radius:6px; border:1px solid #ddd; font-size:0.85rem; outline:none; background:#f9f9f9; color:#333;" onchange="window.updateCardVariant(this)">`;
-                        uniqueConditions.forEach(c => variantsHTML += `<option value="${escapeText(c)}">Cond: ${escapeText(c)}</option>`);
-                        variantsHTML += `</select>`;
-                    }
-                    variantsHTML += `<p class="card-variant-stock" style="font-size:0.8rem; font-weight:bold; margin:4px 0 0 0; color:#555; text-align:center;"></p></div>`;
+                    variantsHTML += '<p class="card-variant-stock" role="status" aria-live="polite"></p></div>';
                 }
 
                 const cardHTML = `
@@ -1476,7 +1464,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 allCatalogProducts = products;
                 const initInput = (id,key) => {document.getElementById(id).value = urlParams.get(key) || '';};
                 initInput('catalog-query','q'); initInput('price-min','min'); initInput('price-max','max');
-                document.getElementById('stock-only').checked = urlParams.get('stock') === '1';
                 for (const [id,key] of [['capacity-filter','capacity'],['ram-filter','ram']]) {
                     const select = document.getElementById(id);
                     const entries = [...new Set(products.flatMap(p => (p.variants || []).map(v => v[key])).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es', {numeric:true}));
@@ -1486,7 +1473,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 sortFilter.value = currentSort;
                 document.getElementById('offer-filter').checked = onlyOffers;
                 document.querySelectorAll('.cond-checkbox').forEach(el => {el.checked = selectedConditions.includes(el.value);});
-                for (const id of ['catalog-query','price-min','price-max','stock-only','capacity-filter','ram-filter']) {
+                for (const id of ['catalog-query','price-min','price-max','capacity-filter','ram-filter']) {
                     document.getElementById(id).addEventListener(id === 'catalog-query' || id.startsWith('price-') ? 'input' : 'change', () => {catalogQuery = document.getElementById('catalog-query').value; visibleLimit=24; clearTimeout(window.catalogFilterTimer); window.catalogFilterTimer=setTimeout(renderFilteredCatalog,150);});
                 }
                 document.getElementById('catalog-reset').addEventListener('click', () => {
@@ -1515,7 +1502,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     availableBrands.forEach(b => {
                         const isChecked = selectedBrands.includes(b.toLowerCase()) ? 'checked' : '';
                         brandFiltersContainer.innerHTML += `
-                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
+                            <label class="filter-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
                                 <input type="checkbox" value="${b.toLowerCase()}" class="brand-checkbox" ${isChecked} style="accent-color: #555555; width: 18px; height: 18px;">
                                 ${b}
                             </label>
@@ -3481,6 +3468,15 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
+window.selectCatalogVariant = function(button) {
+    const card = button.closest('.product-card');
+    if (!card || button.disabled || window.PhoneSpotCartActions.isPending(card)) return;
+    const select = card.querySelector(`.var-select[data-type="${button.dataset.type}"]`);
+    if (!select) return;
+    select.value = button.dataset.value;
+    select.dispatchEvent(new Event('change', {bubbles: true}));
+};
+
 window.updateCardVariant = function(el) {
     const card = el.closest('.product-card');
     if (!card) return;
@@ -3495,8 +3491,14 @@ window.updateCardVariant = function(el) {
             const options = [...new Set(matches.map(v => v[key]).filter(Boolean))];
             const selected = options.includes(select.value) ? select.value : options[0];
             const label = { color: 'Color', configuration: 'Equipo', capacity: 'Cap', ram: 'RAM', batt: 'Bat', condition: 'Cond' }[key];
-            select.innerHTML = options.map(value => `<option value="${value}">${label}: ${value}</option>`).join('');
+            select.innerHTML = options.map(value => `<option value="${escapeText(value)}">${card.querySelector('.catalog-variant-picker') ? '' : label + ': '}${escapeText(value)}</option>`).join('');
             select.value = selected;
+            card.querySelectorAll(`.catalog-variant-option[data-type="${key}"]`).forEach(button => {
+                const available = options.includes(button.dataset.value);
+                button.disabled = !available || window.PhoneSpotCartActions.isPending(card);
+                button.setAttribute('aria-pressed', String(button.dataset.value === selected));
+                button.title = available ? '' : 'No disponible en esta combinación';
+            });
             matches = matches.filter(v => v[key] === selected);
         }
         const variant = matches[0];
