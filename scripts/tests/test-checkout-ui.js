@@ -34,6 +34,7 @@ async function main() {
                 if (url.pathname === '/api/settings') return reply({carousel: [], whatsapp_number: '+54 9 3447 416011'});
                 if (url.pathname === '/api/dollar-rate') return reply({rate: 1400});
                 if (url.pathname.startsWith('/api/cart/')) return reply(cart);
+                if (url.pathname === '/api/orders/result') return reply({error: 'Pedido no encontrado'}, 404);
                 if (url.pathname === '/api/orders' && request.method() === 'POST') {
                     writes++; payload = JSON.parse(request.postData());
                     await new Promise(resolve => setTimeout(resolve, 450));
@@ -100,11 +101,14 @@ async function main() {
             await page.$eval('#btn-next-step', button => button.click());
             mode = 'lost';
             await page.$eval('#btn-confirm-pay', button => button.click());
-            await page.waitForFunction(() => document.querySelector('#checkout-status a')?.getAttribute('href') === 'perfil.html');
-            assert.equal(await page.$eval('#btn-confirm-pay', el => el.disabled), true);
+            await page.waitForFunction(() => document.getElementById('checkout-status').textContent.includes('Podés reintentar'));
+            assert.equal(await page.$eval('#btn-confirm-pay', el => el.disabled), false);
+            const retryKey = payload.idempotency_key;
             const count = writes;
-            await page.$eval('#checkout-form', form => form.dispatchEvent(new Event('submit', {bubbles: true, cancelable: true})));
-            assert.equal(writes, count);
+            mode = 'success';
+            await Promise.all([page.waitForNavigation({waitUntil: 'domcontentloaded'}), page.$eval('#btn-confirm-pay', button => button.click())]);
+            assert.equal(writes, count + 1);
+            assert.equal(payload.idempotency_key, retryKey, 'Lost responses must retry with the same order key');
             await open();
             await page.$eval('#btn-next-step', button => button.click());
             mode = 'expired';

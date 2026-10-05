@@ -1657,7 +1657,7 @@ app.post('/api/marketing/offers', authenticate, isAdmin, async (req, res) => {
     try {
         const subject = String(req.body.subject || '¡Descubre nuestras nuevas ofertas en PhoneSpot!').trim().slice(0, 150);
         const message = String(req.body.message || '').trim().slice(0, 5000);
-        const link = String(req.body.link || 'https://phonespot.com.ar/catalogo.html').trim();
+        const link = String(req.body.link || `${publicAppUrl}/catalogo.html`).trim();
         if (!message || !/^https?:\/\//i.test(link)) return res.status(400).json({ error: 'Mensaje o enlace inválido' });
         
         // Obtener todos los usuarios registrados

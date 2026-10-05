@@ -10,6 +10,15 @@ const writes = [];
 let missing = false;
 let fail = false;
 const query = table => {
+    if (table === 'users') {
+        let id;
+        const account = {
+            select() {return account;},
+            eq(column, value) {assert.equal(column, 'id'); id = Number(value); return account;},
+            single: async () => ({data: {id, role: id === 998 ? 'client' : 'admin', session_version: 0}, error: null})
+        };
+        return account;
+    }
     assert.equal(table, 'products', 'An offer update must not trigger stock alerts');
     let patch;
     let id;
@@ -36,7 +45,7 @@ async function main() {
     const server = app.listen(0, '127.0.0.1');
     await new Promise(resolve => server.once('listening', resolve));
     const base = `http://127.0.0.1:${server.address().port}/api/products/`;
-    const token = role => jwt.sign({id: 999, role}, process.env.JWT_SECRET, {issuer: 'phonespot', audience: 'phonespot-web'});
+    const token = role => jwt.sign({id: role === 'client' ? 998 : 999, role, sessionVersion: 0}, process.env.JWT_SECRET, {issuer: 'phonespot', audience: 'phonespot-web'});
     const send = (body, authorization = token('admin'), id = 73) => fetch(base + id, {method: 'PUT',
         headers: {'Content-Type': 'application/json', ...(authorization ? {Authorization: `Bearer ${authorization}`} : {})}, body: JSON.stringify(body)});
     try {
