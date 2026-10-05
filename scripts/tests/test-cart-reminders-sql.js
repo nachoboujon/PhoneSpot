@@ -1,0 +1,46 @@
+// Real PostgreSQL in WASM, entirely local. See docs/cart-reminders.md for setup.
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {PGlite}=require(process.env.PGLITE_MODULE_PATH || '../../.tmp/reminder-test-runtime/node_modules/@electric-sql/pglite');
+const cart='11111111-1111-4111-8111-111111111111';
+async function main(){const db=new PGlite();
+try {
+    await db.exec(`CREATE ROLE anon; CREATE ROLE authenticated; CREATE ROLE service_role BYPASSRLS;
+        CREATE TABLE users(id integer PRIMARY KEY,name text,email text);
+        CREATE TABLE products(id integer PRIMARY KEY,name text,archived_at timestamptz);
+        CREATE TABLE cart_reservations(cart_id uuid,product_id integer REFERENCES products(id),variant_name text NOT NULL DEFAULT '',quantity integer,expires_at timestamptz,PRIMARY KEY(cart_id,product_id,variant_name));
+        INSERT INTO users VALUES(1,'Cliente','fixture@example.invalid'),(2,'Otro','other@example.invalid');
+        INSERT INTO products VALUES(1,'Producto 1',NULL),(2,'Producto 2',NULL),(3,'Producto 3',NULL);`);
+    await db.exec(fs.readFileSync(path.resolve(__dirname,'../../supabase/migrations/20261005150722_cart_expiry_reminders.sql'),'utf8'));
+    const scalar=async(sql,args=[])=>Object.values((await db.query(sql,args)).rows[0])[0];
+    const claim=()=>scalar('SELECT claim_cart_reminders(60,5)');
+    const finish=(j,sent)=>scalar('SELECT finish_cart_reminder($1,$2,$3)',[j.id,j.lease_token,sent]);
+    const ready=()=>db.query('UPDATE cart_reminder_contacts SET next_attempt_at=now()');
+    await db.query(`INSERT INTO cart_reservations VALUES($1,1,'',2,now()+interval '30 minutes'),($1,2,'',1,now()+interval '45 minutes'),($1,3,'',1,now()+interval '2 hours')`,[cart]);
+    assert.deepEqual(await claim(),[],'Guests without a linked account must not receive mail');
+    assert.equal(await scalar('SELECT set_cart_reminder_contact($1,1)',[cart]),true);
+    await assert.rejects(scalar('SELECT set_cart_reminder_contact($1,2)',[cart]),/otro cliente/);
+    const [first]=await claim();assert.equal(first.payload.items.length,2,'Group due items; exclude later expirations');
+    assert.deepEqual(await claim(),[],'An active lease must prevent duplicate claims');
+    assert.equal(await scalar('SELECT validate_cart_reminder($1,$2)',[first.id,first.lease_token]),true);
+    assert.equal(await finish(first,false),true);assert.deepEqual(await claim(),[],'Failed delivery must back off');
+    await ready();const [retry]=await claim();assert.equal(retry.id,first.id);assert.deepEqual(retry.payload,first.payload);assert.notEqual(retry.lease_token,first.lease_token);
+    assert.equal(await finish(first,true),false,'A stale worker cannot acknowledge a new lease');
+    assert.equal(await finish(retry,true),true);assert.deepEqual(await claim(),[],'Successful reservations must never be reminded again');
+    await db.query(`UPDATE cart_reservations SET expires_at=now()+interval '20 minutes' WHERE product_id=3`);
+    const [removed]=await claim();assert.equal(removed.payload.items.length,1);
+    await db.query('DELETE FROM cart_reservations WHERE product_id=3');
+    assert.equal(await scalar('SELECT validate_cart_reminder($1,$2)',[removed.id,removed.lease_token]),false,'Checkout/removal cancels delivery');
+    await db.query('UPDATE cart_reminder_deliveries SET locked_until=now()');await ready();assert.deepEqual(await claim(),[]);
+    await db.query(`INSERT INTO cart_reservations VALUES($1,3,'',1,now()+interval '20 minutes')`,[cart]);
+    assert.equal(await scalar('SELECT set_cart_reminder_contact($1,1,false)',[cart]),false);
+    assert.equal(await scalar('SELECT set_cart_reminder_contact($1,1)',[cart]),false,'Auto sync preserves opt-out');assert.deepEqual(await claim(),[]);
+    await scalar('SELECT set_cart_reminder_contact($1,1,true)',[cart]);const [expired]=await claim();
+    await db.query(`UPDATE cart_reservations SET expires_at=now()-interval '1 minute' WHERE product_id=3`);
+    assert.equal(await scalar('SELECT validate_cart_reminder($1,$2)',[expired.id,expired.lease_token]),false);
+    assert.equal(await scalar("SELECT has_table_privilege('anon','cart_reminder_deliveries','SELECT')"),false);
+    assert.equal(await scalar("SELECT has_function_privilege('authenticated','claim_cart_reminders(integer,integer)','EXECUTE')"),false);
+    console.log('PostgreSQL migration, grouping, ownership, leases, retry, purchase/removal, expiration, opt-out and permissions passed.');
+}finally{await db.close();}}
+main().catch(error=>{console.error(error);process.exitCode=1;});

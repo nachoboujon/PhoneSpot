@@ -238,12 +238,37 @@ function showToast(message, icon = 'fa-circle-check') {
 // La reserva vive en el servidor; localStorage conserva sólo el identificador secreto.
 let cart = [];
 let cartExpiryTimer;
+let cartReminderState = null;
+let reminderSyncKey = '';
+let reminderSyncAt = 0;
+const syncCartReminder = async (enabled) => {
+    const token=localStorage.getItem('phoneSpotToken');
+    if(!token || !cart.length) {cartReminderState=null;reminderSyncKey='';return;}
+    const key=`${cartId}:${token}`;
+    if(enabled===undefined && reminderSyncKey===key && cartReminderState) return;
+    if(enabled===undefined && Date.now()-reminderSyncAt<30000 && reminderSyncKey===key) return;
+    reminderSyncKey=key;reminderSyncAt=Date.now();
+    const response=await fetch(`${window.API_URL}/api/cart/${cartId}/reminder`,{
+        method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},
+        body:JSON.stringify(enabled===undefined?{}:{enabled})
+    });
+    if(!response.ok) throw new Error('No pudimos guardar la preferencia del recordatorio.');
+    cartReminderState=await response.json();
+};
+document.addEventListener('change',async event=>{
+    if(!event.target.matches('[data-cart-reminder]')) return;
+    const input=event.target;input.disabled=true;
+    try {await syncCartReminder(input.checked);}
+    catch(error) {showToast(error.message,'fa-circle-exclamation');}
+    finally {renderCart();renderCheckout();if(typeof renderSideCart==='function')renderSideCart();}
+});
 const cartReservationNotice = () => {
     const times = cart.map(item => Date.parse(item.expires_at)).filter(Number.isFinite);
     if (!times.length) return '';
     const firstExpiry = new Date(Math.min(...times));
     const label = firstExpiry.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
-    return `<div class="cart-reservation-notice" role="note"><i class="fa-regular fa-clock" aria-hidden="true"></i><p><strong>Reserva por 24 horas.</strong> Si no finalizás la compra, los productos se quitarán automáticamente del carrito. La primera reserva vence el <time datetime="${firstExpiry.toISOString()}">${label}</time></p></div>`;
+    const reminder=cartReminderState?.configured ? `<label class="cart-reminder-preference"><input type="checkbox" data-cart-reminder ${cartReminderState.enabled?'checked':''}> <span>Avisarme por email ${Number(cartReminderState.lead_minutes)} minutos antes de que venza la reserva.</span></label>` : '';
+    return `<div class="cart-reservation-notice" role="note"><i class="fa-regular fa-clock" aria-hidden="true"></i><div><p><strong>Reserva por 24 horas.</strong> Si no finalizás la compra, los productos se quitarán automáticamente del carrito. La primera reserva vence el <time datetime="${firstExpiry.toISOString()}">${label}</time></p>${reminder}</div></div>`;
 };
 let cartNeedsSync = true;
 let cartId = localStorage.getItem('phoneSpotCartId');
@@ -255,6 +280,28 @@ if (!cartId || !/^[0-9a-f-]{36}$/i.test(cartId)) {
 }
 
 const cartReady = (async () => {
+    const url=new URL(location.href);
+    const reminderToken=url.searchParams.get('reminder');
+    if(reminderToken) {
+        const accountToken=localStorage.getItem('phoneSpotToken');
+        if(!accountToken) {
+            location.href='login.html?redirect='+encodeURIComponent(url.pathname.replace(/^\//,'')+url.search);
+            return;
+        }
+        try {
+            const response=await fetch(`${window.API_URL}/api/cart-reminders/restore?token=${encodeURIComponent(reminderToken)}`,{headers:{Authorization:`Bearer ${accountToken}`}});
+            if(response.status===401) {
+                localStorage.removeItem('phoneSpotToken');
+                location.href='login.html?redirect='+encodeURIComponent(url.pathname.replace(/^\//,'')+url.search);
+                return;
+            }
+            const result=await response.json();
+            if(!response.ok) throw new Error(result.error || 'No pudimos recuperar esta reserva.');
+            if(!/^[0-9a-f-]{36}$/i.test(result.cart_id)) throw new Error('Carrito inválido.');
+            cartId=result.cart_id;localStorage.setItem('phoneSpotCartId',cartId);legacyCart=[];
+        } catch(error) {showToast(error.message,'fa-circle-exclamation');}
+        url.searchParams.delete('reminder');history.replaceState(null,'',url.pathname+url.search+url.hash);
+    }
     if (Array.isArray(legacyCart)) {
         for (const item of legacyCart) {
             if (!Number.isInteger(Number(item.id)) || !Number.isInteger(Number(item.quantity))) continue;
@@ -274,6 +321,7 @@ async function refreshCart() {
     const response = await fetch(`${window.API_URL}/api/cart/${cartId}`);
     if (!response.ok) throw new Error('No se pudo cargar el carrito');
     cart = await response.json();
+    try {await syncCartReminder();} catch (_) { /* A reminder failure must not block buying. */ }
     cartNeedsSync = false;
     clearTimeout(cartExpiryTimer);
     const nextExpiry = Math.min(...cart.map(item => Date.parse(item.expires_at)).filter(Number.isFinite));

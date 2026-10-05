@@ -21,3 +21,5 @@
 @media (prefers-reduced-motion: reduce) {
     .add-to-cart-btn { transition: none; }
 }
+.cart-reminder-preference { display: flex; align-items: flex-start; gap: .55rem; margin-top: .65rem; font-size: .85rem; line-height: 1.5; cursor: pointer; }
+.cart-reminder-preference input { flex: 0 0 auto; width: 20px; height: 20px; margin-top: .1rem; accent-color: #202428; }

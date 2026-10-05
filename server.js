@@ -13,6 +13,7 @@ const crypto = require('crypto');
 const {normalizeProductImages} = require('./lib/product-images');
 const business = require('./public/store-business');
 const {productSeo} = require('./lib/product-seo');
+const {reminderAudience, createCartReminderRunner} = require('./lib/cart-reminders');
 require('dotenv').config();
 
 const app = express();
@@ -96,6 +97,9 @@ const smtpTransport = process.env.SMTP_HOST && process.env.SMTP_USER && process.
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT || 587),
         secure: process.env.SMTP_SECURE === 'true',
+        connectionTimeout:15000,
+        greetingTimeout:15000,
+        socketTimeout:30000,
         auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
     })
     : null;
@@ -317,15 +321,17 @@ app.get('/sitemap.xml', async (_req, res) => {
 });
 
 // Función genérica para enviar emails
-const sendEmail = async (to, subject, html) => {
+const sendEmail = async (to, subject, html, options = {}) => {
     try {
         if (resendApiKey) {
             const response = await fetch('https://api.resend.com/emails', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + resendApiKey,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    ...(options.idempotencyKey ? {'Idempotency-Key':options.idempotencyKey} : {})
                 },
+                signal: AbortSignal.timeout(15000),
                 body: JSON.stringify({
                     from: process.env.EMAIL_FROM || 'PhoneSpot <onboarding@resend.dev>',
                     to: [to],
@@ -473,6 +479,53 @@ const isAdmin = (req, res, next) => {
 };
 
 app.get('/api/admin/session', authenticate, isAdmin, (_req, res) => res.status(204).end());
+
+// Enable only after applying the reminder migration and validating the mail provider.
+const cartRemindersEnabled = process.env.CART_REMINDERS_ENABLED === 'true';
+const reminderLeadMinutes = Number(process.env.CART_REMINDER_LEAD_MINUTES || 60);
+if (!Number.isInteger(reminderLeadMinutes) || reminderLeadMinutes < 5 || reminderLeadMinutes > 240) {
+    throw new Error('CART_REMINDER_LEAD_MINUTES debe estar entre 5 y 240 minutos.');
+}
+const runCartReminders = createCartReminderRunner({db:supabase,sendEmail,publicAppUrl,jwtSecret,leadMinutes:reminderLeadMinutes});
+
+app.get('/api/cart-reminders/restore', authenticate, limitByClient('cart-reminder-restore',20,15*60*1000), (req,res) => {
+    try {
+        const payload=jwt.verify(String(req.query.token || ''),jwtSecret,{algorithms:['HS256'],issuer:jwtIssuer,audience:reminderAudience});
+        if(payload.purpose!=='cart-reminder' || !validCartId(payload.cart) || payload.sub!==String(req.user.id)) {
+            return res.status(403).json({error:'Ingresá con la cuenta que recibió el recordatorio.'});
+        }
+        res.json({cart_id:payload.cart});
+    } catch (_) {res.status(410).json({error:'El enlace de esta reserva ya venció. Revisá la disponibilidad en el catálogo.'});}
+});
+
+app.post('/api/cart/:cartId/reminder', authenticate, limitByClient('cart-reminder-contact',30,15*60*1000), async(req,res) => {
+    if(!validCartId(req.params.cartId) || (req.body.enabled!==undefined && typeof req.body.enabled!=='boolean')) {
+        return res.status(400).json({error:'Preferencia de recordatorio inválida.'});
+    }
+    if(!cartRemindersEnabled) return res.json({configured:false,enabled:false,lead_minutes:reminderLeadMinutes});
+    try {
+        const {data,error}=await supabase.rpc('set_cart_reminder_contact',{p_cart_id:req.params.cartId,p_user_id:req.user.id,p_enabled:req.body.enabled ?? null});
+        if(error) {
+            if(error.message?.includes('otro cliente')) return res.status(409).json({error:'Este carrito ya está asociado a otra cuenta.'});
+            throw error;
+        }
+        res.json({configured:true,enabled:Boolean(data),lead_minutes:reminderLeadMinutes});
+    } catch(error) {console.error('Error configurando recordatorio de carrito:',error.message);res.status(503).json({error:'No pudimos configurar el recordatorio. Intentá nuevamente.'});}
+});
+
+// Protected entry point for a scheduler when the hosting does not run a persistent process.
+app.post('/api/internal/cart-reminders', async(req,res) => {
+    const secret=String(process.env.CART_REMINDER_CRON_SECRET || '');
+    const received=String(req.header('Authorization') || '');
+    const expected='Bearer '+secret;
+    const receivedBytes=Buffer.from(received), expectedBytes=Buffer.from(expected);
+    if(secret.length<32 || receivedBytes.length!==expectedBytes.length || !crypto.timingSafeEqual(receivedBytes,expectedBytes)) {
+        return res.status(401).json({error:'Acceso denegado'});
+    }
+    if(!cartRemindersEnabled || !jwtSecret || (!resendApiKey && !smtpTransport)) return res.status(503).json({error:'Recordatorios no configurados'});
+    try {res.json(await runCartReminders());}
+    catch(error) {console.error('Error procesando recordatorios:',error.message);res.status(503).json({error:'No pudimos procesar los recordatorios'});}
+});
 
 const validCartId = (value) => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
 
@@ -1710,5 +1763,13 @@ if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
     app.listen(PORT, '0.0.0.0', () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
+    if(cartRemindersEnabled) {
+        if(!jwtSecret || (!resendApiKey && !smtpTransport)) {
+            console.error('Recordatorios desactivados: falta configurar autenticación o envío de correo.');
+        } else {
+            const tick=()=>runCartReminders().catch(error=>console.error('Error procesando recordatorios:',error.message));
+            const timer=setInterval(tick,60000);timer.unref();void tick();
+        }
+    }
 }
 module.exports = app;

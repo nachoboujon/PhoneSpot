@@ -5,3 +5,5 @@
 - `legacy/database.mysql.sql`: esquema MySQL anterior, conservado solo como referencia. La aplicación actual usa Supabase/Postgres.
 
 No guardes credenciales ni exportaciones reales de producción en esta carpeta.
+
+Los recordatorios de carrito agregan una migración creada por la CLI en `../supabase/migrations/20261005150722_cart_expiry_reminders.sql`. Ver activación y pruebas en `../docs/cart-reminders.md`; no mezclar automáticamente el historial nuevo con las migraciones anteriores.

@@ -165,6 +165,15 @@
         ],
         "createdAt": "2026-10-03T12:37:16.402Z",
         "reason": "Codex: false positive confirmed in desktop/mobile screenshots and source; dominant h2#catalog-title is 3.5rem desktop and 2rem mobile versus body text around 1rem. Detector reports h1 logo and footer h3 roles while omitting the dominant h2."
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "lib/cart-reminders.js"
+        ],
+        "createdAt": "2026-10-05T15:26:30.946Z",
+        "reason": "Agent: Arial is intentionally used in the transactional HTML email for compatibility with mail clients without external fonts."
       }
     ]
   }

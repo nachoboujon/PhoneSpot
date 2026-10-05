@@ -5,6 +5,8 @@
 
 Para comprobaciones seguras de sintaxis usá `npm test` desde la raíz.
 
+Las pruebas aisladas de recordatorios están documentadas en `../docs/cart-reminders.md`: `test:cart-reminders`, `test:cart-reminders-sql` y `test:cart-reminders-ui`. No envían correos ni escriben en Supabase.
+
 ## Auditoría local
 
 - `npm run test:api`: validaciones del servidor con Supabase simulado y correo en memoria. No escribe en servicios externos.
