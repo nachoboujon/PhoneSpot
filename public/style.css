@@ -2803,6 +2803,9 @@ header .logo h1 > a span { display: block; white-space: nowrap; }
 .product-page .product-condition-tag { margin: 0 0 1.2rem; color: #505961; font-size: .86rem; line-height: 1.4; }
 .product-page .product-condition-tag i { margin-right: .3rem; }
 .product-page .product-commercial-options { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .85rem; }
+.product-page .product-description { margin: .25rem 0 1.5rem; max-width: 70ch; }
+.product-page .product-description h3 { margin: 0 0 .5rem; color: #282e33; font-size: .95rem; font-weight: 700; line-height: 1.4; }
+.product-page .product-description p { margin: 0; color: #444b52; font-size: .95rem; line-height: 1.7; overflow-wrap: anywhere; }
 .product-page .product-commercial-link {
     display: inline-flex; align-items: center; gap: .55rem; width: fit-content; max-width: 100%;
     min-height: 36px; padding: .4rem .65rem; border: 1px solid #d5dade; border-radius: 6px;

@@ -1799,6 +1799,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     <i class="fa-solid ${prodCondition.toLowerCase().includes('nuevo') ? 'fa-box' : 'fa-mobile-screen'}" aria-hidden="true"></i> ${prodCondition}
                                 </p>
                                 <h2>${escapeText(prod.name)}</h2>
+                                ${displayDesc.trim() ? `<section class="product-description" aria-labelledby="product-description-heading">
+                                    <h3 id="product-description-heading">Descripción del producto</h3>
+                                    <p>${escapeText(displayDesc).replace(/\n/g, '<br>')}</p>
+                                </section>` : ''}
                                 ${commercialProducts.length > 1 ? `<div class="product-commercial-options" role="navigation" aria-label="Otras opciones de este modelo">${commercialProducts.filter(option => option.commercial_type !== prod.commercial_type).map(option => `<a class="product-commercial-link" href="${window.productPageUrl(option)}"><span>Ver ${option.commercial_label || 'equipo'}</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>`).join('')}</div>` : ''}
 
                                 ${variantsHTML}
@@ -1842,11 +1846,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         </div>
                                     </form>
                                 ` : ''}
-
-                                <div style="padding-top: 1.5rem; border-top: 1px solid #eee;">
-                                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color:#1d1d1f;">Descripción del producto</h4>
-                                    <p style="line-height:1.7; color: #555; font-size:0.95rem;">${escapeText(displayDesc).replace(/\n/g, '<br>')}</p>
-                                </div>
 
                                 <section style="padding-top:1.5rem; margin-top:1.5rem; border-top:1px solid #eee;">
                                     <h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:#1d1d1f;">Reseñas</h4>
