@@ -1,0 +1,23 @@
+{
+  "sourceChat": "Mayoristas Misiones Electrónica 1",
+  "access": "Only this WhatsApp chat; never open or read any other chat, contact, channel or subgroup. Read source listings only; never send messages.",
+  "currency": "USD",
+  "rounding": "none",
+  "markups": { "phones": 30, "tablets": 30, "notebooks": 50, "playstation": 55, "xbox": 55, "arabicOriginalPerfumes": 6, "smartwatches": 20, "gopro": 30, "ipad": 35, "macbook": 50, "nintendo": 40 },
+  "manual": ["JBL"],
+  "televisions": {
+    "allowedSizesInches": [32, 43, 55],
+    "markupsUsdBySize": { "32": 50, "43": 60, "55": 80 },
+    "brands": ["Samsung", "LG", "Sony", "TCL", "Hisense", "Philips", "Xiaomi", "Marson"],
+    "rule": "Only TVs with an explicitly verified diagonal of exactly 32, 43 or 55 inches. Wholesale USD plus the size-specific markup, with no rounding. Do not import any other size or infer size from arbitrary model digits."
+  },
+  "brands": ["Apple", "Samsung", "Motorola", "Xiaomi", "Redmi", "POCO", "Google", "OnePlus", "Huawei", "Honor", "Sony", "Microsoft", "Nintendo", "Lenovo", "HP", "Dell", "ASUS", "Acer", "MSI", "Garmin", "Amazfit", "GoPro"],
+  "perfumeBrands": "All brands, only original Arabic perfumes explicitly identified by source. Never replicas or equivalents.",
+  "existingOtherPhones": "Preserve existing Tecno and similar phones. Do not archive them. New models outside the approved brands require clarification.",
+  "matching": "Exact model, storage, RAM, configuration, condition and color. Never use a used/swap/CPO quote to reprice a new sealed phone. Ambiguous listings stay pending.",
+  "offers": "Only explicit current supplier OFERTA/LIQUIDACION or a verified decrease for the exact variant; never infer a discount from a margin change or invent an old price.",
+  "inventory": "Preserve existing stock. Never reset stocks to 10 or infer stock quantity from availability. New variants require verified photos and stock/availability handling compatible with the store.",
+  "otherCategories": "Do not import products outside these categories and the approved TV sizes. Preserve manually managed JBL. Do not automatically delete existing catalog items.",
+  "priority": "Latest dated source for the exact variant wins. Persist evidence and processing state; never overwrite a newer quote with an older PDF.",
+  "verification": "Back up affected products, guard against concurrent edits, read back all applied changes. Keep uncertain products pending with a reason."
+}

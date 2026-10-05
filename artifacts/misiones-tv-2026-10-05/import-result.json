@@ -1,0 +1,14 @@
+{
+  "id": 527,
+  "created": true,
+  "sourceAt": "2026-09-29T12:11",
+  "price": 143.8,
+  "stock": 0,
+  "images": [
+    "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/misiones-tv-2026-10-05/marson-mas32-03.webp",
+    "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/misiones-tv-2026-10-05/marson-mas32-01.webp",
+    "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/misiones-tv-2026-10-05/marson-mas32-02.webp",
+    "https://ntjshkufiyjeaazvectn.supabase.co/storage/v1/object/public/uploads/misiones-tv-2026-10-05/marson-mas32-04.webp"
+  ],
+  "verified": true
+}

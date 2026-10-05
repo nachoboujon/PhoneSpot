@@ -1,0 +1,128 @@
+[
+  {
+    "id": 528,
+    "name": "Samsung Galaxy A17 4G",
+    "added": 6,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 529,
+    "name": "Samsung Galaxy A16",
+    "added": 2,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 530,
+    "name": "Samsung Galaxy A07",
+    "added": 1,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 531,
+    "name": "Samsung Galaxy A17 5G",
+    "added": 1,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 532,
+    "name": "Samsung Galaxy A27 5G",
+    "added": 4,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 533,
+    "name": "Samsung Galaxy A37 5G",
+    "added": 3,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 534,
+    "name": "Samsung Galaxy S25 Edge",
+    "added": 1,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 535,
+    "name": "Samsung Galaxy S25",
+    "added": 2,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 536,
+    "name": "Samsung Galaxy S25 FE",
+    "added": 1,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 537,
+    "name": "Samsung Galaxy S25 Ultra",
+    "added": 7,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 538,
+    "name": "Samsung Galaxy S26 FE",
+    "added": 3,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 539,
+    "name": "Samsung Galaxy S26 Ultra",
+    "added": 5,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 540,
+    "name": "Samsung Galaxy A07S",
+    "added": 2,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 541,
+    "name": "Samsung Galaxy A06",
+    "added": 2,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 542,
+    "name": "Samsung Galaxy A56 5G",
+    "added": 5,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 543,
+    "name": "Samsung Galaxy S24 Ultra",
+    "added": 3,
+    "changed": 0,
+    "created": true
+  },
+  {
+    "id": 536,
+    "name": "Samsung Galaxy S25 FE",
+    "added": 1,
+    "changed": 0,
+    "created": false
+  },
+  {
+    "id": 540,
+    "name": "Samsung Galaxy A07S",
+    "added": 1,
+    "changed": 0,
+    "created": false
+  }
+]

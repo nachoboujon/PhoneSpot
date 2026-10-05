@@ -174,6 +174,15 @@
         ],
         "createdAt": "2026-10-05T15:26:30.946Z",
         "reason": "Agent: Arial is intentionally used in the transactional HTML email for compatibility with mail clients without external fonts."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "scripts/maintenance/research-misiones-samsung-other-markets.js"
+        ],
+        "createdAt": "2026-10-05T23:23:49.802Z",
+        "reason": "Agent verified false positive: this maintenance script parses HTML image tags with a regular expression; it does not render an img element or user interface."
       }
     ]
   }

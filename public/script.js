@@ -4,9 +4,18 @@ window.phoneSpotSettings = window.phoneSpotSettings || {};
 // Cambia 'http://localhost:3000' por la URL de tu servidor en producción (ej. 'https://tu-backend.onrender.com')
 window.API_URL = '';
 let publicCatalogRequest;
+let productDescriptionsRequest;
 window.getCatalogProducts = () => {
-    if (!publicCatalogRequest) publicCatalogRequest = fetch(window.API_URL + '/api/products')
-        .then(async response => { if (!response.ok) throw new Error('No pudimos cargar el catálogo'); return response.json(); })
+    if (!productDescriptionsRequest) productDescriptionsRequest = fetch('/product-descriptions.json?v=20261005', {cache: 'no-cache'})
+        .then(response => { if (!response.ok) throw new Error('No pudimos cargar las descripciones'); return response.json(); })
+        .catch(error => { productDescriptionsRequest = null; console.warn('Usando las descripciones incluidas en la API', error); return {}; });
+    if (!publicCatalogRequest) publicCatalogRequest = Promise.all([
+        fetch(window.API_URL + '/api/products').then(async response => { if (!response.ok) throw new Error('No pudimos cargar el catálogo'); return response.json(); }),
+        productDescriptionsRequest
+    ]).then(([products, descriptions]) => products.map(product => {
+        const entry = descriptions[product.id];
+        return entry?.model === product.name ? {...product, description: entry.description, description_source: entry.source} : product;
+    }))
         .catch(error => { publicCatalogRequest = null; throw error; });
     return publicCatalogRequest.then(products => JSON.parse(JSON.stringify(products)));
 };
@@ -2446,6 +2455,17 @@ const checkoutForm = document.getElementById('checkout-form');
 
             const initCarousel = () => {
                 const activeSlide = slides[currentSlide];
+                slides.forEach((slide) => {
+                    const video = slide.querySelector('video');
+                    if (!video) return;
+                    const shouldPlay = carouselVisible && !document.hidden
+                        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                        && !navigator.connection?.saveData;
+                    if (shouldPlay) {
+                        if (!video.getAttribute('src')) video.src = video.dataset.src;
+                        video.play().catch(() => {});
+                    } else video.pause();
+                });
                 if (carouselVisible && activeSlide?.dataset.image && !activeSlide.dataset.imageLoaded) {
                     activeSlide.style.backgroundImage = document.body.classList.contains('home-page')
                         ? `url("${activeSlide.dataset.image}")`
@@ -2478,16 +2498,20 @@ const checkoutForm = document.getElementById('checkout-form');
             const nextSlide = () => {
                 currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
                 initCarousel();
+                startAutoPlay();
             };
 
             const prevSlide = () => {
                 currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
                 initCarousel();
+                startAutoPlay();
             };
 
             const startAutoPlay = () => {
                 clearInterval(window.slideInterval);
-                if (carouselVisible && slides.length > 1) window.slideInterval = setInterval(nextSlide, 5000);
+                if (carouselVisible && !document.hidden && slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    window.slideInterval = setInterval(nextSlide, Number(slides[currentSlide].dataset.duration) || 5000);
+                }
             };
             const resetAutoPlay = () => { clearInterval(window.slideInterval); startAutoPlay(); };
 
@@ -2543,11 +2567,14 @@ const checkoutForm = document.getElementById('checkout-form');
             });
 
             initCarousel();
+            if (window.heroVisibilityHandler) document.removeEventListener('visibilitychange', window.heroVisibilityHandler);
+            window.heroVisibilityHandler = () => { initCarousel(); startAutoPlay(); };
+            document.addEventListener('visibilitychange', window.heroVisibilityHandler);
             startAutoPlay();
             if ('IntersectionObserver' in window && carouselSection) {
                 window.heroVisibilityObserver = new IntersectionObserver(([entry]) => {
                     carouselVisible = entry.isIntersecting;
-                    if (carouselVisible) initCarousel();
+                    initCarousel();
                     startAutoPlay();
                 }, { rootMargin: '200px' });
                 window.heroVisibilityObserver.observe(carouselSection);
@@ -2777,11 +2804,19 @@ async function applyFrontendSettings() {
                 topBannerDiv.style.display = '';
                 const container = document.querySelector('.top-banner .scrolling-text');
                 if (container) {
-                    container.replaceChildren(...banners.slice(0, 2).map(message => {
+                    const messages = banners.map(message => {
                         const span = document.createElement('span');
                         span.textContent = message;
                         return span;
-                    }));
+                    });
+                    if (document.body.classList.contains('home-page')) {
+                        const group = document.createElement('div');
+                        group.className = 'announcement-group';
+                        group.append(...messages);
+                        const repeat = group.cloneNode(true);
+                        repeat.setAttribute('aria-hidden', 'true');
+                        container.replaceChildren(group, repeat);
+                    } else container.replaceChildren(...messages.slice(0, 2));
                 }
             } else {
                 topBannerDiv.style.display = 'none';
@@ -2852,13 +2887,25 @@ async function applyFrontendSettings() {
                 heroCarouselSection.style.display = 'block';
                 if (carouselContainer) {
                     carouselContainer.innerHTML = '';
-                    data.carousel.forEach((slide, index) => {
+                    const videoBanners = document.body.classList.contains('home-page') ? [
+                        { title: 'iPhone 18 Pro y Pro Max', subtitle: 'Conocé sus colores y elegí tu próximo iPhone.', link: 'catalogo.html?q=iPhone+18&brand=apple', video: 'media/iphone18-giro360.mp4', poster: 'media/iphone18-giro360.jpg', duration: 12000 },
+                        { title: 'Xiaomi 17 y 17 Ultra', subtitle: 'Dos modelos para descubrir desde todos los ángulos.', link: 'catalogo.html?q=Xiaomi+17&brand=xiaomi', video: 'media/xiaomi17-giro360.mp4', poster: 'media/xiaomi17-giro360.jpg', duration: 16000 }
+                    ] : [];
+                    const homeBanners = [...videoBanners, {
+                        title: 'Dale volumen a tus días',
+                        subtitle: 'Descubrí parlantes y auriculares JBL.',
+                        link: 'catalogo.html?cat=audio&brand=jbl',
+                        audio: true, duration: 7000, button: 'Ver audio JBL'
+                    }];
+                    (document.body.classList.contains('home-page') ? homeBanners : data.carousel).forEach((slide, index) => {
                         carouselContainer.insertAdjacentHTML('beforeend', `
-                            <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                            <div class="carousel-slide ${slide.video ? 'has-product-video' : ''} ${slide.audio ? 'has-jbl-products' : ''} ${index === 0 ? 'active' : ''}" ${slide.duration ? `data-duration="${slide.duration}"` : ''}>
+                                ${slide.video ? `<video class="hero-product-video" data-src="${slide.video}" poster="${slide.poster}" muted loop playsinline preload="none" aria-label="Giro de ${slide.title}"></video>` : ''}
+                                ${slide.audio ? `<div class="hero-jbl-products"><img class="hero-jbl-speaker" src="media/jbl-422.webp" alt="Parlante JBL Charge 6 morado" loading="lazy" width="1091" height="1091"><img class="hero-jbl-headphones" src="media/jbl-365.webp" alt="Auriculares JBL Tune 770NC morados" loading="lazy" width="1091" height="1091"></div>` : ''}
                                 <div class="hero-content">
                                     <h2 class="carousel-title">${slide.title}</h2>
                                     <p class="carousel-subtitle">${slide.subtitle}</p>
-                                    <a href="${slide.link || 'catalogo.html'}" class="btn">Explorar colección <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                                    <a href="${slide.link || 'catalogo.html'}" class="btn">${slide.button || 'Explorar colección'} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         `);

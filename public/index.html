@@ -19,14 +19,14 @@
         <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=99d861b0716d">
 <link rel="stylesheet" href="store-improvements.css?v=7955d32cf5c4">
-    <link rel="stylesheet" href="home-ui.css?v=22e80cda8109">
+    <link rel="stylesheet" href="home-ui.css?v=2fa5d5f97665">
 </head>
 <body class="home-page">
 
     <div class="top-banner">
         <div class="scrolling-text">
-            <span>Venta mayorista y minorista</span>
-            <span>Envíos a todo el país</span>
+            <div class="announcement-group"><span>Venta mayorista y minorista</span><span>Envíos a todo el país</span></div>
+            <div class="announcement-group" aria-hidden="true"><span>Venta mayorista y minorista</span><span>Envíos a todo el país</span></div>
         </div>
     </div>
 
@@ -107,10 +107,26 @@
         </section>
 
 <section class="wholesale-info home-wholesale" aria-labelledby="wholesale-home-title">
-    <h2 id="wholesale-home-title">Tecnología para tu negocio</h2>
-    <p>Combiná celulares y accedé al descuento por cantidad. El pago y la entrega se coordinan por WhatsApp.</p>
-    <div class="wholesale-tiers"><span>Desde <strong>3 celulares: −USD 5 c/u</strong></span><span>Desde <strong>5: −USD 7 c/u</strong></span><span>Desde <strong>10: −USD 10 c/u</strong></span></div>
-    <p>Descuento mayorista exclusivo para celulares. Los demás productos no suman unidades ni reciben este descuento. Consultá las condiciones en el carrito.</p>
+    <div class="home-wholesale__inner">
+        <div class="home-wholesale__intro">
+            <h2 id="wholesale-home-title">Celulares para tu negocio</h2>
+            <p>Comprá desde 3 equipos y ahorrá en cada celular. Podés combinar marcas y modelos en el mismo pedido.</p>
+            <div class="home-wholesale__actions">
+                <a class="btn" href="catalogo.html?cat=celulares">Ver celulares <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="home-wholesale__contact" href="https://wa.me/5493447416011?text=Hola%20PhoneSpot%2C%20quiero%20consultar%20por%20una%20compra%20mayorista" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+            </div>
+            <p class="home-wholesale__payment">Coordinamos el pago y la entrega por WhatsApp.</p>
+        </div>
+        <div class="home-wholesale__discounts">
+            <h3>Descuento por celular</h3>
+            <dl>
+                <div><dt>3 a 4 celulares</dt><dd><strong>USD 5</strong> menos por equipo</dd></div>
+                <div><dt>5 a 9 celulares</dt><dd><strong>USD 7</strong> menos por equipo</dd></div>
+                <div><dt>10 o más celulares</dt><dd><strong>USD 10</strong> menos por equipo</dd></div>
+            </dl>
+        </div>
+        <p class="home-wholesale__conditions">Exclusivo para celulares. Otros productos no suman unidades ni reciben este descuento. Consultá las condiciones en el carrito.</p>
+    </div>
 </section>
 
 
@@ -323,7 +339,7 @@
     <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
     <script src="store-business.js?v=5f2482b1ea46"></script>
-    <script src="script.js?v=8bbc9640ea9b"></script>
+    <script src="script.js?v=06c662908b10"></script>
     <script src="store-improvements.js?v=f7248689f69a"></script>
 
 

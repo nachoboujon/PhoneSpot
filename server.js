@@ -199,7 +199,9 @@ const variantNameFor = (variant) => [
 ].filter(Boolean).join(' - ');
 
 const publicProduct = (product, options) => {
-    return normalizeProductImages({...product, variants: parseVariants(product.variants)}, options);
+    const entry = require('./public/product-descriptions.json')[product.id];
+    const description = entry?.model === product.name ? entry.description : product.description;
+    return normalizeProductImages({...product, description, description_source: entry?.model === product.name ? entry.source : null, variants: parseVariants(product.variants)}, options);
 };
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)

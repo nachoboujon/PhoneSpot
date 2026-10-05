@@ -1,0 +1,672 @@
+[
+  {
+    "id": 224,
+    "index": 0,
+    "price": 373
+  },
+  {
+    "id": 224,
+    "index": 1,
+    "price": 451
+  },
+  {
+    "id": 224,
+    "index": 2,
+    "price": 495
+  },
+  {
+    "id": 225,
+    "index": 0,
+    "price": 148
+  },
+  {
+    "id": 225,
+    "index": 1,
+    "price": 171
+  },
+  {
+    "id": 225,
+    "index": 2,
+    "price": 122
+  },
+  {
+    "id": 226,
+    "index": 0,
+    "price": 136
+  },
+  {
+    "id": 227,
+    "index": 0,
+    "price": 338
+  },
+  {
+    "id": 228,
+    "index": 0,
+    "price": 418
+  },
+  {
+    "id": 228,
+    "index": 1,
+    "price": 418
+  },
+  {
+    "id": 229,
+    "index": 0,
+    "price": 381
+  },
+  {
+    "id": 229,
+    "index": 1,
+    "price": 381
+  },
+  {
+    "id": 231,
+    "index": 1,
+    "price": 187
+  },
+  {
+    "id": 231,
+    "index": 0,
+    "price": 187
+  },
+  {
+    "id": 231,
+    "index": 2,
+    "price": 178
+  },
+  {
+    "id": 232,
+    "index": 1,
+    "price": 213
+  },
+  {
+    "id": 232,
+    "index": 0,
+    "price": 213
+  },
+  {
+    "id": 233,
+    "index": 0,
+    "price": 258
+  },
+  {
+    "id": 233,
+    "index": 1,
+    "price": 258
+  },
+  {
+    "id": 234,
+    "index": 2,
+    "price": 249
+  },
+  {
+    "id": 234,
+    "index": 3,
+    "price": 273
+  },
+  {
+    "id": 234,
+    "index": 1,
+    "price": 218
+  },
+  {
+    "id": 234,
+    "index": 0,
+    "price": 218
+  },
+  {
+    "id": 235,
+    "index": 0,
+    "price": 294
+  },
+  {
+    "id": 235,
+    "index": 1,
+    "price": 295
+  },
+  {
+    "id": 235,
+    "index": 2,
+    "price": 279
+  },
+  {
+    "id": 235,
+    "index": 3,
+    "price": 277
+  },
+  {
+    "id": 238,
+    "index": 0,
+    "price": 134
+  },
+  {
+    "id": 238,
+    "index": 1,
+    "price": 134
+  },
+  {
+    "id": 238,
+    "index": 2,
+    "price": 151
+  },
+  {
+    "id": 238,
+    "index": 3,
+    "price": 153
+  },
+  {
+    "id": 238,
+    "index": 4,
+    "price": 151
+  },
+  {
+    "id": 239,
+    "index": 0,
+    "price": 154
+  },
+  {
+    "id": 239,
+    "index": 1,
+    "price": 154
+  },
+  {
+    "id": 239,
+    "index": 2,
+    "price": 154
+  },
+  {
+    "id": 241,
+    "index": 0,
+    "price": 252
+  },
+  {
+    "id": 242,
+    "index": 0,
+    "price": 533
+  },
+  {
+    "id": 242,
+    "index": 1,
+    "price": 533
+  },
+  {
+    "id": 243,
+    "index": 1,
+    "price": 728
+  },
+  {
+    "id": 244,
+    "index": 0,
+    "price": 253
+  },
+  {
+    "id": 244,
+    "index": 1,
+    "price": 252
+  },
+  {
+    "id": 244,
+    "index": 2,
+    "price": 252
+  },
+  {
+    "id": 245,
+    "index": 0,
+    "price": 343
+  },
+  {
+    "id": 245,
+    "index": 1,
+    "price": 343
+  },
+  {
+    "id": 245,
+    "index": 3,
+    "price": 301
+  },
+  {
+    "id": 245,
+    "index": 2,
+    "price": 308
+  },
+  {
+    "id": 246,
+    "index": 2,
+    "price": 292
+  },
+  {
+    "id": 246,
+    "index": 4,
+    "price": 262
+  },
+  {
+    "id": 246,
+    "index": 5,
+    "price": 262
+  },
+  {
+    "id": 246,
+    "index": 1,
+    "price": 292
+  },
+  {
+    "id": 246,
+    "index": 3,
+    "price": 262
+  },
+  {
+    "id": 246,
+    "index": 0,
+    "price": 292
+  },
+  {
+    "id": 247,
+    "index": 0,
+    "price": 367
+  },
+  {
+    "id": 248,
+    "index": 0,
+    "price": 449
+  },
+  {
+    "id": 248,
+    "index": 1,
+    "price": 431
+  },
+  {
+    "id": 248,
+    "index": 2,
+    "price": 439
+  },
+  {
+    "id": 248,
+    "index": 4,
+    "price": 393
+  },
+  {
+    "id": 248,
+    "index": 3,
+    "price": 402
+  },
+  {
+    "id": 248,
+    "index": 5,
+    "price": 393
+  },
+  {
+    "id": 248,
+    "index": 6,
+    "price": 422
+  },
+  {
+    "id": 249,
+    "index": 3,
+    "price": 556
+  },
+  {
+    "id": 249,
+    "index": 0,
+    "price": 521
+  },
+  {
+    "id": 249,
+    "index": 4,
+    "price": 503
+  },
+  {
+    "id": 249,
+    "index": 5,
+    "price": 558
+  },
+  {
+    "id": 249,
+    "index": 1,
+    "price": 552
+  },
+  {
+    "id": 249,
+    "index": 2,
+    "price": 553
+  },
+  {
+    "id": 250,
+    "index": 0,
+    "price": 215
+  },
+  {
+    "id": 250,
+    "index": 1,
+    "price": 215
+  },
+  {
+    "id": 251,
+    "index": 3,
+    "price": 178
+  },
+  {
+    "id": 251,
+    "index": 5,
+    "price": 162
+  },
+  {
+    "id": 251,
+    "index": 0,
+    "price": 185
+  },
+  {
+    "id": 251,
+    "index": 6,
+    "price": 162
+  },
+  {
+    "id": 251,
+    "index": 1,
+    "price": 183
+  },
+  {
+    "id": 251,
+    "index": 7,
+    "price": 153
+  },
+  {
+    "id": 252,
+    "index": 0,
+    "price": 239
+  },
+  {
+    "id": 252,
+    "index": 1,
+    "price": 186
+  },
+  {
+    "id": 253,
+    "index": 3,
+    "price": 133
+  },
+  {
+    "id": 253,
+    "index": 0,
+    "price": 152
+  },
+  {
+    "id": 253,
+    "index": 1,
+    "price": 133
+  },
+  {
+    "id": 253,
+    "index": 2,
+    "price": 133
+  },
+  {
+    "id": 283,
+    "index": 0,
+    "price": 145
+  },
+  {
+    "id": 284,
+    "index": 0,
+    "price": 271
+  },
+  {
+    "id": 286,
+    "index": 0,
+    "price": 241
+  },
+  {
+    "id": 289,
+    "index": 2,
+    "price": 155
+  },
+  {
+    "id": 289,
+    "index": 3,
+    "price": 155
+  },
+  {
+    "id": 289,
+    "index": 0,
+    "price": 155
+  },
+  {
+    "id": 289,
+    "index": 1,
+    "price": 155
+  },
+  {
+    "id": 295,
+    "index": 0,
+    "price": 865
+  },
+  {
+    "id": 297,
+    "index": 0,
+    "price": 685
+  },
+  {
+    "id": 297,
+    "index": 1,
+    "price": 1025
+  },
+  {
+    "id": 297,
+    "index": 2,
+    "price": 835
+  },
+  {
+    "id": 299,
+    "index": 0,
+    "price": 625
+  },
+  {
+    "id": 300,
+    "index": 0,
+    "price": 535
+  },
+  {
+    "id": 301,
+    "index": 0,
+    "price": 905
+  },
+  {
+    "id": 302,
+    "index": 0,
+    "price": 1145
+  },
+  {
+    "id": 303,
+    "index": 0,
+    "price": 935
+  },
+  {
+    "id": 304,
+    "index": 0,
+    "price": 1412
+  },
+  {
+    "id": 307,
+    "index": 1,
+    "price": 605
+  },
+  {
+    "id": 307,
+    "index": 0,
+    "price": 465
+  },
+  {
+    "id": 309,
+    "index": 0,
+    "price": 445
+  },
+  {
+    "id": 310,
+    "index": 0,
+    "price": 913
+  },
+  {
+    "id": 312,
+    "index": 2,
+    "price": 695
+  },
+  {
+    "id": 314,
+    "index": 0,
+    "price": 465
+  },
+  {
+    "id": 315,
+    "index": 0,
+    "price": 805
+  },
+  {
+    "id": 316,
+    "index": 0,
+    "price": 435
+  },
+  {
+    "id": 317,
+    "index": 0,
+    "price": 756
+  },
+  {
+    "id": 319,
+    "index": 0,
+    "price": 1025
+  },
+  {
+    "id": 319,
+    "index": 1,
+    "price": 1615
+  },
+  {
+    "id": 321,
+    "index": 0,
+    "price": 635
+  },
+  {
+    "id": 323,
+    "index": 0,
+    "price": 555
+  },
+  {
+    "id": 324,
+    "index": 0,
+    "price": 358
+  },
+  {
+    "id": 325,
+    "index": 0,
+    "price": 455
+  },
+  {
+    "id": 326,
+    "index": 0,
+    "price": 605
+  },
+  {
+    "id": 328,
+    "index": 0,
+    "price": 655
+  },
+  {
+    "id": 329,
+    "index": 0,
+    "price": 805
+  },
+  {
+    "id": 330,
+    "index": 0,
+    "price": 595
+  },
+  {
+    "id": 331,
+    "index": 0,
+    "price": 635
+  },
+  {
+    "id": 333,
+    "index": 0,
+    "price": 525
+  },
+  {
+    "id": 334,
+    "index": 0,
+    "price": 635
+  },
+  {
+    "id": 335,
+    "index": 0,
+    "price": 455
+  },
+  {
+    "id": 336,
+    "index": 0,
+    "price": 965
+  },
+  {
+    "id": 337,
+    "index": 0,
+    "price": 715
+  },
+  {
+    "id": 339,
+    "index": 0,
+    "price": 1085
+  },
+  {
+    "id": 340,
+    "index": 0,
+    "price": 315
+  },
+  {
+    "id": 341,
+    "index": 0,
+    "price": 515
+  },
+  {
+    "id": 342,
+    "index": 0,
+    "price": 535
+  },
+  {
+    "id": 342,
+    "index": 1,
+    "price": 515
+  },
+  {
+    "id": 343,
+    "index": 0,
+    "price": 635
+  },
+  {
+    "id": 344,
+    "index": 0,
+    "price": 1665
+  },
+  {
+    "id": 346,
+    "index": 0,
+    "price": 1465
+  },
+  {
+    "id": 347,
+    "index": 0,
+    "price": 1185
+  },
+  {
+    "id": 348,
+    "index": 0,
+    "price": 1195
+  },
+  {
+    "id": 349,
+    "index": 0,
+    "price": 915
+  },
+  {
+    "id": 350,
+    "index": 0,
+    "price": 765
+  }
+]

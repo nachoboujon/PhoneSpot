@@ -1,0 +1,98 @@
+{
+  "updates": [],
+  "pending": [
+    {
+      "filename": "NOTEBOOK MAYORISTA (45).pdf",
+      "sourceAt": "2026-09-29T08:49",
+      "page": 1,
+      "label": "Audisat X99 INTEL N95 / 15.6\" FHD / W11 PRO/ 8GB/512GB - 512GB",
+      "wholesaleUsd": 375,
+      "sourceText": "Audisat X99 INTEL N95 / 15.6\" \nFHD / W11 PRO/ 8GB/512GB - \n512GB",
+      "reason": "Brand outside approved scope"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 1,
+      "label": "Samsung A27 5G - 8 GB RAM - Verde agua - 256GB",
+      "wholesaleUsd": 306,
+      "sourceText": "Samsung A27 5G - 8 GB RAM - \nVerde agua - 256GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "Samsung A57 5G - 8 GB RAM - Azul - 128GB",
+      "wholesaleUsd": 357,
+      "sourceText": "Samsung A57 5G - 8 GB RAM - \nAzul - 128GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "Samsung A57 5G - 8 GB RAM - Gris - 128GB",
+      "wholesaleUsd": 357,
+      "sourceText": "Samsung A57 5G - 8 GB RAM - \nGris - 128GB",
+      "model": "Samsung Galaxy A57 5G",
+      "reason": "Model missing or archived; needs reviewed new-product import"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "Samsung A37 5G - 8 GB RAM - Azul Claro - 256GB",
+      "wholesaleUsd": 335,
+      "sourceText": "Samsung A37 5G - 8 GB RAM - \nAzul Claro - 256GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "Samsung A37 5G - 8 GB RAM - Gris - 256GB",
+      "wholesaleUsd": 335,
+      "sourceText": "Samsung A37 5G - 8 GB RAM - \nGris - 256GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "Samsung S25 - 12 RAM - Azul - 128GB",
+      "wholesaleUsd": 580,
+      "sourceText": "Samsung S25 - 12 RAM - Azul - \n128GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 2,
+      "label": "SAMSUNG S25 - 12GB RAM - Azul - 256GB",
+      "wholesaleUsd": 615,
+      "sourceText": "SAMSUNG S25 - 12GB RAM - Azul - 256GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "SAMSUNG MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:32",
+      "page": 3,
+      "label": "Samsung S25 FE - 8GB RAM - Azul - 256GB",
+      "wholesaleUsd": 540,
+      "sourceText": "Samsung S25 FE - 8GB RAM - \nAzul - 256GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    },
+    {
+      "filename": "MOTOROLA MAYORISTA (52).pdf",
+      "sourceAt": "2026-10-05T09:27",
+      "page": 1,
+      "label": "Motorola Moto Egde 60 Pro - 12 GB RAM - Violeta - 512GB",
+      "wholesaleUsd": 421,
+      "sourceText": "Motorola Moto Egde 60 Pro - 12 GB \nRAM - Violeta - 512GB",
+      "reason": "No exact reviewed normalization; needs model/variant matching"
+    }
+  ],
+  "matched": 209,
+  "sourceCards": 219
+}

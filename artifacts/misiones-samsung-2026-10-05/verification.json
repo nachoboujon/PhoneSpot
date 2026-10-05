@@ -1,0 +1,114 @@
+[
+  {
+    "id": 528,
+    "name": "Samsung Galaxy A17 4G",
+    "price": 190,
+    "variants": 6,
+    "publicVerified": true
+  },
+  {
+    "id": 529,
+    "name": "Samsung Galaxy A16",
+    "price": 178,
+    "variants": 2,
+    "publicVerified": true
+  },
+  {
+    "id": 530,
+    "name": "Samsung Galaxy A07",
+    "price": 172,
+    "variants": 1,
+    "publicVerified": true
+  },
+  {
+    "id": 531,
+    "name": "Samsung Galaxy A17 5G",
+    "price": 323,
+    "variants": 1,
+    "publicVerified": true
+  },
+  {
+    "id": 532,
+    "name": "Samsung Galaxy A27 5G",
+    "price": 280,
+    "variants": 4,
+    "publicVerified": true
+  },
+  {
+    "id": 533,
+    "name": "Samsung Galaxy A37 5G",
+    "price": 303,
+    "variants": 3,
+    "publicVerified": true
+  },
+  {
+    "id": 534,
+    "name": "Samsung Galaxy S25 Edge",
+    "price": 625,
+    "variants": 1,
+    "publicVerified": true
+  },
+  {
+    "id": 535,
+    "name": "Samsung Galaxy S25",
+    "price": 645,
+    "variants": 2,
+    "publicVerified": true
+  },
+  {
+    "id": 536,
+    "name": "Samsung Galaxy S25 FE",
+    "price": 570,
+    "variants": 2,
+    "publicVerified": true
+  },
+  {
+    "id": 537,
+    "name": "Samsung Galaxy S25 Ultra",
+    "price": 825,
+    "variants": 7,
+    "publicVerified": true
+  },
+  {
+    "id": 538,
+    "name": "Samsung Galaxy S26 FE",
+    "price": 695,
+    "variants": 3,
+    "publicVerified": true
+  },
+  {
+    "id": 539,
+    "name": "Samsung Galaxy S26 Ultra",
+    "price": 970,
+    "variants": 5,
+    "publicVerified": true
+  },
+  {
+    "id": 540,
+    "name": "Samsung Galaxy A07S",
+    "price": 167,
+    "variants": 3,
+    "publicVerified": true
+  },
+  {
+    "id": 541,
+    "name": "Samsung Galaxy A06",
+    "price": 144,
+    "variants": 2,
+    "publicVerified": true
+  },
+  {
+    "id": 542,
+    "name": "Samsung Galaxy A56 5G",
+    "price": 352,
+    "variants": 5,
+    "publicVerified": true
+  },
+  {
+    "id": 543,
+    "name": "Samsung Galaxy S24 Ultra",
+    "price": 715,
+    "variants": 3,
+    "publicVerified": true
+  }
+]

@@ -1,0 +1,1994 @@
+{
+  "33": {
+    "model": "iPhone 12",
+    "description": "[Condición: Americano] Pantalla OLED Super Retina XDR de 6,1 pulgadas y chip A14 Bionic. Sistema de dos cámaras de 12 MP, conectividad 5G y carga MagSafe.",
+    "source": "https://support.apple.com/kb/SP830",
+    "status": "manufacturer-summary"
+  },
+  "41": {
+    "model": "iPhone 12 Pro",
+    "description": "[Condición: Americano] Pantalla OLED de 6,1 pulgadas y chip A14 Bionic. Su sistema de tres cámaras de 12 MP incorpora teleobjetivo y escáner LiDAR.",
+    "source": "https://support.apple.com/kb/SP831",
+    "status": "manufacturer-summary"
+  },
+  "44": {
+    "model": "iPhone 12 Pro Max",
+    "description": "[Condición: Americano] Pantalla OLED de 6,7 pulgadas con chip A14 Bionic. Triple cámara de 12 MP con teleobjetivo y LiDAR, en un diseño de acero inoxidable.",
+    "source": "https://support.apple.com/kb/SP832",
+    "status": "manufacturer-summary"
+  },
+  "48": {
+    "model": "iPhone 13",
+    "description": "[Condición: Americano / Garantía Apple] Pantalla OLED Super Retina XDR de 6,1 pulgadas, chip A15 Bionic y doble cámara de 12 MP con estabilización por desplazamiento del sensor.",
+    "source": "https://support.apple.com/kb/SP851",
+    "status": "manufacturer-summary"
+  },
+  "52": {
+    "model": "iPhone 13 mini",
+    "description": "[Condición: Americano] El formato compacto del iPhone 13 mini combina una pantalla OLED de 5,4 pulgadas con chip A15 Bionic y dos cámaras de 12 MP.",
+    "source": "https://support.apple.com/kb/SP847",
+    "status": "manufacturer-summary"
+  },
+  "53": {
+    "model": "iPhone 13 Pro",
+    "description": "[Condición: Americano] Pantalla OLED de 6,1 pulgadas con ProMotion de hasta 120 Hz. Chip A15 Bionic y triple cámara con fotografía macro, teleobjetivo y LiDAR.",
+    "source": "https://support.apple.com/kb/SP852",
+    "status": "manufacturer-summary"
+  },
+  "61": {
+    "model": "iPhone 13 Pro Max",
+    "description": "[Condición: Americano] Pantalla OLED de 6,7 pulgadas con ProMotion de hasta 120 Hz. Chip A15 Bionic y sistema de tres cámaras con macro, teleobjetivo y LiDAR.",
+    "source": "https://support.apple.com/kb/SP848",
+    "status": "manufacturer-summary"
+  },
+  "69": {
+    "model": "iPhone 14",
+    "description": "[Condición: Americano] Pantalla OLED Super Retina XDR de 6,1 pulgadas y chip A15 Bionic. Doble cámara de 12 MP con Photonic Engine y grabación en modo Acción.",
+    "source": "https://support.apple.com/kb/SP873",
+    "status": "manufacturer-summary"
+  },
+  "73": {
+    "model": "iPhone 14 Pro",
+    "description": "[Condición: Americano] Pantalla OLED de 6,1 pulgadas con Dynamic Island y ProMotion de hasta 120 Hz. Chip A16 Bionic y cámara principal de 48 MP con teleobjetivo y LiDAR.",
+    "source": "https://support.apple.com/kb/SP875",
+    "status": "manufacturer-summary"
+  },
+  "83": {
+    "model": "iPhone 14 Pro Max",
+    "description": "[Condición: Americano / CPO · Garantía Apple] Pantalla OLED de 6,7 pulgadas con Dynamic Island y ProMotion de hasta 120 Hz. Chip A16 Bionic y sistema de cámara Pro con sensor principal de 48 MP.",
+    "source": "https://support.apple.com/kb/SP876",
+    "status": "manufacturer-summary"
+  },
+  "89": {
+    "model": "iPhone 15",
+    "description": "[Condición: Americano] Pantalla OLED de 6,1 pulgadas con Dynamic Island. Chip A16 Bionic, cámara principal de 48 MP y conexión USB-C.",
+    "source": "https://support.apple.com/kb/SP901",
+    "status": "manufacturer-summary"
+  },
+  "95": {
+    "model": "iPhone 15 Pro",
+    "description": "[Condición: Americano / Con chip / CPO · Garantía Apple] Diseño de titanio, pantalla OLED de 6,1 pulgadas y chip A17 Pro. Cámara principal de 48 MP, teleobjetivo óptico de 3x y conexión USB-C.",
+    "source": "https://support.apple.com/kb/SP903",
+    "status": "manufacturer-summary"
+  },
+  "103": {
+    "model": "iPhone 15 Pro Max",
+    "description": "[Condición: Americano / CPO · Garantía Apple] Diseño de titanio con pantalla OLED de 6,7 pulgadas y chip A17 Pro. Cámara principal de 48 MP y teleobjetivo óptico de 5x.",
+    "source": "https://support.apple.com/kb/SP904",
+    "status": "manufacturer-summary"
+  },
+  "108": {
+    "model": "iPhone 16",
+    "description": "[Condición: Americano / Garantía Apple] Chip A18 y pantalla OLED de 6,1 pulgadas. Su cámara Fusion de 48 MP se complementa con ultra gran angular, Control de la Cámara y botón de Acción.",
+    "source": "https://support.apple.com/121029",
+    "status": "manufacturer-summary"
+  },
+  "112": {
+    "model": "iPhone 16 Pro",
+    "description": "[Condición: Americano / Sin activar / AS IS / Garantía Apple] Pantalla OLED de 6,3 pulgadas con ProMotion y diseño de titanio. Chip A18 Pro, cámara Fusion de 48 MP, ultra gran angular de 48 MP y teleobjetivo de 5x.",
+    "source": "https://support.apple.com/121031",
+    "status": "manufacturer-summary"
+  },
+  "115": {
+    "model": "iPhone 16 Pro Max",
+    "description": "[Condición: Americano] Pantalla OLED de 6,9 pulgadas con ProMotion y chip A18 Pro. Sistema de cámara Pro con Fusion de 48 MP, ultra gran angular de 48 MP y teleobjetivo de 5x.",
+    "source": "https://support.apple.com/121032",
+    "status": "manufacturer-summary"
+  },
+  "120": {
+    "model": "iPhone 17",
+    "description": "[Condición: Americano / Garantía Apple] Pantalla OLED de 6,3 pulgadas con ProMotion y chip A19. Sistema de dos cámaras Fusion de 48 MP, Dynamic Island y conexión USB-C.",
+    "source": "https://support.apple.com/125089",
+    "status": "manufacturer-summary"
+  },
+  "121": {
+    "model": "iPhone 17 Pro",
+    "description": "[Condición: Americano / AS IS / Garantía Apple] Pantalla OLED de 6,3 pulgadas con ProMotion. El sistema Pro Fusion reúne tres cámaras de 48 MP y teleobjetivo óptico de 4x en un cuerpo de aluminio.",
+    "source": "https://support.apple.com/125090",
+    "status": "manufacturer-summary"
+  },
+  "124": {
+    "model": "iPhone 17 Pro Max",
+    "description": "[Condición: AS IS / Garantía Apple] Pantalla OLED de 6,9 pulgadas con ProMotion. Sistema Pro Fusion con tres cámaras de 48 MP y teleobjetivo óptico de 4x, en un cuerpo de aluminio.",
+    "source": "https://support.apple.com/125091",
+    "status": "manufacturer-summary"
+  },
+  "187": {
+    "model": "Tecno Spark 20 Pro",
+    "description": "[Condición: Nuevo sellado] Teléfono Tecno Spark 20 Pro. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "188": {
+    "model": "Tecno Spark 30",
+    "description": "[Condición: Nuevo sellado] Teléfono Tecno Spark 30. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "189": {
+    "model": "Tecno Spark 40",
+    "description": "[Condición: Nuevo sellado] Pantalla de 6,67 pulgadas a 120 Hz, cámara principal de 50 MP y batería de 5.200 mAh con carga de 45 W. Incorpora protección IP64 y comunicación FreeLink.",
+    "source": "https://www.tecno-mobile.com/phones/product-detail/product/spark-40/",
+    "status": "manufacturer-summary"
+  },
+  "190": {
+    "model": "Tecno Spark 50",
+    "description": "[Condición: Nuevo sellado] Pantalla de 6,78 pulgadas a 120 Hz y procesador Helio G81. Batería de 7.000 mAh, cámara de 50 MP y protección IP64.",
+    "source": "https://www.tecno-mobile.com/phones/product-detail/product/spark-50/",
+    "status": "manufacturer-summary"
+  },
+  "191": {
+    "model": "Tecno Spark Go 1",
+    "description": "[Condición: Nuevo sellado] Batería de 5.000 mAh para acompañar el uso cotidiano. El SPARK Go 1 pertenece a la línea de smartphones de entrada de TECNO.",
+    "source": "https://www.tecno-mobile.com/phones/product-detail/product/spark-go-1/",
+    "status": "manufacturer-summary"
+  },
+  "192": {
+    "model": "Tecno Spark Go 1S",
+    "description": "[Condición: Nuevo sellado] El SPARK Go 1S incorpora una batería de 5.000 mAh en un smartphone de la línea de entrada de TECNO.",
+    "source": "https://www.tecno-mobile.com/phones/product-detail/product/spark-go-1s/",
+    "status": "manufacturer-summary"
+  },
+  "193": {
+    "model": "Tecno Spark Go 3",
+    "description": "[Condición: Nuevo sellado] El SPARK Go 3 incorpora una batería de 5.000 mAh para mensajería, llamadas y entretenimiento cotidiano.",
+    "source": "https://www.tecno-mobile.com/phones/product-detail/product/spark-go-3/",
+    "status": "manufacturer-summary"
+  },
+  "194": {
+    "model": "Blackview BL7000",
+    "description": "[Condición: Nuevo sellado] Smartphone con cámara principal de 50 MP y cámara de visión nocturna de 20 MP. Su diseño pertenece a la línea resistente BL de Blackview.",
+    "source": "https://www.blackview.hk/products/item/bl7000",
+    "status": "manufacturer-summary"
+  },
+  "195": {
+    "model": "Blackview BL9000",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con procesador Dimensity 8020, cámara de 50 MP y pantalla secundaria. Batería de 8.800 mAh con carga rápida de 120 W.",
+    "source": "https://store.blackview.hk/products/bl9000-price",
+    "status": "manufacturer-summary"
+  },
+  "196": {
+    "model": "Blackview BV4800 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con Android 14 y procesador UNISOC T606 de ocho núcleos. Incluye soporte para carga inversa.",
+    "source": "https://store.blackview.hk/products/bv4800-pro-price",
+    "status": "manufacturer-summary"
+  },
+  "197": {
+    "model": "Blackview Fort 100",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente de perfil delgado con pantalla de 6,56 pulgadas, procesador Helio G81 y batería de 5.000 mAh.",
+    "source": "https://store.blackview.hk/products/fort-100-price",
+    "status": "manufacturer-summary"
+  },
+  "198": {
+    "model": "Blackview Fort 200",
+    "description": "[Condición: Nuevo sellado] Pantalla de 6,78 pulgadas, cámara de 108 MP y procesador Helio G100. Este smartphone resistente incorpora carga inalámbrica.",
+    "source": "https://store.blackview.hk/products/fort-200-price",
+    "status": "manufacturer-summary"
+  },
+  "199": {
+    "model": "Blackview Rock 2",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con pantalla de 6,67 pulgadas a 120 Hz, procesador UNISOC T8100 y batería de 15.000 mAh.",
+    "source": "https://store.blackview.hk/products/rock-2-price",
+    "status": "manufacturer-summary"
+  },
+  "200": {
+    "model": "Blackview Xplore 1",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G de doble pantalla con procesador Dimensity 7050. Incorpora batería de 20.000 mAh y linterna de 170 lúmenes.",
+    "source": "https://store.blackview.hk/products/xplore-1-price",
+    "status": "manufacturer-summary"
+  },
+  "201": {
+    "model": "Blackview Xplore 1 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con cámara térmica FLIR para observar patrones de calor. Incluye batería de 20.000 mAh y linternas LED dobles.",
+    "source": "https://store.blackview.hk/products/xplore-1-pro-price",
+    "status": "manufacturer-summary"
+  },
+  "202": {
+    "model": "Blackview Xplore 2",
+    "description": "[Condición: Nuevo sellado] Pantalla AMOLED 3,2K y conectividad 5G en un smartphone resistente. Incluye batería de 20.000 mAh y luz de camping de 467 lúmenes.",
+    "source": "https://store.blackview.hk/products/xplore-2-price",
+    "status": "manufacturer-summary"
+  },
+  "203": {
+    "model": "Blackview Xplore 2 Projector",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con proyector integrado para películas, fotos y presentaciones. Incluye batería de 20.000 mAh y luz de camping.",
+    "source": "https://store.blackview.hk/products/xplore-2-projector-price",
+    "status": "manufacturer-summary"
+  },
+  "204": {
+    "model": "Doogee Blade 10 Power",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente de diseño delgado con batería de 10.300 mAh, pensado para jornadas prolongadas fuera de casa.",
+    "source": "https://www.doogee.cc/products/doogee-blade-10-power",
+    "status": "manufacturer-summary"
+  },
+  "205": {
+    "model": "Doogee Blade 10 Ultra Energy",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con pantalla de 90 Hz, cámara principal de 64 MP y batería de 6.150 mAh.",
+    "source": "https://www.doogee.cc/products/blade10-ultra-energy",
+    "status": "manufacturer-summary"
+  },
+  "206": {
+    "model": "Doogee Blade 20 X",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con Android 16, pantalla IPS de 6,6 pulgadas a 90 Hz y procesador UNISOC T7250. Incluye batería de 10.300 mAh y cámara principal de 16 MP.",
+    "source": "https://www.doogee.cc/products/doogee-blade20-x-rugged-phone",
+    "status": "manufacturer-summary"
+  },
+  "207": {
+    "model": "Doogee Fire 5 Pro",
+    "description": "[Condición: Nuevo sellado] Pantalla HD+ de 6,6 pulgadas a 90 Hz y procesador Helio G81. Su batería de 13.000 mAh acompaña el diseño resistente del Fire 5 Pro.",
+    "source": "https://www.doogee.cc/products/fire-5-pro",
+    "status": "manufacturer-summary"
+  },
+  "208": {
+    "model": "Doogee Fire 5 Ultra",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con Dimensity 6300 y batería de 13.000 mAh. Incorpora luces de camping de 1.200 lúmenes y función de walkie-talkie por Bluetooth.",
+    "source": "https://www.doogee.cc/products/fire-5-ultra",
+    "status": "manufacturer-summary"
+  },
+  "209": {
+    "model": "Doogee Fire 7",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con Dimensity 6300, pantalla IPS HD+ de 6,6 pulgadas a 90 Hz y batería de 13.000 mAh.",
+    "source": "https://www.doogee.cc/products/fire-7",
+    "status": "manufacturer-summary"
+  },
+  "210": {
+    "model": "Doogee V Max 2",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con procesador Dimensity 8300 5G. Incorpora batería de 22.000 mAh, carga rápida de 120 W y luz de camping de 1.000 lúmenes.",
+    "source": "https://www.doogee.cc/products/v-max-2",
+    "status": "manufacturer-summary"
+  },
+  "211": {
+    "model": "Doogee V Max LR",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con cámara de 200 MP, medidor láser de distancia de hasta 40 metros y luces de camping de 1.200 lúmenes. Batería de 20.500 mAh.",
+    "source": "https://www.doogee.cc/products/v-max-lr",
+    "status": "manufacturer-summary"
+  },
+  "212": {
+    "model": "Hotwav A17 Pro Max",
+    "description": "[Condición: Nuevo sellado] Smartphone con batería de 5.160 mAh, cámara principal Samsung de 13 MP y cámara frontal de 5 MP.",
+    "source": "https://www.hotwav.com/products/hotwav-a17-pro-max",
+    "status": "manufacturer-summary"
+  },
+  "213": {
+    "model": "Hotwav A18 Pro Max",
+    "description": "[Condición: Nuevo sellado / Nuevo sellado · Incluye auricular] Pantalla HD+ de 6,65 pulgadas a 120 Hz. Incluye cámara principal Samsung de 48 MP y batería de 5.160 mAh.",
+    "source": "https://www.hotwav.com/products/hotwav-a18-pro-max-smartphone",
+    "status": "manufacturer-summary"
+  },
+  "214": {
+    "model": "Hotwav A26 Ultra",
+    "description": "[Condición: Nuevo sellado] Smartphone con cámara principal Samsung de 13 MP y cámara frontal de 5 MP. Incorpora batería de 5.160 mAh.",
+    "source": "https://www.hotwav.com/products/hotwav-a26-ultra",
+    "status": "manufacturer-summary"
+  },
+  "215": {
+    "model": "Hotwav A36",
+    "description": "[Condición: Nuevo sellado] Smartphone con cámara principal Samsung de 13 MP, video en 1080p y cámara frontal de 5 MP. Batería de 5.160 mAh y Bluetooth 5.4.",
+    "source": "https://www.hotwav.com/products/hotwav-a36",
+    "status": "manufacturer-summary"
+  },
+  "216": {
+    "model": "Hotwav Hyper 8E",
+    "description": "[Condición: Nuevo sellado] Smartphone de la línea Hyper de HOTWAV con altavoz de alta potencia y procesamiento de sonido DTS Audio.",
+    "source": "https://www.hotwav.com/products/hotwav-hyper-8e-rugged-phone",
+    "status": "manufacturer-summary"
+  },
+  "217": {
+    "model": "Hotwav Note 13 Pro",
+    "description": "[Condición: Nuevo sellado] Pantalla de 6,6 pulgadas a 90 Hz, cámara principal de 50 MP y batería de 5.160 mAh.",
+    "source": "https://www.hotwav.com/products/hotwav-note-13-pro-smartphone",
+    "status": "manufacturer-summary"
+  },
+  "218": {
+    "model": "Hotwav T8",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con cámara Sony IMX298 de 20 MP. Incluye modos de fotografía panorámica, retrato y control manual.",
+    "source": "https://www.hotwav.com/products/hotwav-t8-rugged-phone",
+    "status": "manufacturer-summary"
+  },
+  "219": {
+    "model": "Hotwav X100 SE",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla secundaria para consultar notificaciones y estado de carga sin cambiar de vista en la pantalla principal.",
+    "source": "https://www.hotwav.com/products/hotwav-x100se-smartphone",
+    "status": "manufacturer-summary"
+  },
+  "220": {
+    "model": "Infinix GT 30 Pro",
+    "description": "[Condición: Nuevo sellado · Incluye kit] Smartphone para juegos con Dimensity 8350 Ultimate, pantalla AMOLED 1,5K de 144 Hz y controles GT Trigger. Batería de 5.500 mAh y cámara de 108 MP.",
+    "source": "https://infinixmobiles.in/products/gt-30-pro-5g",
+    "status": "manufacturer-summary"
+  },
+  "221": {
+    "model": "Infinix Smart 10",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla de 120 Hz, procesador UNISOC T7250 y dos altavoces. Incluye batería de 5.000 mAh y cámara principal de 8 MP.",
+    "source": "https://infinixmobiles.in/products/smart-10",
+    "status": "manufacturer-summary"
+  },
+  "222": {
+    "model": "Infinix Smart 20",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla de 6,78 pulgadas a 120 Hz y procesador Helio G81 Ultimate. Batería de 5.200 mAh y protección IP64.",
+    "source": "https://infinixmobiles.in/products/smart-20",
+    "status": "manufacturer-summary"
+  },
+  "223": {
+    "model": "Itel A200",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla de 6,75 pulgadas a 120 Hz, batería de 5.000 mAh y cámara principal de 13 MP.",
+    "source": "https://www.itel-life.com/products/phone/a-series/a200/spec",
+    "status": "manufacturer-summary"
+  },
+  "224": {
+    "model": "Motorola Edge 60 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone con Android 15, protección IP68 y certificación de resistencia MIL-STD-810H. Pertenece a la línea Edge de Motorola.",
+    "source": "https://www.motorola.com.ar/motorola-edge-60-pro/p",
+    "status": "manufacturer-summary"
+  },
+  "225": {
+    "model": "Motorola G06",
+    "description": "[Condición: Nuevo sellado] Pantalla HD+ de 6,9 pulgadas y cámara de 50 MP con tecnología Quad Pixel para combinar información de varios píxeles en cada toma.",
+    "source": "https://www.motorola.com.br/smartphone-motorola-moto-g06-64gb/p",
+    "status": "manufacturer-summary"
+  },
+  "226": {
+    "model": "Motorola E15",
+    "description": "[Condición: Nuevo sellado] Pantalla HD+ de 6,67 pulgadas en un diseño con terminación de cuero vegano. Incorpora protección IP52 frente a salpicaduras.",
+    "source": "https://www.motorola.com.ar/moto-e15/p",
+    "status": "manufacturer-summary"
+  },
+  "227": {
+    "model": "Motorola Edge 60",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con pantalla pOLED Super HD de 6,7 pulgadas. Incluye cámara Sony LYTIA 700C de 50 MP y batería de 5.200 mAh.",
+    "source": "https://www.motorola.com.br/smartphone-motorola-edge-60-5g/p",
+    "status": "manufacturer-summary"
+  },
+  "228": {
+    "model": "Motorola Edge 70",
+    "description": "[Condición: Nuevo sellado] Smartphone de diseño ultradelgado con procesador Snapdragon 7 Gen 4. Incorpora tres cámaras de 50 MP.",
+    "source": "https://www.motorola.com.br/smartphone-motorola-edge-70-5g-512gb/p",
+    "status": "manufacturer-summary"
+  },
+  "229": {
+    "model": "Motorola Edge 70 Fusion",
+    "description": "[Condición: Nuevo sellado] Snapdragon 7s Gen 4, cámara Sony LYTIA 710 con estabilización óptica y video 4K. Incluye Android 16, NFC y funciones moto AI.",
+    "source": "https://www.motorola.com.ar/motorola-edge-70-fusion-12gb/p",
+    "status": "manufacturer-summary"
+  },
+  "230": {
+    "model": "Motorola G15",
+    "description": "[Condición: Nuevo sellado] Motorola moto g15 con procesador MediaTek Helio G81 Extreme y batería de 5.200 mAh. Su diseño incorpora protección Corning Gorilla Glass 3 y carga TurboPower de 18 W.",
+    "source": "https://en-gb.support.motorola.com/app/answers/detail/a_id/183973",
+    "status": "manufacturer-summary"
+  },
+  "231": {
+    "model": "Motorola G35 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G de la familia moto g con cámara asistida por inteligencia artificial.",
+    "source": "https://www.motorola.com.br/smartphone-moto-g35-5g-128gb/p",
+    "status": "manufacturer-summary"
+  },
+  "232": {
+    "model": "Motorola G47",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con cámara Sony LYTIA 600 de 50 MP. Batería de 5.200 mAh con carga rápida y diseño reforzado.",
+    "source": "https://www.motorola.com.br/smartphone-motorola-moto-g47-5g-256gb/p",
+    "status": "manufacturer-summary"
+  },
+  "233": {
+    "model": "Motorola G56 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con procesador MediaTek Dimensity 7060, pantalla de 6,7 pulgadas y cámara principal de 50 MP. Batería de 5.200 mAh, carga de 30 W y audio Dolby Atmos.",
+    "source": "https://www.motorola.com/gb/en/moto/knowledgebase/products/pmipmhu41mg",
+    "status": "manufacturer-summary"
+  },
+  "234": {
+    "model": "Motorola G67",
+    "description": "[Condición: Nuevo sellado] Smartphone con Android 16, cámara principal de 50 MP, doble SIM y NFC.",
+    "source": "https://www.motorola.com.ar/moto-g67/p",
+    "status": "manufacturer-summary"
+  },
+  "235": {
+    "model": "Motorola G86 5G",
+    "description": "[Condición: Nuevo sellado / Nuevo sellado · Sin cargador] Smartphone 5G con protección IP69, resistencia de grado militar y vidrio Corning Gorilla Glass 7i.",
+    "source": "https://www.motorola.com.ar/moto-g86-5g/p",
+    "status": "manufacturer-summary"
+  },
+  "236": {
+    "model": "Oukitel C17 Plus",
+    "description": "[Condición: Nuevo sellado] Pantalla de 6,9 pulgadas a 120 Hz y cámara principal de 64 MP para fotos, navegación y reproducción de contenido.",
+    "source": "https://www.oukitel.co.za/products/oukitel-c17-plus-4g-smartphone-120hz-display-64mp-camera",
+    "status": "manufacturer-summary"
+  },
+  "237": {
+    "model": "Oukitel C72",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla de 6,88 pulgadas y batería de 5.150 mAh en un cuerpo de 9,5 mm de grosor.",
+    "source": "https://oukitel.com/products/oukitel-c72-smartphone",
+    "status": "manufacturer-summary"
+  },
+  "238": {
+    "model": "POCO C71",
+    "description": "[Condición: Nuevo sellado] Smartphone con procesador de ocho núcleos y pantalla de 6,88 pulgadas.",
+    "source": "https://www.mi.com/uk/product/poco-c71/buy/",
+    "status": "manufacturer-summary"
+  },
+  "239": {
+    "model": "POCO C81 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone POCO con pantalla de 6,9 pulgadas para navegación, mensajería y contenido multimedia.",
+    "source": "https://www.mi.com/es/product/poco-c81-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "240": {
+    "model": "POCO C85",
+    "description": "[Condición: Nuevo sellado] Smartphone con pantalla de 6,9 pulgadas y batería de 6.000 mAh.",
+    "source": "https://www.mi.com/es/product/poco-c85/buy/",
+    "status": "manufacturer-summary"
+  },
+  "241": {
+    "model": "POCO C95 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone con batería de 7.500 mAh y carga rápida de 45 W.",
+    "source": "https://www.mi.com/es/product/poco-c95-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "242": {
+    "model": "POCO F8 Pro",
+    "description": "[Condición: Nuevo sellado] Procesador Snapdragon 8 Elite fabricado en 3 nm y batería de 6.210 mAh. Forma parte de la línea de alto rendimiento POCO F.",
+    "source": "https://www.mi.com/es/product/poco-f8-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "243": {
+    "model": "POCO F8 Ultra",
+    "description": "[Condición: Nuevo sellado] Procesador Snapdragon 8 Elite Gen 5 y chip VisionBoost D8. Incluye batería de 6.500 mAh para acompañar su plataforma de alto rendimiento.",
+    "source": "https://www.mi.com/es/product/poco-f8-ultra/buy/",
+    "status": "manufacturer-summary"
+  },
+  "244": {
+    "model": "POCO M8 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con pantalla Flow AMOLED de 6,77 pulgadas y diseño curvo de 7,35 mm de grosor.",
+    "source": "https://www.mi.com/es/product/poco-m8-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "245": {
+    "model": "POCO M8 Pro 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con pantalla AMOLED CrystalRes 1,5K de 6,83 pulgadas. Batería de 6.500 mAh y carga HyperCharge de 100 W.",
+    "source": "https://www.mi.com/es/product/poco-m8-pro-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "246": {
+    "model": "POCO X6 Pro 5G",
+    "description": "[Condición: Nuevo sellado] Procesador Dimensity 8300-Ultra, pantalla Flow AMOLED CrystalRes de 120 Hz y sistema de cámaras con sensor principal de 64 MP y estabilización óptica.",
+    "source": "https://www.mi.com/es/product/poco-x6-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "247": {
+    "model": "POCO X7 Pro",
+    "description": "[Condición: Nuevo sellado] Dimensity 8400-Ultra y pantalla AMOLED CrystalRes 1,5K de 120 Hz. Batería de 6.000 mAh con carga HyperCharge de 90 W.",
+    "source": "https://www.mi.com/es/product/poco-x7-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "248": {
+    "model": "POCO X8 Pro",
+    "description": "[Condición: Nuevo sellado / Nuevo sellado · Slim] Dimensity 8500-Ultra, pantalla AMOLED 1,5K de 120 Hz y batería de 6.500 mAh con carga HyperCharge de 100 W.",
+    "source": "https://www.mi.com/es/product/poco-x8-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "249": {
+    "model": "POCO X8 Pro Max",
+    "description": "[Condición: Nuevo sellado] Dimensity 9500s y batería de 8.500 mAh con carga HyperCharge de 100 W. Pertenece a la línea POCO X Pro Max.",
+    "source": "https://www.mi.com/es/product/poco-x8-pro-max/buy/",
+    "status": "manufacturer-summary"
+  },
+  "250": {
+    "model": "Redmi 15",
+    "description": "[Condición: Nuevo sellado] Pantalla FHD+ de 6,9 pulgadas y batería de 7.000 mAh para un uso prolongado.",
+    "source": "https://www.mi.com/es/product/redmi-15/buy/",
+    "status": "manufacturer-summary"
+  },
+  "251": {
+    "model": "Redmi 15C",
+    "description": "[Condición: Nuevo sellado / Nuevo sellado · Sin cargador] Smartphone de 7,99 mm de grosor con batería de 6.000 mAh.",
+    "source": "https://www.mi.com/es/product/redmi-15c/buy/",
+    "status": "manufacturer-summary"
+  },
+  "252": {
+    "model": "Redmi 17",
+    "description": "[Condición: Nuevo sellado] Smartphone con batería de 7.500 mAh y carga rápida de 45 W.",
+    "source": "https://www.mi.com/es/product/redmi-17/buy/",
+    "status": "manufacturer-summary"
+  },
+  "253": {
+    "model": "Redmi A7 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone Redmi con conectividad 4G, doble SIM, expansión por microSD, Bluetooth 5.2 y Wi-Fi de doble banda.",
+    "source": "https://www.mi.com/es/product/redmi-a7-pro/specs/",
+    "status": "manufacturer-summary"
+  },
+  "254": {
+    "model": "Redmi Note 14 Pro+ 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con cámara principal de 200 MP y funciones de fotografía asistidas por inteligencia artificial.",
+    "source": "https://www.mi.com/es/product/redmi-note-14-pro-plus-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "255": {
+    "model": "Redmi Note 15",
+    "description": "[Condición: Nuevo sellado] Smartphone con batería de 6.000 mAh y protección IP64 contra polvo y salpicaduras.",
+    "source": "https://www.mi.com/es/product/redmi-note-15/buy/",
+    "status": "manufacturer-summary"
+  },
+  "256": {
+    "model": "Redmi Note 15 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G de diseño delgado con batería de 5.520 mAh y protección IP66/IP68.",
+    "source": "https://www.mi.com/es/product/redmi-note-15-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "257": {
+    "model": "Redmi Note 15 Pro",
+    "description": "[Condición: Nuevo sellado] Batería de 6.500 mAh, vidrio Corning Gorilla Glass Victus 2 y protección IP65.",
+    "source": "https://www.mi.com/es/product/redmi-note-15-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "258": {
+    "model": "Redmi Note 15 Pro 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con batería de 6.580 mAh, vidrio Corning Gorilla Glass Victus 2 y protección IP66/IP68.",
+    "source": "https://www.mi.com/es/product/redmi-note-15-pro-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "259": {
+    "model": "Redmi Note 15 Pro+",
+    "description": "[Condición: Nuevo sellado] Batería de 6.500 mAh con carga HyperCharge de 100 W. Incorpora vidrio Corning Gorilla Glass Victus 2 y protección IP66/IP68.",
+    "source": "https://www.mi.com/es/product/redmi-note-15-pro-plus-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "260": {
+    "model": "Redmi Note 17",
+    "description": "[Condición: Nuevo sellado] Pantalla AMOLED FHD+ de 6,99 pulgadas. Batería de 7.700 mAh con carga rápida de 45 W.",
+    "source": "https://www.mi.com/es/product/redmi-note-17/buy/",
+    "status": "manufacturer-summary"
+  },
+  "261": {
+    "model": "Redmi Note 17 Pro 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con batería de larga duración y protección IP66/IP68 contra polvo y agua.",
+    "source": "https://www.mi.com/es/product/redmi-note-17-pro-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "262": {
+    "model": "Redmi Note 17 Pro Max 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con batería de 9.210 mAh y carga HyperCharge de 100 W. Incorpora protección IP66/IP68.",
+    "source": "https://www.mi.com/es/product/redmi-note-17-pro-max-5g/buy/",
+    "status": "manufacturer-summary"
+  },
+  "263": {
+    "model": "Xiaomi 15",
+    "description": "[Condición: Nuevo sellado] Sistema de cámaras con óptica Leica Summilux y funciones Xiaomi HyperAI para fotografía y tareas cotidianas.",
+    "source": "https://www.mi.com/es/product/xiaomi-15/buy/",
+    "status": "manufacturer-summary"
+  },
+  "264": {
+    "model": "Xiaomi 15T Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone de la línea Xiaomi T Pro con sistema fotográfico desarrollado con Leica.",
+    "source": "https://www.mi.com/es/product/xiaomi-15t-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "265": {
+    "model": "Xiaomi 17",
+    "description": "[Condición: Nuevo sellado] Sistema de cámaras con lentes Leica Summilux y sensor principal Light Fusion 950, orientado a capturar escenas de alto rango dinámico.",
+    "source": "https://www.mi.com/es/product/xiaomi-17/buy/",
+    "status": "manufacturer-summary"
+  },
+  "266": {
+    "model": "Xiaomi 17 Ultra",
+    "description": "[Condición: Nuevo sellado · Caja grande] Sistema Leica con cámara principal de sensor de una pulgada y teleobjetivo de 200 MP. Su zoom óptico mecánico cubre focales de 75 a 100 mm.",
+    "source": "https://www.mi.com/es/product/xiaomi-17-ultra/buy/",
+    "status": "manufacturer-summary"
+  },
+  "267": {
+    "model": "Xiaomi 17T",
+    "description": "[Condición: Nuevo sellado] Smartphone con teleobjetivo Leica de 5x, funciones de zoom asistido por inteligencia artificial y captura Leica Live Moment.",
+    "source": "https://www.mi.com/es/product/xiaomi-17t/buy/",
+    "status": "manufacturer-summary"
+  },
+  "268": {
+    "model": "Xiaomi 17T Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone de la línea T Pro con teleobjetivo Leica de 5x y funciones de fotografía asistidas por inteligencia artificial.",
+    "source": "https://www.mi.com/es/product/xiaomi-17t-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "269": {
+    "model": "Realme Note 70",
+    "description": "[Condición: Nuevo sellado] Pantalla de 90 Hz, batería de 6.300 mAh y cuerpo de 7,94 mm. Incorpora protección ArmorShell e índice IP54.",
+    "source": "https://www.realme.com/global/realme-note-70/specs",
+    "status": "manufacturer-summary"
+  },
+  "270": {
+    "model": "Ulefone Armor 27T Pro+",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con cámara térmica y visión nocturna para tareas de campo y observación en baja luz.",
+    "source": "https://store.ulefone.com/products/armor-27t-pro",
+    "status": "manufacturer-summary"
+  },
+  "271": {
+    "model": "Ulefone Armor 26 Ultra",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con MediaTek Dimensity 8020, cámara principal de 200 MP y cámara de visión nocturna de 64 MP. Batería equivalente a 15.600 mAh con carga de 120 W y pantalla FHD+ de 120 Hz.",
+    "source": "https://store.ulefone.com/products/armor-26-ultra",
+    "status": "manufacturer-summary"
+  },
+  "272": {
+    "model": "Ulefone Armor 28 Ultra",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con procesador Dimensity 9300+, orientado a trabajo y actividades al aire libre.",
+    "source": "https://store.ulefone.com/products/armor-28-ultra",
+    "status": "manufacturer-summary"
+  },
+  "273": {
+    "model": "Ulefone Armor 29 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con cámara de visión nocturna y batería de 21.200 mAh.",
+    "source": "https://store.ulefone.com/products/armor-29-pro",
+    "status": "manufacturer-summary"
+  },
+  "274": {
+    "model": "Ulefone Armor 29 Ultra",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente 5G con pantalla AMOLED y batería de 21.200 mAh.",
+    "source": "https://store.ulefone.com/products/armor-29-ultra",
+    "status": "manufacturer-summary"
+  },
+  "275": {
+    "model": "Ulefone Armor Mini 20T Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone compacto resistente 5G con cámara térmica, Android 15 y batería de 6.200 mAh.",
+    "source": "https://store.ulefone.com/products/armor-mini-20t-pro",
+    "status": "manufacturer-summary"
+  },
+  "276": {
+    "model": "Ulefone Armor X16",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con Android 15 y batería de 10.360 mAh.",
+    "source": "https://store.ulefone.com/products/armor-x16",
+    "status": "manufacturer-summary"
+  },
+  "277": {
+    "model": "Ulefone RugKing 3 Pro",
+    "description": "[Condición: Nuevo sellado] Smartphone resistente con Android 15 y protección IP68 para trabajo y uso al aire libre.",
+    "source": "https://store.ulefone.com/products/rugking-3-pro",
+    "status": "manufacturer-summary"
+  },
+  "278": {
+    "model": "iPhone 18 Pro",
+    "description": "[Condición: Garantía Apple] Pantalla OLED de 6,3 pulgadas con ProMotion y Dynamic Island. Triple cámara Pro Fusion de 48 MP, con apertura variable en la cámara principal.",
+    "source": "https://support.apple.com/en-us/148590",
+    "status": "manufacturer-summary"
+  },
+  "279": {
+    "model": "iPhone 18 Pro Max",
+    "description": "[Condición: Garantía Apple] Pantalla OLED de 6,9 pulgadas con ProMotion y Dynamic Island. Triple cámara Pro Fusion de 48 MP, con apertura variable en la cámara principal.",
+    "source": "https://support.apple.com/en-us/148591",
+    "status": "manufacturer-summary"
+  },
+  "280": {
+    "model": "KingKong 8",
+    "description": "[Condición: Nuevo sellado] Teléfono resistente Cubot KingKong 8 con batería de 10.600 mAh y cámara trasera de 48 MP. Admite ampliación del almacenamiento mediante tarjeta de memoria de hasta 1 TB.",
+    "source": "https://shop.cubot.net/blogs/unbeatable-value-unparalleled-performance/unveiling-cubot-kingkong-8-the-ultimate-rugged-smartphone-with-unbeatable-value",
+    "status": "manufacturer-summary"
+  },
+  "281": {
+    "model": "Nokia 106",
+    "description": "[Condición: Nuevo sellado] Teléfono con teclado físico y juego Snake Xenzia. Permite guardar hasta 2.000 contactos y 500 mensajes.",
+    "source": "https://www.hmd.com/en_int/nokia-106-2018",
+    "status": "manufacturer-summary"
+  },
+  "282": {
+    "model": "Nokia 110 4G",
+    "description": "[Condición: Nuevo sellado] Teléfono 4G con teclado físico y llamadas HD. Incorpora reproducción MP3 y ranura para tarjeta microSD.",
+    "source": "https://www.hmd.com/en_int/nokia-110-4g",
+    "status": "manufacturer-summary"
+  },
+  "283": {
+    "model": "Motorola G06 Power",
+    "description": "[Condición: Nuevo sellado] Pantalla HD+ de 6,88 pulgadas y cámara de 50 MP con tecnología Quad Pixel. Pertenece a la familia moto g Power.",
+    "source": "https://www.motorola.in/smartphones-moto-g06-power/p",
+    "status": "manufacturer-summary"
+  },
+  "284": {
+    "model": "Motorola G86 Power 5G",
+    "description": "[Condición: Nuevo sellado] Smartphone 5G con Android 15, batería de 6.720 mAh y protección IP69. Su diseño utiliza colores desarrollados con Pantone.",
+    "source": "https://www.motorola.com.pe/moto-g86-power-5g/p",
+    "status": "manufacturer-summary"
+  },
+  "285": {
+    "model": "Blackview BV9300 Pro Plus",
+    "description": "[Condición: Nuevo sellado] Teléfono Blackview BV9300 Pro Plus. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "286": {
+    "model": "Motorola G57 5G",
+    "description": "[Condición: Nuevo sellado] Motorola moto g57 5G con procesador Snapdragon 6s Gen 4 y cámara con funciones de inteligencia artificial. Incorpora protección IP64 y cristal Corning Gorilla Glass 7i.",
+    "source": "https://www.motorola.com/au/en/p/phones/moto-g/57-5g/pmipmjf43mj",
+    "status": "manufacturer-summary"
+  },
+  "287": {
+    "model": "Oukitel C26",
+    "description": "[Condición: Nuevo sellado] Teléfono Oukitel C26. Almacenamiento comercializado: 128GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "288": {
+    "model": "Oukitel C65",
+    "description": "[Condición: Nuevo sellado] Teléfono Oukitel C65. Almacenamiento comercializado: 128GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "289": {
+    "model": "Redmi 15R 5G",
+    "description": "[Condición: Nuevo sellado] Teléfono Redmi 15R 5G. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "290": {
+    "model": "CAT B28",
+    "description": "[Condición: Nuevo sellado] Teléfono CAT B28.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "291": {
+    "model": "CAT B68 4G",
+    "description": "[Condición: Nuevo sellado] Teléfono CAT B68 4G.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "292": {
+    "model": "Nokia 5310 4G",
+    "description": "[Condición: Nuevo sellado] Teléfono Nokia 5310 4G.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "295": {
+    "model": "Acer Aspire 15 A15-51M",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Acer Aspire 15 A15-51M de 15,6 pulgadas para trabajo, estudio y contenido multimedia.\nConfiguración del catálogo: Intel Core i9-13900H, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://store.acer.com/fr-fr/acer-aspire-15-ordinateur-portable-a15-51m-gris",
+    "status": "manufacturer-summary"
+  },
+  "296": {
+    "model": "Acer Aspire 3 A315-24PT",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Acer Aspire 3 con pantalla táctil Full HD de 15,6 pulgadas y gráficos AMD Radeon. Incluye conectividad Wi-Fi 6.\nConfiguración del catálogo: AMD Ryzen 3 · Pantalla táctil, 8 GB de memoria, 128GB de almacenamiento.",
+    "source": "https://store.acer.com/en-us/aspire-3-laptop-a315-24pt-r8w1",
+    "status": "manufacturer-summary"
+  },
+  "297": {
+    "model": "Acer Aspire Go 15 AG15-42P",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Acer Aspire Go 15 AG15-42P con plataforma AMD Ryzen, memoria DDR4 y almacenamiento SSD para productividad diaria.\nConfiguración del catálogo: AMD Ryzen 7 7730U, 16 GB de memoria, 512GB de almacenamiento / AMD Ryzen 7 5825U, 16+32 GB (lista del proveedor) de memoria, 512GB de almacenamiento / AMD Ryzen 7 7730U, 32 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.acer.com/us-en/laptops/aspire/aspire-go-amd/pdp/NX.JJHAA.003",
+    "status": "manufacturer-summary"
+  },
+  "298": {
+    "model": "Acer Aspire Go 15 AG15-72P",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Acer Aspire Go 15 AG15-72P de la familia Intel, con memoria DDR4 y almacenamiento SSD.\nConfiguración del catálogo: Intel Core i9-13900H, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.acer.com/gb-en/laptops/aspire/aspire-go-intel/pdp/NX.JRREK.00G",
+    "status": "manufacturer-summary"
+  },
+  "299": {
+    "model": "Acer Aspire Lite AL15-43P",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Acer Aspire Lite AL15-43P con pantalla de 15,6 pulgadas y plataforma AMD Ryzen 5000.\nConfiguración del catálogo: AMD Ryzen 7 5825U, 16 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://www.acer.com/cl-es/laptops/aspire/aspire-lite/pdp/NX.DAKAL.002",
+    "status": "manufacturer-summary"
+  },
+  "300": {
+    "model": "Acer EtBook Yoga CWI557",
+    "description": "[Condición: Nuevo, Caja Sellada] Acer EtBook Yoga CWI557. Notebook con Intel Core i3-1315U. Memoria configurada: 8 GB. Almacenamiento: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "301": {
+    "model": "Acer Nitro V 15 ANV15-41",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming Acer Nitro V 15 ANV15-41 con plataforma AMD y gráficos dedicados para juegos y creación de contenido.\nConfiguración del catálogo: AMD Ryzen 5 7535H · RTX 3050, 8 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.acer.com/pl-pl/laptops/nitro/nitro-v-15-amd/pdp/NH.QPDEP.00G",
+    "status": "manufacturer-summary"
+  },
+  "302": {
+    "model": "Acer Nitro V 15 ANV15-52",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming Acer Nitro V 15 ANV15-52 con plataforma Intel y gráficos dedicados, orientada a juegos y creación de contenido.\nConfiguración del catálogo: Intel Core i5 · RTX 5050, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://store.acer.com/it-it/acer-nitro-v-15-notebook-gaming-anv15-52-nero",
+    "status": "manufacturer-summary"
+  },
+  "303": {
+    "model": "ASUS Vivobook 15 F1502V",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ASUS Vivobook 15 F1502V de la familia de equipos para productividad diaria, creación de documentos y trabajo con aplicaciones.\nConfiguración del catálogo: Intel Core i9-13900H, 16 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://www.asus.com/us/laptops/for-home/vivobook/vivobook-15-laptop-f1502/",
+    "status": "manufacturer-summary"
+  },
+  "304": {
+    "model": "ASUS ROG Strix G16 G615J",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming ASUS ROG Strix G16 G615J con sistema de refrigeración de aletas de cobre y posibilidad de actualizar memoria y almacenamiento.\nConfiguración del catálogo: Intel Core i7-14650HX · RTX 5060 8 GB, 16 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025/",
+    "status": "manufacturer-summary"
+  },
+  "305": {
+    "model": "ASUS ROG Strix G16 G614F",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming ASUS ROG Strix G16 G614F con plataforma AMD Ryzen y memoria actualizable. Las configuraciones de la familia varían según región.\nConfiguración del catálogo: AMD Ryzen 9 · RTX 5060, 16 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://rog.asus.com/laptops/rog-strix/rog-strix-g16-2025-g614/",
+    "status": "manufacturer-summary"
+  },
+  "306": {
+    "model": "ASUS TUF Gaming F16 FX607VU",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ASUS TUF Gaming F16 FX607VU con pantalla de 16 pulgadas. Pertenece a la línea de equipos con gráficos dedicados para juegos.\nConfiguración del catálogo: Intel Core i5 · RTX3050, 8 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://b2b.lojaasus.com.br/notebook-asus-tuf-gaming-f16-fx607vu-rl053w-mecha-gray.html",
+    "status": "manufacturer-summary"
+  },
+  "307": {
+    "model": "ASUS Vivobook Go 15 E1504F",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ASUS Vivobook Go 15 con plataforma AMD Ryzen, pantalla Full HD de 15,6 pulgadas y bisagra de apertura de 180 grados.\nConfiguración del catálogo: AMD Ryzen 3 7320U, 8 GB de memoria, 256GB de almacenamiento / AMD Ryzen 5 7520U, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504f.html",
+    "status": "manufacturer-summary"
+  },
+  "308": {
+    "model": "ASUS Vivobook Go 15 E1504GA",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ASUS Vivobook Go 15 con pantalla NanoEdge Full HD de 15,6 pulgadas, cuerpo de 17,9 mm y bisagra de apertura de 180 grados.\nConfiguración del catálogo: Intel Core i3-N305, 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://br.store.asus.com/notebook-asus-vivobook-go-15-e1504g.html",
+    "status": "manufacturer-summary"
+  },
+  "309": {
+    "model": "ASUS Vivobook 15 X1504VA",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ASUS Vivobook 15 X1504VA con plataforma Intel y soporte para carga rápida, orientada a productividad cotidiana.\nConfiguración del catálogo: Intel Core 3 100U, 8 GB de memoria, 128GB de almacenamiento.",
+    "source": "https://www.asus.com/laptops/for-home/vivobook/asus-vivobook-15-x1504/",
+    "status": "manufacturer-summary"
+  },
+  "310": {
+    "model": "ASUS Zenbook 14 UX3405C",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook ultraportátil ASUS Zenbook 14 UX3405C con plataforma Intel y pantalla ASUS Lumina OLED.\nConfiguración del catálogo: Intel Core Ultra 7, 8 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-14-ux3405/",
+    "status": "manufacturer-summary"
+  },
+  "311": {
+    "model": "Audisat X99",
+    "description": "[Condición: Nuevo, Caja Sellada] Audisat X99. Notebook con Intel N95. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "312": {
+    "model": "Dell 15 DC15250",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Dell 15 DC15250 con plataforma Intel Core y pantalla Full HD de 15,6 pulgadas. Ofrece teclado de formato amplio y almacenamiento SSD para las tareas de todos los días.\nConfiguración del catálogo: Intel Core i7-1355U · Pantalla táctil, 8 GB de memoria, 512GB de almacenamiento / Intel Core i5, 8 GB de memoria, 512GB de almacenamiento / Intel Core i5-1334U, 16 GB de memoria, 512GB de almacenamiento / Intel Core i5-1334U · Pantalla táctil, 8 GB de memoria, 512GB de almacenamiento / Intel Core i5-1334U · Pantalla táctil, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.delltechnologies.com/asset/en-th/products/laptops-and-2-in-1s/technical-support/dell-15-spec-sheet-dc15250-dc15255.pdf",
+    "status": "manufacturer-summary"
+  },
+  "313": {
+    "model": "Dell 16 DC16250",
+    "description": "[Condición: Nuevo, Caja Sellada] Dell 16 DC16250. Notebook con Intel Core Ultra 9 · Pantalla táctil. Memoria configurada: 32 GB. Almacenamiento: 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "314": {
+    "model": "Dell 15 DC15255",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Dell 15 DC15255 con plataforma AMD Ryzen, pantalla de 15,6 pulgadas y almacenamiento SSD. Su formato está orientado al trabajo y la productividad cotidiana.\nConfiguración del catálogo: AMD Ryzen 3, 8 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.delltechnologies.com/asset/en-us/products/laptops-and-2-in-1s/technical-support/dell-15-dc15255-laptop-pcf-report.pdf",
+    "status": "manufacturer-summary"
+  },
+  "315": {
+    "model": "Dell Inspiron 16 5640",
+    "description": "[Condición: Nuevo, Caja Sellada] Dell Inspiron 16 5640. Notebook con Intel Core i7. Memoria configurada: 16 GB. Almacenamiento: 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "316": {
+    "model": "Dell Latitude 7430",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook empresarial Dell Latitude 7430 con pantalla de 14 pulgadas. Esta familia ofrece distintas opciones de resolución y panel para el trabajo diario; la configuración comercializada se detalla a continuación.\nConfiguración del catálogo: Intel Core i7-1265U, 16 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://www.dell.com/support/manuals/en-in/latitude-14-7430-2-in-1-laptop/lat-7430_sg-specs/display?guid=guid-04baa64c-b129-4ad6-a6d7-fa1535101096&lang=en-us",
+    "status": "manufacturer-summary"
+  },
+  "317": {
+    "model": "Dell Latitude 7455",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook empresarial Dell Latitude 7455 con plataforma Qualcomm Snapdragon X y acelerador de inteligencia artificial integrado. Incorpora pantalla táctil QHD+ de 14 pulgadas, formato 16:10 y tecnología ComfortView Plus.\nConfiguración del catálogo: Qualcomm Snapdragon, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.delltechnologies.com/asset/es-mx/products/laptops-and-2-in-1s/technical-support/dell-latitude-7455-spec-sheet.pdf.external",
+    "status": "manufacturer-summary"
+  },
+  "318": {
+    "model": "Dell 15 D15260",
+    "description": "[Condición: Nuevo, Caja Sellada] Dell 15 D15260. Notebook con Intel Core Ultra 5 225U. Memoria configurada: 16 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "319": {
+    "model": "Dell Alienware 15 DA15265",
+    "description": "[Condición: Nuevo, Caja Sellada] Dell Alienware 15 DA15265. Notebook con AMD Ryzen 5 220 · RTX 4050 / AMD Ryzen 7 260. Memoria configurada: 16 GB. Almacenamiento: 512GB / 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "320": {
+    "model": "HP Laptop 14-dq6105dx",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 14-dq6105dx. Notebook con Intel N150. Memoria configurada: 4 GB. Almacenamiento: 128GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "321": {
+    "model": "HP Laptop 14-ep0355cl",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 14-ep0355cl. Notebook con Intel Core 5 120U. Memoria configurada: 16 GB. Almacenamiento: 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "322": {
+    "model": "HP Laptop 15-dy5009la",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-dy5009la. Notebook con Intel Core i7-1255U. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "323": {
+    "model": "HP Laptop 15-fc0146dx",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fc0146dx. Notebook con AMD Ryzen 5 7520U · Pantalla táctil. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "324": {
+    "model": "HP Laptop 15-fd0084wm",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0084wm. Notebook con Intel N200. Memoria configurada: 4 GB. Almacenamiento: 128GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "325": {
+    "model": "HP Laptop 15-fd0133wm",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0133wm. Notebook con Intel Core i3-N305. Memoria configurada: 8 GB. Almacenamiento: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "326": {
+    "model": "HP Laptop 15-fd0150wn",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0150wn. Notebook con Intel Core 5 120U · Pantalla táctil. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "327": {
+    "model": "HP Laptop 15-fd0153wm",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0153wm. Notebook con Intel Core i5-1334U. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "328": {
+    "model": "HP Laptop 15-fd0173wm",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0173wm. Notebook con Intel Core i7-1255U. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "329": {
+    "model": "HP Laptop 15-fd0182wn",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd0182wn. Notebook con Intel Core i7-1355U. Memoria configurada: 16 GB. Almacenamiento: 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "330": {
+    "model": "HP Laptop 15-fd2050wm",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Laptop 15-fd2050wm. Notebook con Intel Core Ultra 5 225U · Pantalla táctil. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "331": {
+    "model": "HP Laptop 15t-fd000",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook HP 15t-fd000 con pantalla de 15,6 pulgadas para trabajo, estudio y reproducción de contenido.\nConfiguración del catálogo: Intel Core i7-1355U, 12 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://www.hp.com/us-en/shop/pdp/hp-laptop-15t-fd000-156-7p8k6av-1",
+    "status": "manufacturer-summary"
+  },
+  "332": {
+    "model": "HP Laptop 15t-fd200",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook HP 15t-fd200 de 15,6 pulgadas con plataforma Intel Core Ultra para tareas de productividad.\nConfiguración del catálogo: Intel Core Ultra 5 225U, 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://www.hp.com/us-en/shop/pdp/hp-156-inch-laptop-ai-pc-b59bqav-1",
+    "status": "manufacturer-summary"
+  },
+  "333": {
+    "model": "HP Laptop 17t-cn300",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook HP 17t-cn300 con pantalla de 17,3 pulgadas y una superficie amplia para documentos, contenido y multitarea.\nConfiguración del catálogo: Intel Core i5-1335U, 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://www.hp.com/us-en/shop/pdp/hp-laptop-17t-cn300-173-7p3q0av-1",
+    "status": "manufacturer-summary"
+  },
+  "334": {
+    "model": "HP EliteBook 840 G8",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook empresarial HP EliteBook 840 G8 con pantalla de 14 pulgadas y opciones de panel Full HD. La configuración comercializada se detalla a continuación.\nConfiguración del catálogo: Intel Core i7 (11.ª generación), 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://support.hp.com/rs-en/document/c06978058",
+    "status": "manufacturer-summary"
+  },
+  "335": {
+    "model": "HP EliteBook 850 G7",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook empresarial HP EliteBook 850 G7, diseñada para productividad y trabajo profesional.\nConfiguración del catálogo: Intel Core i5 (10.ª generación), 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://jp.ext.hp.com/notebooks/business/elitebook_850_g7/",
+    "status": "manufacturer-summary"
+  },
+  "336": {
+    "model": "HP Victus 15-fb3113dx",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Victus 15-fb3113dx. Notebook con AMD Ryzen 5 7535HS · RTX 3050. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "337": {
+    "model": "HP OmniBook 3 15-fn0505nr",
+    "description": "[Condición: Nuevo, Caja Sellada] HP OmniBook 3 15-fn0505nr. Notebook con AMD Ryzen 5 340. Memoria configurada: 16 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "338": {
+    "model": "HP Victus 15-fa2013dx",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Victus 15-fa2013dx. Notebook con Intel Core i5-13420H · RTX 3050. Memoria configurada: 8 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "339": {
+    "model": "HP Victus 15-fb3093dx",
+    "description": "[Condición: Nuevo, Caja Sellada] HP Victus 15-fb3093dx. Notebook con AMD Ryzen 7 · RTX4050. Memoria configurada: 16 GB. Almacenamiento: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "340": {
+    "model": "Lenovo IdeaPad Slim 3 15IAN8",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo con pantalla Full HD de 15,6 pulgadas, gráficos Intel UHD y memoria LPDDR5. Cuenta con parlantes estéreo Dolby Audio, lector de tarjetas SD, HDMI y USB-C.\nConfiguración del catálogo: Intel N100, 4 GB de memoria, 128GB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_Slim_3_15IAN8/IdeaPad_Slim_3_15IAN8_Spec.pdf",
+    "status": "manufacturer-summary"
+  },
+  "341": {
+    "model": "Lenovo IdeaPad 1 15AMN7",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo IdeaPad 1 15AMN7 con gráficos AMD Radeon 610M, memoria LPDDR5 y almacenamiento SSD. Incluye salida HDMI para un monitor externo.\nConfiguración del catálogo: AMD Ryzen 5 7520U, 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_1_15AMN7/IdeaPad_1_15AMN7_Spec.html",
+    "status": "manufacturer-summary"
+  },
+  "342": {
+    "model": "Lenovo IdeaPad Slim 3 15AMN8",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo IdeaPad Slim 3 con plataforma AMD y pantalla Full HD de 15,6 pulgadas. Cuenta con cámara con obturador de privacidad, HDMI, USB-C y lector de tarjetas.\nConfiguración del catálogo: AMD Ryzen 5 (40, según proveedor), 8 GB de memoria, 512GB de almacenamiento / AMD Ryzen 5 (40, según proveedor), 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_Slim_3_15AMN8/IdeaPad_Slim_3_15AMN8_Spec.pdf",
+    "status": "manufacturer-summary"
+  },
+  "343": {
+    "model": "Lenovo IdeaPad Flex 5 15ITL05",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo IdeaPad Flex 5 con plataforma Intel Core de 11.ª generación, memoria DDR4 y almacenamiento SSD PCIe. Incorpora parlantes Dolby Audio y cámara con obturador de privacidad.\nConfiguración del catálogo: Intel Core i5-1135G7, 8 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_Flex_5_15ITL05/IdeaPad_Flex_5_15ITL05_Spec.html",
+    "status": "manufacturer-summary"
+  },
+  "344": {
+    "model": "Lenovo IdeaPad Pro 5 16IAH10",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo con plataforma Intel Core Ultra serie 2 y acelerador Intel AI Boost. Cuenta con puertos Thunderbolt 4, almacenamiento SSD PCIe, cámara Full HD con privacidad y parlantes Dolby Atmos.\nConfiguración del catálogo: Intel Core Ultra 9 285H · RTX 5050, 32 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_Pro_5_16IAH10/IdeaPad_Pro_5_16IAH10_Spec.pdf",
+    "status": "manufacturer-summary"
+  },
+  "345": {
+    "model": "Lenovo IdeaPad Slim 3 15IRU8",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Lenovo con plataforma Intel y pantalla Full HD de 15,6 pulgadas. Incluye HDMI, lector de tarjetas y USB-C con soporte para transferencia de datos, carga y salida de video.\nConfiguración del catálogo: Intel Core i5-1334U, 8 GB de memoria, 512GB de almacenamiento / Intel Core i5-1335U, 16 GB de memoria, 256GB de almacenamiento.",
+    "source": "https://psref.lenovo.com/syspool/Sys/PDF/IdeaPad/IdeaPad_Slim_3_15IRU8/IdeaPad_Slim_3_15IRU8_Spec.pdf",
+    "status": "manufacturer-summary"
+  },
+  "346": {
+    "model": "MSI Cyborg 15 A12VF",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming MSI Cyborg 15 A12VF con plataforma Intel de 12.ª generación, diseño translúcido, memoria DDR5 y almacenamiento PCIe de cuarta generación.\nConfiguración del catálogo: Intel Core i7-12650H · RTX 4060/8GB, 16 GB de memoria, 1TB de almacenamiento.",
+    "source": "https://www.msi.com/Laptop/Cyborg-15-A12VX/Gallery",
+    "status": "manufacturer-summary"
+  },
+  "347": {
+    "model": "MSI Cyborg 15 B2RWFKG",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming MSI Cyborg 15 B2RWFKG con plataforma Intel Core Series 2, memoria DDR5 y almacenamiento PCIe de cuarta generación.\nConfiguración del catálogo: Intel Core 5 210H · RTX 5060/8GB, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.msi.com/Laptop/Cyborg-15-B2RWX/Gallery",
+    "status": "manufacturer-summary"
+  },
+  "348": {
+    "model": "MSI Cyborg A15 AI B2HWEKG",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming MSI Cyborg A15 AI con plataforma AMD Ryzen 200, diseño translúcido, memoria DDR5 y almacenamiento PCIe de cuarta generación.\nConfiguración del catálogo: AMD Ryzen 7 260 · RTX 5050, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.msi.com/Laptop/Cyborg-A15-B2HWX/Gallery",
+    "status": "manufacturer-summary"
+  },
+  "349": {
+    "model": "MSI Thin A15 B7VE",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook gaming MSI Thin A15 B7VE con plataforma AMD Ryzen 7000, pantalla IPS de 144 Hz y almacenamiento PCIe de cuarta generación.\nConfiguración del catálogo: AMD Ryzen 5 7535HS · RTX 4050/6GB, 8 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://www.msi.com/Laptop/Thin-A15-B7VX/Gallery",
+    "status": "manufacturer-summary"
+  },
+  "350": {
+    "model": "Samsung Galaxy Book4 NP750XGJ",
+    "description": "[Condición: Nuevo, Caja Sellada] Notebook Samsung Galaxy Book4 NP750XGJ con pantalla de 15,6 pulgadas y plataforma Intel Core para productividad cotidiana.\nConfiguración del catálogo: Intel Core i5-1335U, 16 GB de memoria, 512GB de almacenamiento.",
+    "source": "https://shop.samsung.com/ar/galaxy-book4--15-6---i5--16-gb--intel-iris-xe---/p",
+    "status": "manufacturer-summary"
+  },
+  "351": {
+    "model": "Samsung Type-C",
+    "description": "[Condición: Nuevo] Auriculares con cable USB-C Samsung EO-IC100, diseñados para conexión digital directa a dispositivos compatibles.",
+    "source": "https://shop.samsung.com/latin/cac/sv/type-c-earphones-eo-ic100bbegww-1.html",
+    "status": "manufacturer-summary"
+  },
+  "352": {
+    "model": "JBL Endurance Pace",
+    "description": "[Condición: Nuevo] Auriculares deportivos abiertos con tecnología JBL OpenSound y banda de titanio con memoria de forma. Incorpora protección IP68.",
+    "source": "https://www.jbl.com.ar/ENDURANCE-PACE.html?dwvar_ENDURANCE-PACE_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "353": {
+    "model": "JBL Endurance Peak 4",
+    "description": "[Condición: Nuevo] Auriculares deportivos con sonido JBL Pure Bass y Spatial Sound. Ajuste TwistLock, protección IP68 y hasta 48 horas de autonomía total.",
+    "source": "https://id.jbl.com/ENDURANCE-PEAK-4.html?dwvar_ENDURANCE-PEAK-4_color=White-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "354": {
+    "model": "JBL Live Buds 3",
+    "description": "[Condición: Nuevo] Auriculares True Wireless con cancelación de ruido y estuche Smart Charging Case con controles de audio. Permiten gestionar música y llamadas desde el estuche.",
+    "source": "https://www.jbl.com.ar/LIVEBUDS3.html?dwvar_LIVEBUDS3_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "355": {
+    "model": "JBL Sense Lite",
+    "description": "[Condición: Nuevo] Auriculares abiertos con tecnología JBL OpenSound y ganchos para la oreja, diseñados para escuchar sin aislarse por completo del entorno.",
+    "source": "https://www.jbl.com.ar/SENSELITE.html?dwvar_SENSELITE_color=Blue-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "356": {
+    "model": "JBL Sense Pro",
+    "description": "[Condición: Nuevo] Auriculares abiertos con sonido inalámbrico de alta resolución y ganchos ajustables para un apoyo estable sobre la oreja.",
+    "source": "https://www.jbl.com.ar/SENSEPRO.html?dwvar_SENSEPRO_color=Blue-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "357": {
+    "model": "JBL Soundgear Clips",
+    "description": "[Condición: Nuevo] Auriculares abiertos de formato clip que se sujetan a la oreja. Combinan sonido JBL con graves reforzados y acabados translúcidos.",
+    "source": "https://www.jbl.com.ar/SOUNDGEAR-CLIPS.html?dwvar_SOUNDGEAR-CLIPS_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "358": {
+    "model": "JBL Tune 110",
+    "description": "[Condición: Nuevo] Auriculares intraurales con cable y sonido JBL Pure Bass en un formato compacto para uso cotidiano.",
+    "source": "https://id.jbl.com/JBL%20T110.html?dwvar_JBL%20T110_color=Red-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "359": {
+    "model": "JBL Tune 510BT",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos con sonido JBL Pure Bass y hasta 40 horas de autonomía.",
+    "source": "https://id.jbl.com/TUNE510BT-.html?dwvar_TUNE510BT-_color=White-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "360": {
+    "model": "JBL Tune 520BT",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos plegables con sonido JBL Pure Bass, Bluetooth 5.3 y hasta 57 horas de autonomía.",
+    "source": "https://www.jbl.com.ar/TUNE520BT.html?dwvar_TUNE520BT_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "361": {
+    "model": "JBL Tune 520C",
+    "description": "[Condición: Nuevo] Auriculares con cable USB-C, sonido JBL Pure Bass y drivers de 32 mm compatibles con audio Hi-Res. Su diseño es ligero y plegable.",
+    "source": "https://www.jbl.com.ar/TUNE520C-USB-C.html?dwvar_TUNE520C-USB-C_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "362": {
+    "model": "JBL Tune 530BT",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos ligeros y plegables con sonido JBL Pure Bass. Ofrecen hasta 76 horas de autonomía.",
+    "source": "https://www.jbl.com.ar/TUNE530BT.html?dwvar_TUNE530BT_color=Blue-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "363": {
+    "model": "JBL Tune 720BT",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos con sonido JBL Pure Bass y hasta 76 horas de autonomía en un diseño ligero.",
+    "source": "https://www.jbl.com.ar/TUNE720BT.html?dwvar_TUNE720BT_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "364": {
+    "model": "JBL Tune 730BT",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos plegables con sonido JBL Pure Bass y conexión Bluetooth. Ofrecen hasta 76 horas de autonomía.",
+    "source": "https://www.jbl.com.ar/TUNE730BT.html?dwvar_TUNE730BT_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "365": {
+    "model": "JBL Tune 770NC",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos con cancelación de ruido adaptativa y sonido JBL Pure Bass. Ofrecen hasta 70 horas de autonomía y conexión a dos dispositivos Bluetooth.",
+    "source": "https://id.jbl.com/TUNE770NC.html?dwvar_TUNE770NC_color=Purple-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "366": {
+    "model": "JBL Tune 780NC",
+    "description": "[Condición: Nuevo] Auriculares over-ear inalámbricos con cancelación de ruido adaptativa. Incorporan sonido JBL Pure Bass y Spatial Sound.",
+    "source": "https://www.jbl.com.ar/TUNE780NC.html?dwvar_TUNE780NC_color=Blue-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "367": {
+    "model": "JBL Tune Buds 2",
+    "description": "[Condición: Nuevo] Auriculares True Wireless con cancelación de ruido adaptativa y Smart Ambient. Sonido JBL Pure Bass y Spatial Sound, con hasta 48 horas de autonomía total.",
+    "source": "https://www.jbl.com.ar/TUNE-BUDS-2.html?dwvar_TUNE-BUDS-2_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "368": {
+    "model": "JBL Tune Flex 2",
+    "description": "[Condición: Nuevo] Auriculares True Wireless con cancelación de ruido adaptativa y diseño ergonómico. Sonido JBL Pure Bass y Spatial Sound, con hasta 48 horas de autonomía total.",
+    "source": "https://www.jbl.com.ar/TUNE-FLEX-2.html?dwvar_TUNE-FLEX-2_color=Turquoise-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "369": {
+    "model": "JBL Wave Buds 2",
+    "description": "[Condición: Nuevo] Auriculares True Wireless con sonido JBL Pure Bass, cancelación activa de ruido y tecnología Smart Ambient.",
+    "source": "https://www.jbl.com.ar/WAVE-BUDS-2.html?dwvar_WAVE-BUDS-2_color=Pink-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "370": {
+    "model": "Redmi Buds 6 Play",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos con drivers de 10 mm y reducción de ruido por IA para llamadas. Hasta 36 horas de autonomía total con el estuche.",
+    "source": "https://www.mi.com/es/product/redmi-buds-6-play/buy/",
+    "status": "manufacturer-summary"
+  },
+  "371": {
+    "model": "Redmi Buds 8 Active",
+    "description": "[Condición: Nuevo] Auriculares semi-in-ear con drivers de 14,2 mm y diafragma de titanio. Incorporan dos micrófonos con reducción de ruido por IA para llamadas.",
+    "source": "https://www.mi.com/es/product/redmi-buds-8-active/buy/",
+    "status": "manufacturer-summary"
+  },
+  "372": {
+    "model": "Redmi Buds 8 Lite",
+    "description": "[Condición: Nuevo] Auriculares con drivers de 12,4 mm y cancelación activa de ruido de hasta 42 dB. Incluyen reducción de ruido por IA para llamadas.",
+    "source": "https://www.mi.com/es/product/redmi-buds-8-lite/buy/",
+    "status": "manufacturer-summary"
+  },
+  "373": {
+    "model": "Redmi Buds 8 Pro",
+    "description": "[Condición: Nuevo] Auriculares con cancelación activa de ruido inteligente de hasta 55 dB. Tres micrófonos con procesamiento por IA ayudan a mejorar las llamadas.",
+    "source": "https://www.mi.com/es/product/redmi-buds-8-pro/buy/",
+    "status": "manufacturer-summary"
+  },
+  "374": {
+    "model": "Sony PULSE Explore",
+    "description": "[Condición: Nuevo] Auriculares inalámbricos PULSE Explore para juegos, llamadas y música. Incluyen estuche de carga para guardarlos y recargarlos entre sesiones.",
+    "source": "https://www.playstation.com/en-gb/accessories/pulse-explore-wireless-earbuds/product/midnight-black/",
+    "status": "manufacturer-summary"
+  },
+  "375": {
+    "model": "Amazon Kindle 11",
+    "description": "[Condición: Nuevo] Tablet Amazon Kindle 11. Almacenamiento comercializado: 16GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "376": {
+    "model": "Black Shark Pad 7",
+    "description": "[Condición: Nuevo] Tablet con pantalla FHD+ de 11 pulgadas a 90 Hz y batería de 7.700 mAh.",
+    "source": "https://global.blackshark.com/products/black-shark-pad-7",
+    "status": "manufacturer-summary"
+  },
+  "377": {
+    "model": "Doogee Tab A9",
+    "description": "[Condición: Nuevo] Tablet DOOGEE Tab A9 con pantalla IPS HD de 11 pulgadas a 90 Hz, procesador UNISOC T7200 y batería de 8.580 mAh.",
+    "source": "https://www.doogee.cc/products/tab-a9-plus",
+    "status": "manufacturer-summary"
+  },
+  "378": {
+    "model": "Samsung Galaxy Tab A11+",
+    "description": "[Condición: Nuevo] Tablet con pantalla de 10,95 pulgadas, procesador de ocho núcleos y batería de 7.040 mAh.",
+    "source": "https://www.samsung.com/in/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x230nzaains/",
+    "status": "manufacturer-summary"
+  },
+  "379": {
+    "model": "Hotwav Tab R10 Pro",
+    "description": "[Condición: Nuevo] Tablet Hotwav Tab R10 Pro. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "380": {
+    "model": "Hotwav Tab R9 Pro Max",
+    "description": "[Condición: Nuevo] Tablet resistente 5G con pantalla de 11 pulgadas a 120 Hz y batería de 20.080 mAh. Incluye cámara de visión nocturna y luz de camping.",
+    "source": "https://www.hotwav.com/products/hotwav-r9-pro-max-rugged-tablet",
+    "status": "manufacturer-summary"
+  },
+  "381": {
+    "model": "Keen KN90",
+    "description": "[Condición: Nuevo] Tablet Keen KN90. Almacenamiento comercializado: 64GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "382": {
+    "model": "Lenovo Tab K9",
+    "description": "[Condición: Nuevo] Tablet Lenovo Tab K9. Almacenamiento comercializado: 64GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "383": {
+    "model": "POCO Pad C1",
+    "description": "[Condición: Nuevo] Tablet POCO con pantalla de 9,7 pulgadas para lectura, navegación y contenido multimedia.",
+    "source": "https://www.mi.com/sg/product/poco-pad-c1/",
+    "status": "manufacturer-summary"
+  },
+  "384": {
+    "model": "POCO Pad M1",
+    "description": "[Condición: Nuevo] Tablet POCO con pantalla de 12,1 pulgadas para contenido multimedia y trabajo con varias aplicaciones.",
+    "source": "https://www.mi.com/sg/product/poco-pad-m1/",
+    "status": "manufacturer-summary"
+  },
+  "385": {
+    "model": "POCO Pad X1",
+    "description": "[Condición: Nuevo] Tablet con pantalla 3,2K de 144 Hz y brillo máximo de 800 nits. Incluye procesador Snapdragon 7+ Gen 3.",
+    "source": "https://www.mi.com/sg/product/poco-pad-x1/",
+    "status": "manufacturer-summary"
+  },
+  "386": {
+    "model": "Redmi Pad 2",
+    "description": "[Condición: Nuevo] Tablet con pantalla 2,5K de 11 pulgadas y batería de 9.000 mAh.",
+    "source": "https://www.mi.com/es/product/redmi-pad-2/",
+    "status": "manufacturer-summary"
+  },
+  "387": {
+    "model": "Redmi Pad 2 4G LTE",
+    "description": "[Condición: Nuevo] Tablet Redmi Pad 2 con conectividad 4G y pantalla de 11 pulgadas.",
+    "source": "https://www.mi.com/sg/product/redmi-pad-2-4g/",
+    "status": "manufacturer-summary"
+  },
+  "388": {
+    "model": "Redmi Pad 2 Pro",
+    "description": "[Condición: Nuevo] Tablet con Snapdragon 7s Gen 4, pantalla 2,5K de 12,1 pulgadas a 120 Hz y batería de 12.000 mAh con carga de 33 W.",
+    "source": "https://www.mi.com/global/product/redmi-pad-2-pro/specs/",
+    "status": "manufacturer-summary"
+  },
+  "389": {
+    "model": "Samsung Galaxy Tab A11",
+    "description": "[Condición: Nuevo] Tablet Samsung con pantalla de 90 Hz, batería de 5.100 mAh y cámara frontal de 5 MP para videollamadas.",
+    "source": "https://www.samsung.com/in/tablets/galaxy-tab-a/galaxy-tab-a11-gray-128gb-sm-x133nzaeins/",
+    "status": "manufacturer-summary"
+  },
+  "390": {
+    "model": "Samsung Galaxy Tab S10 Lite",
+    "description": "[Condición: Nuevo] Tablet con pantalla de 10,9 pulgadas a 90 Hz y compatibilidad con S Pen para escritura, apuntes y dibujo.",
+    "source": "https://www.samsung.com/au/tablets/galaxy-tab-s/galaxy-tab-s10-lite-gray-128gb-sm-x400nzaaxsa/",
+    "status": "manufacturer-summary"
+  },
+  "391": {
+    "model": "Samsung Galaxy Tab S6 Lite",
+    "description": "[Condición: Nuevo] Tablet Samsung con pantalla de 10,4 pulgadas, batería de 7.040 mAh y compatibilidad con S Pen para escritura y dibujo.",
+    "source": "https://www.samsung.com/pt/tablets/galaxy-tab-s/galaxy-tab-s6-lite-blue-64gb-sm-p619nzbaphe/",
+    "status": "manufacturer-summary"
+  },
+  "392": {
+    "model": "Cidea CM78",
+    "description": "[Condición: Nuevo] Tablet educativa C Idea CM78 con pantalla de 7 pulgadas y Android 15, orientada al uso de estudiantes.",
+    "source": "https://www.cideatablet.com/sale-53789741-c-idea-7-inch-android-15-educational-smart-tablet-for-students-cm78-pink.html",
+    "status": "manufacturer-summary"
+  },
+  "393": {
+    "model": "Blackview Link 8",
+    "description": "[Condición: Nuevo] Tablet con pantalla de 12,7 pulgadas, procesador Helio G100 y batería de 8.400 mAh. Incluye soporte Widevine L1.",
+    "source": "https://store.blackview.hk/products/link-8-price",
+    "status": "manufacturer-summary"
+  },
+  "394": {
+    "model": "Blackview Tab 20 Kids",
+    "description": "[Condición: Nuevo] Tablet infantil con pantalla de 10,1 pulgadas y procesador UNISOC T310 de cuatro núcleos. Incorpora conectividad Wi-Fi.",
+    "source": "https://store.blackview.hk/products/tab20-kids-price",
+    "status": "manufacturer-summary"
+  },
+  "395": {
+    "model": "Blackview Tab 20 WiFi",
+    "description": "[Condición: Nuevo] Tablet Wi-Fi con pantalla de 10,1 pulgadas y batería de 6.600 mAh. Incluye soporte Widevine L1 para contenido compatible en alta definición.",
+    "source": "https://store.blackview.hk/products/tab-20-wifi-price",
+    "status": "manufacturer-summary"
+  },
+  "396": {
+    "model": "Blackview Tab 60 WiFi",
+    "description": "[Condición: Nuevo] Tablet con pantalla de 10,1 pulgadas, procesador AllWinner A523 de ocho núcleos y Wi-Fi 6. Incluye soporte Widevine L1.",
+    "source": "https://store.blackview.hk/products/tab60wifi-price",
+    "status": "manufacturer-summary"
+  },
+  "397": {
+    "model": "Cidea CM516",
+    "description": "[Condición: Nuevo] Tablet Cidea CM516. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "398": {
+    "model": "Cidea CM936",
+    "description": "[Condición: Nuevo] Tablet C Idea CM936 con pantalla de 9 pulgadas y Android 16.",
+    "source": "https://www.cideatablet.com/sale-54870498-c-idea-9-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm936.html",
+    "status": "manufacturer-summary"
+  },
+  "399": {
+    "model": "Cidea CM10000 Plus",
+    "description": "[Condición: Nuevo] Tablet Cidea CM10000 Plus. Almacenamiento comercializado: 1TB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "400": {
+    "model": "Cidea CM817 Air 5G",
+    "description": "[Condición: Nuevo] Tablet C Idea CM817 Air con pantalla de 8 pulgadas y Android 16.",
+    "source": "https://www.cideatablet.com/sale-54836543-c-idea-8-inch-android-16-tablet-8gb-ram-512gb-rom-model-cm817-air.html",
+    "status": "manufacturer-summary"
+  },
+  "401": {
+    "model": "Cidea CM824 Ultra 5G",
+    "description": "[Condición: Nuevo] Tablet C Idea CM824 Ultra con pantalla táctil de 8 pulgadas, Android 16, procesador de cuatro núcleos y dos cámaras.",
+    "source": "https://www.cideatablet.com/sale-55461137-c-idea-cm824-ultra-8-inch-android-16-business-tablet-quad-core-8gb-512gb-storage-fhd-touch-screen-du.html",
+    "status": "manufacturer-summary"
+  },
+  "402": {
+    "model": "Cidea CM86",
+    "description": "[Condición: Nuevo] Tablet Cidea CM86. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "403": {
+    "model": "Cidea CM88",
+    "description": "[Condición: Nuevo] Tablet infantil C Idea CM88 con pantalla HD y propuesta educativa.",
+    "source": "https://www.cideatablet.com/sale-47417846-c-idea-kids-tablet-2024-educational-fun-with-hd-display-and-protective-case-tablet-cm88.html",
+    "status": "manufacturer-summary"
+  },
+  "404": {
+    "model": "Cidea CM89",
+    "description": "[Condición: Nuevo] Tablet C Idea CM89 con pantalla de 7 pulgadas, Android 16, Wi-Fi y ranura para tarjeta de memoria.",
+    "source": "https://www.cideatablet.com/sale-54475245-c-idea-youth-7-inch-tablet-android-16-with-tf-card-slot-wifi-8gb-256gb-1024-600-cm89.html",
+    "status": "manufacturer-summary"
+  },
+  "405": {
+    "model": "Doogee T10W",
+    "description": "[Condición: Nuevo] Tablet con Android 16, pantalla IPS HD de 10,1 pulgadas y batería de 8.000 mAh. Incluye dos altavoces y certificación de baja luz azul TÜV.",
+    "source": "https://www.doogee.cc/products/doogee-t10w-a",
+    "status": "manufacturer-summary"
+  },
+  "406": {
+    "model": "Doogee Tab A9 Vip Edition",
+    "description": "[Condición: Nuevo] Tablet DOOGEE de diseño delgado con Android 15 y batería de 6.580 mAh.",
+    "source": "https://www.doogee.com/products/tab-a9",
+    "status": "manufacturer-summary"
+  },
+  "407": {
+    "model": "Doogee U11",
+    "description": "[Condición: Nuevo] Tablet con pantalla IPS de 11 pulgadas a 90 Hz y Android 15 para contenido multimedia y uso de aplicaciones.",
+    "source": "https://www.doogee.com/products/u11",
+    "status": "manufacturer-summary"
+  },
+  "408": {
+    "model": "Lenovo Idea Tab",
+    "description": "[Condición: Nuevo] Tablet Lenovo Idea Tab con pantalla de 11 pulgadas y funciones de inteligencia artificial orientadas al estudio.",
+    "source": "https://www.lenovo.com/ie/en/p/tablets/android-tablets/idea-tab-series/lenovo-idea-tab/zafr0384gb",
+    "status": "manufacturer-summary"
+  },
+  "409": {
+    "model": "MOX pro MO-TP1082",
+    "description": "[Condición: Nuevo] Tablet MOX pro MO-TP1082. Almacenamiento comercializado: 512GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "410": {
+    "model": "Oukitel RT3 Plus",
+    "description": "[Condición: Nuevo] Tablet resistente 4G con pantalla de 8 pulgadas, Android 15 y batería de 11.000 mAh. Incluye cámara principal de 16 MP y NFC.",
+    "source": "https://oukitel.com/products/oukitel-rt3-plus-4g-ruggedtablet-8-inch-11000mah-big-battery-16mp-camera-android-15-6gb-128gb-nfc",
+    "status": "manufacturer-summary"
+  },
+  "411": {
+    "model": "Atouch WE6 5G WiFi",
+    "description": "[Condición: Nuevo] Tablet Atouch WE6 5G WiFi. Almacenamiento comercializado: 256GB.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "412": {
+    "model": "Xiaomi Pad 7",
+    "description": "[Condición: Nuevo] Tablet con pantalla 3,2K de 144 Hz, brillo máximo de 800 nits y funciones Xiaomi HyperAI.",
+    "source": "https://www.mi.com/es/product/xiaomi-pad-7/",
+    "status": "manufacturer-summary"
+  },
+  "413": {
+    "model": "Xiaomi Pad 8",
+    "description": "[Condición: Nuevo] Tablet con procesador Snapdragon 8s Gen 4, Xiaomi HyperOS y funciones HyperAI para productividad y multitarea.",
+    "source": "https://www.mi.com/es/product/xiaomi-pad-8/",
+    "status": "manufacturer-summary"
+  },
+  "414": {
+    "model": "Xiaomi Pad 8 Pro",
+    "description": "[Condición: Nuevo] Tablet con Snapdragon 8 Elite y pantalla 3,2K de 144 Hz. Batería de 9.200 mAh, carga HyperCharge de 67 W y funciones de productividad de Xiaomi HyperOS.",
+    "source": "https://www.mi.com/es/product/xiaomi-pad-8-pro/",
+    "status": "manufacturer-summary"
+  },
+  "415": {
+    "model": "Xiaomi Pad Mini",
+    "description": "[Condición: Nuevo] Tablet Xiaomi Pad Mini con pantalla de 8,8 pulgadas en un formato compacto.",
+    "source": "https://www.mi.com/sg/product/xiaomi-pad-mini/",
+    "status": "manufacturer-summary"
+  },
+  "417": {
+    "model": "JBL Go 5",
+    "description": "[Condición: Nuevo] Parlante del tamaño de la palma de la mano con protección IP68 y luces ambientales. Hasta 10 horas de reproducción; AirTouch y Auracast permiten enlazar equipos compatibles.",
+    "source": "https://www.jbl.com.ar/GO-5.html?dwvar_GO-5_color=Blue-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "418": {
+    "model": "JBL PartyBox 720",
+    "description": "[Condición: Nuevo] Parlante para fiestas con protección IPX4, enlace Auracast y dos entradas XLR para micrófono, guitarra o consola. Su autonomía depende del paquete de baterías instalado.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-720.html?dwvar_PARTYBOX-720_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "419": {
+    "model": "JBL CINEMA SB510",
+    "description": "[Condición: Nuevo] Barra de sonido todo en uno de 3.1 canales con subwoofer integrado. Reproduce Dolby Audio en un formato discreto para acompañar el televisor.",
+    "source": "https://www.jbl.com.ar/CINEMA-SB510.html",
+    "status": "manufacturer-summary"
+  },
+  "420": {
+    "model": "JBL Boombox 3",
+    "description": "[Condición: Nuevo] Parlante portátil con JBL Original Pro Sound y subwoofer dedicado. Diseño con asa metálica y hasta 24 horas de reproducción.",
+    "source": "https://www.jbl.com.ar/BOOMBOX-3-.html?dwvar_BOOMBOX-3-_color=Squad-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "421": {
+    "model": "JBL Boombox 4",
+    "description": "[Condición: Nuevo] Parlante portátil con JBL Pro Sound y sistema de dos woofers, dos tweeters y radiadores pasivos. Cuenta con conexión Bluetooth y USB-C.",
+    "source": "https://www.jbl.com/BOOMBOX-4.html",
+    "status": "manufacturer-summary"
+  },
+  "422": {
+    "model": "JBL Charge 6",
+    "description": "[Condición: Nuevo] Parlante portátil con JBL Pro Sound y asa desmontable. Ofrece hasta 28 horas con Playtime Boost y permite enlazar parlantes compatibles mediante Auracast.",
+    "source": "https://id.jbl.com/CHARGE-6.html?dwvar_CHARGE-6_color=Purple-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "423": {
+    "model": "JBL Boombox 3 Wi-Fi",
+    "description": "[Condición: Nuevo] Parlante portátil con Wi-Fi y Bluetooth, audio de alta definición y Dolby Atmos. Ofrece hasta 24 horas de reproducción.",
+    "source": "https://www.jbl.com.ar/BOOMBOX-3-WIFI.html?dwvar_BOOMBOX-3-WIFI_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "424": {
+    "model": "JBL Flip 7",
+    "description": "[Condición: Nuevo] Parlante portátil con AI Sound Boost y protección IP68. Ofrece hasta 16 horas con Playtime Boost para llevar la música a distintas actividades.",
+    "source": "https://www.jbl.com.ar/FLIP-7.html?dwvar_FLIP-7_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "425": {
+    "model": "JBL Encore Essentials 2",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL AI Sound Boost, luces sincronizadas y asa de transporte. Incorpora protección IPX4 y enlace con equipos compatibles por Auracast.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-ENCORE-ESSENTIAL-2.html?dwvar_PARTYBOX-ENCORE-ESSENTIAL-2_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "426": {
+    "model": "JBL Go 4",
+    "description": "[Condición: Nuevo] Parlante Bluetooth compacto con JBL Pro Sound y resistencia al agua y al polvo. Hasta 7 horas de reproducción.",
+    "source": "https://id.jbl.com/GO-4.html?dwvar_GO-4_color=White-GLOBAL-Current",
+    "status": "manufacturer-summary"
+  },
+  "427": {
+    "model": "JBL Grip",
+    "description": "[Condición: Nuevo] Parlante portátil con iluminación ambiental trasera y protección IP68. Ofrece hasta 14 horas de reproducción con Playtime Boost.",
+    "source": "https://www.jbl.com.ar/GRIP-1.html?dwvar_GRIP-1_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "428": {
+    "model": "JBL PartyBox 120",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL Pro Sound y graves profundos. Su espectáculo de luces y efectos estroboscópicos se sincroniza con la música.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-CLUB-120.html?dwvar_PARTYBOX-CLUB-120_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "429": {
+    "model": "JBL PartyBox 130",
+    "description": "[Condición: Nuevo] Parlante para fiestas con AI Sound Boost y luces sincronizadas. Incluye asa plegable y hasta 15 horas de reproducción.",
+    "source": "https://id.jbl.com/PARTYBOX-130.html?dwvar_PARTYBOX-130_color=White-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "430": {
+    "model": "JBL PartyBox 320",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL Pro Sound, luces sincronizadas y hasta 18 horas de reproducción. Su asa telescópica y ruedas facilitan el traslado.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-STAGE-320.html?dwvar_PARTYBOX-STAGE-320_color=White-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "431": {
+    "model": "JBL PartyBox 330",
+    "description": "[Condición: Nuevo] Parlante para fiestas con AI Sound Boost y luces sincronizadas. Hasta 18 horas de reproducción, asa telescópica y ruedas para transporte.",
+    "source": "https://id.jbl.com/PARTYBOX-330.html?dwvar_PARTYBOX-330_color=White-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "432": {
+    "model": "JBL PartyBox 520",
+    "description": "[Condición: Nuevo] Parlante para fiestas con luces sincronizadas, asa y ruedas anchas. Ofrece hasta 15 horas de reproducción y un diseño resistente a salpicaduras.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-520.html?dwvar_PARTYBOX-520_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "433": {
+    "model": "JBL PartyBox 710",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL Original Pro Sound y espectáculo de luces dinámicas que se sincroniza con la música.",
+    "source": "https://ca.jbl.com/en_CA/PARTYBOX-710-.html",
+    "status": "manufacturer-summary"
+  },
+  "434": {
+    "model": "JBL PartyBox On the Go 2",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL Pro Sound, luces sincronizadas y hasta 15 horas de reproducción. Su formato incluye correa para llevarlo al hombro.",
+    "source": "https://id.jbl.com/PARTYBOX-ON-THE-GO-2.html?dwvar_PARTYBOX-ON-THE-GO-2_color=Black-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "435": {
+    "model": "JBL PartyBox Encore",
+    "description": "[Condición: Nuevo] Parlante portátil para fiestas con 100 W de potencia y luces dinámicas. Incorpora soporte para micrófonos inalámbricos y diseño resistente a salpicaduras.",
+    "source": "https://www.jbl.com/PARTYBOX-ENCORE-.html",
+    "status": "manufacturer-summary"
+  },
+  "436": {
+    "model": "JBL PartyBox Encore 2",
+    "description": "[Condición: Nuevo] Parlante para fiestas con AI Sound Boost, luces sincronizadas y hasta 15 horas de reproducción. Protección IPX4 y enlace Auracast con equipos compatibles.",
+    "source": "https://www.jbl.com.ar/PARTYBOX-ENCORE-2-2-MIC.html?dwvar_PARTYBOX-ENCORE-2-2-MIC_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "437": {
+    "model": "JBL PartyBox Encore 2 Plus",
+    "description": "[Condición: Nuevo] Parlante para fiestas con JBL Pro Sound, AI Sound Boost y luces sincronizadas. Incorpora EasySing para funciones de karaoke y protección IPX4.",
+    "source": "https://id.jbl.com/PARTYBOX-ENCORE-2-PLUS.html?dwvar_PARTYBOX-ENCORE-2-PLUS_color=Black-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "438": {
+    "model": "JBL PartyBox On the Go 2 Plus",
+    "description": "[Condición: Nuevo] Parlante portátil para fiestas con JBL Pro Sound, luces sincronizadas y funciones EasySing para karaoke.",
+    "source": "https://ca.jbl.com/en_CA/PARTYBOX-ON-THE-GO-2-PLUS.html?dwvar_PARTYBOX-ON-THE-GO-2-PLUS_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "439": {
+    "model": "JBL PartyBox On the Go Essential",
+    "description": "[Condición: Nuevo] Parlante portátil para fiestas con JBL Pro Sound, luces sincronizadas y batería recargable. Incluye correa de transporte y entradas para micrófono y guitarra.",
+    "source": "https://ca.jbl.com/en_CA/PARTYBOX-ON-THE-GO-ESSENTIAL.html",
+    "status": "manufacturer-summary"
+  },
+  "440": {
+    "model": "JBL Bar 500 MK2",
+    "description": "[Condición: Nuevo] Barra de sonido con Dolby Atmos, DTS Virtual:X y subwoofer inalámbrico de 250 mm para sonido envolvente en casa.",
+    "source": "https://www.jbl.com.ar/BAR-500MK2.html?dwvar_BAR-500MK2_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "441": {
+    "model": "JBL Bar 800 MK2",
+    "description": "[Condición: Nuevo] Barra de sonido con Dolby Atmos, DTS Virtual:X y subwoofer de 250 mm. Sus altavoces inalámbricos permiten adaptar la reproducción al ambiente.",
+    "source": "https://www.jbl.com.ar/BAR-800MK2.html?dwvar_BAR-800MK2_color=Black-AM-Current",
+    "status": "manufacturer-summary"
+  },
+  "442": {
+    "model": "JBL Xtreme 4",
+    "description": "[Condición: Nuevo] Parlante portátil con JBL Pro Sound, dos woofers, dos tweeters y radiadores pasivos. Incorpora protección IP67 contra agua y polvo.",
+    "source": "https://id.jbl.com/XTREME-4.html?dwvar_XTREME-4_color=Blue-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "443": {
+    "model": "JBL Xtreme 5",
+    "description": "[Condición: Nuevo] Parlante portátil con AI Sound Boost, iluminación ambiental y protección IP68. Ofrece hasta 28 horas de reproducción y enlace Auracast con equipos compatibles.",
+    "source": "https://id.jbl.com/XTREME-5.html?dwvar_XTREME-5_color=Squad-APAC-Current",
+    "status": "manufacturer-summary"
+  },
+  "450": {
+    "model": "Audisat X10",
+    "description": "[Condición: Nuevo] Parlante Audisat X10.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "451": {
+    "model": "Audisat X5 Play",
+    "description": "[Condición: Nuevo] Parlante Audisat X5 Play.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "452": {
+    "model": "Audisat X5 Power",
+    "description": "[Condición: Nuevo] Parlante Audisat X5 Power.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "453": {
+    "model": "Audisat X80 Plus",
+    "description": "[Condición: Nuevo] Parlante Audisat X80 Plus.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "454": {
+    "model": "Audisat X88 Boom",
+    "description": "[Condición: Nuevo] Parlante Audisat X88 Boom.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "469": {
+    "model": "Xiaomi Mi Compact Bluetooth Speaker 2",
+    "description": "[Condición: Nuevo] Parlante Bluetooth de formato compacto Xiaomi Mi Compact Bluetooth Speaker 2, diseñado para llevar audio inalámbrico en un equipo pequeño.",
+    "source": "https://www.mi.com/uk/mi-compact-bluetooth-speaker-2/specs/",
+    "status": "manufacturer-summary"
+  },
+  "470": {
+    "model": "Amazfit Active 3 Premium",
+    "description": "[Condición: Nuevo] Reloj inteligente con pantalla AMOLED de 1,32 pulgadas y cristal de zafiro. Registra datos de entrenamiento y recuperación.",
+    "source": "https://us.amazfit.com/products/active-3-premium",
+    "status": "manufacturer-summary"
+  },
+  "471": {
+    "model": "Amazfit Bip Max",
+    "description": "[Condición: Nuevo] Reloj inteligente compatible con iOS y Android, con pantalla AMOLED de 2 pulgadas y GPS. Ofrece hasta 20 días de autonomía según el uso.",
+    "source": "https://us.amazfit.com/products/bip-max",
+    "status": "manufacturer-summary"
+  },
+  "472": {
+    "model": "Apple Watch Series 10",
+    "description": "[Condición: Nuevo] Apple Watch Series 10 combina seguimiento de actividad y entrenamientos con pantalla de mayor superficie en un diseño delgado.",
+    "source": "https://www.apple.com/shop/product/fwwu3lw/a/refurbished-apple-watch-series-10-gps-46mm-rose-gold-aluminum-case-with-m-l-light-blush-sport-band",
+    "status": "manufacturer-summary"
+  },
+  "473": {
+    "model": "Apple Watch SE 3",
+    "description": "[Condición: Nuevo] Reloj Apple Watch SE 3 con pantalla siempre activa para consultar hora y notificaciones. Incorpora seguimiento de actividad y entrenamientos.",
+    "source": "https://www.apple.com/ie/apple-watch-se-3/specs/",
+    "status": "manufacturer-summary"
+  },
+  "474": {
+    "model": "Apple Watch SE 2",
+    "description": "[Condición: Nuevo] Reloj Apple Watch SE de segunda generación con chip S8, pantalla Retina LTPO OLED y sensor óptico de frecuencia cardíaca. Incluye seguimiento del sueño y actividad.",
+    "source": "https://support.apple.com/en-us/111853",
+    "status": "manufacturer-summary"
+  },
+  "475": {
+    "model": "Apple Watch Series 11",
+    "description": "[Condición: Nuevo] Apple Watch Series 11 con seguimiento de entrenamientos y actividad. Su pantalla siempre activa permite consultar información sin levantar la muñeca.",
+    "source": "https://support.apple.com/de-de/125093",
+    "status": "manufacturer-summary"
+  },
+  "476": {
+    "model": "Black Shark GS3 Sport",
+    "description": "[Condición: Nuevo] Reloj deportivo resistente con GPS, pantalla AMOLED y resistencia al agua de 50 metros. Incluye seguimiento de actividad y datos de bienestar.",
+    "source": "https://global.blackshark.com/products/black-shark-gs3-sport",
+    "status": "manufacturer-summary"
+  },
+  "477": {
+    "model": "Black Shark GS3 Ultra",
+    "description": "[Condición: Nuevo] Reloj deportivo con pantalla AMOLED de 1,43 pulgadas, GPS de doble banda y resistencia al agua de 50 metros. Hasta 18 días de autonomía según el uso.",
+    "source": "https://global.blackshark.com/products/black-shark-gs3-ultra",
+    "status": "manufacturer-summary"
+  },
+  "478": {
+    "model": "Blackview W50 Pro",
+    "description": "[Condición: Nuevo] Reloj resistente con pantalla de 1,45 pulgadas, protección IP68 y linterna LED integrada para actividades al aire libre.",
+    "source": "https://www.blackview.it/products/blackview-w50-pro-orologio-intelligente-robusto-con-torcia-led-impermeabile-ip68-da-1-45",
+    "status": "manufacturer-summary"
+  },
+  "479": {
+    "model": "Apple Watch Ultra 3",
+    "description": "[Condición: Nuevo] Apple Watch Ultra 3 con pantalla siempre activa para consultar hora, notificaciones y datos de entrenamiento sin levantar la muñeca.",
+    "source": "https://support.apple.com/en-gb/105074",
+    "status": "manufacturer-summary"
+  },
+  "480": {
+    "model": "Blackview W70 Pro",
+    "description": "[Condición: Nuevo] Reloj deportivo con pantalla de 2,01 pulgadas, batería de 900 mAh y linterna LED integrada.",
+    "source": "https://store.blackview.hk/products/w70-pro-price",
+    "status": "manufacturer-summary"
+  },
+  "481": {
+    "model": "Blackview X30",
+    "description": "[Condición: Nuevo] Reloj inteligente de pantalla circular de 1,26 pulgadas. Incluye llamadas Bluetooth, seguimiento del sueño y asistente de voz.",
+    "source": "https://www.blackview.it/products/blackview-x30-smartwatch-sportivo-da-donna-con-schermo-rotondo-da-1-26-per-fitness-e-sport",
+    "status": "manufacturer-summary"
+  },
+  "482": {
+    "model": "Samsung Galaxy Watch 7",
+    "description": "[Condición: Nuevo] Reloj inteligente Galaxy Watch7 con procesador Exynos W1000 de cinco núcleos, fabricado en 3 nm, y Wear OS Powered by Samsung.",
+    "source": "https://images.samsung.com/is/content/samsung/assets/global/ir/docs/2024_4Q_Interim_Report.pdf",
+    "status": "manufacturer-summary"
+  },
+  "483": {
+    "model": "Samsung Galaxy Watch 9",
+    "description": "[Condición: Nuevo] Reloj inteligente con seguimiento de actividad, sueño y recuperación. Incorpora plataforma Snapdragon Wear Elite.",
+    "source": "https://www.samsung.com/uk/watches/galaxy-watch/galaxy-watch9-40mm-cream-bluetooth-sm-l340nzedweu/",
+    "status": "manufacturer-summary"
+  },
+  "484": {
+    "model": "Samsung Galaxy Fit3",
+    "description": "[Condición: Nuevo] Pulsera inteligente con pantalla AMOLED de 1,6 pulgadas. Registra más de 100 tipos de entrenamiento, actividad diaria y sueño.",
+    "source": "https://www.samsung.com/sg/watches/galaxy-fit/galaxy-fit3-silver-ble-sm-r390nzsaasa/",
+    "status": "manufacturer-summary"
+  },
+  "485": {
+    "model": "Samsung Galaxy Watch Ultra",
+    "description": "[Condición: Nuevo] Reloj deportivo con seguimiento multideporte y sensor BioActive. Su diseño admite resistencia al agua de 10 ATM y distintos modos de ahorro de batería.",
+    "source": "https://www.samsung.com/ae/watches/galaxy-watch/galaxy-watch-ultra-titanium-gray-lte-sm-l705fdaaxsg/",
+    "status": "manufacturer-summary"
+  },
+  "486": {
+    "model": "Garmin Forerunner 165 Music",
+    "description": "[Condición: Nuevo] Reloj para corredores con GPS y pantalla AMOLED. La edición Music permite almacenar y reproducir música desde el reloj con auriculares compatibles.",
+    "source": "https://static.garmin.com/pumac/forerunner165series_OM_EN-HK.pdf",
+    "status": "manufacturer-summary"
+  },
+  "487": {
+    "model": "Garmin Forerunner 255",
+    "description": "[Condición: Nuevo] Reloj deportivo Forerunner 255 con pantalla MIP visible a la luz solar para seguir datos de entrenamiento y actividad.",
+    "source": "https://www.garmin.com/en-GB/compare/?compareProduct=1057989&compareProduct=1611937&compareProduct=780196&compareProduct=801487&compareProduct=854515",
+    "status": "manufacturer-summary"
+  },
+  "488": {
+    "model": "Garmin Forerunner 55",
+    "description": "[Condición: Nuevo] Reloj deportivo con GPS para registrar entrenamientos y recorridos. Ofrece hasta dos semanas en modo reloj y hasta 20 horas en modo GPS.",
+    "source": "https://www.garmin.com.sg/products/wearables/forerunner-55-black/",
+    "status": "manufacturer-summary"
+  },
+  "489": {
+    "model": "Garmin Vivoactive 5",
+    "description": "[Condición: Nuevo] Reloj inteligente deportivo con pantalla AMOLED, seguimiento de actividad y sincronización con Garmin Connect.",
+    "source": "https://static.garmin.com/pumac/vivoactive5_OM_VI-VN.pdf",
+    "status": "manufacturer-summary"
+  },
+  "490": {
+    "model": "Haylou Vibe Smart Watch",
+    "description": "[Condición: Nuevo] Reloj inteligente con pantalla AMOLED de 60 Hz, más de 100 modos deportivos y asistente de voz.",
+    "source": "https://haylou.com/products/haylou-vibe",
+    "status": "manufacturer-summary"
+  },
+  "491": {
+    "model": "Itel Fit 020",
+    "description": "[Condición: Nuevo] Reloj inteligente Itel Fit 020.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "492": {
+    "model": "Mibro Watch C4",
+    "description": "[Condición: Nuevo] Reloj inteligente de pantalla grande con llamadas Bluetooth y más de 100 modos deportivos. Permite personalizar la esfera entre más de 200 diseños.",
+    "source": "https://www.mibrofit.com/products/mibro-watch-c4",
+    "status": "manufacturer-summary"
+  },
+  "493": {
+    "model": "Mibro Watch GS Active 2",
+    "description": "[Condición: Nuevo] Reloj deportivo con GNSS de doble frecuencia y diseño de 39,9 gramos para registrar carreras y entrenamientos.",
+    "source": "https://www.mibrofit.com/products/mibro-gs-active2",
+    "status": "manufacturer-summary"
+  },
+  "494": {
+    "model": "Mibro Watch GS Explorer",
+    "description": "[Condición: Nuevo] Reloj resistente con cuerpo de titanio, posicionamiento GPS y resistencia al agua de 10 ATM, orientado a actividades al aire libre.",
+    "source": "https://www.mibrofit.com/products/mibro-gs-explorer-s-ti-premium",
+    "status": "manufacturer-summary"
+  },
+  "495": {
+    "model": "Mibro Watch GS Pro",
+    "description": "[Condición: Nuevo] Reloj inteligente con caja de acero inoxidable. Incluye llamadas Bluetooth y seguimiento de actividad y bienestar.",
+    "source": "https://www.mibrofit.com/products/mibro-watch-gs-pro",
+    "status": "manufacturer-summary"
+  },
+  "496": {
+    "model": "Mibro Watch GS Pro 2",
+    "description": "[Condición: Nuevo] Reloj deportivo con sensor de seis ejes, GNSS de doble frecuencia y resistencia al agua de 5 ATM, con funciones para pádel y otros deportes.",
+    "source": "https://www.mibrofit.com/products/mibro-gs-pro2",
+    "status": "manufacturer-summary"
+  },
+  "497": {
+    "model": "Mibro Watch GT",
+    "description": "[Condición: Nuevo] Reloj inteligente con cuerpo de acero inoxidable, más de 150 modos deportivos y asistente de inteligencia artificial.",
+    "source": "https://www.mibrofit.com/products/mibro-gt",
+    "status": "manufacturer-summary"
+  },
+  "498": {
+    "model": "Mibro Watch Lite 3",
+    "description": "[Condición: Nuevo] Reloj inteligente con pantalla HD y seguimiento de actividad física y bienestar.",
+    "source": "https://www.mibrofit.com/products/mibro-watch-lite3",
+    "status": "manufacturer-summary"
+  },
+  "499": {
+    "model": "Mibro Watch Lite 3 Pro",
+    "description": "[Condición: Nuevo] Reloj inteligente con seguimiento de bienestar durante el día y funciones para más de 150 tipos de entrenamiento.",
+    "source": "https://www.mibrofit.com/products/mibro-watch-lite3-pro",
+    "status": "manufacturer-summary"
+  },
+  "500": {
+    "model": "Redmi Watch 5 Active",
+    "description": "[Condición: Nuevo] Reloj inteligente Redmi con pantalla LCD de 2 pulgadas.",
+    "source": "https://www.mi.com/es/product/redmi-watch-5-active/",
+    "status": "manufacturer-summary"
+  },
+  "501": {
+    "model": "Redmi Watch 5 Lite",
+    "description": "[Condición: Nuevo] Reloj inteligente Redmi con pantalla AMOLED de 1,96 pulgadas.",
+    "source": "https://www.mi.com/es/product/redmi-watch-5-lite/",
+    "status": "manufacturer-summary"
+  },
+  "502": {
+    "model": "Redmi Watch 6",
+    "description": "[Condición: Nuevo] Reloj inteligente Redmi con pantalla AMOLED de 2,07 pulgadas.",
+    "source": "https://www.mi.com/es/product/redmi-watch-6/",
+    "status": "manufacturer-summary"
+  },
+  "503": {
+    "model": "Redmi Watch 6 Active",
+    "description": "[Condición: Nuevo] Reloj inteligente Redmi con pantalla AMOLED de 1,85 pulgadas.",
+    "source": "https://www.mi.com/es/product/redmi-watch-6-active/",
+    "status": "manufacturer-summary"
+  },
+  "504": {
+    "model": "Redmi Watch 6 Lite",
+    "description": "[Condición: Nuevo] Reloj inteligente Redmi con pantalla AMOLED de 1,96 pulgadas.",
+    "source": "https://www.mi.com/es/product/redmi-watch-6-lite/",
+    "status": "manufacturer-summary"
+  },
+  "505": {
+    "model": "Blackview W90 Pro",
+    "description": "[Condición: Nuevo] Reloj inteligente Blackview W90 Pro con conexión Bluetooth para vincularlo con el celular y utilizar funciones de audio y llamadas.",
+    "source": "https://support.blackview.hk/faq/638",
+    "status": "manufacturer-summary"
+  },
+  "506": {
+    "model": "G-Tide R5 Lite",
+    "description": "[Condición: Nuevo] Reloj inteligente con pantalla IPS de 1,39 pulgadas, llamadas inalámbricas y protección IP68. Incluye batería de 300 mAh y control de música y notificaciones.",
+    "source": "https://www.g-tide.com/product/265.html",
+    "status": "manufacturer-summary"
+  },
+  "507": {
+    "model": "G-Tide R6 Pro",
+    "description": "[Condición: Nuevo] Reloj inteligente con GPS, brújula y funciones de llamadas inalámbricas. Incluye control de música, notificaciones y seguimiento de actividad.",
+    "source": "https://www.g-tide.com/product/266.html",
+    "status": "manufacturer-summary"
+  },
+  "508": {
+    "model": "G-Tide Power",
+    "description": "[Condición: Nuevo] Reloj inteligente con pantalla AMOLED de 1,43 pulgadas, llamadas inalámbricas y protección IP68. Incluye control de música y notificaciones del celular.",
+    "source": "https://www.g-tide.com/product/228.html",
+    "status": "manufacturer-summary"
+  },
+  "509": {
+    "model": "Mibro Watch Fit",
+    "description": "[Condición: Nuevo] Reloj inteligente de diseño delgado con asistente de inteligencia artificial, esferas personalizables y recordatorios de agenda.",
+    "source": "https://www.mibrofit.com/products/fit",
+    "status": "manufacturer-summary"
+  },
+  "510": {
+    "model": "Blulory RTS",
+    "description": "[Condición: Nuevo] Reloj inteligente Blulory RTS.",
+    "source": null,
+    "status": "supplier-configuration"
+  },
+  "511": {
+    "model": "Xiaomi Smart Band 10",
+    "description": "[Condición: Nuevo] Pulsera inteligente Xiaomi con pantalla AMOLED de 1,72 pulgadas.",
+    "source": "https://www.mi.com/es/product/xiaomi-smart-band-10/",
+    "status": "manufacturer-summary"
+  },
+  "512": {
+    "model": "Xiaomi Smart Band 11 Active",
+    "description": "[Condición: Nuevo] Pulsera inteligente con seguimiento de frecuencia cardíaca, SpO₂, sueño y estrés, y un acabado de aspecto metálico.",
+    "source": "https://www.mi.com/es/product/xiaomi-smart-band-11-active/",
+    "status": "manufacturer-summary"
+  },
+  "513": {
+    "model": "Xiaomi Watch 2",
+    "description": "[Condición: Nuevo] Reloj inteligente con Wear OS by Google y procesador Snapdragon W5+ Gen 1. Incorpora 32 GB de almacenamiento y hasta 65 horas de autonomía.",
+    "source": "https://www.mi.com/es/product/xiaomi-watch-2/",
+    "status": "manufacturer-summary"
+  },
+  "514": {
+    "model": "Xiaomi Watch S4",
+    "description": "[Condición: Nuevo] Reloj inteligente Xiaomi con pantalla AMOLED de 1,43 pulgadas.",
+    "source": "https://www.mi.com/es/product/xiaomi-watch-s4/",
+    "status": "manufacturer-summary"
+  },
+  "515": {
+    "model": "Xiaomi Watch S5",
+    "description": "[Condición: Nuevo] Reloj inteligente Xiaomi Watch S5 de 46 mm con pantalla de 1,48 pulgadas.",
+    "source": "https://www.mi.com/es/product/xiaomi-watch-s5-46mm/",
+    "status": "manufacturer-summary"
+  },
+  "519": {
+    "model": "PICO 4",
+    "description": "[Condición: Nuevo] Visor de realidad virtual autónomo con resolución de 2.160 × 2.160 píxeles por ojo. Su diseño incorpora lentes pancake y sistema PICO OS.",
+    "source": "https://www.picoxr.com/fr/products/pico4/specs",
+    "status": "manufacturer-summary"
+  },
+  "520": {
+    "model": "Meta Quest 3S",
+    "description": "[Condición: Nuevo] Visor autónomo de realidad virtual y mixta. Permite ver el entorno real a color y combinarlo con experiencias digitales mediante Meta Horizon OS.",
+    "source": "https://developers.meta.com/vr/essentials/horizon-os-passthrough/",
+    "status": "manufacturer-summary"
+  },
+  "521": {
+    "model": "Nintendo Switch 2",
+    "description": "[Condición: Nuevo] Consola Nintendo Switch 2 para jugar en casa o en modo portátil. Permite continuar la experiencia de juego al cambiar entre ambos modos.",
+    "source": "https://www.nintendo.com/us/store/products/nintendo-switch-2-system-123669/",
+    "status": "manufacturer-summary"
+  },
+  "522": {
+    "model": "Nintendo Switch Lite",
+    "description": "[Condición: Nuevo] Consola Nintendo Switch Lite de formato compacto, diseñada para jugar en modo portátil a títulos compatibles de Nintendo Switch.",
+    "source": "https://www.nintendo.com/us/store/products/nintendo-switch-lite-coral/",
+    "status": "manufacturer-summary"
+  },
+  "523": {
+    "model": "Nintendo Switch OLED",
+    "description": "[Condición: Nuevo] Consola Nintendo Switch OLED con pantalla OLED para jugar en modo portátil y compatibilidad con modo televisor mediante su base.",
+    "source": "https://www.nintendo.com/us/store/products/nintendo-switch-oled-model-white-set/",
+    "status": "manufacturer-summary"
+  },
+  "524": {
+    "model": "Sony PlayStation 5",
+    "description": "[Condición: Nuevo] Consola PlayStation 5 con SSD de alta velocidad, ray tracing en juegos compatibles y audio 3D. La edición Digital utiliza juegos descargados; la edición con lector permite discos compatibles.",
+    "source": "https://www.playstation.com/en-us/ps5/ps5-features/",
+    "status": "manufacturer-summary"
+  },
+  "525": {
+    "model": "Xbox One X",
+    "description": "[Condición: Nuevo] Consola Xbox One X con 1 TB de almacenamiento, 12 GB de memoria GDDR5 y lector Blu-ray UHD 4K. Incorpora soporte HDR10.",
+    "source": "https://news.xbox.com/wp-content/uploads/sites/2/Xbox_One_Spec_Sheet.pdf",
+    "status": "manufacturer-summary"
+  }
+}
