@@ -7,9 +7,6 @@
         const price = Number(container.dataset.price);
         const anchor = container.querySelector('#dynamic-price, .card-price');
         if (!anchor || !Number.isFinite(price)) return;
-        let reference = container.querySelector('.price-reference');
-        if (!reference) { reference=document.createElement('small'); reference.className='price-reference'; anchor.insertAdjacentElement('afterend',reference); }
-        setText(reference, `${usd(price)} · ARS por unidad`);
         if (!container.classList.contains('product-details')) return;
         const volume = document.getElementById('product-volume-prices');
         if (volume) setText(volume, business.eligible({category:container.dataset.category})

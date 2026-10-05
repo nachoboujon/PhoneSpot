@@ -295,7 +295,7 @@ header {
     top: 0;
     z-index: 10000;
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    transition: padding .28s ease, box-shadow .28s ease, background-color .28s ease;
+    transition: box-shadow .28s ease, background-color .28s ease;
 }
 
 header.is-scrolled {
@@ -429,7 +429,15 @@ nav a.is-current::after {
 .header-icons a {
     color: #000000;
     font-size: 1.2rem;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
     transition: transform 0.3s;
+}
+
+.header-icons a:focus-visible {
+    outline: 2px solid #202428;
+    outline-offset: 4px;
+    border-radius: 4px;
 }
 
 .header-icons a:hover {
@@ -1011,6 +1019,25 @@ details[open] {
 
 /* ==================== HAMBURGER MENU ==================== */
 .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: #000; border: 0; background: transparent; }
+header .menu-toggle,
+header .menu-toggle:hover,
+header .menu-toggle:active {
+    padding: 0;
+    background: transparent;
+    color: #111 !important;
+    box-shadow: none;
+    transform: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .15s ease, color .15s ease;
+}
+header .menu-toggle[aria-expanded="true"] {
+    background: #202428;
+    color: #fff !important;
+}
+header .menu-toggle:focus-visible {
+    outline: 2px solid #202428;
+    outline-offset: 3px;
+}
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
@@ -1024,10 +1051,6 @@ details[open] {
         color: #111;
         transition: background 0.2s, transform 0.1s;
         -webkit-tap-highlight-color: transparent;
-    }
-    .menu-toggle:active {
-        background: #f0f0f2;
-        transform: scale(0.95);
     }
     nav { position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100dvh - 80px); background: #fff; flex-direction: column; transition: left 0.3s ease; z-index: 999; border-top: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     nav.active { left: 0; }
