@@ -27,6 +27,25 @@
 .admin-page .admin-list-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin: 1rem 0; }
 .admin-page .admin-list-tools input { flex: 1; min-width: 180px; }
 .admin-page .admin-list-tools span { color: #59646f; font-size: .85rem; }
+.admin-page .traffic-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+.admin-page .traffic-heading h4 { margin: 0 0 .35rem; padding: 0; border: 0; }
+.admin-page .traffic-heading p, .admin-page .traffic-note { color: #59646f; line-height: 1.6; font-size: .9rem; }
+.admin-page .traffic-total { margin-bottom: 1.5rem; font-size: 1rem; }
+.admin-page .traffic-total strong { font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.admin-page .traffic-devices { display: grid; gap: 1.25rem; list-style: none; padding: 0; margin-bottom: 1.5rem; }
+.admin-page .traffic-devices li { display: grid; grid-template-columns: minmax(0, 1fr) auto 4rem; align-items: center; gap: .5rem 1rem; }
+.admin-page .traffic-devices li[hidden], .admin-page #traffic-data[hidden] { display: none; }
+.admin-page .traffic-devices [data-count], .admin-page .traffic-devices [data-share] { text-align: right; font-variant-numeric: tabular-nums; }
+.admin-page .traffic-devices [data-share] { color: #59646f; }
+.admin-page .traffic-bar { grid-column: 1 / -1; height: 8px; background: #e5e9ed; border-radius: 4px; overflow: hidden; }
+.admin-page .traffic-bar span { display: block; width: 0; height: 100%; background: #202428; }
+.admin-page .traffic-note + .traffic-note { margin-top: .5rem; }
+.admin-page #traffic-status { color: #59646f; margin-bottom: 1rem; line-height: 1.5; }
+@media (max-width: 480px) {
+    .admin-page .traffic-heading { flex-direction: column; }
+    .admin-page .traffic-heading button { width: 100%; }
+    .admin-page .traffic-devices li { grid-template-columns: minmax(0, 1fr) auto 3.5rem; gap: .5rem; }
+}
 @media (max-width: 768px) {
     .admin-page .admin-layout { flex-direction: column; }
     .admin-page .admin-sidebar { position: static; width: 100%; height: auto; padding: 1rem; }

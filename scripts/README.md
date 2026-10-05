@@ -5,6 +5,8 @@
 
 Para comprobaciones seguras de sintaxis usá `npm test` desde la raíz.
 
+`npm run test:device-analytics` y `npm run test:device-analytics-ui` verifican el panel privado de visitas con fixtures. Ver `../docs/device-analytics.md` para la definición de visita y la clasificación de dispositivos.
+
 Las pruebas aisladas de recordatorios están documentadas en `../docs/cart-reminders.md`: `test:cart-reminders`, `test:cart-reminders-sql` y `test:cart-reminders-ui`. No envían correos ni escriben en Supabase.
 
 ## Auditoría local

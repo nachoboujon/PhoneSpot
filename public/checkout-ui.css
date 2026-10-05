@@ -16,6 +16,8 @@
 .checkout-page #btn-prev-step { min-width: 44px; min-height: 44px; }
 .checkout-page #btn-confirm-pay:disabled { cursor: progress; opacity: .7; }
 .checkout-page .cart-summary { align-self: start; }
+.checkout-page .checkout-coupon input { min-width: 0; width: 100%; }
+.checkout-page .checkout-coupon button { flex: 0 0 auto; }
 .checkout-flow .social-dock { display: none; }
 .checkout-page #checkout-review-title:focus { outline: none; }
 .checkout-page #checkout-review-title { margin: 1.2rem 0 .6rem; font-size: 1.3rem; }

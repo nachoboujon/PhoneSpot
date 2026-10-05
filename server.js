@@ -14,6 +14,7 @@ const {normalizeProductImages} = require('./lib/product-images');
 const business = require('./public/store-business');
 const {productSeo} = require('./lib/product-seo');
 const {reminderAudience, createCartReminderRunner} = require('./lib/cart-reminders');
+const {classifyDevice,deviceVisits} = require('./lib/site-analytics');
 require('dotenv').config();
 
 const app = express();
@@ -955,6 +956,9 @@ app.post('/api/events', async (req, res) => {
             ? { query_length: Math.max(0, Math.min(100, Math.floor(req.body.query_length))) }
             : {};
         if (eventType === 'web_vital' && ['LCP','INP','CLS'].includes(req.body.metric) && Number.isFinite(req.body.value)) metadata={metric:req.body.metric,value:Math.max(0,Math.min(60000,req.body.value)),device:req.body.device==='mobile'?'mobile':'desktop'};
+        if(eventType==='page_view') {
+            metadata={device_type:classifyDevice(req.get('user-agent'),req.body.device_type),visit_start:req.body.visit_start===true};
+        }
         const { error } = await supabase.from('site_events').insert([{
             event_type: eventType,
             product_id: productId,
@@ -1561,6 +1565,7 @@ app.get('/api/orders', authenticate, isAdmin, async (req, res) => {
 app.get('/api/admin/analytics', authenticate, isAdmin, async (_req, res) => {
     try {
         const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+        const visits=await deviceVisits(supabase,since);
         const [{ count: views, error: viewsError }, { count: carts, error: cartsError }, { count: checkouts, error: checkoutsError }, { data: products, error: productsError }] = await Promise.all([
             supabase.from('site_events').select('*', { count: 'exact', head: true }).eq('event_type', 'page_view').gte('created_at', since),
             supabase.from('site_events').select('*', { count: 'exact', head: true }).eq('event_type', 'add_to_cart').gte('created_at', since),
@@ -1584,7 +1589,7 @@ app.get('/api/admin/analytics', authenticate, isAdmin, async (_req, res) => {
                 performance[device][metric]={samples:values.length,p75:values.length ? values[Math.max(0,Math.ceil(values.length*.75)-1)]:null};
             }
         }
-        res.json({performance,searches_empty:(events || []).filter(event=>event.event_type==='search_empty').length,contacts:(events || []).filter(event=>event.event_type==='contact_click').length,orders_created:(orders || []).length,orders_confirmed:confirmed.length,revenue_usd:confirmed.reduce((sum,order)=>sum+Number(order.total || 0),0),period_days: 30, page_views: views || 0, add_to_cart: carts || 0, checkout_started: checkouts || 0, product_views: productViews });
+        res.json({visits,performance,searches_empty:(events || []).filter(event=>event.event_type==='search_empty').length,contacts:(events || []).filter(event=>event.event_type==='contact_click').length,orders_created:(orders || []).length,orders_confirmed:confirmed.length,revenue_usd:confirmed.reduce((sum,order)=>sum+Number(order.total || 0),0),period_days: 30, page_views: views || 0, add_to_cart: carts || 0, checkout_started: checkouts || 0, product_views: productViews });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

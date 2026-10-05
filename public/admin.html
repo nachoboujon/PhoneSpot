@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin | PhoneSpot</title>
     <link rel="stylesheet" href="admin-offers.css?v=f19f865950d4">
-    <link rel="stylesheet" href="style.css?v=fa8c0d76f26d">
+    <link rel="stylesheet" href="style.css?v=9cd7c39f097f">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #f4f5f7; }
@@ -60,7 +60,7 @@
 
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=99d861b0716d">
-    <link rel="stylesheet" href="admin-ui.css?v=60e16d17af6e">
+    <link rel="stylesheet" href="admin-ui.css?v=07a98a8df6db">
 <link rel="stylesheet" href="store-improvements.css?v=7955d32cf5c4">
 </head>
 <body class="admin-page">
@@ -235,6 +235,25 @@
                     <h4><i class="fa-solid fa-chart-simple"></i> Interés del sitio (últimos 30 días)</h4>
                     <p id="analytics-summary" style="color:var(--text-muted);">Cargando métricas anónimas...</p>
                 </div>
+
+                <section class="admin-card traffic-panel" id="traffic-panel" aria-labelledby="traffic-title">
+                    <div class="traffic-heading">
+                        <div><h4 id="traffic-title">Visitas por dispositivo</h4><p>Últimos 30 días</p></div>
+                        <button type="button" class="btn" id="traffic-refresh">Actualizar visitas</button>
+                    </div>
+                    <p id="traffic-status" role="status">Cargando visitas…</p>
+                    <div id="traffic-data" hidden>
+                        <p class="traffic-total"><strong id="traffic-total">0</strong> visitas registradas</p>
+                        <ul class="traffic-devices" aria-label="Distribución de visitas">
+                            <li data-device="mobile"><span>Celulares</span><strong data-count>0</strong><span data-share>0%</span><div class="traffic-bar" aria-hidden="true"><span></span></div></li>
+                            <li data-device="tablet"><span>Tablets</span><strong data-count>0</strong><span data-share>0%</span><div class="traffic-bar" aria-hidden="true"><span></span></div></li>
+                            <li data-device="desktop"><span>Computadoras</span><strong data-count>0</strong><span data-share>0%</span><div class="traffic-bar" aria-hidden="true"><span></span></div></li>
+                            <li data-device="unknown" hidden><span>Sin identificar</span><strong data-count>0</strong><span data-share>0%</span><div class="traffic-bar" aria-hidden="true"><span></span></div></li>
+                        </ul>
+                    </div>
+                    <p class="traffic-note">Una visita agrupa la navegación en una misma pestaña; se cuenta otra tras 30 minutos de inactividad. No representa personas ni equipos únicos.</p>
+                    <p class="traffic-note">El desglose empieza a registrarse al publicar este panel. Las entradas anteriores no guardaban el tipo de dispositivo.</p>
+                </section>
             </div>
 
             <!-- TAB: DISEÑO -->
@@ -416,8 +435,8 @@
     <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
     <script src="store-business.js?v=5f2482b1ea46"></script>
-    <script src="script.js?v=cb2f67235b82"></script>
-    <script src="admin-core.js?v=364951b6a1d6"></script>
+    <script src="script.js?v=8bbc9640ea9b"></script>
+    <script src="admin-core.js?v=4fc7263a4587"></script>
     <script src="store-improvements.js?v=f7248689f69a"></script>
 
     <!-- FAVORITES SIDEBAR -->

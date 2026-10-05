@@ -527,14 +527,39 @@ window.initAdminCore = async () => {
 
         const analyticsSummary = document.getElementById('analytics-summary');
         if (analyticsSummary) {
-            fetch(window.API_URL + '/api/admin/analytics', { headers: { ...(localStorage.getItem('phoneSpotToken') ? {'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`} : {}) } })
+            const trafficStatus=document.getElementById('traffic-status');
+            const trafficData=document.getElementById('traffic-data');
+            const refresh=document.getElementById('traffic-refresh');
+            const loadAnalytics=()=>{
+                if(refresh)refresh.disabled=true;
+                if(trafficStatus)trafficStatus.textContent='Cargando visitas…';
+                return fetch(window.API_URL + '/api/admin/analytics', { headers: { ...(localStorage.getItem('phoneSpotToken') ? {'Authorization': `Bearer ${localStorage.getItem('phoneSpotToken')}`} : {}) } })
                 .then(response => response.json().then(data => ({ response, data })))
                 .then(({ response, data }) => {
                     if (!response.ok) throw new Error(data.error || 'No se pudieron cargar las métricas.');
-                    analyticsSummary.textContent = `${data.page_views} visitas · ${data.add_to_cart} agregados al carrito · ${data.checkout_started} inicios de compra · ${data.orders_created || 0} pedidos registrados · ${data.orders_confirmed || 0} confirmados · USD ${Number(data.revenue_usd || 0).toLocaleString('es-AR')} en pedidos confirmados · ${data.contacts || 0} contactos · ${data.searches_empty || 0} búsquedas sin resultados.`;
+                    analyticsSummary.textContent = `${data.page_views} páginas vistas · ${data.add_to_cart} agregados al carrito · ${data.checkout_started} inicios de compra · ${data.orders_created || 0} pedidos registrados · ${data.orders_confirmed || 0} confirmados · USD ${Number(data.revenue_usd || 0).toLocaleString('es-AR')} en pedidos confirmados · ${data.contacts || 0} contactos · ${data.searches_empty || 0} búsquedas sin resultados.`;
                     for(const device of ['mobile','desktop']) {const stats=data.performance?.[device];if(!stats) continue; const values=['LCP','INP','CLS'].filter(metric=>stats[metric]?.p75!=null).map(metric=>metric+': '+Number(stats[metric].p75).toFixed(metric==='CLS'?3:0));if(values.length) analyticsSummary.append(document.createElement('br'),document.createTextNode((device==='mobile'?'Celular':'Escritorio')+' · percentil 75: '+values.join(' · ')));}
+                    if(trafficData && trafficStatus) {
+                        if(!data.visits) {trafficData.hidden=true;trafficStatus.textContent='El desglose estará disponible al actualizar el servidor.';return;}
+                        const total=Math.max(0,Number(data.visits.total)||0);
+                        document.getElementById('traffic-total').textContent=total.toLocaleString('es-AR');
+                        document.querySelectorAll('#traffic-panel [data-device]').forEach(row=>{
+                            const count=Math.max(0,Number(data.visits.devices?.[row.dataset.device])||0);
+                            const share=total?Math.min(100,count/total*100):0;
+                            row.hidden=row.dataset.device==='unknown' && !count;
+                            row.querySelector('[data-count]').textContent=count.toLocaleString('es-AR');
+                            row.querySelector('[data-share]').textContent=share.toLocaleString('es-AR',{maximumFractionDigits:1})+'%';
+                            row.querySelector('.traffic-bar span').style.width=share+'%';
+                        });
+                        trafficData.hidden=false;
+                        trafficStatus.textContent=total?'Visitas actualizadas.':'Todavía no hay visitas con el nuevo registro en los últimos 30 días.';
+                    }
                 })
-                .catch(() => { analyticsSummary.textContent = 'Las métricas se mostrarán cuando haya actividad nueva.'; });
+                .catch(() => { analyticsSummary.textContent = 'No pudimos cargar las métricas.';if(trafficStatus)trafficStatus.textContent='No pudimos actualizar las visitas. Intentá nuevamente.';if(trafficData)trafficData.hidden=true; })
+                .finally(()=>{if(refresh)refresh.disabled=false;});
+            };
+            refresh?.addEventListener('click',loadAnalytics);
+            loadAnalytics();
         }
 
         const logoutBtn = document.getElementById('btn-logout');

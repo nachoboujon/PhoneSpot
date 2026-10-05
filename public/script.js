@@ -30,12 +30,26 @@ window.updateSocialDock = (rawPhone) => {
 
 // Analítica mínima y respetuosa de privacidad. No envía texto de búsqueda ni datos personales.
 window.trackStoreEvent = (eventType, details = {}) => {
+    if(window.location.pathname.endsWith('/admin.html')) return;
     const payload = {
         event_type: eventType,
         product_id: Number.isInteger(Number(details.productId)) ? Number(details.productId) : null,
         page_path: window.location.pathname,
         query_length: Number.isFinite(Number(details.queryLength)) ? Number(details.queryLength) : undefined
     };
+    // Per-tab inactivity window; no visitor identifier is sent or stored on the server.
+    try {
+        const now=Date.now(),last=Number(sessionStorage.getItem('phonespot:last-activity'));
+        const active=last>0 && now-last<30*60*1000;
+        if(eventType==='page_view') {
+            payload.visit_start=!active;
+            payload.device_type=/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints>1 ? 'tablet' : undefined;
+        }
+        // An action after an expired window must not consume the next page's new-visit marker.
+        if(eventType==='page_view' || active)sessionStorage.setItem('phonespot:last-activity',String(now));
+    } catch (_) {
+        if(eventType==='page_view') payload.visit_start=true;
+    }
     fetch(window.API_URL + '/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,10 +58,7 @@ window.trackStoreEvent = (eventType, details = {}) => {
     }).catch(() => {});
 };
 
-if (!sessionStorage.getItem(`phonespot:viewed:${window.location.pathname}${window.location.search}`)) {
-    sessionStorage.setItem(`phonespot:viewed:${window.location.pathname}${window.location.search}`, '1');
-    window.trackStoreEvent('page_view');
-}
+window.trackStoreEvent('page_view');
 
 
 // ==================== IMAGE HELPER ====================
@@ -2968,10 +2979,12 @@ window.toggleFavSidebar = () => {
     
     if (sidebar.style.right === '0px') {
         sidebar.style.right = '-400px';
+        sidebar.classList.remove('active');
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
     } else {
         sidebar.style.right = '0px';
+        sidebar.classList.add('active');
         overlay.style.visibility = 'visible';
         overlay.style.opacity = '1';
         window.loadSidebarFavorites();
