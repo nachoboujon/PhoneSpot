@@ -1,9 +1,8 @@
-/* The floating controls keep the graphite palette and a reserved mobile lane. */
-:root { --social-lane: 0px; }
+/* Contact links join the footer on mobile, leaving the full width for shopping. */
 .social-dock__instagram, .social-dock__whatsapp { background: #202428; color: #fff; }
 .social-dock__link:hover { background: #41464b; color: #fff; }
 .social-dock__link { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.16); }
-body:has(.social-dock) { padding-inline-end: var(--social-lane); }
+.social-dock__label { display: none; }
 .skip-content { position: fixed; top: 8px; left: 8px; z-index: 3000; padding: 12px; background: #202428; color: #fff; transform: translateY(-180%); }
 .skip-content:focus { transform: none; }
 .wholesale-info { padding: 20px 0; border-block: 1px solid var(--border-color); margin: 20px 0; }
@@ -28,11 +27,17 @@ body:has(.social-dock) { padding-inline-end: var(--social-lane); }
 .checkout-summary button, .checkout-page button, #checkout-summary button { min-height: 44px; }
 input, select, textarea { caret-color: #202428; }
 ::selection { background: #202428; color: #fff; }
+@media (max-width: 768px) {
+    footer .social-icons { display: none !important; }
+    .social-dock { position: static; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-block: 16px; }
+    .social-dock .social-dock__link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: auto; min-width: 44px; height: auto; min-height: 44px; padding: 10px 14px; border: 1px solid #646a70; border-radius: 8px; box-shadow: none; font-size: 1.2rem; }
+    .social-dock__label { display: inline; font-size: .9rem; font-weight: 600; }
+    .social-dock__link:focus-visible { outline-color: #fff; }
+    .product-page .product-shipping-calculator { grid-template-columns: minmax(0, 1fr); }
+    .product-page .product-shipping-form { min-width: 0; }
+    .product-page .product-shipping-form input { width: 100%; flex-basis: 0; }
+}
 @media (max-width: 640px) {
-    :root { --social-lane: 58px; }
-    .social-dock { right: max(7px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); gap: 10px; }
-    .social-dock__link { width: 44px; height: 44px; }
-    body:has(.social-dock) header { width: 100%; }
     header:has(.search-bar) { display: grid !important; grid-template-columns: 32px minmax(0,1fr) 88px; gap: 8px; padding: 10px 12px !important; }
     header:has(.search-bar) .menu-toggle { grid-column: 1; grid-row: 1; width: 32px; min-width: 32px; min-height: 44px; margin: 0 !important; }
     header:has(.search-bar) .logo { grid-column: 2; grid-row: 1; min-width: 0; }
@@ -42,9 +47,9 @@ input, select, textarea { caret-color: #202428; }
     header:has(.search-bar) .header-icons a:not([title="Mi Cuenta"]) { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: 0 !important; position: relative; }
     header:has(.search-bar) .cart-icon #cart-count-badge { position: absolute; right: 0; top: 0; font-size: .65rem !important; }
     header:has(.search-bar) .search-bar { grid-column: 1 / -1; grid-row: 2; }
-    body:has(.social-dock) header.mobile-header-fixed { width: calc(100vw - var(--social-lane)) !important; }
+    header.mobile-header-fixed { width: 100% !important; }
     .home-page .home-carousel { height: 360px !important; min-height: 360px !important; }
-    .home-page .home-carousel .carousel-slide { min-height: 320px !important; height: 320px !important; width: calc(100vw - 90px) !important; }
+    .home-page .home-carousel .carousel-slide { min-height: 320px !important; height: 320px !important; width: calc(100vw - 32px) !important; }
     .home-page .home-carousel .hero-content { padding: 12px !important; width: 94% !important; }
     .home-page .home-carousel .carousel-title { font-size: 1.5rem !important; }
     .home-page .home-carousel .hero-content p { font-size: .9rem; }

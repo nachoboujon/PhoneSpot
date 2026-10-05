@@ -7,9 +7,7 @@
     function eligible(item) {
         if (!item) return false;
         const category = String(item.category || '').toLowerCase().trim();
-        if (category === 'accesorios') return false;
-        if (['celulares', 'notebooks', 'tablets'].includes(category)) return true;
-        return !/funda|case|cable|cargador|charger|auricular|earphones|airpod|vidrio|templado|protector|hidrogel|adaptador|powerbank|magsafe|correa|malla|accesorio/.test(String(item.name || '').toLowerCase());
+        return category === 'celulares';
     }
     const discount = quantity => tiers.reduce((value, tier) => quantity >= tier.quantity ? tier.discount : value, 0);
     const unitPrice = (price, quantity, item) => eligible(item) ? Math.max(1, Number(price) - discount(quantity)) : Number(price);

@@ -19,8 +19,10 @@ window.updateSocialDock = (rawPhone) => {
         dock.id = 'social-dock';
         dock.className = 'social-dock';
         dock.setAttribute('aria-label', 'Redes de PhoneSpot');
-        dock.innerHTML = '<a class="social-dock__link social-dock__instagram" href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de PhoneSpot" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><a class="social-dock__link social-dock__whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>';
-        document.body.appendChild(dock);
+        dock.setAttribute('role', 'navigation');
+        dock.innerHTML = '<a class="social-dock__link social-dock__instagram" href="https://www.instagram.com/phonespotsj/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de PhoneSpot" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i><span class="social-dock__label">Instagram</span></a><a class="social-dock__link social-dock__whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span class="social-dock__label">WhatsApp</span></a>';
+        const contactContainer = document.querySelector('footer .footer-logo') || document.querySelector('footer') || document.body;
+        contactContainer.appendChild(dock);
     }
     dock.querySelector('.social-dock__whatsapp').href = `https://wa.me/${phone}?text=${encodeURIComponent('¡Hola PhoneSpot! Vengo de su página web y me gustaría hacer una consulta.')}`;
 };
@@ -414,7 +416,7 @@ async function renderSideCart() {
     sideContainer.innerHTML = '';
     let total = 0;
     
-    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    // MAYORISTA LOGIC (Solo para Celulares)
     let eligibleQuantity = 0;
     cart.forEach(item => {
         if (window.isWholesaleEligible(item)) {
@@ -481,18 +483,18 @@ async function renderSideCart() {
 
     if (eligibleQuantity >= 10) {
         bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en equipos! (-${wholesaleDiscount} USD c/u)
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en celulares! (-${wholesaleDiscount} USD c/u)
                       </div>`;
     } else if (isWholesale) {
         const remaining = nextTierQty - eligibleQuantity;
         bannerHtml = `<div id="wholesale-banner-side" style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Equipos! (-${wholesaleDiscount} USD c/u)<br>
-                        <span style="font-size:0.75rem; color:#d35400;">(Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Celulares! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.75rem; color:#d35400;">(Agrega ${remaining} celular${remaining > 1 ? 'es' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
         const remaining = 3 - eligibleQuantity;
         bannerHtml = `<div id="wholesale-banner-side" style="background:#fff3e0; color:#e65100; padding: 10px; text-align:center; font-size:0.8rem; font-weight:bold; border-radius:8px; margin-bottom: 15px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más (Celulares, Tablets o Notebooks) para activar Precio Mayorista (-5 USD c/u)
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} celular${remaining > 1 ? 'es' : ''} más para activar Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
 
@@ -536,7 +538,7 @@ async function renderCart() { await window.dolarPromise;
     cartItemsContainer.innerHTML = '';
     let total = 0;
     
-    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    // MAYORISTA LOGIC (Solo para Celulares)
     let eligibleQuantity = 0;
     cart.forEach(item => {
         if (window.isWholesaleEligible(item)) {
@@ -566,18 +568,18 @@ async function renderCart() { await window.dolarPromise;
 
     if (eligibleQuantity >= 10) {
         cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:1rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en equipos! (-${wholesaleDiscount} USD c/u)
+                        <i class="fa-solid fa-crown"></i> ¡Máximo Descuento Mayorista aplicado en celulares! (-${wholesaleDiscount} USD c/u)
                       </div>`;
     } else if (isWholesale) {
         const remaining = nextTierQty - eligibleQuantity;
         cartItemsContainer.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 15px; text-align:center; font-size:0.95rem; font-weight:bold; border-radius:8px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Equipos! (-${wholesaleDiscount} USD c/u)<br>
-                        <span style="font-size:0.85rem; color:#d35400;">(Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
+                        <i class="fa-solid fa-tags"></i> ¡Descuento Mayorista Activo en Celulares! (-${wholesaleDiscount} USD c/u)<br>
+                        <span style="font-size:0.85rem; color:#d35400;">(Agrega ${remaining} celular${remaining > 1 ? 'es' : ''} más para llegar a -${nextTierDiscount} USD c/u)</span>
                       </div>`;
     } else {
         const remaining = 3 - eligibleQuantity;
         cartItemsContainer.innerHTML += `<div style="background:#fff3e0; color:#e65100; padding: 15px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 20px; border: 1px dashed #ffb74d;">
-                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} equipo${remaining > 1 ? 's' : ''} más a tu pedido (Celulares, Tablets o Notebooks) para desbloquear el Precio Mayorista (-5 USD c/u)
+                        <i class="fa-solid fa-box-open"></i> Agrega ${remaining} celular${remaining > 1 ? 'es' : ''} más a tu pedido para desbloquear el Precio Mayorista (-5 USD c/u)
                       </div>`;
     }
 
@@ -648,7 +650,7 @@ async function renderCheckout() { await window.dolarPromise;
     let total = 0;
     checkoutItems.innerHTML = '';
     
-    // MAYORISTA LOGIC (Solo para Celulares, Tablets y Notebooks)
+    // MAYORISTA LOGIC (Solo para Celulares)
     let eligibleQuantity = 0;
     cart.forEach(item => {
         if (window.isWholesaleEligible(item)) {
@@ -660,7 +662,7 @@ async function renderCheckout() { await window.dolarPromise;
     
     if (isWholesale) {
         checkoutItems.innerHTML += `<div style="background:#e3fce0; color:#2e7d32; padding: 10px; text-align:center; font-size:0.9rem; font-weight:bold; border-radius:8px; margin-bottom: 15px;">
-                        <i class="fa-solid fa-tags"></i> Precio Mayorista Aplicado en Equipos (-${wholesaleDiscount} USD c/u)
+                        <i class="fa-solid fa-tags"></i> Precio Mayorista Aplicado en Celulares (-${wholesaleDiscount} USD c/u)
                       </div>`;
     }
     
@@ -1750,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <section class="wholesale-info" aria-label="Precios y condiciones">
                                     <h3>Precio por cantidad</h3>
                                     <div id="product-volume-prices"></div>
-                                    <p>Podés combinar equipos elegibles en el carrito. No incluye accesorios.</p>
+                                    <p>Podés combinar celulares en el carrito. El descuento mayorista es exclusivo para celulares; los demás productos no suman unidades ni reciben este descuento.</p>
                                     <p>Importes en pesos calculados con la cotización vigente. Al registrar el pedido guardamos el importe y la cotización; el pago y el envío se coordinan por WhatsApp.</p>
                                 </section>
                                 <div class="product-shipping-calculator">
@@ -2329,7 +2331,7 @@ const checkoutForm = document.getElementById('checkout-form');
                     
                     // Generar mensaje de WhatsApp con precios en pesos argentinos
                     let wpMsg = `¡Hola PhoneSpot! Acabo de hacer el pedido #${data.orderId}.\n*Nombre:* ${customer_name}\n*Dirección:* ${shipping_address}\n*Total a pagar:* $${confirmedTotalArs.toLocaleString('es-AR')} ARS\n`;
-                    if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista en Equipos (-${wholesaleDiscount} USD c/u)\n`;
+                    if (isWholesale) wpMsg += `*Beneficio:* Precio Mayorista en Celulares (-${wholesaleDiscount} USD c/u)\n`;
                     wpMsg += `\n*Productos:*\n`;
 
                     cart.forEach(item => {

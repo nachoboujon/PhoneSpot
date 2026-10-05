@@ -14,7 +14,7 @@
         const volume = document.getElementById('product-volume-prices');
         if (volume) setText(volume, business.eligible({category:container.dataset.category})
             ? business.tiers.map(tier => `Desde ${tier.quantity}: ${usd(business.unitPrice(price,tier.quantity,{category:container.dataset.category}))} c/u`).join(' · ')
-            : 'Este producto no participa del descuento por equipos.');
+            : 'Este producto no participa del descuento mayorista, exclusivo para celulares.');
         const quantity=document.getElementById('product-quantity');
         if (quantity) { const stock=Number(container.dataset.variantStock || JSON.parse(unescape(container.dataset.stockInfo || '%7B%7D')).stock || 0); quantity.max=String(Math.min(20,stock)); }
     }
