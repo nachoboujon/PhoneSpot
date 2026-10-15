@@ -1343,23 +1343,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const countLabel = document.getElementById('catalog-count-label');
 
         const renderFilteredCatalog = () => {
+            const writeCatalogUrl = () => {
             const params = new URLSearchParams();
             const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
-            Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
-            history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
-            if (!allCatalogProducts.length) { fullCatalogContainer.textContent = 'Aún no hay productos disponibles.'; return; }
+                Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
+                history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
+            };
 
-            let filtered = allCatalogProducts.filter(p => {
+            const matchesContext = p => {
                 // Category Filter
                 if (selectedCategories.length > 0) {
                     const matchesCat = selectedCategories.includes(window.PhoneSpotBusiness.catalogCategory(p));
                     if (!matchesCat) return false;
-                }
-
-                // Brand Filter
-                if (selectedBrands.length > 0) {
-                    const b = (p.brand || '').trim().toLowerCase();
-                    if (!selectedBrands.includes(b)) return false;
                 }
 
                 
@@ -1417,7 +1412,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
 
                 return true;
+            };
+
+            // Brand choices follow the current category/search/filters, excluding
+            // the brand itself so selecting one does not hide the alternatives.
+            const contextProducts = allCatalogProducts.filter(matchesContext);
+            const brands = new Map();
+            contextProducts.forEach(p => {
+                const name = String(p.brand || '').trim();
+                if (name) brands.set(name.toLowerCase(), name);
             });
+            selectedBrands = selectedBrands.map(b => b.trim().toLowerCase()).filter(b => brands.has(b));
+            if (brandFiltersContainer) {
+                const focusedBrand = brandFiltersContainer.contains(document.activeElement) ? document.activeElement.value : null;
+                const options = document.createDocumentFragment();
+                [...brands].sort((a,b) => a[1].localeCompare(b[1], 'es')).forEach(([value, name]) => {
+                    const label = document.createElement('label');
+                    label.className = 'filter-label';
+                    const input = document.createElement('input');
+                    input.type = 'checkbox'; input.value = value; input.className = 'brand-checkbox';
+                    input.checked = selectedBrands.includes(value);
+                    label.append(input, document.createTextNode(name)); options.append(label);
+                });
+                brandFiltersContainer.replaceChildren(options);
+                if (focusedBrand) [...brandFiltersContainer.querySelectorAll('input')].find(input => input.value === focusedBrand)?.focus({preventScroll:true});
+            }
+            writeCatalogUrl();
+            if (!allCatalogProducts.length) { fullCatalogContainer.textContent = 'Aún no hay productos disponibles.'; return; }
+            let filtered = contextProducts.filter(p => !selectedBrands.length || selectedBrands.includes(String(p.brand || '').trim().toLowerCase()));
 
             // Sort
             if (currentSort === 'price-asc') filtered.sort((a,b) => Number(a.price) - Number(b.price));
@@ -1558,26 +1580,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 for(const category of [...new Set(products.map(window.PhoneSpotBusiness.catalogCategory))]) {
                     const label=document.createElement('label');label.className='filter-label';const input=document.createElement('input');input.type='checkbox';input.value=category;input.className='cat-checkbox';label.append(input,document.createTextNode(categoryLabels[category] || category));categoryContainer.append(label);
                 }
-                // Build dynamic brands
-                let availableBrands = [];
-                if (window.phoneSpotSettings && window.phoneSpotSettings.brands_list) {
-                    availableBrands = window.phoneSpotSettings.brands_list.split(',').map(b => b.trim()).filter(b => b);
-                } else {
-                    availableBrands = [...new Set(products.map(p => (p.brand||'').trim()).filter(b => b))].sort();
-                }
-                availableBrands = [...new Set([...availableBrands, ...products.map(p => (p.brand || '').trim()).filter(Boolean)])].sort();
-                
                 if (brandFiltersContainer) {
-                    brandFiltersContainer.innerHTML = '';
-                    availableBrands.forEach(b => {
-                        const isChecked = selectedBrands.includes(b.toLowerCase()) ? 'checked' : '';
-                        brandFiltersContainer.innerHTML += `
-                            <label class="filter-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-color);">
-                                <input type="checkbox" value="${b.toLowerCase()}" class="brand-checkbox" ${isChecked} style="accent-color: #555555; width: 18px; height: 18px;">
-                                ${b}
-                            </label>
-                        `;
-                    });
 
                     // Wiring existing Americanos filter from HTML
                     const offerFilter = document.getElementById('offer-filter');
@@ -1602,12 +1605,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     });
 
                     // Attach Event Listeners to brand checkboxes
-                    document.querySelectorAll('.brand-checkbox').forEach(chk => {
-                        chk.addEventListener('change', (e) => {
+                    brandFiltersContainer.addEventListener('change', (e) => {
+                            if (!e.target.matches('.brand-checkbox')) return;
                             if(e.target.checked) selectedBrands.push(e.target.value);
                             else selectedBrands = selectedBrands.filter(b => b !== e.target.value);
                             renderFilteredCatalog();
-                        });
                     });
                 
                     document.querySelectorAll('.cond-checkbox').forEach(chk => {
