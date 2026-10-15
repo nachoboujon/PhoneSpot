@@ -1331,6 +1331,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let selectedCategories = initialCat !== 'all' && ['celulares','notebooks','tablets','accesorios','consolas','audio','relojes'].includes(initialCat) ? [initialCat] : [];
                 
         let onlyOffers = urlParams.get('offer') === '1';
+        let onlyStock = urlParams.get('stock') === '1';
         let currentSort = urlParams.get('sort') || '';
         let catalogQuery = urlParams.get('q') || '';
         let visibleLimit=Math.max(24,Math.min(1000,Number(urlParams.get('limit')) || 24));
@@ -1345,101 +1346,101 @@ document.addEventListener('DOMContentLoaded', async () => {
         const renderFilteredCatalog = () => {
             const writeCatalogUrl = () => {
             const params = new URLSearchParams();
-            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
+            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', stock: onlyStock ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
                 Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
                 history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
             };
 
-            const matchesContext = p => {
-                // Category Filter
-                if (selectedCategories.length > 0) {
-                    const matchesCat = selectedCategories.includes(window.PhoneSpotBusiness.catalogCategory(p));
-                    if (!matchesCat) return false;
-                }
 
-                
-                // Conditions Filter
-                if (selectedConditions.length > 0) {
-                    const fallback = (p.name + ' ' + (p.description || '')).toLowerCase();
-                    const conditions = Array.isArray(p.variants) && p.variants.length
-                        ? p.variants.map(v => String(v.condition || fallback).toLowerCase()) : [fallback];
-                    const matchesCond = conditions.some(condition => {
-                        if (p.commercial_type === 'apple_warranty') return selectedConditions.includes('apple_warranty');
-                        if (p.commercial_type === 'americano') return selectedConditions.includes('swap_americano');
-                        const category = /reacondicionado|refurbished|\bcpo\b/.test(condition) ? 'reacondicionado'
-                            : /swap|americano|usado|seminuevo/.test(condition) ? 'swap_americano' : 'nuevo';
-                        return selectedConditions.includes(category);
-                    });
-                    if (!matchesCond) return false;
-                }
-
-                // Colors Filter
-                if (selectedColors.length > 0) {
-                    const desc = (p.description || '').toLowerCase();
-                    const name = (p.name || '').toLowerCase();
-                    const combined = name + " " + desc + " " + (Array.isArray(p.variants) ? p.variants.map(v => v.color || '').join(' ').toLowerCase() : '');
-                    
-                    // Simple color matching based on text
-                    let matchesColor = selectedColors.some(color => {
-                        if (color === 'negro' && (combined.includes('negro') || combined.includes('black') || combined.includes('oscuro') || combined.includes('midnight'))) return true;
-                        if (color === 'blanco' && (combined.includes('blanco') || combined.includes('white') || combined.includes('plata') || combined.includes('silver') || combined.includes('starlight'))) return true;
-                        if (color === 'azul' && (combined.includes('azul') || combined.includes('blue') || combined.includes('cyan'))) return true;
-                        if (color === 'titanium' && (combined.includes('titanium') || combined.includes('titanio') || combined.includes('gris') || combined.includes('gray') || combined.includes('grey'))) return true;
-                        return combined.includes(color);
-                    });
-                    
-                    if (!matchesColor) return false;
-                }
-
-                const min = Number(document.getElementById('price-min').value || 0);
-                const max = document.getElementById('price-max').value ? Number(document.getElementById('price-max').value) : Infinity;
-                const capacity = document.getElementById('capacity-filter').value;
-                const ram = document.getElementById('ram-filter').value;
-                const variants = Array.isArray(p.variants) ? p.variants : [];
-                const candidates = variants.length ? variants : [{price: p.price, stock: p.stock}];
-                if (!window.PhoneSpotBusiness.matches(p, catalogQuery)) return false;
-                if (!candidates.some(v => {
-                    const price = Number(v.price || p.price) * window.dolarValue;
-                    return price >= min && price <= max && (!capacity || v.capacity === capacity) && (!ram || v.ram === ram);
-                })) return false;
-                // Price Filter
-                
-                // Offers Filter
-                if (onlyOffers && !p.is_offer) {
-                    return false;
-                }
-
-                
-
-                return true;
-            };
-
-            // Brand choices follow the current category/search/filters, excluding
-            // the brand itself so selecting one does not hide the alternatives.
-            const contextProducts = allCatalogProducts.filter(matchesContext);
-            const brands = new Map();
-            contextProducts.forEach(p => {
-                const name = String(p.brand || '').trim();
-                if (name) brands.set(name.toLowerCase(), name);
-            });
-            selectedBrands = selectedBrands.map(b => b.trim().toLowerCase()).filter(b => brands.has(b));
-            if (brandFiltersContainer) {
-                const focusedBrand = brandFiltersContainer.contains(document.activeElement) ? document.activeElement.value : null;
-                const options = document.createDocumentFragment();
-                [...brands].sort((a,b) => a[1].localeCompare(b[1], 'es')).forEach(([value, name]) => {
-                    const label = document.createElement('label');
-                    label.className = 'filter-label';
-                    const input = document.createElement('input');
-                    input.type = 'checkbox'; input.value = value; input.className = 'brand-checkbox';
-                    input.checked = selectedBrands.includes(value);
-                    label.append(input, document.createTextNode(name)); options.append(label);
-                });
-                brandFiltersContainer.replaceChildren(options);
-                if (focusedBrand) [...brandFiltersContainer.querySelectorAll('input')].find(input => input.value === focusedBrand)?.focus({preventScroll:true});
+            const business = window.PhoneSpotBusiness;
+            const input = id => document.getElementById(id);
+            const state = () => ({categories:selectedCategories, brands:selectedBrands, conditions:selectedConditions,
+                query:catalogQuery, offer:onlyOffers, stock:onlyStock, min:input('price-min').value,
+                max:input('price-max').value, capacity:input('capacity-filter').value, ram:input('ram-filter').value, rate:window.dolarValue});
+            // Category and query establish the relevant dimensions. Clear stale
+            // choices on context changes without clearing deliberate zero-result combinations.
+            const base = {categories:selectedCategories, query:catalogQuery, rate:window.dolarValue};
+            const validBrands = new Set(business.catalogFacets(allCatalogProducts,base,'brands').map(x=>x.value));
+            selectedBrands = selectedBrands.map(b=>business.normalize(b).trim()).filter(b=>validBrands.has(b));
+            const relevant = {...base, brands:selectedBrands};
+            selectedConditions = selectedConditions.filter(c=>business.catalogFacets(allCatalogProducts,relevant,'conditions').some(x=>x.value===c));
+            for (const key of ['capacity','ram']) {
+                const select=input(key+'-filter');
+                const available=business.catalogFacets(allCatalogProducts,relevant,key);
+                if (select.value && !available.some(x=>x.value===business.dimension(select.value))) select.value='';
+                const value=business.dimension(select.value);
+                const options=business.catalogFacets(allCatalogProducts,state(),key);
+                if (value && !options.some(x=>x.value===value)) options.push({value,label:value,count:0});
+                const fragment=document.createDocumentFragment();
+                const all=document.createElement('option'); all.value=''; all.textContent=key==='ram'?'Todas':'Todas las capacidades'; fragment.append(all);
+                options.forEach(item=>{const option=document.createElement('option');option.value=item.value;option.textContent=item.label+' ('+item.count+')';fragment.append(option);});
+                select.replaceChildren(fragment);select.value=value;
+                select.closest('label').hidden=!available.length;
+                if (key==='capacity') input('capacity-label').textContent=available.length && available.every(x=>/ ml$/i.test(x.value))?'Presentación':'Almacenamiento';
             }
+            const renderOptions = (id, key, selected, labels, className) => {
+                const container=input(id);
+                const focused=container.contains(document.activeElement)?document.activeElement.value:null;
+                const choices=business.catalogFacets(allCatalogProducts,state(),key);
+                selected.forEach(value=>{if(!choices.some(x=>x.value===value)) choices.push({value,label:labels?.[value] || value,count:0});});
+                const fragment=document.createDocumentFragment();
+                choices.forEach(item=>{
+                    const label=document.createElement('label');label.className='filter-label';
+                    const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.value=item.value;
+                    checkbox.className=className;checkbox.checked=selected.includes(item.value);checkbox.disabled=!item.count&&!checkbox.checked;
+                    const name=document.createElement('span');name.textContent=labels?.[item.value] || item.label;
+                    const count=document.createElement('span');count.className='filter-option-count';count.textContent=item.count;
+                    count.setAttribute('aria-label',item.count+' productos');
+                    label.append(checkbox,name,count);fragment.append(label);
+                });
+                container.replaceChildren(fragment);
+                if(focused) [...container.querySelectorAll('input')].find(el=>el.value===focused)?.focus({preventScroll:true});
+                if(key==='conditions') container.closest('.filter-section').hidden=choices.length<2&&!selected.length;
+            };
+            renderOptions('brand-filters','brands',selectedBrands,null,'brand-checkbox');
+            renderOptions('condition-filters','conditions',selectedConditions,{nuevo:'Nuevo',swap_americano:'Americano / Swap',apple_warranty:'Garantía oficial de Apple',reacondicionado:'Reacondicionado'},'cond-checkbox');
+            const categoryLabels={celulares:'Celulares',notebooks:'Notebooks',tablets:'Tablets',accesorios:'Accesorios',consolas:'Consolas',audio:'Audio',relojes:'Relojes',perfumes:'Perfumes'};
+            // Categories remain navigable even when narrower filters would return zero.
+            const categoryCounts=business.catalogFacets(allCatalogProducts,{rate:window.dolarValue},'categories');
+            input('category-filters').querySelectorAll('label').forEach(label=>{
+                const checkbox=label.querySelector('input');checkbox.checked=selectedCategories.includes(checkbox.value);
+                let count=label.querySelector('.filter-option-count');
+                if(!count){count=document.createElement('span');count.className='filter-option-count';label.append(count);}
+                count.textContent=categoryCounts.find(x=>x.value===checkbox.value)?.count || 0;
+            });
+            input('offer-filter').checked=onlyOffers;
+            input('stock-filter').checked=onlyStock;
+            const active=input('catalog-active-filters');active.replaceChildren();
+            const chip=(label,key,value)=>{
+                const button=document.createElement('button');button.type='button';button.className='catalog-filter-chip';
+                button.dataset.filter=key;if(value!==undefined)button.dataset.value=value;
+                button.setAttribute('aria-label','Quitar filtro: '+label);
+                const text=document.createElement('span');text.textContent=label;
+                const icon=document.createElement('i');icon.className='fa-solid fa-xmark';icon.setAttribute('aria-hidden','true');
+                button.append(text,icon);active.append(button);
+            };
+            selectedCategories.forEach(v=>chip(categoryLabels[v]||v,'categories',v));
+            selectedBrands.forEach(v=>chip(business.catalogFacets(allCatalogProducts,{},'brands').find(x=>x.value===v)?.label||v,'brands',v));
+            selectedConditions.forEach(v=>chip({nuevo:'Nuevo',swap_americano:'Americano / Swap',apple_warranty:'Garantía Apple',reacondicionado:'Reacondicionado'}[v]||v,'conditions',v));
+            if(catalogQuery)chip('Búsqueda: '+catalogQuery,'query');
+            for(const [key,label] of [['capacity','Capacidad'],['ram','RAM'],['min','Desde'],['max','Hasta']]){
+                const value=key==='min'||key==='max'?input('price-'+key).value:input(key+'-filter').value;
+                if(value)chip(label+': '+(key==='min'||key==='max'?window.formatPrice(Number(value)/window.dolarValue):value),key);
+            }
+            if(onlyOffers)chip('En oferta','offer');
+            if(onlyStock)chip('Con stock','stock');
+            active.hidden=!active.childElementCount;
+            const toggle=input('catalog-filter-toggle');
+            if(toggle)toggle.lastChild.textContent=' Filtrar productos'+(active.childElementCount?' ('+active.childElementCount+')':'');
             writeCatalogUrl();
             if (!allCatalogProducts.length) { fullCatalogContainer.textContent = 'Aún no hay productos disponibles.'; return; }
-            let filtered = contextProducts.filter(p => !selectedBrands.length || selectedBrands.includes(String(p.brand || '').trim().toLowerCase()));
+            let filtered = allCatalogProducts.flatMap(product=>{
+                const variants=business.catalogCandidates(product,state());
+                if(!variants.length)return [];
+                if(!product.variants?.length)return [product];
+                const cheapest=variants.reduce((a,b)=>Number(a.price)<Number(b.price)?a:b);
+                return [{...product,variants,price:cheapest.price ?? product.price,stock:variants.reduce((sum,v)=>sum+Number(v.stock||0),0)}];
+            });
 
             // Sort
             if (currentSort === 'price-asc') filtered.sort((a,b) => Number(a.price) - Number(b.price));
@@ -1453,7 +1454,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             fullCatalogContainer.innerHTML = '';
             if (filtered.length === 0) {
                 window.trackStoreEvent('search_empty');
-                fullCatalogContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-top: 2rem;">No se encontraron productos con estos filtros.</p>';
+                fullCatalogContainer.innerHTML = '<div class="catalog-empty"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><h3>No encontramos esa combinación</h3><p>Quitá un filtro de arriba o probá con otro modelo, marca o capacidad.</p><button type="button" class="catalog-reset" id="catalog-empty-reset">Limpiar filtros</button></div>';
+                document.getElementById('catalog-load-more')?.setAttribute('hidden','');
+                document.getElementById('catalog-empty-reset').addEventListener('click',()=>document.getElementById('catalog-reset').click());
                 return;
             }
 
@@ -1559,8 +1562,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 for (const [id,key] of [['capacity-filter','capacity'],['ram-filter','ram']]) {
                     const select = document.getElementById(id);
                     const entries = [...new Set(products.flatMap(p => (p.variants || []).map(v => v[key])).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es', {numeric:true}));
-                    for (const value of entries) {const option = document.createElement('option'); option.value=value; option.textContent=value; select.append(option);}
-                    initInput(id,key);
+                    for (const value of [...new Set(entries.map(window.PhoneSpotBusiness.dimension))]) {const option = document.createElement('option'); option.value=value; option.textContent=value; select.append(option);}
+                    select.value=window.PhoneSpotBusiness.dimension(urlParams.get(key) || '');
                 }
                 sortFilter.value = currentSort;
                 document.getElementById('offer-filter').checked = onlyOffers;
@@ -1569,7 +1572,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     document.getElementById(id).addEventListener(id === 'catalog-query' || id.startsWith('price-') ? 'input' : 'change', () => {catalogQuery = document.getElementById('catalog-query').value; visibleLimit=24; clearTimeout(window.catalogFilterTimer); window.catalogFilterTimer=setTimeout(renderFilteredCatalog,150);});
                 }
                 document.getElementById('catalog-reset').addEventListener('click', () => {
-                    selectedBrands=[]; selectedCategories=[]; selectedConditions=[]; selectedColors=[]; onlyOffers=false; currentSort=''; catalogQuery='';
+                    selectedBrands=[]; selectedCategories=[]; selectedConditions=[]; selectedColors=[]; onlyOffers=false; onlyStock=false; currentSort=''; catalogQuery=''; visibleLimit=24;
                     document.querySelectorAll('#filters-sidebar input[type=checkbox]').forEach(el => {el.checked=false;});
                     for (const id of ['catalog-query','price-min','price-max','capacity-filter','ram-filter','sort-filter']) document.getElementById(id).value='';
                     renderFilteredCatalog();
@@ -1612,12 +1615,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                             renderFilteredCatalog();
                     });
                 
-                    document.querySelectorAll('.cond-checkbox').forEach(chk => {
-                        chk.addEventListener('change', (e) => {
-                            if(e.target.checked) selectedConditions.push(e.target.value);
-                            else selectedConditions = selectedConditions.filter(c => c !== e.target.value);
-                            renderFilteredCatalog();
-                        });
+                    document.getElementById('condition-filters').addEventListener('change', e=>{
+                        if(!e.target.matches('.cond-checkbox'))return;
+                        selectedConditions=e.target.checked?[...selectedConditions,e.target.value]:selectedConditions.filter(v=>v!==e.target.value);
+                        visibleLimit=24;renderFilteredCatalog();
+                    });
+                    document.getElementById('stock-filter').addEventListener('change',e=>{onlyStock=e.target.checked;visibleLimit=24;renderFilteredCatalog();});
+                    document.getElementById('catalog-active-filters').addEventListener('click',e=>{
+                        const button=e.target.closest('button[data-filter]');if(!button)return;
+                        const {filter,value}=button.dataset;
+                        if(filter==='categories')selectedCategories=selectedCategories.filter(v=>v!==value);
+                        else if(filter==='brands')selectedBrands=selectedBrands.filter(v=>v!==value);
+                        else if(filter==='conditions')selectedConditions=selectedConditions.filter(v=>v!==value);
+                        else if(filter==='query'){catalogQuery='';document.getElementById('catalog-query').value='';}
+                        else if(filter==='offer')onlyOffers=false;
+                        else if(filter==='stock')onlyStock=false;
+                        else document.getElementById(filter==='min'||filter==='max'?'price-'+filter:filter+'-filter').value='';
+                        visibleLimit=24;renderFilteredCatalog();
                     });
 
                     document.querySelectorAll('.color-checkbox').forEach(chk => {

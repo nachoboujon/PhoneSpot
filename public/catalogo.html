@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="uploads/PhoneSpot-trans.png">
     <link rel="stylesheet" href="cart-actions.css?v=99d861b0716d">
-<link rel="stylesheet" href="store-improvements.css?v=7955d32cf5c4">
+<link rel="stylesheet" href="store-improvements.css?v=8aa1bbfe02e6">
 </head>
 <body>
     
@@ -152,14 +152,11 @@
     <button type="button" id="catalog-filter-toggle" aria-expanded="false" aria-controls="filters-sidebar"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Filtrar productos</button>
     <div id="filters-sidebar" style="flex: 0 0 280px; position: sticky; top: 100px; background: var(--bg-color); padding: 0; border-radius: 0; display: flex; flex-direction: column; gap: 0;">
                 
-                <div class="catalog-extra-filters">
-<label for="catalog-query">Buscar en el catálogo<input type="search" id="catalog-query" placeholder="Modelo, marca o configuración"></label>
-<label for="price-min">Precio mínimo · ARS<input type="number" id="price-min" min="0" step="1000" inputmode="numeric"></label>
-<label for="price-max">Precio máximo · ARS<input type="number" id="price-max" min="0" step="1000" inputmode="numeric"></label>
-<label for="capacity-filter">Almacenamiento<select id="capacity-filter"><option value="">Todos</option></select></label>
-<label for="ram-filter">Memoria RAM<select id="ram-filter"><option value="">Todas</option></select></label>
-<button type="button" class="catalog-reset" id="catalog-reset">Limpiar filtros</button>
-</div>
+
+                <div class="catalog-filter-heading"><h2>Encontrá tu producto</h2><button type="button" id="catalog-reset" class="catalog-clear">Limpiar</button></div>
+                <div class="catalog-extra-filters catalog-search-field">
+                    <label for="catalog-query">¿Qué estás buscando?<input type="search" id="catalog-query" placeholder="Ej. Samsung 256GB"></label>
+                </div>
 <div class="filter-section">
                     <button type="button" class="filter-title active" aria-expanded="true" aria-controls="category-filters" onclick="toggleFilter(this)">
                         <span><i class="fa-solid fa-list" style="margin-right:8px;"></i> Categorías</span>
@@ -191,6 +188,19 @@
                     </div>
                 </div>
 
+
+                <div class="catalog-extra-filters catalog-spec-filters">
+                    <label for="capacity-filter"><span id="capacity-label">Almacenamiento</span><select id="capacity-filter"><option value="">Todas las capacidades</option></select></label>
+                    <label for="ram-filter">Memoria RAM<select id="ram-filter"><option value="">Todas</option></select></label>
+                </div>
+                <div class="catalog-extra-filters catalog-budget">
+                    <p>Tu presupuesto <span>ARS</span></p>
+                    <div class="catalog-price-range">
+                        <label for="price-min">Desde<input type="number" id="price-min" min="0" step="1000" inputmode="numeric" placeholder="Sin mínimo"></label>
+                        <label for="price-max">Hasta<input type="number" id="price-max" min="0" step="1000" inputmode="numeric" placeholder="Sin máximo"></label>
+                    </div>
+                    <label class="catalog-stock-label" for="stock-filter"><input type="checkbox" id="stock-filter"> Solo productos con stock</label>
+                </div>
                 <div class="filter-section">
                     <button type="button" class="filter-title active" aria-expanded="true" aria-controls="condition-filters" onclick="toggleFilter(this)">
                         <span><i class="fa-solid fa-box" style="margin-right:8px;"></i> Condición</span>
@@ -264,10 +274,11 @@
             </script>
             
             <!-- Grilla de Productos -->
-            <div style="flex: 1; min-width: 0;">
+            <div class="catalog-results" style="flex: 1; min-width: 0;">
+                <div id="catalog-active-filters" class="catalog-active-filters" role="group" aria-label="Filtros activos" hidden></div>
                 
                 <!-- Barra de Herramientas Superior -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--gray-bg); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
+                <div class="catalog-results-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: var(--gray-bg); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
                     <p style="margin: 0; color: var(--text-muted); font-weight: bold;" id="catalog-count-label" role="status" aria-live="polite">Mostrando todos los resultados</p>
                     
                     <div style="display: flex; gap: 1rem; align-items: center;">
@@ -347,8 +358,8 @@
     <script src="favorites-ui.js?v=4dde1928270a"></script>
     <script src="product-image-framing.js?v=933dafda4fe6"></script>
     <script src="cart-actions.js?v=2ffb4a00f5b6"></script>
-    <script src="store-business.js?v=5f2482b1ea46"></script>
-    <script src="script.js?v=f151ed77506e"></script>
+    <script src="store-business.js?v=9236be79d250"></script>
+    <script src="script.js?v=2d68d9aae2c5"></script>
     <script src="store-improvements.js?v=f7248689f69a"></script>
 
     <!-- WhatsApp Flotante -->
