@@ -24,7 +24,8 @@
 /* Catalog filters share the store's quiet, monochrome palette. */
 #filters-sidebar .catalog-filter-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 0 18px; }
 .catalog-filter-heading h2 { margin:0; font-size:1.06rem; font-weight:750; letter-spacing:-.02em; }
-.catalog-clear { background:none; border:0; padding:8px 2px; min-height:44px; color:#515961; font:inherit; font-size:.85rem; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+#filters-sidebar .catalog-clear { background:#f2f4f5; border:1px solid #d2d6d9; border-radius:6px; padding:8px 12px; min-height:40px; color:#343b41; font:inherit; font-size:.85rem; font-weight:600; text-decoration:none; text-transform:none; letter-spacing:0; box-shadow:none; cursor:pointer; }
+#filters-sidebar .catalog-clear:hover { background:#e5e9ec; color:#202428; border-color:#9ca5ad; transform:none; box-shadow:none; text-decoration:none; }
 #filters-sidebar .catalog-search-field { padding:0 0 22px; }
 #filters-sidebar .catalog-extra-filters input, #filters-sidebar .catalog-extra-filters select { border-color:#d2d6d9; border-radius:8px; padding:11px 12px; min-width:0; }
 #filters-sidebar .catalog-extra-filters input:focus-visible, #filters-sidebar .catalog-extra-filters select:focus-visible { outline:2px solid #202428; outline-offset:2px; }
@@ -36,7 +37,6 @@
 #filters-sidebar .filter-label input { width:17px; height:17px; accent-color:#202428; flex-shrink:0; }
 .filter-option-count { margin-left:auto; font-size:.78rem; color:#545d65; font-variant-numeric:tabular-nums; }
 #filters-sidebar .filter-label:has(input:disabled) { color:#747b81; cursor:default; }
-#filters-sidebar .catalog-spec-filters { padding:14px 0 22px; border-bottom:1px solid #e3e5e7; }
 .catalog-budget { padding:20px 0; }
 .catalog-budget p { display:flex; justify-content:space-between; margin:0; font-size:.94rem; font-weight:700; }
 .catalog-budget p span { color:#545d65; font-size:.78rem; font-weight:500; }

@@ -1346,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const renderFilteredCatalog = () => {
             const writeCatalogUrl = () => {
             const params = new URLSearchParams();
-            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', stock: onlyStock ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value, capacity: document.getElementById('capacity-filter').value, ram: document.getElementById('ram-filter').value};
+            const values = {limit:visibleLimit>24 ? String(visibleLimit) : '',q: catalogQuery, brand: selectedBrands.join(','), categories: selectedCategories.join(','), condition: selectedConditions.join(','), sort: currentSort, offer: onlyOffers ? '1' : '', stock: onlyStock ? '1' : '', min: document.getElementById('price-min').value, max: document.getElementById('price-max').value};
                 Object.entries(values).forEach(([key,value]) => {if(value) params.set(key,value);});
                 history.replaceState(null, '', location.pathname + (params.size ? '?' + params : ''));
             };
@@ -1356,7 +1356,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const input = id => document.getElementById(id);
             const state = () => ({categories:selectedCategories, brands:selectedBrands, conditions:selectedConditions,
                 query:catalogQuery, offer:onlyOffers, stock:onlyStock, min:input('price-min').value,
-                max:input('price-max').value, capacity:input('capacity-filter').value, ram:input('ram-filter').value, rate:window.dolarValue});
+                max:input('price-max').value, rate:window.dolarValue});
             // Category and query establish the relevant dimensions. Clear stale
             // choices on context changes without clearing deliberate zero-result combinations.
             const base = {categories:selectedCategories, query:catalogQuery, rate:window.dolarValue};
@@ -1364,20 +1364,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             selectedBrands = selectedBrands.map(b=>business.normalize(b).trim()).filter(b=>validBrands.has(b));
             const relevant = {...base, brands:selectedBrands};
             selectedConditions = selectedConditions.filter(c=>business.catalogFacets(allCatalogProducts,relevant,'conditions').some(x=>x.value===c));
-            for (const key of ['capacity','ram']) {
-                const select=input(key+'-filter');
-                const available=business.catalogFacets(allCatalogProducts,relevant,key);
-                if (select.value && !available.some(x=>x.value===business.dimension(select.value))) select.value='';
-                const value=business.dimension(select.value);
-                const options=business.catalogFacets(allCatalogProducts,state(),key);
-                if (value && !options.some(x=>x.value===value)) options.push({value,label:value,count:0});
-                const fragment=document.createDocumentFragment();
-                const all=document.createElement('option'); all.value=''; all.textContent=key==='ram'?'Todas':'Todas las capacidades'; fragment.append(all);
-                options.forEach(item=>{const option=document.createElement('option');option.value=item.value;option.textContent=item.label+' ('+item.count+')';fragment.append(option);});
-                select.replaceChildren(fragment);select.value=value;
-                select.closest('label').hidden=!available.length;
-                if (key==='capacity') input('capacity-label').textContent=available.length && available.every(x=>/ ml$/i.test(x.value))?'Presentación':'Almacenamiento';
-            }
             const renderOptions = (id, key, selected, labels, className) => {
                 const container=input(id);
                 const focused=container.contains(document.activeElement)?document.activeElement.value:null;
@@ -1423,9 +1409,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             selectedBrands.forEach(v=>chip(business.catalogFacets(allCatalogProducts,{},'brands').find(x=>x.value===v)?.label||v,'brands',v));
             selectedConditions.forEach(v=>chip({nuevo:'Nuevo',swap_americano:'Americano / Swap',apple_warranty:'Garantía Apple',reacondicionado:'Reacondicionado'}[v]||v,'conditions',v));
             if(catalogQuery)chip('Búsqueda: '+catalogQuery,'query');
-            for(const [key,label] of [['capacity','Capacidad'],['ram','RAM'],['min','Desde'],['max','Hasta']]){
-                const value=key==='min'||key==='max'?input('price-'+key).value:input(key+'-filter').value;
-                if(value)chip(label+': '+(key==='min'||key==='max'?window.formatPrice(Number(value)/window.dolarValue):value),key);
+            for(const [key,label] of [['min','Desde'],['max','Hasta']]){
+                const value=input('price-'+key).value;
+                if(value)chip(label+': '+window.formatPrice(Number(value)/window.dolarValue),key);
             }
             if(onlyOffers)chip('En oferta','offer');
             if(onlyStock)chip('Con stock','stock');
@@ -1559,22 +1545,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 allCatalogProducts = products;
                 const initInput = (id,key) => {document.getElementById(id).value = urlParams.get(key) || '';};
                 initInput('catalog-query','q'); initInput('price-min','min'); initInput('price-max','max');
-                for (const [id,key] of [['capacity-filter','capacity'],['ram-filter','ram']]) {
-                    const select = document.getElementById(id);
-                    const entries = [...new Set(products.flatMap(p => (p.variants || []).map(v => v[key])).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es', {numeric:true}));
-                    for (const value of [...new Set(entries.map(window.PhoneSpotBusiness.dimension))]) {const option = document.createElement('option'); option.value=value; option.textContent=value; select.append(option);}
-                    select.value=window.PhoneSpotBusiness.dimension(urlParams.get(key) || '');
-                }
                 sortFilter.value = currentSort;
                 document.getElementById('offer-filter').checked = onlyOffers;
                 document.querySelectorAll('.cond-checkbox').forEach(el => {el.checked = selectedConditions.includes(el.value);});
-                for (const id of ['catalog-query','price-min','price-max','capacity-filter','ram-filter']) {
+                for (const id of ['catalog-query','price-min','price-max']) {
                     document.getElementById(id).addEventListener(id === 'catalog-query' || id.startsWith('price-') ? 'input' : 'change', () => {catalogQuery = document.getElementById('catalog-query').value; visibleLimit=24; clearTimeout(window.catalogFilterTimer); window.catalogFilterTimer=setTimeout(renderFilteredCatalog,150);});
                 }
                 document.getElementById('catalog-reset').addEventListener('click', () => {
                     selectedBrands=[]; selectedCategories=[]; selectedConditions=[]; selectedColors=[]; onlyOffers=false; onlyStock=false; currentSort=''; catalogQuery=''; visibleLimit=24;
                     document.querySelectorAll('#filters-sidebar input[type=checkbox]').forEach(el => {el.checked=false;});
-                    for (const id of ['catalog-query','price-min','price-max','capacity-filter','ram-filter','sort-filter']) document.getElementById(id).value='';
+                    for (const id of ['catalog-query','price-min','price-max','sort-filter']) document.getElementById(id).value='';
                     renderFilteredCatalog();
                 });
 
