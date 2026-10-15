@@ -1394,7 +1394,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if(!count){count=document.createElement('span');count.className='filter-option-count';label.append(count);}
                 count.textContent=categoryCounts.find(x=>x.value===checkbox.value)?.count || 0;
             });
-            input('offer-filter').checked=onlyOffers;
             input('stock-filter').checked=onlyStock;
             const active=input('catalog-active-filters');active.replaceChildren();
             const chip=(label,key,value)=>{
@@ -1546,7 +1545,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const initInput = (id,key) => {document.getElementById(id).value = urlParams.get(key) || '';};
                 initInput('catalog-query','q'); initInput('price-min','min'); initInput('price-max','max');
                 sortFilter.value = currentSort;
-                document.getElementById('offer-filter').checked = onlyOffers;
                 document.querySelectorAll('.cond-checkbox').forEach(el => {el.checked = selectedConditions.includes(el.value);});
                 for (const id of ['catalog-query','price-min','price-max']) {
                     document.getElementById(id).addEventListener(id === 'catalog-query' || id.startsWith('price-') ? 'input' : 'change', () => {catalogQuery = document.getElementById('catalog-query').value; visibleLimit=24; clearTimeout(window.catalogFilterTimer); window.catalogFilterTimer=setTimeout(renderFilteredCatalog,150);});
@@ -1564,17 +1562,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const label=document.createElement('label');label.className='filter-label';const input=document.createElement('input');input.type='checkbox';input.value=category;input.className='cat-checkbox';label.append(input,document.createTextNode(categoryLabels[category] || category));categoryContainer.append(label);
                 }
                 if (brandFiltersContainer) {
-
-                    // Wiring existing Americanos filter from HTML
-                    const offerFilter = document.getElementById('offer-filter');
-                    if (offerFilter) {
-                        offerFilter.addEventListener('change', (e) => {
-                            onlyOffers = e.target.checked;
-                            renderFilteredCatalog();
-                        });
-                    }
-
-                    
 
                     // Check initial category boxes based on URL
                     document.querySelectorAll('.cat-checkbox').forEach(chk => {
