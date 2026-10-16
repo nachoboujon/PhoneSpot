@@ -7,6 +7,7 @@ const blocked=fs.existsSync(path.join(base,'photo-review-blocked.json'))?JSON.pa
 const key=v=>[v.color,v.capacity,v.ram,v.batt||'',v.condition,v.configuration||''].join('|');
 const grouped=new Map(),pending=[];
 for(const row of rows){
+ if(row.kind==='watches')row.category='relojes';
  const expected=row.kind==='speakers'?Math.ceil(row.wholesaleUsd*1.5/10)*10:Math.floor((row.wholesaleUsd+({tablets:row.model.includes('iPad')?35:30,watches:25,consoles:55}[row.kind])+5)/10)*10;
  if(row.price!==expected||row.stock!==10||row.flags.includes('generic'))throw Error('Invalid scope/price: '+row.model);
  const reason=blocked.find(b=>b.model===row.model&&(!b.color||b.color===row.color));

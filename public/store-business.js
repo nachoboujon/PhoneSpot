@@ -17,6 +17,7 @@
     function catalogCategory(product) {
         const name=normalize(product.name);
         if(/playstation|\bxbox\b|nintendo|\bps[45]\b/.test(name)) return 'consolas';
+        if (/\b(?:smart[\s-]*band|mi[\s-]+band|(?:huawei|honor)\s+band|galaxy\s+fit)\s*\d/i.test(name) && !/\b(?:correa|malla|cargador|protector|funda|cable)\b/.test(name)) return 'relojes';
         if(/\bwatch\b|reloj|smartwatch/.test(name)) return 'relojes';
         if(/auricular|airpod|earphone|headphone|parlante|speaker|\bjbl\b/.test(name)) return 'audio';
         return normalize(product.category) || 'accesorios';

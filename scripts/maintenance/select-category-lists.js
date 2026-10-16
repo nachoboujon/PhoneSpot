@@ -1,7 +1,7 @@
 const fs=require('fs');const base='artifacts/categories-2026-10-02';const accepted=[],excluded=[],pending=[];
 for(const kind of ['tablets','speakers','watches','consoles']){
  for(const draft of JSON.parse(fs.readFileSync(`${base}/${kind}-draft.json`))){
-  const r={...draft,kind,category:kind==='tablets'?'tablets':'accesorios'};let reason='';
+  const r={...draft,kind,category:kind==='tablets'?'tablets':kind==='watches'?'relojes':'accesorios'};let reason='';
   if(r.flags.includes('generic'))reason='NSG o genérico: excluido por el usuario';
   if(kind==='watches'&&/^(MVP-135|Smartwatch A58|SmartWatch S9|T800|X12|X8)/i.test(r.model))reason='Reloj sin fabricante identificado: genérico excluido';
   if(kind==='tablets'&&/^Niños K64/.test(r.model))reason='Tablet sin fabricante identificado: genérica excluida';

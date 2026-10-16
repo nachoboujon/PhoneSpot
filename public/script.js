@@ -1441,6 +1441,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.trackStoreEvent('search_empty');
                 fullCatalogContainer.innerHTML = '<div class="catalog-empty"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><h3>No encontramos esa combinación</h3><p>Quitá un filtro de arriba o probá con otro modelo, marca o capacidad.</p><button type="button" class="catalog-reset" id="catalog-empty-reset">Limpiar filtros</button></div>';
                 document.getElementById('catalog-load-more')?.setAttribute('hidden','');
+                document.getElementById('catalog-pagination')?.setAttribute('hidden','');
                 document.getElementById('catalog-empty-reset').addEventListener('click',()=>document.getElementById('catalog-reset').click());
                 return;
             }
@@ -1530,8 +1531,31 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             fullCatalogContainer.innerHTML = cardMarkup.join('');
             let more=document.getElementById('catalog-load-more');
-            if(!more){more=document.createElement('button');more.id='catalog-load-more';more.type='button';more.className='catalog-reset';fullCatalogContainer.insertAdjacentElement('afterend',more);more.addEventListener('click',()=>{visibleLimit+=24;renderFilteredCatalog();});}
-            more.hidden=filtered.length<=visibleLimit;more.textContent='Ver más productos ('+Math.min(visibleLimit,filtered.length)+' de '+filtered.length+')';
+            if (!more) {
+                const pagination = document.createElement('div');
+                pagination.id = 'catalog-pagination';
+                pagination.className = 'catalog-pagination';
+                pagination.innerHTML = '<p class="catalog-pagination-count" role="status" aria-live="polite" tabindex="-1"></p>';
+                more = document.createElement('button');
+                more.id = 'catalog-load-more';
+                more.type = 'button';
+                more.className = 'catalog-load-more';
+                more.setAttribute('aria-controls', 'full-catalog-container');
+                more.innerHTML = '<span>Ver más productos</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg>';
+                pagination.append(more);
+                fullCatalogContainer.insertAdjacentElement('afterend', pagination);
+                more.addEventListener('click', () => { visibleLimit += 24; renderFilteredCatalog(); });
+            }
+            const pagination = document.getElementById('catalog-pagination');
+            const shown = Math.min(visibleLimit, filtered.length);
+            const complete = shown === filtered.length;
+            const count = pagination.querySelector('.catalog-pagination-count');
+            pagination.hidden = false;
+            pagination.classList.toggle('is-complete', complete);
+            count.innerHTML = '<strong>' + shown + '</strong> de <strong>' + filtered.length + '</strong> productos' + (complete ? '<span class="catalog-pagination-end">Ya viste todos</span>' : '');
+            const hadFocus = document.activeElement === more;
+            more.hidden = complete;
+            if (complete && hadFocus) count.focus({preventScroll: true});
             fullCatalogContainer.querySelectorAll('.product-card').forEach(card => {
                 const selector = card.querySelector('.var-select');
                 if (selector) window.updateCardVariant(selector);

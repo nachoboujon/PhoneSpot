@@ -22,3 +22,14 @@ assert.equal(catalogCandidates({...phones[0],commercial_type:'americano'},{condi
 assert.equal(catalogCandidates(phones[0],{query:'Samsung 256GB'}).length,1,'Storage searches accept spaces in the source');
 assert.equal(catalogCandidates(phones[0],{query:'Samsung 256'}).length,1);
 console.log('Catalog filters: passed');
+const {catalogCategory} = require('../../public/store-business');
+const bands = ['Xiaomi Smart Band 10', 'Xiaomi Smart Band 11 Active', 'Samsung Galaxy Fit3', 'Xiaomi Smartband 9', 'Xiaomi Mi Band 8', 'Huawei Band 9'].map(name => ({name, category:'accesorios', price:40, stock:3}));
+for (const band of bands) {
+    assert.equal(catalogCategory(band), 'relojes', band.name);
+    assert.equal(catalogCandidates(band, {categories:['relojes']}).length, 1);
+    assert.equal(catalogCandidates(band, {categories:['accesorios']}).length, 0);
+}
+assert.equal(catalogFacets(bands, {}, 'categories')[0].count, bands.length);
+assert.equal(catalogCategory({name:'Correa para Xiaomi Smart Band 10',category:'accesorios'}), 'accesorios');
+assert.equal(catalogCategory({name:'Cargador Smartband 9',category:'accesorios'}), 'accesorios');
+console.log('Smartbands: watch category and facets passed');
