@@ -183,6 +183,24 @@
         ],
         "createdAt": "2026-10-05T23:23:49.802Z",
         "reason": "Agent verified false positive: this maintenance script parses HTML image tags with a regular expression; it does not render an img element or user interface."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/garantias.html"
+        ],
+        "createdAt": "2026-10-20T12:34:36.425Z",
+        "reason": "Agent: findings identify only html/body horizontal clipping from shared site CSS; this text page has no dropdown or tooltip clipped by it. Retain root containment for off-canvas cart."
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "public/terminos.html"
+        ],
+        "createdAt": "2026-10-20T12:34:36.788Z",
+        "reason": "Agent: findings identify only html/body horizontal clipping from shared site CSS; this text page has no dropdown or tooltip clipped by it. Retain root containment for off-canvas cart."
       }
     ]
   }

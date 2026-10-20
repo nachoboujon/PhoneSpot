@@ -1667,7 +1667,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             Promise.all([
                 window.dolarPromise,
-                fetch(`${window.API_URL}/api/products/${productId}`).then(r => r.json()),
+                fetch(`${window.API_URL}/api/products/${productId}`).then(r => {
+                    if (!r.ok) throw new Error('No se pudo actualizar el producto');
+                    return r.json();
+                }),
                 fetch(`${window.API_URL}/api/reviews/${productId}`).then(r => r.json()).catch(() => [])
             ]).then(([_, prod, reviews]) => {
                 if (prod.error) {
@@ -1682,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     singleProductContainer.textContent = 'Esta opción de venta no está disponible para el equipo.';
                     return;
                 }
-                document.title = `${escapeText(prod.name)} | PhoneSpot`;
+                document.title = `${prod.name}${prod.commercial_label ? ' · ' + prod.commercial_label : ''} | PhoneSpot`;
                 window.trackStoreEvent('product_view', { productId: prod.id });
                 const image = window.getFullImageUrl(prod.image_url) || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
                 const galleryPhotos = window.galleryForColor(prod, prod.variants?.[0]?.color || '');
@@ -2039,7 +2042,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 loadRelatedProducts(prod.id, prod.category);
             })
             .catch(err => {
-                singleProductContainer.innerHTML = '<p style="color:#ff4757; font-size:1.2rem;">Error al cargar el producto.</p>';
+                if (!singleProductContainer.dataset.serverRendered) {
+                    singleProductContainer.innerHTML = '<p style="color:#ff4757; font-size:1.2rem;">Error al cargar el producto.</p>';
+                }
             });
         }
     }

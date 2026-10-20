@@ -21,7 +21,8 @@ assert.ok(business.matches({name:'Teléfono Samsung',variants:[{ram:'8GB',capaci
 assert.equal(condition('Americano'),'https://schema.org/UsedCondition');
 assert.equal(condition('Garantía oficial de Apple'),undefined,'Warranty is not proof of new condition');
 const seo=productSeo({id:1,name:'iPhone',price:500,stock:4,category:'celulares',description:'',variants:[{color:'Negro',condition:'Americano',price:400,stock:2},{color:'Blanco',condition:'Garantía oficial de Apple',price:500,stock:2}]},'americano');
-assert.match(seo.pageUrl,/tipo=americano/);
+assert.equal(seo.pageUrl,'https://www.phonespot.site/producto.html?id=1');
+assert.match(seo.schema.hasVariant[0].url,/tipo=americano/,'Variant offer links must still select their commercial type');
 assert.equal(seo.selected.price,400);
 assert.equal(seo.schema['@type'],'ProductGroup');
 assert.equal(seo.schema.hasVariant[0].offers.itemCondition,'https://schema.org/UsedCondition');

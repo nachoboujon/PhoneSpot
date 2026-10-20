@@ -13,6 +13,7 @@ const crypto = require('crypto');
 const {normalizeProductImages} = require('./lib/product-images');
 const business = require('./public/store-business');
 const {productSeo} = require('./lib/product-seo');
+const {renderProductPage, productErrorPage} = require('./lib/product-page');
 const {reminderAudience, createCartReminderRunner} = require('./lib/cart-reminders');
 const {classifyDevice,deviceVisits} = require('./lib/site-analytics');
 require('dotenv').config();
@@ -60,6 +61,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.get('/index.html', (req, res) => res.redirect(301, '/' + req.originalUrl.slice('/index.html'.length)));
 
 app.use((req, res, next) => {
     cors({
@@ -205,36 +208,29 @@ const publicProduct = (product, options) => {
 };
 
 // Interceptar producto.html para inyectar Meta Tags (SEO/WhatsApp)
-app.get('/producto.html', async (req, res, next) => {
+app.get('/producto.html', async (req, res) => {
     const id = req.query.id;
-    if (!id) return next();
+    res.setHeader('Cache-Control', 'no-store');
+    if (typeof id !== 'string' || !/^\d+$/.test(id) || !Number.isSafeInteger(Number(id)) || Number(id) <= 0) {
+        return res.status(404).send(productErrorPage('Producto no encontrado'));
+    }
     
     try {
-        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
-        if (error || !data) return next();
-        
-        let html = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
-        
-        data.variants = parseVariants(data.variants);
-        if (data.archived_at) return res.status(404).send('Producto no disponible');
-        const seo=productSeo(data,req.query.tipo,req.query.variant);
-        const imageUrl=seo.image;
-        const productUrl=seo.pageUrl;
-        const productSchema=JSON.stringify(seo.schema).replace(/</g,'\\u003c');
-        const metaTags = `
-            <link rel="canonical" href="${escapeHtml(productUrl)}">
-            <meta property="og:title" content="${escapeHtml(data.name)} | PhoneSpot">
-            <meta property="og:description" content="${escapeHtml(String(data.description || 'Tecnología disponible en PhoneSpot.').slice(0, 160))}">
-            <meta property="og:image" content="${escapeHtml(imageUrl)}">
-            <meta property="og:url" content="${escapeHtml(productUrl)}">
-            <meta name="twitter:card" content="summary_large_image">
-            <script type="application/ld+json">${productSchema}</script>
-        `;
-        
-        html = html.replace('</head>', metaTags + '</head>');
-        res.send(html);
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).maybeSingle();
+        if (error) throw error;
+        if (!data || data.archived_at) return res.status(404).send(productErrorPage('Producto no disponible'));
+        const product = publicProduct(data);
+        const seo = productSeo(product, req.query.tipo, req.query.variant);
+        // Obsolete type links must not become empty 200 pages in the browser.
+        if (req.query.tipo && req.query.tipo !== seo.selected.commercial_type) {
+            return res.redirect(301, '/producto.html?id=' + encodeURIComponent(data.id));
+        }
+        const template = fs.readFileSync(path.join(__dirname, 'public', 'producto.html'), 'utf8');
+        res.send(renderProductPage(template, product, seo));
     } catch(e) {
-        next();
+        console.error('Error generando ficha de producto:', e.message);
+        res.setHeader('Retry-After', '60');
+        res.status(503).send(productErrorPage('Producto temporalmente no disponible'));
     }
 });
 
@@ -310,11 +306,18 @@ app.get('/sitemap.xml', async (_req, res) => {
     const baseUrl = 'https://www.phonespot.site';
     const fixedPages = ['/', '/catalogo.html', '/garantias.html', '/terminos.html'];
     try {
-        const { data: products, error } = await supabase.from('products').select('id, created_at').is('archived_at', null);
-        if (error) throw error;
+        // Supabase limits each response to 1,000 rows. Keep the sitemap complete
+        // as the catalog grows, in a stable order without invented lastmod dates.
+        const products = [];
+        for (let offset = 0; ; offset += 1000) {
+            const {data, error} = await supabase.from('products').select('id').is('archived_at', null).order('id').range(offset, offset + 999);
+            if (error) throw error;
+            products.push(...(data || []));
+            if (!data || data.length < 1000) break;
+        }
         const urls = [
             ...fixedPages.map((page) => `<url><loc>${baseUrl}${page}</loc><changefreq>weekly</changefreq><priority>${page === '/' ? '1.0' : '0.8'}</priority></url>`),
-            ...(products || []).map((product) => `<url><loc>${baseUrl}/producto.html?id=${encodeURIComponent(product.id)}</loc><lastmod>${new Date(product.created_at).toISOString()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`)
+            ...products.map((product) => `<url><loc>${baseUrl}/producto.html?id=${encodeURIComponent(product.id)}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>`)
         ].join('');
         res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`);
     } catch (error) {
