@@ -41,6 +41,8 @@ const app = require('../../server');
             const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
             assert.equal(schema.url, canonical);
             assert.equal(schema.hasVariant.length, 2);
+            assert.deepEqual(schema.variesBy, ['https://schema.org/color']);
+            for (const item of schema.hasVariant) assert.match(item.sku, /^120-[a-f0-9]{16}$/);
         }
         const variantSeo = productSeo(product, 'apple_warranty', 'Azul - Cond: Garantía oficial de Apple');
         assert.equal(variantSeo.pageUrl, canonical);
