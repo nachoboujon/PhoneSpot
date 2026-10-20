@@ -45,6 +45,9 @@ const app = require('../../server');
         const variantSeo = productSeo(product, 'apple_warranty', 'Azul - Cond: Garantía oficial de Apple');
         assert.equal(variantSeo.pageUrl, canonical);
         assert.equal(variantSeo.selected.price, 650);
+        const singleSeo = productSeo({...product, variants: [product.variants[0]]});
+        assert.equal(singleSeo.schema.url, canonical, 'Single-variant Product schema must also match the canonical');
+        assert.match(singleSeo.schema.offers.url, /tipo=americano/, 'Offer links still open the exact option');
         for (const path of ['/producto.html', '/producto.html?id=abc', '/producto.html?id=9999', '/producto.html?id=121', '/producto.html?id=1&id=2']) {
             const response = await fetch(base + path);
             assert.equal(response.status, 404, path);
